@@ -1,5 +1,3 @@
-'use strict';
-
 import {object, objectWithMethod, lol} from './test.js';
 
 function initGame(object) {
