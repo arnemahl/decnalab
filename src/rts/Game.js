@@ -1,13 +1,29 @@
 import TeamVisionHelper from '~/rts/spatial/TeamVisionHelper';
 import DefaultMap from '~/rts/spatial/DefaultMap';
 import * as TeamInitializer from '~/rts/team/TeamInitializer';
+import TeamAI from '~/ai/TeamAI';
 
 export default class Game {
-    tick = 0;
+    state = {
+        tick: 0,
+        blue: {},
+        red: {}
+    }
 
     constructor(id) {
         this.id = id;
-        this.teams = new TeamInitializer.initializeTeams(DefaultMap);
+
+        this.map = new DefaultMap();
+        this.safeMapAcessor = this.map.getSafeAccessor();
+
+        const teams = TeamInitializer.initializeTeams(this.map);
+        this.state.blue.team = teams.blue;
+        this.state.red.team = teams.red;
+
+        this.teamAIs = {
+            blue: new TeamAI(),
+            red: new TeamAI()
+        };
     }
 
     // finishProcesses(tick) {
@@ -18,33 +34,54 @@ export default class Game {
     //     }
     // }
 
-    moveUnits(tick) {
-        const units = this.units;
-
-        units.forEach(unit => unit.tick(tick));
+    tickUnits() {
+        ['blue', 'red'].forEach(color => {
+            this.state[color].team.units.forEach(unit => {
+                unit.tick();
+            });
+        });
     }
 
-    updateUnitViews() {
-        const {blue: blueTeam, red: redTeam} = this.teams;
+    tickStructures() {
+        // TODO
+    }
 
-        console.log('...');
-        const vision = TeamVisionHelper.getViewsForEachTeam({blueTeam, redTeam});
-        console.log('***');
+    updateVision() {
+        const vision = TeamVisionHelper.getViewsForEachTeam({
+            blueTeam: this.state.blue.team,
+            redTeam: this.state.red.team
+        });
 
-        console.log('vision:', vision); // DEBUG
+        this.state.blue.vision = vision.blue;
+        this.state.red.vision = vision.red;
+    }
+
+    triggerAIs() {
+        ['blue', 'red'].forEach(color => {
+            const teamAI = this.teamAIs[color];
+            const teamState = this.state[color];
+            const fullTeamState = { // TODO smartify
+                vision: teamState.vision,
+                ...teamState.team
+            };
+
+            teamAI.tick(fullTeamState, this.safeMapAcessor);
+        });
     }
 
     isFinished() {
-        return this.tick++ > 18000;
+        return this.state.tick++ > 2;//18000;
     }
 
     play = () => {
-        // const tick = this.ticker.nextTick();
-
+        console.log('\n\n----- play -----\n');
         // Let all the things that should happen at this tick, happen
-        // this.finishProcesses();
-        // this.moveUnits();
-        this.updateUnitViews();
+        // this.finishProcesses(tick);
+        this.tickUnits();
+        this.tickStructures();
+        this.updateVision();
+
+        this.triggerAIs();
 
         // Callbacks
         if (this.isFinished()) {

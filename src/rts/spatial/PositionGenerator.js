@@ -1,6 +1,9 @@
+import Vectors from '~/rts/spatial/Vectors';
 import {left, right, top, bottom} from '~/rts/spatial/Directions';
 
-function getEdgePosition({position, size}, side) {
+function getCenterEdgePosition(object, side) {
+    const {position, size} = object;
+
     switch (side) {
         case left:
             return {
@@ -27,24 +30,56 @@ function getEdgePosition({position, size}, side) {
             };
 
         default:
-            throw `Unknown side in getEdgePosition function: ${side}`;
+            throw `Unknown side in getCenterEdgePosition function: "${side}"`;
     }
 }
 
-export function* workerPositions(baseStructure, side) {
-    const edgePosition = getEdgePosition(baseStructure, side);
+function* diffsFromFirstWorkerPosition(side) {
 
-    yield edgePosition;
+    function getInitialDiff() {
+        switch (side) {
+            case left:
+            case right:
+                return {x: 0, y: 100};
+            case bottom:
+            case top:
+                return {x: 100, y: 0};
+        }
+    }
 
-    let add = 0;
+    const initialDiff = getInitialDiff();
+    let diff = Vectors.clone(initialDiff);
 
     while (true) { //eslint-disable-line no-constant-condition
+        yield Vectors.clone(diff);
 
-        if (add < 0) {
-            yield edgePosition + add;
-        } else {
-            yield edgePosition + add++;
-        }
-        add *= -1;
+        diff = Vectors.add(diff, initialDiff);
     }
+
+}
+
+function* workerPositionGenerator(baseStructure, side) {
+    const firstWorkerPosition = getCenterEdgePosition(baseStructure, side);
+
+    const diffGen = diffsFromFirstWorkerPosition(side);
+
+    yield Vectors.clone(firstWorkerPosition);
+
+    while (true) { //eslint-disable-line no-constant-condition
+        const diff = diffGen.next().value;
+
+        yield Vectors.add(firstWorkerPosition, diff);
+        yield Vectors.subtract(firstWorkerPosition, diff);
+    }
+}
+
+export function getWorkerPositions(baseStructure, side, nofWorkers) {
+    const gen = workerPositionGenerator(baseStructure, side);
+    const workerPositions = [];
+
+    for (let i = 0; i < nofWorkers; i++) {
+        workerPositions.push(gen.next().value);
+    }
+
+    return workerPositions;
 }

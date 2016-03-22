@@ -8,3 +8,5 @@ export default class BaseStructure extends Structure {
         super({position, size: baseStructureSize});
     }
 }
+
+export const isBaseStructure = structure => structure.constructor.class === "BaseStructure";

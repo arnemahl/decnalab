@@ -1,8 +1,10 @@
 import Game from '~/rts/Game';
 
+// console.log('this:', this); // DEBUG
+// console.log('this.prop:', this.prop); // DEBUG
 
 function play(game) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve/*, reject*/) => {
 
         game.onFinish = resolve;
         game.play();
@@ -24,6 +26,8 @@ function simulateGames(simulationId, nofGames) {
 
     Promise.all(gamePromises).then(() => {
         console.timeEnd(`simulationId(${simulationId}) Playing ${nofGames} games finished in`);
+    }).catch((error) => {
+        console.error(error.stack);
     });
 }
 

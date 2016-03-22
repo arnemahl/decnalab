@@ -1,19 +1,19 @@
 
-class State {
-    constructor({tick}) {
+// class State {
+//     constructor({tick}) {
 
-    }
-}
+//     }
+// }
 
-class Foo {
+// class Foo {
 
-    constructor({startState, endState, intermediateStateCalculator}) {
-    }
+//     constructor({startState, endState, intermediateStateCalculator}) {
+//     }
 
-}
+// }
 
-const Reactionizer = {
-    //endTick: [callbacks]
-};
+// const Reactionizer = {
+//     //endTick: [callbacks]
+// };
 
-export default Foo;
+// export default Foo;
