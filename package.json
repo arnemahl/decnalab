@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint src/",
-    "watch": "watch  --color 'eslint src/' --color"
+    "watch": "watch -n 15 --color 'eslint src/' --color"
   },
   "author": "Arne Mæhlum",
   "license": "ISC",
