@@ -16,7 +16,7 @@ export default class Game {
         this.map = new DefaultMap();
         this.safeMapAcessor = this.map.getSafeAccessor();
 
-        const teams = TeamInitializer.initializeTeams(this.map);
+        const teams = TeamInitializer.initializeTeams(this, this.map);
         this.state.blue.team = teams.blue;
         this.state.red.team = teams.red;
 

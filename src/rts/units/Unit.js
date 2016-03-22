@@ -1,34 +1,40 @@
 import Vectors from '~/rts/spatial/Vectors';
+import {generateUnitId} from '~/rts/units/UnitIdGenerator';
 
-const generateUnitId = (() => {
-    const unitIdGenerator = (function*() {
-        let id = 0;
-        while (true) { //eslint-disable-line no-constant-condition
-            yield `unit-${id++}`;
-        }
-    })();
-
-    return () => unitIdGenerator.next().value;
-})();
-
-// function stacktrace() {
-//   function st2(f) {
-//     return !f ? [] :
-//         st2(f.caller).concat([f.toString().split('(')[0].substring(9) + '(' + f.arguments.join(',') + ')']);
-//   }
-//   return st2(arguments.callee.caller);
-// }
+class SafeUnitCommander {
+    constructor(unit) {
+        ['move', 'attack'].forEach(command => {
+            this[command] = unit[command].bind(unit);
+        });
+        this.unitType = unit.constructor.name;
+    }
+}
 
 export default class Unit {
 
-    constructor(stats, position) {
+    constructor(stats, position, team) {
         this.id = generateUnitId();
+        this.team = team;
 
         this.stats = stats;
         this.position = position;
 
         this.currentCommand = false;
         this.isIdle = true;
+
+        const {
+            moveTo,
+            attack
+        } = this;
+
+        this.callableActions = {
+            moveTo,
+            attack
+        };
+    }
+
+    getSafeCommander = () => {
+        return this.safeCommander || (this.safeCommander = new SafeUnitCommander(this));
     }
 
     tick = () => {
@@ -36,33 +42,49 @@ export default class Unit {
             return false;
         }
 
-        // Progress whatever action the unit is performing
-        switch (this.action.type) {
-            case 'move':
-                this.move();
-                return true;
-            case 'attack':
-                this.attack();
-                return true;
-
-            default:
-                return false;
+        if (this.actions.length === 0) {
+            this.error(`has no actions but is not idle`);
         }
+
+        const action = this.actions.pop();
+        const fn = this[action.type];
+
+        if (!fn) {
+            this.error(`has no method for "${action.type}`);
+        }
+
+        fn(action.props);
     }
 
-    goTo(targetPosition) {
-        this.currentSpeed = Vectors.direction(this.position, targetPosition, this.stats.speed);
-        this.command = {
-            type: 'move'
-        };
+    error(message) {
+        throw `${this.constructor.name} (${this.id}) ${message}`;
+    }
+
+    isAt(somePosition) {
+        return Vectors.distance(this.position, somePosition) < 50;
+    }
+
+    moveTo(targetPosition) {
+        return new Promise((resolve, reject) => {
+            if (this.isAt(targetPosition)) {
+                resolve();
+            } else {
+                // this.currentSpeed = Vectors.direction(this.position, targetPosition, this.stats.speed);
+                // this.command = {
+                //     type: 'move'
+                // };
+                this.team.moveUnit(this, targetPosition, this.isAt.bind(this, targetPosition), );
+            }
+        });
     }
 
     move() {
-        this.position = Vectors.add(this.position, this.currentSpeed); // TODO change how it works
+        this.position = Vectors.add(this.position, this.currentSpeed);
     }
 
-    attack() {
-        // TODO
+    attack(enemy) {
+        this.attackTarget = enemy;
+        this.isIdle = false;
     }
 
     command = (command) => {

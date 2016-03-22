@@ -1,35 +1,27 @@
 import Vectors from '~/rts/spatial/Vectors';
-import {WorkerClassName, WorkerCommands} from '~/rts/units/Worker';
+import {isWorker} from '~/rts/units/Worker';
 
-const isWorker = unit => unit.constructor.name === WorkerClassName;
 const isIdle = unit => unit.isIdle;
 
-function getCommandToHarvestFromClosestResourceSite(map, worker, resourceType) {
-    const distanceFromWorker = site => Vectors.getAbsoluteDistance(worker.position, site.position);
+function getClosestResourceSite(map, worker, resourceType) {
+    const distanceTo = resourceSite => Vectors.getAbsoluteDistance(worker.position, resourceSite.position);
 
-    const closestResourceSite = (
+    return (
         map
         .getResourceSites(resourceType)
-        .sort((one, two) => distanceFromWorker(one) - distanceFromWorker(two))
+        .sort((one, two) => distanceTo(one) - distanceTo(two))
         [0]
     );
-
-    return {
-        type: WorkerCommands.harvest,
-        site: closestResourceSite
-    };
 }
 
 export default class TeamAI {
     tick = (state, map) => {
-        /*eslint-disable*/
-        const {units, strucures, resources, vision} = state;
+        const {units/*, strucures, resources, vision*/} = state;
 
         const idleWorkers = units.filter(isWorker).filter(isIdle);
 
-        idleWorkers.forEach(worker => worker.command(
-            getCommandToHarvestFromClosestResourceSite(map, worker, 'abundant')
+        idleWorkers.forEach(worker => worker.harvest(
+            getClosestResourceSite(map, worker, 'abundant')
         ));
-        /*eslint-enable*/
     }
 }

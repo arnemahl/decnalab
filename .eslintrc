@@ -34,6 +34,7 @@
         "no-cond-assign": 1,
         "no-constant-condition": 1,
         "no-const-assign": 1,
+        "no-return-assign": 1,
         "no-debugger": 1,
         "no-dupe-args": 1,
         "no-dupe-keys": 1,
