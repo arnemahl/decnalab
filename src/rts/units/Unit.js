@@ -64,19 +64,9 @@ export default class Unit {
         return Vectors.distance(this.position, somePosition) < 50;
     }
 
-    moveTo(targetPosition) {
-        return new Promise((resolve, reject) => {
-            if (this.isAt(targetPosition)) {
-                resolve();
-            } else {
-                // this.currentSpeed = Vectors.direction(this.position, targetPosition, this.stats.speed);
-                // this.command = {
-                //     type: 'move'
-                // };
-                this.team.moveUnit(this, targetPosition, this.isAt.bind(this, targetPosition), );
-            }
-        });
-    }
+    // moveTo(targetPosition) {
+    //     // return magic.moveUnit(this, targetPosition);
+    // }
 
     move() {
         this.position = Vectors.add(this.position, this.currentSpeed);

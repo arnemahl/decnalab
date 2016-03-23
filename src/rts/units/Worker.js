@@ -22,10 +22,10 @@ export default class Worker extends Unit {
         this.moveTo(resourceSite.location).then(doit).then(repeat);
     }
 
-    startHarvesting(resourceSite) {
-        // TODO
-        // then.returnHarvest()
-    }
+    // startHarvesting(resourceSite) {
+    //     // TODO
+    //     // then.returnHarvest()
+    // }
 
     returnHarvest() {
         const closestBase = this.team.getClosestBase(this.position);
@@ -38,9 +38,9 @@ export default class Worker extends Unit {
         this.moveTo(closestBase.location).then(doit);
     }
 
-    dropOffHarvest(base) {
-        // this.team.receiveResources(this.carriedResources);
-    }
+    // dropOffHarvest(base) {
+    //     // this.team.receiveResources(this.carriedResources);
+    // }
 
     /* public */
     build(structure, location) {
@@ -48,9 +48,9 @@ export default class Worker extends Unit {
         this.moveTo(location).then(doit);
     }
 
-    startBuilding(structure) {
-        // TODO
-    }
+    // startBuilding(structure) {
+    //     // TODO
+    // }
 
 
 }
