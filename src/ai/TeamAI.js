@@ -4,7 +4,7 @@ import {isWorker} from '~/rts/units/Worker';
 const isIdle = unit => unit.isIdle;
 
 function getClosestResourceSite(map, worker, resourceType) {
-    const distanceTo = resourceSite => Vectors.getAbsoluteDistance(worker.position, resourceSite.position);
+    const distanceTo = resourceSite => Vectors.absoluteDistance(worker.position, resourceSite.position);
 
     return (
         map

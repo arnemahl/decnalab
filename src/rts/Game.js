@@ -1,3 +1,5 @@
+import EngineEventReceiver from '~/rts/engine/EngineEventReceiver';
+
 import TeamVisionHelper from '~/rts/spatial/TeamVisionHelper';
 import DefaultMap from '~/rts/spatial/DefaultMap';
 import * as TeamInitializer from '~/rts/team/TeamInitializer';
@@ -13,6 +15,7 @@ export default class Game {
     constructor(id) {
         this.id = id;
 
+        this.engineEventReceiver = new EngineEventReceiver();
         this.map = new DefaultMap();
         this.safeMapAcessor = this.map.getSafeAccessor();
 

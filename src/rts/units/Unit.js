@@ -61,12 +61,12 @@ export default class Unit {
     }
 
     isAt(somePosition) {
-        return Vectors.distance(this.position, somePosition) < 50;
+        return Vectors.absoluteDistance(this.position, somePosition) < 50;
     }
 
-    // moveTo(targetPosition) {
-    //     // return magic.moveUnit(this, targetPosition);
-    // }
+    moveTo(targetPosition) {
+        return this.game.engine.moveUnit(this, targetPosition);
+    }
 
     move() {
         this.position = Vectors.add(this.position, this.currentSpeed);

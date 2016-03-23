@@ -1,36 +1,98 @@
+import Vectors from '~/rts/spatial/Vectors';
 
-// const generateEngineId = (() => {
-//     const engineIdGenerator = (function*() {
-//         let id = 0;
-//         while (true) { //eslint-disable-line no-constant-condition
-//             yield `engine-${id++}`;
-//         }
-//     })();
-
-//     return () => engineIdGenerator.next().value;
-// })();
-
-// const 
-
-
-class Engine {
-
-    constructor() {
-        // this.id = generateEngineId();
-        
+class EventChainLink {
+    constructor(fn) {
+        fn(this.resolve, this.reject);
     }
 
-    moveUnit = (unit, targetPosition) => {
+    resolve() {
+        if (typeof this.nextEvent === 'function') {
+            this.nextEvent();
+        }
+    }
 
-        
+    reject() {
+        // TODO: Cancel the rest of the chain
+        // TODO: Add catch method?
+    }
 
-        return {
-            then: addToChain
+    then = (nextEvent) => {
+        this.nextEvent = nextEvent;
+    }
+}
+
+export default class Engine {
+
+    constructor() {
+        this.doAtSpecifiedTick = {};
+        this.doEachTick = [];
+        this.tick = 0;
+        this.ticker = {
+            getCurrentTick: () => this.tick
         };
     }
 
-    attackWithUnit = (unit, targetUnit) => {
+    // instantAction(name, realization) {
+    //     const action = {
+    //         name,
+    //         realization,
+    //         duration: 0,
+    //         startAtTick: this.tick
+    //     };
 
+    // }
+
+    // durativeAction(name, realization, duration) {
+    //     const startAtTick = this.tick;
+    //     const finishAtTick = startAtTick + duration;
+
+    //     const action = {
+    //         name,
+    //         realization,
+    //         duration,
+    //         startAtTick,
+    //         finishAtTick
+    //     };
+
+    //     this.doAtSpecifiedTick[finishAtTick] = action;
+    // }
+
+    doUntil(finishAtTick, onProgress) {
+        this.doEachTick.push(onProgress);
+
+        this.doAtSpecifiedTick[finishAtTick] = () => {
+            this.doEachTick = this.doEachTick.filter(fn => fn !== onProgress);
+        }
+    }
+
+    moveUnit = (unit, targetPosition) => {
+        return new EventChainLink(next => {
+            
+        });
+    }
+
+    stopMovingUnit = (unit) => {
+        // TODO
+        // it may be difficult to stop moving a unit. Perhaps we ought to approach unit movement differently
+    }
+
+    attackWithUnit = (unit, target) => {
+        return new EventChainLink((next, cancel) => {
+            if (unit.isOnCooldown) {
+                cancel();
+                return;
+            }
+
+            Foo.applyAttack(unit, target);
+            unit.isOnCooldown = true;
+
+            const finishAt = this.tick + unit.stats.weapon.cooldown;
+
+            this.doAtSpecifiedTick[finishAt] = () => {
+                unit.isOnCooldown = false;
+                next();
+            };
+        });
     }
 
     harvestWithUnit = (unit, resourceSite) => {

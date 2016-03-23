@@ -30,21 +30,24 @@ class Vectors {
 
     absoluteDistance(one, two) {
         return Math.sqrt(
-            Math.pow(one.x - two.x, 2),
-            Math.pow(one.y - two.y, 2),
+            Math.pow(one.x - two.x, 2) +
+            Math.pow(one.y - two.y, 2)
         );
     }
-    distance = this.absoluteDistance
 
     direction(one, two, vectorLength = 1) {
-        const distance = {
-            x: two.x - one.x,
-            y: two.y - one.y
-        };
+        const distance = this.subtract(two, one);
 
         const absoluetDistance = this.absoluteDistance(one, two);
 
         return this.scale(distance, vectorLength / absoluetDistance);
+    }
+
+    length(vector) {
+        return Math.sqrt(
+            Math.pow(vector.x, 2) +
+            Math.pow(vector.y, 2)
+        );
     }
 }
 
