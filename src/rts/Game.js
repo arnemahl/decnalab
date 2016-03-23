@@ -1,4 +1,4 @@
-import EngineEventReceiver from '~/rts/engine/EngineEventReceiver';
+import EventReceiver from '~/rts/engine/EventReceiver';
 
 import TeamVisionHelper from '~/rts/spatial/TeamVisionHelper';
 import DefaultMap from '~/rts/spatial/DefaultMap';
@@ -15,7 +15,7 @@ export default class Game {
     constructor(id) {
         this.id = id;
 
-        this.engineEventReceiver = new EngineEventReceiver();
+        this.engineEventReceiver = new EventReceiver();
         this.map = new DefaultMap();
         this.safeMapAcessor = this.map.getSafeAccessor();
 

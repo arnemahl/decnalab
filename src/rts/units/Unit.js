@@ -1,96 +1,59 @@
 import Vectors from '~/rts/spatial/Vectors';
 import {generateUnitId} from '~/rts/units/UnitIdGenerator';
 
-class SafeUnitCommander {
-    constructor(unit) {
-        ['move', 'attack'].forEach(command => {
-            this[command] = unit[command].bind(unit);
-        });
-        this.unitType = unit.constructor.name;
+export class UnitCommander {
+    constructor(unit, eventReceiver) {
+        this.unit = unit;
+        this.eventReceiver = eventReceiver;
+    }
+
+    move = (position) => {
+        this.unit.cancelQueuedActions();
+
+        this.unit.queuedActions = eventReceiver.moveUnit(this.unit, position);
+    }
+
+    attack = (target) => {
+        this.unit.cancelQueuedActions();
+
+        this.unit.queuedActions = eventReceiver.attackWithUnit(this.unit, target);
+    }
+
+    attackMove = (position) => {
+        this.unit.cancelQueuedActions();
+
+        this.unit.queuedActions = 
+            eventReceiver.moveUnit(this.unit, position)
+            .then(eventReceiver.attackWithUnit(this.unit, target));
     }
 }
 
 export default class Unit {
 
-    constructor(stats, position, team) {
+    constructor(stats, position) {
         this.id = generateUnitId();
-        this.team = team;
 
         this.stats = stats;
         this.position = position;
 
-        this.currentCommand = false;
-        this.isIdle = true;
-
-        const {
-            moveTo,
-            attack
-        } = this;
-
-        this.callableActions = {
-            moveTo,
-            attack
-        };
+        this.isBusy = false;
     }
 
-    getSafeCommander = () => {
+    getCommander = () => {
         return this.safeCommander || (this.safeCommander = new SafeUnitCommander(this));
     }
 
-    tick = () => {
-        if (this.isIdle) {
-            return false;
-        }
-
-        if (this.actions.length === 0) {
-            this.error(`has no actions but is not idle`);
-        }
-
-        const action = this.actions.pop();
-        const fn = this[action.type];
-
-        if (!fn) {
-            this.error(`has no method for "${action.type}`);
-        }
-
-        fn(action.props);
-    }
-
-    error(message) {
-        throw `${this.constructor.name} (${this.id}) ${message}`;
-    }
-
     isAt(somePosition) {
-        return Vectors.absoluteDistance(this.position, somePosition) < 50;
+        return Vectors.absoluteDistance(this.position, somePosition);
     }
 
-    moveTo(targetPosition) {
-        return this.game.engine.moveUnit(this, targetPosition);
-    }
+    cancelQueuedActions = () => {
+        if (this.isBusy) {
+            this.isBusy = false;
 
-    move() {
-        this.position = Vectors.add(this.position, this.currentSpeed);
-    }
-
-    attack(enemy) {
-        this.attackTarget = enemy;
-        this.isIdle = false;
-    }
-
-    command = (command) => {
-        console.log('received command:', command); // DEBUG
-        this.currentCommand = command;
-        this.idle = false;
-    }
-
-    getSafeAccessor = () => {
-        const {
-            command
-        } = this;
-
-        return {
-            command
-        };
+            this.queuedActions.cancel();
+            this.queuedActions = null;
+        }
     }
 
 }

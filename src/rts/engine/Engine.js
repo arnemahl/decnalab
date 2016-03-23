@@ -67,30 +67,32 @@ export default class Engine {
 
     moveUnit = (unit, targetPosition) => {
         return new EventChainLink(next => {
-            
+
         });
     }
 
-    stopMovingUnit = (unit) => {
-        // TODO
-        // it may be difficult to stop moving a unit. Perhaps we ought to approach unit movement differently
-    }
-
     attackWithUnit = (unit, target) => {
-        return new EventChainLink((next, cancel) => {
+        return new EventChainLink((finish, cancel) => {
             if (unit.isOnCooldown) {
                 cancel();
                 return;
             }
 
+            if (unit.isBusy) {
+                unit.isBusy = false;
+                unit.stop();
+            }
+
+            unit.isOnCooldown = true; // Unit is not busy, just on cooldown
+            unit.stop = cancel;
+
             Foo.applyAttack(unit, target);
-            unit.isOnCooldown = true;
 
             const finishAt = this.tick + unit.stats.weapon.cooldown;
 
             this.doAtSpecifiedTick[finishAt] = () => {
                 unit.isOnCooldown = false;
-                next();
+                finish();
             };
         });
     }

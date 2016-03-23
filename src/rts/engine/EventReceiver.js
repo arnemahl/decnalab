@@ -1,7 +1,7 @@
 import Engine from '~/rts/engine/Engine';
 import EventStack from '~/rts/engine/EventStack';
 
-export default class EngineEventReceiver {
+export default class EventReceiver {
 
     constructor() {
         this.engine = new Engine();
@@ -61,7 +61,7 @@ export default class EngineEventReceiver {
             method: 'constructWithUnit',
             arguments: {
                 unitId: unit.id,
-                structureClass,
+                structureClass, // is structureClass a string??
                 position
             }
         }));
