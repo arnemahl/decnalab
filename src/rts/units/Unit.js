@@ -37,23 +37,11 @@ export default class Unit {
         this.position = position;
 
         this.isBusy = false;
+        this.queuedActions = [];
     }
 
     getCommander = () => {
         return this.safeCommander || (this.safeCommander = new SafeUnitCommander(this));
-    }
-
-    isAt(somePosition) {
-        return Vectors.absoluteDistance(this.position, somePosition);
-    }
-
-    cancelQueuedActions = () => {
-        if (this.isBusy) {
-            this.isBusy = false;
-
-            this.queuedActions.cancel();
-            this.queuedActions = null;
-        }
     }
 
 }

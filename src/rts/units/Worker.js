@@ -2,7 +2,10 @@ import Unit, {UnitCommander} from './Unit';
 
 export class WorkerCommander extends UnitCommander {
 
-    harvest = (resourceSite) => {
+    harvest = (resourceSite, addToQueue) => {
+        if (!addToQueue) {
+            this.eventReceiver.cancelQueuedActions(this.unit);
+        }
         this.eventReceiver.harvestWithUnit(this.unit, resourceSite);
     }
 
@@ -10,17 +13,12 @@ export class WorkerCommander extends UnitCommander {
     //    // hmmmmm
     // }
 
-    build = (structureClass, position) => {
-        const startBuilding = () => this.eventReceiver.buildWithUnit(this.unit, structureClass, position);
-        const moveToPosition = () => this.eventReceiver.moveUnitTo(this.unit, position);
-
-        this.unit.cancelQueuedActions();
-
-        if (this.unit.isAt(position)) {
-            this.unit.queuedActions = startBuilding();
-        } else {
-            this.unit.queuedActions = moveToPosition().then(startBuilding);
+    build = (structureClass, position, addToQueue) => {
+        if (!addToQueue) {
+            this.eventReceiver.cancelQueuedActions(this.unit);
         }
+        this.eventReceiver.moveUnitTo(this.unit, position);
+        this.eventReceiver.buildWithUnit(this.unit, structureClass, position);
     }
 }
 
