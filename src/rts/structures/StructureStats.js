@@ -12,7 +12,7 @@ class BaseStructure {
     }
 
     size = 1000
-    health = 1000
+    maxHealth = 1000
     armor = 2
 
     produces = {
@@ -30,7 +30,7 @@ class Barracks {
     }
 
     size = 800
-    health = 800
+    maxHealth = 800
     armor = 2
 
     produces = {
@@ -55,7 +55,7 @@ export default class StructureStatsClass {
 //     }
 
 //     size = 800
-//     health = 800
+//     maxHealth = 800
 //     armor = 2
 
 //     produces = {

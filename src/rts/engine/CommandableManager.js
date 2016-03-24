@@ -67,6 +67,11 @@ export default class CommandableManager {
         delete this.teams[structure.team.id][structure.id];
     }
 
+    remove(commandable) {
+        this.removeUnit(commandable);
+        this.removeStructure(commandable);
+    }
+
     structureProducedUnit(structure, unitType, position) {
         this.addUnit(structure.team, unitType, position);
     }

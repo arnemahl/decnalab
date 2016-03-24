@@ -120,7 +120,13 @@ export default class Engine {
                 return false;
             }
             unit.isOnCooldown = true;
-            AttackEngine.applyAttack(unit, target);
+
+            const didKill = AttackEngine.applyAttack(unit, target);
+
+            if (didKill) {
+                this.commandableManager.remove(target); // Ideally let the other unit attack at same tick before dying.
+            }
+
             return true;
         };
         const onFinish = () => {

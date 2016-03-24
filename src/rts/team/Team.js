@@ -20,18 +20,6 @@ export default class Team {
         this.unitStats = new UnitStats();
     }
 
-    addUnit = (unit) => {
-        unit.team = this;
-        this.units[unit.id] = unit;
-    }
-
-    addStructure = (structure) => {
-        structure.team = this;
-        this.structures[structure.id] = structure;
-    }
-
-
-
     getClosestBaseStructure = (fromPosition) => {
         const distanceTo = baseStructure => Vectors.absoluteDistance(fromPosition, baseStructure.position);
 
@@ -42,7 +30,5 @@ export default class Team {
                 [0]
         );
     }
-
-
 
 }

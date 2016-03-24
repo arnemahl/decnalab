@@ -31,12 +31,13 @@ export class UnitCommander {
 
 
 export default class Unit extends Commandable {
-
     constructor(stats, position) {
         this.id = generateUnitId(); // TODO receive ID from outside
 
         this.stats = stats;
         this.position = position;
+
+        this.healthLeftFactor = 1;
     }
 
     getCommander = () => {

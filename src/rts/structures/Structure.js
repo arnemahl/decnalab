@@ -4,5 +4,7 @@ export default class Structure {
         this.position = position;
         this.size = size;
         this.radius = size/2;
+
+        this.healthLeftFactor = 1;
     }
 }

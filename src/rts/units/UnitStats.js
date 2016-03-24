@@ -11,7 +11,7 @@ class Worker {
     size = 50
     speed = 9
 
-    health = 60
+    maxHealth = 60
     armor = 0
 
     weapon = {
@@ -32,7 +32,7 @@ class Marine {
     size = 40
     speed = 10
 
-    health = 50
+    maxHealth = 50
     armor = 0
 
     weapon = {
