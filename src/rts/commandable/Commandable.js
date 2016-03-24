@@ -2,7 +2,13 @@ import Queue from '~/rts/util/Queue';
 
 /** A commandable is something which can receive commands. Typically Units and Structures */
 export default class Commandable {
-    constructor() {
+    constructor(id, specs, position) {
+        this.id = id;
+        this.specs = specs;
+        this.position = position;
+
+        this.healthLeftFactor = 1;
+
         this.currentCommand = false;
         this.commandQueue = new Queue();
     }

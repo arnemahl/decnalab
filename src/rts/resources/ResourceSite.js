@@ -10,6 +10,10 @@ class Harvest {
 class ResourceSite {
     currentHarvesters = 0
 
+    constructor(position) {
+        this.position = position;
+    }
+
     isEmpty() {
         return this.resourcesLeft > 0;
     }
@@ -20,12 +24,12 @@ class ResourceSite {
         return currentHarvesters < maxHarvesters && (resourcesLeft - currentHarvesters * harvestAmmount) > harvestAmmount;
     }
 
-    canBeHarvestedBy(worker) {
+    _canBeHarvestedBy(worker) {
         return isWorker(worker) && !worker.carriesResources() && this.canAccomodateMoreHarvesters();
     }
 
     startHarvesting = (worker) => {
-        if (!this.canBeHarvestedBy(worker)) {
+        if (!this._canBeHarvestedBy(worker)) {
             return false;
         }
 
@@ -52,11 +56,7 @@ export class AbundantResourceSite extends ResourceSite {
     harvestDuration = 75
     harvestAmmount = 50
 
-    canBeHarvestedBy = worker => super.canBeHarvestedBy(worker);
-
-    constructor(position) {
-        this.position = position;
-    }
+    canBeHarvestedBy = worker => this._canBeHarvestedBy(worker);
 }
 
 export class SparseResourceSite extends ResourceSite {
@@ -66,9 +66,5 @@ export class SparseResourceSite extends ResourceSite {
     harvestDuration = 100
     harvestAmmount = 10
 
-    canBeHarvestedBy = worker => super.canBeHarvestedBy(worker) && worker.xp > 100;
-
-    constructor(position) {
-        this.position = position;
-    }
+    canBeHarvestedBy = worker => this._canBeHarvestedBy(worker) && worker.xp > 100;
 }

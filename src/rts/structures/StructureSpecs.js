@@ -1,8 +1,9 @@
-import WorkerClass from '~/rts/units/Worker';
-import MarineClass from '~/rts/units/Marine';
+import BaseStructureClass from '~/rts/structures/BaseStructure';
+import BarracksClass from '~/rts/structures/Barracks';
 
 
 class BaseStructure {
+    class = BaseStructureClass
     category = 'basic'
 
     cost = {
@@ -15,12 +16,10 @@ class BaseStructure {
     maxHealth = 1000
     armor = 2
 
-    produces = {
-        units: { worker: WorkerClass }
-    }
 }
 
 class Barracks {
+    class = BarracksClass
     category = 'military'
 
     cost = {
@@ -32,10 +31,6 @@ class Barracks {
     size = 800
     maxHealth = 800
     armor = 2
-
-    produces = {
-        units: { marine: MarineClass }
-    }
 }
 
 export default class StructureSpecs {

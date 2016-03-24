@@ -1,7 +1,7 @@
 import Vectors from '~/rts/spatial/Vectors';
 
 import UnitSpecs from '~/rts/units/UnitSpecs';
-import StructureSpecs from '~/rts/structure/StructureSpecs';
+import StructureSpecs from '~/rts/structures/StructureSpecs';
 
 import {isBaseStructure} from '~/rts/structures/BaseStructure';
 

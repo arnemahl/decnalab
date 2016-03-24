@@ -30,13 +30,6 @@ export class UnitCommander {
 
 
 export default class Unit extends Commandable {
-    constructor(id, specs, position) {
-        this.id = id;
-        this.specs = specs;
-        this.position = position;
-
-        this.healthLeftFactor = 1;
-    }
 
     getCommander = () => {
         return this.safeCommander || (this.safeCommander = new UnitCommander(this, this.game.eventReceiver));

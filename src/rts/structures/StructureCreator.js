@@ -8,6 +8,7 @@ export default class StructureCreator {
 
     create = (spec, position) => {
         const Structure = spec.class;
+
         const id = this.idGenerator.generateId();
 
         return new Structure(id, position);

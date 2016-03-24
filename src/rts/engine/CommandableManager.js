@@ -9,7 +9,7 @@ export default class CommandableManager {
         this.unitCreator = new UnitCreator(eventReceiver);
         this.structureCreator = new StructureCreator(eventReceiver);
 
-        function addStartingUnits(team, units) {
+        const addStartingUnits = (team, units) => {
             units.forEach(item => {
                 const {unitType, positions} = item;
                 const unitSpec = team.unitSpecs[unitType];
@@ -18,8 +18,8 @@ export default class CommandableManager {
                     this.addUnit(team, unitSpec, position);
                 });
             });
-        }
-        function addStartingStructures(team, structures) {
+        };
+        const addStartingStructures = (team, structures) => {
             structures.forEach(item => {
                 const {structureType, positions} = item;
                 const structureSpec = team.structureSpecs[structureType];
@@ -28,7 +28,7 @@ export default class CommandableManager {
                     this.addStructure(team, structureSpec, position);
                 });
             });
-        }
+        };
 
         this.teams = {};
 
