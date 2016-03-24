@@ -1,90 +1,35 @@
-import EventReceiver from '~/rts/engine/EventReceiver';
-
-import TeamVisionHelper from '~/rts/spatial/TeamVisionHelper';
+import Engine from '~/rts/engine/Engine';
 import DefaultMap from '~/rts/spatial/DefaultMap';
-import * as TeamInitializer from '~/rts/team/TeamInitializer';
+// import TeamVisionHelper from '~/rts/spatial/TeamVisionHelper';
+
+import Team from '~/rts/team/Team';
 import TeamAI from '~/ai/TeamAI';
 
 export default class Game {
-    state = {
-        tick: 0,
-        blue: {},
-        red: {}
-    }
 
     constructor(id) {
         this.id = id;
 
-        this.engineEventReceiver = new EventReceiver();
-        this.map = new DefaultMap();
-        this.safeMapAcessor = this.map.getSafeAccessor();
+        const map = new DefaultMap();
 
-        const teams = TeamInitializer.initializeTeams(this, this.map);
-        this.state.blue.team = teams.blue;
-        this.state.red.team = teams.red;
+        const startingResources = map.getStartingResources();
+        const teams = [
+            new Team('blue', this, startingResources),
+            new Team('red', this, startingResources)
+        ];
 
-        this.teamAIs = {
-            blue: new TeamAI(),
-            red: new TeamAI()
-        };
-    }
-
-    // finishProcesses(tick) {
-    //     const onFinishedCallbacks = this.processes[tick];
-
-    //     if (onFinishedCallbacks) {
-    //         onFinishedCallbacks.forEach(callback => callback());
-    //     }
-    // }
-
-    tickUnits() {
-        ['blue', 'red'].forEach(color => {
-            this.state[color].team.units.forEach(unit => {
-                unit.tick();
-            });
-        });
-    }
-
-    tickStructures() {
-        // TODO
-    }
-
-    updateVision() {
-        const vision = TeamVisionHelper.getViewsForEachTeam({
-            blueTeam: this.state.blue.team,
-            redTeam: this.state.red.team
-        });
-
-        this.state.blue.vision = vision.blue;
-        this.state.red.vision = vision.red;
-    }
-
-    triggerAIs() {
-        ['blue', 'red'].forEach(color => {
-            const teamAI = this.teamAIs[color];
-            const teamState = this.state[color];
-            const fullTeamState = { // TODO smartify
-                vision: teamState.vision,
-                ...teamState.team
-            };
-
-            teamAI.tick(fullTeamState, this.safeMapAcessor);
-        });
+        this.engine = new Engine(map, teams);
+        this.AIs = teams.map(team => new TeamAI(team));
     }
 
     isFinished() {
-        return this.state.tick++ > 2;//18000;
+        return true; // TODO ask engine
     }
 
     play = () => {
         console.log('\n\n----- play -----\n');
-        // Let all the things that should happen at this tick, happen
-        // this.finishProcesses(tick);
-        this.tickUnits();
-        this.tickStructures();
-        this.updateVision();
 
-        this.triggerAIs();
+        // TODO do stuff
 
         // Callbacks
         if (this.isFinished()) {

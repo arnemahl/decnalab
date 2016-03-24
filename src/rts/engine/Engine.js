@@ -3,17 +3,22 @@ import TaskSchedule from '~/rts/util/TaskSchedule';
 import Command from '~/rts/commandable/Command';
 import {getIdGenerator} from '~/rts/util/IdGenerator';
 
+import EventReceiver from '~/rts/engine/EventReceiver';
+import CommandableManager from '~/rts/engine/CommandableManager';
 import AttackEngine from '~/rts/engine/AttackEngine';
 
 export default class Engine {
 
-    constructor() {
+    constructor(map, teams) {
         this.taskSchedule = new TaskSchedule();
         this.commandIdGenerator = getIdGenerator('command');
         this.tick = 0;
         this.ticker = {
             getCurrentTick: () => this.tick
         };
+
+        const eventReceiver = new EventReceiver(this);
+        this.commandableManager = new CommandableManager(eventReceiver, teams, map);
     }
 
     tick = () => {
@@ -174,18 +179,14 @@ export default class Engine {
             if (Vectors.absoluteDistance(worker.position, targetPosition) >= worker.stats.speed) {
                 return false;
             }
-            const StructureClass = this.todo();
-
-            structure = new StructureClass(targetPosition);
-            structure.isUnderContruction = true;
-            this.structures.add(structure); // this.progressiveEvents. blargh TODO
+            structure = this.commandableManager.structureStarted(worker, structureStat.structureType, targetPosition);
             return true;
         };
         const onFinish = () => {
-            structure.isUnderContruction = false;
+            this.commandableManager.structureFinished(structure);
         };
         const onAbort = () => {
-            this.structures.remove(structure);
+            this.commandableManager.structureCancelled(structure);
         };
 
         this.addCommand(calcFinishedTick, onStart, onFinish, onAbort);

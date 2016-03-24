@@ -10,7 +10,7 @@ export class WorkerCommander extends UnitCommander {
         this.eventReceiver.harvestWithUnit(this.unit, resourceSite);
     }
 
-    deliverResources = (baseStructure, waitForQueuedCommandsToComplete) => {
+    returnHarvest = (baseStructure, waitForQueuedCommandsToComplete) => {
         if (!waitForQueuedCommandsToComplete) {
             this.eventReceiver.clearCommands(this.unit);
         }
@@ -44,7 +44,7 @@ export default class Worker extends Unit {
         const closestBaseStructure = this.team.getClosestBaseStructure(this.position);
         const wait = true;
 
-        this.getCommander().deliverResources(closestBaseStructure, wait);
+        this.getCommander().returnHarvest(closestBaseStructure, wait);
     }
 
     harvestAgain = () => {

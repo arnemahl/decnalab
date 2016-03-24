@@ -1,19 +1,15 @@
 import Vectors from '~/rts/spatial/Vectors';
-import {north, south} from '~/rts/spatial/StartingLocations';
-import * as Directions from '~/rts/spatial/Directions';
-import * as PositionGenerator from '~/rts/spatial/PositionGenerator';
 import {AbundantResourceSite, SparseResourceSite} from '~/rts/resources/ResourceSite';
-import UnitStatsClass from '~/rts/units/UnitStats';
-import StructureStatsClass from '~/rts/structure/StructureStats';
 
-class SafeMapAccessor {
-    constructor(map) {
-        this.getResourceSites = map.getResourceSites.bind(map);
-        console.log('this:', this); // DEBUG
-    }
-}
+const north = 'north';
+const south = 'south';
 
 export default class DefaultMap {
+    nofTeams = {
+        min: 2,
+        max: 2
+    }
+
     width = 40*1000;
     height = 200*1000;
 
@@ -28,68 +24,61 @@ export default class DefaultMap {
         }
     }
 
+    startingWorkerPositions = {
+        /*eslint-disable no-multi-spaces */
+        north: [
+            Vectors.add(this.startingPositions[north], Vectors.new(600,    0)),
+            Vectors.add(this.startingPositions[north], Vectors.new(600,   50)),
+            Vectors.add(this.startingPositions[north], Vectors.new(600,  -50)),
+            Vectors.add(this.startingPositions[north], Vectors.new(600,  100)),
+            Vectors.add(this.startingPositions[north], Vectors.new(600, -100))
+        ],
+        south: [
+            Vectors.add(this.startingPositions[south], Vectors.new(-600,    0)),
+            Vectors.add(this.startingPositions[south], Vectors.new(-600,   50)),
+            Vectors.add(this.startingPositions[south], Vectors.new(-600,  -50)),
+            Vectors.add(this.startingPositions[south], Vectors.new(-600,  100)),
+            Vectors.add(this.startingPositions[south], Vectors.new(-600, -100))
+        ]
+        /*eslint-enable no-multi-spaces */
+    }
+
     resourceSites = {
         abundant: [
-            new AbundantResourceSite(Vectors.add(this.startingPositions.north, Vectors.new(1000, 0))),
-            new AbundantResourceSite(Vectors.add(this.startingPositions.south, Vectors.new(-1000, 0)))
+            new AbundantResourceSite(Vectors.add(this.startingPositions[north], Vectors.new(1000, 0))),
+            new AbundantResourceSite(Vectors.add(this.startingPositions[south], Vectors.new(-1000, 0)))
         ],
         sparse: [
-            new SparseResourceSite(Vectors.add(this.startingPositions.north, Vectors.new(1000, 0))),
-            new SparseResourceSite(Vectors.add(this.startingPositions.south, Vectors.new(-1000, 0)))
+            new SparseResourceSite(Vectors.add(this.startingPositions[north], Vectors.new(1000, 0))),
+            new SparseResourceSite(Vectors.add(this.startingPositions[south], Vectors.new(-1000, 0)))
         ]
     }
 
-    getStartingPosition(startingLocation) {
-        return this.startingPositions[startingLocation];
+    startingResources = {
+        abundant: 50,
+        sparse: 0
     }
 
-    getStartingWorkerLocationRelativeToBaseStructure(startingLocation) {
-        switch (startingLocation) {
-            case north:
-                return Directions.left;
-            case south:
-                return Directions.right;
-        }
-    }
+    startingUnits = [
+        [{
+            unitType: 'Worker',
+            positions: this.startingWorkerPositions[north]
+        }],
+        [{
+            unitType: 'Worker',
+            positions: this.startingWorkerPositions[south]
+        }]
+    ]
 
-    getStartingWorkerPositions(startingLocation, baseStructure) {
-        const side = this.getStartingWorkerLocationRelativeToBaseStructure(startingLocation);
-        return PositionGenerator.getWorkerPositions(baseStructure, side, 5);
-    }
+    startingStructures = [
+        [{
+            structureType: 'BaseStructure',
+            positions: [this.startingPositions[north]]
+        }],
+        [{
+            structureType: 'BaseStructure',
+            positions: [this.startingPositions[south]]
+        }]
+    ]
 
-    getResourceSites(resourceType) {
-        return this.resourceSites[resourceType];
-    }
-
-    getInitialTeamProps = function*({BaseStructure, Worker}) {
-
-        const withSartingLocation = (startingLocation) => {
-            const StructureStats = new StructureStatsClass();
-            const UnitStats = new UnitStatsClass();
-
-            const startingPosition = this.getStartingPosition(startingLocation);
-            const baseStructure = new BaseStructure(StructureStats.BaseStructure, startingPosition);
-
-            const workerPositions = this.getStartingWorkerPositions(startingLocation, baseStructure);
-            const initialWorkers = workerPositions.map(position => new Worker(UnitStats.Worker, position));
-
-            return {
-                StructureStats,
-                UnitStats,
-                structures: [baseStructure],
-                units: initialWorkers,
-                resources: {
-                    abundant: 50,
-                    sparse: 0
-                }
-            };
-        };
-
-        yield withSartingLocation(north);
-        yield withSartingLocation(south);
-    }
-
-    getSafeAccessor = () => {
-        return new SafeMapAccessor(this);
-    }
 }

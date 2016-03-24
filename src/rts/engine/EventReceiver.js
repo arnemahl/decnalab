@@ -1,10 +1,9 @@
-import Engine from '~/rts/engine/Engine';
 import EventStack from '~/rts/engine/EventStack';
 
 export default class EventReceiver {
 
-    constructor() {
-        this.engine = new Engine();
+    constructor(engine) {
+        this.engine = engine;
         this.eventStack = new EventStack({ticker: this.engine.ticker});
     }
 
