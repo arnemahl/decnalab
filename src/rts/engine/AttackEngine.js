@@ -2,15 +2,15 @@
 class AttackEngine {
 
     applyAttack = (unit, target) => {
-        const damage = unit.stats.weapon.damage - target.stats.armor;
+        const damage = unit.specs.weapon.damage - target.specs.armor;
 
         if (damage <= 0) {
             return false;
         }
 
-        const targetHealth = target.healtLeftFactor * target.stats.maxHealth - damage;
+        const targetHealth = target.healtLeftFactor * target.specs.maxHealth - damage;
 
-        target.healtLeftFactor = targetHealth / target.stats.maxHealth;
+        target.healtLeftFactor = targetHealth / target.specs.maxHealth;
 
         return targetHealth <= 0;
     }

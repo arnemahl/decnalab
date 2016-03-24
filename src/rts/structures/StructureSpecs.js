@@ -38,7 +38,7 @@ class Barracks {
     }
 }
 
-export default class StructureStatsClass {
+export default class StructureSpecs {
     constructor() {
         this.BaseStructure = new BaseStructure();
         this.Barracks = new Barracks();
@@ -63,11 +63,11 @@ export default class StructureStatsClass {
 //     }
 // }
 
-// const applyUpgrade = newUnitStats => {
-//     if (newUnitStats.category !== 'military') {
-//         return newUnitStats;
+// const applyUpgrade = newUnitSpecs => {
+//     if (newUnitSpecs.category !== 'military') {
+//         return newUnitSpecs;
 //     } else {
-//         const {weapon: {damage, cooldown}, ...other} = newUnitStats;
+//         const {weapon: {damage, cooldown}, ...other} = newUnitSpecs;
 
 //         return {
 //             weapon: {

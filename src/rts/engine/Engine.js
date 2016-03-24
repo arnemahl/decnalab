@@ -97,10 +97,10 @@ export default class Engine {
 
     moveUnit = (unit, targetPosition) => {
         const calcFinishedTick = () => {
-            return this.tick + Vectors.absoluteDistance(unit.position, targetPosition) / unit.stats.speed;
+            return this.tick + Vectors.absoluteDistance(unit.position, targetPosition) / unit.specs.speed;
         };
         const onStart = () => {
-            unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.stats.speed);
+            unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.specs.speed);
             return true;
         };
         const onFinish = () => {
@@ -113,7 +113,7 @@ export default class Engine {
 
     attackWithUnit = (unit, target) => {
         const calcFinishedTick = () => {
-            this.tick + unit.stats.weapon.cooldown;
+            this.tick + unit.specs.weapon.cooldown;
         };
         const onStart = () => {
             if (unit.isOnCooldown) {
@@ -160,7 +160,7 @@ export default class Engine {
     dropOffHarvestWithUnit = (worker, baseStructure) => {
         const calcFinishedTick = () => this.tick;
         const onStart = () => {
-            return Vectors.absoluteDistance(worker.position, baseStructure.position) < worker.stats.speed;
+            return Vectors.absoluteDistance(worker.position, baseStructure.position) < worker.specs.speed;
         };
         const onFinish = () => {
             const harvest = worker.carriedResources;
@@ -177,15 +177,15 @@ export default class Engine {
         this.addCommand(calcFinishedTick, onStart, onFinish, onAbort);
     }
 
-    constructWithUnit = (worker, structureStat, targetPosition) => {
+    constructWithUnit = (worker, structureSpec, targetPosition) => {
         let structure; // calculated upon start
 
-        const calcFinishedTick = () => this.tick + structureStat.cost.time;
+        const calcFinishedTick = () => this.tick + structureSpec.cost.time;
         const onStart = () => {
-            if (Vectors.absoluteDistance(worker.position, targetPosition) >= worker.stats.speed) {
+            if (Vectors.absoluteDistance(worker.position, targetPosition) >= worker.specs.speed) {
                 return false;
             }
-            structure = this.commandableManager.structureStarted(worker, structureStat.structureType, targetPosition);
+            structure = this.commandableManager.structureStarted(worker, structureSpec.structureType, targetPosition);
             return true;
         };
         const onFinish = () => {

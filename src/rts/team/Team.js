@@ -1,7 +1,7 @@
 import Vectors from '~/rts/spatial/Vectors';
 
-import UnitStats from '~/rts/units/UnitStats';
-import StructureStats from '~/rts/structure/StructureStats';
+import UnitSpecs from '~/rts/units/UnitSpecs';
+import StructureSpecs from '~/rts/structure/StructureSpecs';
 
 import {isBaseStructure} from '~/rts/structures/BaseStructure';
 
@@ -16,8 +16,8 @@ export default class Team {
         this.game = game;
         this.resources = startingResources;
 
-        this.structureStats = new StructureStats();
-        this.unitStats = new UnitStats();
+        this.structureSpecs = new StructureSpecs();
+        this.unitSpecs = new UnitSpecs();
     }
 
     getClosestBaseStructure = (fromPosition) => {

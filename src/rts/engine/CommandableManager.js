@@ -12,18 +12,20 @@ export default class CommandableManager {
         function addStartingUnits(team, units) {
             units.forEach(item => {
                 const {unitType, positions} = item;
+                const unitSpec = team.unitSpecs[unitType];
 
                 positions.forEach(position => {
-                    this.addUnit(team, unitType, position);
+                    this.addUnit(team, unitSpec, position);
                 });
             });
         }
         function addStartingStructures(team, structures) {
             structures.forEach(item => {
                 const {structureType, positions} = item;
+                const structureSpec = team.structureSpecs[structureType];
 
                 positions.forEach(position => {
-                    this.addStructure(team, structureType, position);
+                    this.addStructure(team, structureSpec, position);
                 });
             });
         }
@@ -38,16 +40,16 @@ export default class CommandableManager {
         });
     }
 
-    addUnit(team, unitType, position) {
-        const unit = this.unitCreator.create(unitType, position);
+    addUnit(team, unitSpec, position) {
+        const unit = this.unitCreator.create(unitSpec, position);
         unit.team = team;
 
         this.units[unit.id] = unit;
         this.teams[unit.team.id][unit.id] = unit;
     }
 
-    addStructure(team, structureType, position, isUnderContruction = false) {
-        const structure = this.structureCreator.create(structureType, position);
+    addStructure(team, structureSpec, position, isUnderContruction = false) {
+        const structure = this.structureCreator.create(structureSpec, position);
         structure.team = team;
         structure.isUnderContruction = isUnderContruction;
 
@@ -72,8 +74,8 @@ export default class CommandableManager {
         this.removeStructure(commandable);
     }
 
-    structureProducedUnit(structure, unitType, position) {
-        this.addUnit(structure.team, unitType, position);
+    structureProducedUnit(structure, unitSpec, position) {
+        this.addUnit(structure.team, unitSpec, position);
     }
 
     structureStarted(unit, structureType, position) {

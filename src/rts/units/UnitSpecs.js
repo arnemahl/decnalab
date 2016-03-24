@@ -1,11 +1,8 @@
-
-const basicCommands = {
-    move: 'move',
-    attack: 'attack'
-};
+import WorkerClass from '~/rts/units/Worker';
+import MarineClass from '~/rts/units/Marine';
 
 class Worker {
-    class = Worker
+    class = WorkerClass
     category = 'worker'
 
     size = 50
@@ -18,15 +15,10 @@ class Worker {
         cooldown: 30,
         damage: 5
     }
-
-    commands = {
-        harvest: 'harvest',
-        construct: 'construct',
-        ...basicCommands
-    }
 }
 
 class Marine {
+    class = MarineClass;
     category = 'military'
 
     size = 40
@@ -39,11 +31,9 @@ class Marine {
         cooldown: 20,
         damage: 10
     }
-
-    commands = basicCommands
 }
 
-export default class UnitStatsClass {
+export default class UnitSpecs {
     constructor() {
         this.Worker = new Worker();
         this.Marine = new Marine();
