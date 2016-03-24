@@ -9,6 +9,9 @@ class Vectors {
             y: vector.y
         };
     }
+    zero() {
+        return this.new(0, 0);
+    }
     add(one, two) {
         return {
             x: one.x + two.x,

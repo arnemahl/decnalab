@@ -1,5 +1,5 @@
-import Vectors from '~/rts/spatial/Vectors';
-import {generateUnitId} from '~/rts/units/UnitIdGenerator';
+import Commandable from '~/rts/commandable/Commandable';
+import {generateUnitId} from '~/rts/units/UnitIdGenerator'; // TODO don't do this here
 
 export class UnitCommander {
     constructor(unit, eventReceiver) {
@@ -7,41 +7,40 @@ export class UnitCommander {
         this.eventReceiver = eventReceiver;
     }
 
-    move = (position) => {
-        this.unit.cancelQueuedActions();
-
-        this.unit.queuedActions = eventReceiver.moveUnit(this.unit, position);
+    move = (position, waitForQueuedCommandsToComplete) => {
+        if (!waitForQueuedCommandsToComplete) {
+            this.eventReceiver.clearCommands(this.unit);
+        }
+        this.eventReceiver.moveUnit(this.unit, position);
     }
 
-    attack = (target) => {
-        this.unit.cancelQueuedActions();
-
-        this.unit.queuedActions = eventReceiver.attackWithUnit(this.unit, target);
+    attack = (target, waitForQueuedCommandsToComplete) => {
+        if (!waitForQueuedCommandsToComplete) {
+            this.eventReceiver.clearCommands(this.unit);
+        }
+        this.eventReceiver.attackWithUnit(this.unit, target);
     }
 
-    attackMove = (position) => {
-        this.unit.cancelQueuedActions();
-
-        this.unit.queuedActions = 
-            eventReceiver.moveUnit(this.unit, position)
-            .then(eventReceiver.attackWithUnit(this.unit, target));
-    }
+    // attackMove = (position, waitForQueuedCommandsToComplete) => {
+    //     if (!waitForQueuedCommandsToComplete) {
+    //         this.eventReceiver.clearCommands(this.unit);
+    //     }
+    //     // TODO implement
+    // }
 }
 
-export default class Unit {
+
+export default class Unit extends Commandable {
 
     constructor(stats, position) {
-        this.id = generateUnitId();
+        this.id = generateUnitId(); // TODO receive ID from outside
 
         this.stats = stats;
         this.position = position;
-
-        this.isBusy = false;
-        this.queuedActions = [];
     }
 
     getCommander = () => {
-        return this.safeCommander || (this.safeCommander = new SafeUnitCommander(this));
+        return this.safeCommander || (this.safeCommander = new UnitCommander(this, this.game.eventReceiver));
     }
 
 }

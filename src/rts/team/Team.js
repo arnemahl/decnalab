@@ -31,10 +31,4 @@ export default class Team {
 
 
 
-    // moveUnit = (unit, targetLocation) => {
-    //     unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.stats.speed);
-    // }
-
-
-
 }

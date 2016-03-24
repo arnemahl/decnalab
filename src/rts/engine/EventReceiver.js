@@ -8,15 +8,31 @@ export default class EventReceiver {
         this.eventStack = new EventStack({ticker: this.engine.ticker});
     }
 
-    cancelQueuedActions = (commandable) => {
+    clearCommands = (commandable) => {
         this.eventsStack.push(JSON.stringify({
-            method: 'cancelQueuedActions',
+            method: 'clearCommands',
             arguments: {
                 commandableId: commandable.id
             }
         }));
 
-        this.engine.cancelQueuedActions(commandable);
+        this.engine.clearCommands(commandable);
+    }
+
+    arbitraryCommand = (commandable, methodName, params) => {
+        this.eventStack.push(JSON.stringify({
+            method: 'arbitraryCommand',
+            arguments: {
+                methodName,
+                arguments: {
+                    commandableId: commandable.id,
+                    methodName,
+                    params: JSON.stringify(params)
+                }
+            }
+        }));
+
+        this.engine.arbitraryCommand(commandable, methodName, params);
     }
 
     moveUnit = (unit, targetPosition) => {

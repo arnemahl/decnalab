@@ -1,80 +1,193 @@
 import Vectors from '~/rts/spatial/Vectors';
+import TaskSchedule from '~/rts/util/TaskSchedule';
+import Command from '~/rts/commandable/Command';
+import {getIdGenerator} from '~/rts/util/IdGenerator';
+
+import AttackEngine from '~/rts/engine/AttackEngine';
 
 export default class Engine {
 
     constructor() {
-        this.doAtSpecifiedTick = {};
-        this.doEachTick = [];
+        this.taskSchedule = new TaskSchedule();
+        this.commandIdGenerator = getIdGenerator('command');
         this.tick = 0;
         this.ticker = {
             getCurrentTick: () => this.tick
         };
     }
 
-    // doUntil(finishAtTick, onProgress) {
-    //     this.doEachTick.push(onProgress);
+    tick = () => {
+        const {tick, tasks} = this.taskSchedule.getNext();
 
-    //     this.doAtSpecifiedTick[finishAtTick] = () => {
-    //         this.doEachTick = this.doEachTick.filter(fn => fn !== onProgress);
-    //     }
-    // }
+        this.tick = tick;
+        tasks.forEach(task => task());
 
-    cancelQueuedActions = (commandable) => {
-        commandable.queuedActions = [];
-        commandable.isBusy = false;
+        return this.tick;
     }
 
-    moveUnit = (unit, targetPosition) => {
-        if (unit.isBusy) {
-            unit.queuedActions.push(() => this.moveUnit(unit, targetPosition));
-            return;
-        }
+    clearCommands = (commandable) => {
+        commandable.clearCommands();
+    }
 
-        unit.isBusy = true;
+    addCommand = (commandable, calcFinishedTick, onStart, onFinish, onAbort) => {
+        const commandId = this.commandIdGenerator.generateId();
 
-        if (Vectors.absoluteDistance(unit.position, targetPosition) < 50) {
-            unit.isBusy = false;
+        let finishedTick; // calculated upon start
 
-            if (unit.queuedActions.length > 0) {
-                unit.queuedActions.slice
+        const finishAndContinue = () => {
+            onFinish();
+            commandable.commandCompleted(commandId);
+        };
+
+        const start = () => {
+            const didStart = onStart();
+
+            if (!didStart) {
+                onAbort();
+                return;
             }
-            return;
-        }
 
-        unit.currentSpeed = Vectors.getDirection(unit.position, targetPosition, unit.stats.speed);
+            const finishedTick = calcFinishedTick(this.tick);
+
+            if (finishedTick === this.tick) {
+                finishAndContinue();
+            } else {
+                this.taskSchedule.addTask(finishAndContinue, finishedTick);
+            }
+        };
+
+        const stop = () => {
+            onAbort();
+
+            if (typeof finishedTick === 'undefined') {
+                throw 'Cannot stop command before it is started.';
+            }
+
+            this.taskSchedule.removeTask(finishAndContinue, finishedTick);
+        };
+
+        commandable.addCommand(new Command(commandId, start, stop));
+    }
+
+
+    /*******************************/
+    /***  All sorts of commands  ***/
+    /*******************************/
+
+
+    arbitraryCommand = (commandable, methodName, params) => {
+        const calcFinishedTick = () => this.tick;
+        const onStart = () => true;
+        const onFinish = () => commandable[methodName](params);
+        const onAbort = () => {};
+
+        this.addCommand(commandable, calcFinishedTick, onStart, onFinish, onAbort);
+    }
+
+
+    /***********************/
+    /***  Unit commands  ***/
+    /***********************/
+
+
+    moveUnit = (unit, targetPosition) => {
+        const calcFinishedTick = () => {
+            return this.tick + Vectors.absoluteDistance(unit.position, targetPosition) / unit.stats.speed;
+        };
+        const onStart = () => {
+            unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.stats.speed);
+            return true;
+        };
+        const onFinish = () => {
+            unit.currentSpeed = Vectors.zero();
+        };
+        const onAbort = onFinish;
+
+        this.addCommand(unit, calcFinishedTick, onStart, onFinish, onAbort);
     }
 
     attackWithUnit = (unit, target) => {
-        if (unit.isOnCooldown) {
-            return;
-        }
-
-        unit.isOnCooldown = true;
-        unit.stop = cancel;
-
-        Foo.applyAttack(unit, target);
-
-        const finishAt = this.tick + unit.stats.weapon.cooldown;
-
-        this.doAtSpecifiedTick[finishAt] = () => {
-            unit.isOnCooldown = false;
-            finish();
+        const calcFinishedTick = () => {
+            this.tick + unit.stats.weapon.cooldown;
         };
+        const onStart = () => {
+            if (unit.isOnCooldown) {
+                return false;
+            }
+            unit.isOnCooldown = true;
+            AttackEngine.applyAttack(unit, target);
+            return true;
+        };
+        const onFinish = () => {
+            unit.isOnCooldown = false;
+        };
+        const onAbort = () => {};
+
+        this.addCommand(calcFinishedTick, onStart, onFinish, onAbort);
     }
 
-    harvestWithUnit = (unit, resourceSite) => {
+    harvestWithUnit = (worker, resourceSite) => {
+        const calcFinishedTick = () => this.tick + resourceSite.harvestDuration;
+        const onStart = () => {
+            worker.currentResourceSite = resourceSite;
 
+            return resourceSite.startHarvesting(worker);
+        };
+        const onFinish = () => {
+            worker.carriedResources = resourceSite.finishHarvesting();
+            if (worker.commandQueue.isEmpty()) {
+                worker.returnHarvest();
+            }
+        };
+        const onAbort = () => {
+            resourceSite.abortHarvesting();
+        };
+
+        this.addCommand(calcFinishedTick, onStart, onFinish, onAbort);
     }
 
-    dropOffHarvestWithUnit = (unit, baseStructure) => {
+    dropOffHarvestWithUnit = (worker, baseStructure) => {
+        const calcFinishedTick = () => this.tick;
+        const onStart = () => {
+            return Vectors.absoluteDistance(worker.position, baseStructure.position) < worker.stats.speed;
+        };
+        const onFinish = () => {
+            const harvest = worker.carriedResources;
 
+            worker.team.resources[harvest.resourceType] += harvest.ammount;
+            worker.carriedResources = false;
+
+            if (worker.commandQueue.isEmpty()) {
+                worker.harvestAgain();
+            }
+        };
+        const onAbort = () => {};
+
+        this.addCommand(calcFinishedTick, onStart, onFinish, onAbort);
     }
 
-    constructWithUnit = (unit, structure, position) => {
+    constructWithUnit = (worker, structureStat, targetPosition) => {
+        let structure; // calculated upon start
 
-    }
+        const calcFinishedTick = () => this.tick + structureStat.cost.time;
+        const onStart = () => {
+            if (Vectors.absoluteDistance(worker.position, targetPosition) >= worker.stats.speed) {
+                return false;
+            }
+            const StructureClass = this.todo();
 
-    tick = (tickNo) => {
+            structure = new StructureClass(targetPosition);
+            structure.isUnderContruction = true;
+            this.structures.add(structure); // this.progressiveEvents. blargh TODO
+            return true;
+        };
+        const onFinish = () => {
+            structure.isUnderContruction = false;
+        };
+        const onAbort = () => {
+            this.structures.remove(structure);
+        };
 
+        this.addCommand(calcFinishedTick, onStart, onFinish, onAbort);
     }
 }

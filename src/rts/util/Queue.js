@@ -9,14 +9,18 @@ export default class Queue {
     }
 
     isEmpty = () => {
-        return this.array.length === nextIndex;
+        return this.array.length === this.nextIndex;
     }
 
-    put = (item) => {
-        array.push(item);
+    push = (item) => {
+        this.array.push(item);
     }
 
     next = () => {
+        if (this.isEmpty()) {
+            throw 'Cannot get next item from empty Queue.';
+        }
+
         const item = this.array[this.nextIndex++];
 
         if (this.nextIndex > this.array.length / 2) {
