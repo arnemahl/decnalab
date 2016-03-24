@@ -1,9 +1,9 @@
 
 export default class Structure {
-    constructor({position, size}) {
+    constructor(id, specs, position) {
+        this.id = id;
+        this.specs = specs;
         this.position = position;
-        this.size = size;
-        this.radius = size/2;
 
         this.healthLeftFactor = 1;
     }

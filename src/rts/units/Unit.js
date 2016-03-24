@@ -1,5 +1,4 @@
 import Commandable from '~/rts/commandable/Commandable';
-import {generateUnitId} from '~/rts/units/UnitIdGenerator'; // TODO don't do this here
 
 export class UnitCommander {
     constructor(unit, eventReceiver) {
@@ -31,9 +30,8 @@ export class UnitCommander {
 
 
 export default class Unit extends Commandable {
-    constructor(specs, position) {
-        this.id = generateUnitId(); // TODO receive ID from outside
-
+    constructor(id, specs, position) {
+        this.id = id;
         this.specs = specs;
         this.position = position;
 

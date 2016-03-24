@@ -6,7 +6,10 @@ export default class UnitCreator {
         this.idGenerator = getIdGenerator('unit');
     }
 
-    // create = (unitType) => {
-    //     // TODO
-    // }
+    create = (spec, position) => {
+        const Unit = spec.class;
+        const id = this.idGenerator.generateId();
+
+        return new Unit(id, position);
+    }
 }

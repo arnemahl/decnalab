@@ -6,7 +6,10 @@ export default class StructureCreator {
         this.idGenerator = getIdGenerator('structure');
     }
 
-    // create = (structureType) => {
-    //     // TODO
-    // }
+    create = (spec, position) => {
+        const Structure = spec.class;
+        const id = this.idGenerator.generateId();
+
+        return new Structure(id, position);
+    }
 }
