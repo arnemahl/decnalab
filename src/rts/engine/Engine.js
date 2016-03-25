@@ -144,7 +144,10 @@ export default class Engine {
             if (canHarvest) {
                 resourceSite.startHarvesting(worker);
                 worker.currentResourceSite = resourceSite;
+            } else {
+                worker.currentResourceSite = false;
             }
+
             return canHarvest;
         };
         const onFinish = () => {

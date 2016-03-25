@@ -11,9 +11,8 @@ export default class Team {
     units = {}
     structures = {}
 
-    constructor(id, game, startingResources) {
+    constructor(id, startingResources) {
         this.id = id;
-        this.game = game;
         this.resources = startingResources;
 
         this.structureSpecs = new StructureSpecs();
@@ -29,6 +28,19 @@ export default class Team {
                 .sort((one, two) => distanceTo(one) - distanceTo(two))
                 [0]
         );
+    }
+
+    getState = () => {
+        const mapToStates = object => Object.values(object).map(commandable => commandable.getState());
+
+        return {
+            id: this.id
+            resources: {...this.resources},
+            unitSpecs: {...this.unitSpecs},
+            structureSpecs: {...this.structureSpecs},
+            units: mapToStates(this.units),
+            structures: mapToStates(this.structures)
+        }
     }
 
 }

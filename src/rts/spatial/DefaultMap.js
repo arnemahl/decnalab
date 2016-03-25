@@ -1,10 +1,12 @@
 import Vectors from '~/rts/spatial/Vectors';
 import {AbundantResourceSite, SparseResourceSite} from '~/rts/resources/ResourceSite';
+import {getIdGenerator} from '~/rts/util/IdGenerator';
 
 const north = 'north';
 const south = 'south';
 
 export default class DefaultMap {
+
     nofTeams = {
         min: 2,
         max: 2
@@ -43,14 +45,15 @@ export default class DefaultMap {
         /*eslint-enable no-multi-spaces */
     }
 
+    rsidGen = getIdGenerator('resourceSite');
     resourceSites = {
         abundant: [
-            new AbundantResourceSite(Vectors.add(this.startingPositions[north], Vectors.new(1000, 0))),
-            new AbundantResourceSite(Vectors.add(this.startingPositions[south], Vectors.new(-1000, 0)))
+            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[north], Vectors.new(1000, 0))),
+            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[south], Vectors.new(-1000, 0)))
         ],
         sparse: [
-            new SparseResourceSite(Vectors.add(this.startingPositions[north], Vectors.new(1000, 0))),
-            new SparseResourceSite(Vectors.add(this.startingPositions[south], Vectors.new(-1000, 0)))
+            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[north], Vectors.new(1000, 0))),
+            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[south], Vectors.new(-1000, 0)))
         ]
     }
 

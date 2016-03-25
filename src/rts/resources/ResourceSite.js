@@ -10,7 +10,8 @@ class Harvest {
 class ResourceSite {
     currentHarvesters = 0
 
-    constructor(position) {
+    constructor(id, position) {
+        this.id = id;
         this.position = position;
     }
 

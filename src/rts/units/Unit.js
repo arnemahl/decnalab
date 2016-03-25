@@ -40,4 +40,12 @@ export default class Unit extends Commandable {
         return Vectors.absoluteDistance(this.position, position) < this.specs.speed;
     }
 
+    getState = () => {
+        return {
+            id: this.id,
+            position: {...this.position},
+            healthLeftFactor: this.healthLeftFactor
+        };
+    }
+
 }

@@ -36,10 +36,6 @@ export default class Worker extends Unit {
         return this.safeCommander || (this.safeCommander = new WorkerCommander(this, this.eventReceiver));
     }
 
-    carriesResources = () => {
-        return this.carriedResources;
-    }
-
     returnHarvest = () => {
         const closestBaseStructure = this.team.getClosestBaseStructure(this.position);
         const wait = true;
@@ -51,6 +47,18 @@ export default class Worker extends Unit {
         const wait = true;
 
         this.getCommander().harvest(this.currentResourceSite, wait);
+    }
+
+
+
+    getState = () => {
+        return {
+            id: this.id,
+            position: {...this.position},
+            healthLeftFactor: this.healthLeftFactor,
+            carriedResources: {...this.carriedResources},
+            currentResourceSiteId: this.currentResourceSite.id
+        };
     }
 
 }
