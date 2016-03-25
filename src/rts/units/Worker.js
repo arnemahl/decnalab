@@ -54,6 +54,7 @@ export default class Worker extends Unit {
     getState = () => {
         return {
             id: this.id,
+            type: this.constructor.name,
             position: {...this.position},
             healthLeftFactor: this.healthLeftFactor,
             carriedResources: {...this.carriedResources},

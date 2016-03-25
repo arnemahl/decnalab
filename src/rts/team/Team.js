@@ -34,13 +34,13 @@ export default class Team {
         const mapToStates = object => Object.values(object).map(commandable => commandable.getState());
 
         return {
-            id: this.id
+            id: this.id,
             resources: {...this.resources},
             unitSpecs: {...this.unitSpecs},
             structureSpecs: {...this.structureSpecs},
             units: mapToStates(this.units),
             structures: mapToStates(this.structures)
-        }
+        };
     }
 
 }

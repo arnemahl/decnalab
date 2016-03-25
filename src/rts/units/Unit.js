@@ -43,6 +43,7 @@ export default class Unit extends Commandable {
     getState = () => {
         return {
             id: this.id,
+            type: this.constructor.name,
             position: {...this.position},
             healthLeftFactor: this.healthLeftFactor
         };

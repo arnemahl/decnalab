@@ -48,6 +48,29 @@ class ResourceSite {
         this.currentHarvesters--;
     }
 
+    getState = () => {
+        const {
+            id,
+            resourceType,
+            resourcesLeft,
+            harvestDuration,
+            harvestAmmount,
+            maxHarvesters,
+            currentHarvesters
+        } = this;
+
+        return {
+            id,
+            position: {...this.position},
+            resourceType,
+            resourcesLeft,
+            harvestDuration,
+            harvestAmmount,
+            maxHarvesters,
+            currentHarvesters
+        };
+    }
+
 }
 
 export class AbundantResourceSite extends ResourceSite {

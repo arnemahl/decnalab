@@ -1,9 +1,10 @@
+import * as FileWriter from '~/rts/FileWriter';
+
 import Engine from '~/rts/engine/Engine';
 import DefaultMap from '~/rts/spatial/DefaultMap';
 // import TeamVisionHelper from '~/rts/spatial/TeamVisionHelper';
 
 import Team from '~/rts/team/Team';
-import Foo from '~/rts/Foo';
 import TeamAI from '~/ai/TeamAI';
 
 let loops = 0;
@@ -13,17 +14,18 @@ export default class Game {
     constructor(id) {
         this.id = id;
 
-        const map = new DefaultMap();
+        this.map = new DefaultMap();
 
-        const startingResources = map.startingResources;
-        const teams = [
+        const startingResources = this.map.startingResources;
+        this.teams = [
             new Team('blue', {...startingResources}),
             new Team('red', {...startingResources})
         ];
-        this.asdf = teams.map(team => new Foo(team));
 
-        this.engine = new Engine(map, teams);
-        this.AIs = teams.map(team => new TeamAI(team, map));
+        this.engine = new Engine(this.map, this.teams);
+        this.AIs = this.teams.map(team => new TeamAI(team, this.map));
+
+        FileWriter.writeJSON('game-state-start.log', this.getState());
     }
 
     isFinished(/*tick*/) {
@@ -41,11 +43,19 @@ export default class Game {
 
         // Callbacks
         if (this.isFinished(tick)) {
-            this.engine.dumpLog();
-            this.asdf.forEach(foo => foo.log());
+            FileWriter.writeJSON('game-state-end.log', this.getState());
             this.onFinish(this);
         } else {
             setImmediate(this.play);
         }
+    }
+
+    getState = () => {
+        return {
+            id: this.id,
+            tick: this.engine.tick,
+            teams: this.teams.map(team => team.getState()),
+            map: this.map.getState()
+        };
     }
 }

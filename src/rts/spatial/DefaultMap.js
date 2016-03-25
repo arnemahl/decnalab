@@ -45,18 +45,6 @@ export default class DefaultMap {
         /*eslint-enable no-multi-spaces */
     }
 
-    rsidGen = getIdGenerator('resourceSite');
-    resourceSites = {
-        abundant: [
-            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[north], Vectors.new(1000, 0))),
-            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[south], Vectors.new(-1000, 0)))
-        ],
-        sparse: [
-            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[north], Vectors.new(1000, 0))),
-            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[south], Vectors.new(-1000, 0)))
-        ]
-    }
-
     startingResources = {
         abundant: 50,
         sparse: 0
@@ -84,4 +72,25 @@ export default class DefaultMap {
         }]
     ]
 
+    rsidGen = getIdGenerator('resourceSite');
+    resourceSites = {
+        abundant: [
+            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[north], Vectors.new(1000, 0))),
+            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[south], Vectors.new(-1000, 0)))
+        ],
+        sparse: [
+            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[north], Vectors.new(1000, 0))),
+            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[south], Vectors.new(-1000, 0)))
+        ]
+    }
+
+    getState = () => {
+        const resourceSites = Object.keys(this.resourceSites).map(type => this.resourceSites[type].map(site => site.getState()));
+
+        return {
+            width: this.width,
+            height: this.height,
+            resourceSites
+        };
+    }
 }

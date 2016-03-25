@@ -18,7 +18,6 @@ export default class Engine {
         };
 
         const eventReceiver = new EventReceiver(this);
-        this.eventStack = eventReceiver.eventStack;
         this.commandableManager = new CommandableManager(eventReceiver, teams, map);
     }
 
@@ -29,11 +28,6 @@ export default class Engine {
         tasks.forEach(task => task());
 
         return this.tick;
-    }
-
-    dumpLog = () => {
-        // console.log(this.eventStack.toString());
-        // console.log(this.eventStack.eventsPerTick);
     }
 
     clearCommands = (commandable) => {
