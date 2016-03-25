@@ -6,7 +6,8 @@
     },
     "ecmaFeatures": {
         "classes": true,
-        "modules": true
+        "modules": true,
+        "experimentalObjectRestSpread": true
     },
     "env": {
         "node": true,
