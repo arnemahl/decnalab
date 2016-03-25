@@ -18,6 +18,7 @@ export default class Engine {
         };
 
         const eventReceiver = new EventReceiver(this);
+        this.eventStack = eventReceiver.eventStack;
         this.commandableManager = new CommandableManager(eventReceiver, teams, map);
     }
 
@@ -30,11 +31,16 @@ export default class Engine {
         return this.tick;
     }
 
+    dumpLog = () => {
+        // console.log(this.eventStack.toString());
+        // console.log(this.eventStack.eventsPerTick);
+    }
+
     clearCommands = (commandable) => {
         commandable.clearCommands();
     }
 
-    addCommand = (commandable, calcFinishedTick, onStart, onFinish, onAbort) => {
+    addCommand(commandable, calcFinishedTick, onStart, onFinish, onAbort) {
         const commandId = this.commandIdGenerator.generateId();
 
         let finishedTick; // calculated upon start
@@ -80,21 +86,26 @@ export default class Engine {
 
 
     moveUnit = (unit, targetPosition) => {
+        let startTick; // set upon start
+
         const calcFinishedTick = () => {
             return this.tick + Vectors.absoluteDistance(unit.position, targetPosition) / unit.specs.speed;
         };
         const onStart = () => {
+            startTick = this.tick;
             unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.specs.speed);
             return true;
         };
         const onFinish = () => {
-            const dist = Vectors.absoluteDistance(unit.position, targetPosition);
-            if (dist > unit.specs.speed) {
-                console.error('ERROR in moveUnit, ended up:', dist, 'from targetPosition');
+            const moved = Vectors.scale(unit.currentSpeed, this.tick - startTick);
+            unit.position = Vectors.add(unit.position, moved);
+
+            if (!unit.isAt(targetPosition)) {
+                console.error('ERROR in moveUnit, ended up:', Vectors.absoluteDistance(unit.position, targetPosition), 'from targetPosition');
             }
             unit.currentSpeed = Vectors.zero();
         };
-        const onAbort = onFinish();
+        const onAbort = onFinish;
 
         this.addCommand(unit, calcFinishedTick, onStart, onFinish, onAbort);
     }
@@ -128,9 +139,13 @@ export default class Engine {
     harvestWithUnit = (worker, resourceSite) => {
         const calcFinishedTick = () => this.tick + resourceSite.harvestDuration;
         const onStart = () => {
-            worker.currentResourceSite = resourceSite;
+            const canHarvest = worker.isAt(resourceSite.position) && resourceSite.canBeHarvestedBy(worker);
 
-            return resourceSite.startHarvesting(worker);
+            if (canHarvest) {
+                resourceSite.startHarvesting(worker);
+                worker.currentResourceSite = resourceSite;
+            }
+            return canHarvest;
         };
         const onFinish = () => {
             resourceSite.finishHarvesting(worker);
@@ -148,7 +163,7 @@ export default class Engine {
     dropOffHarvestWithUnit = (worker, baseStructure) => {
         const calcFinishedTick = () => this.tick;
         const onStart = () => {
-            return Vectors.absoluteDistance(worker.position, baseStructure.position) < worker.specs.speed;
+            return worker.isAt(baseStructure.position);
         };
         const onFinish = () => {
             const harvest = worker.carriedResources;
@@ -165,16 +180,17 @@ export default class Engine {
         this.addCommand(worker, calcFinishedTick, onStart, onFinish, onAbort);
     }
 
-    constructWithUnit = (worker, structureSpec, targetPosition) => {
-        let structure; // calculated upon start
+    buildWithUnit = (worker, structureSpec, targetPosition) => {
+        let structure; // initialized upon start
 
         const calcFinishedTick = () => this.tick + structureSpec.cost.time;
         const onStart = () => {
-            if (Vectors.absoluteDistance(worker.position, targetPosition) >= worker.specs.speed) {
-                return false;
+            const canBuild = worker.isAt(targetPosition);
+
+            if (canBuild) {
+                structure = this.commandableManager.structureStarted(worker, structureSpec.structureType, targetPosition);
             }
-            structure = this.commandableManager.structureStarted(worker, structureSpec.structureType, targetPosition);
-            return true;
+            return canBuild;
         };
         const onFinish = () => {
             this.commandableManager.structureFinished(structure);

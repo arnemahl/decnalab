@@ -1,3 +1,4 @@
+import Vectors from '~/rts/spatial/Vectors';
 import Commandable from '~/rts/commandable/Commandable';
 
 export class UnitCommander {
@@ -33,6 +34,10 @@ export default class Unit extends Commandable {
 
     getCommander = () => {
         return this.safeCommander || (this.safeCommander = new UnitCommander(this, this.eventReceiver));
+    }
+
+    isAt = (position) => {
+        return Vectors.absoluteDistance(this.position, position) < this.specs.speed;
     }
 
 }

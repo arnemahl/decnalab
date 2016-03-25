@@ -1,9 +1,9 @@
 
 export default class Command {
-    constructor(id, start, stop) {
+    constructor(id, onExecute, onAbort) {
         this.id = id;
-        this.start = start;
-        this.stop = stop;
+        this.onExecute = onExecute;
+        this.onAbort = onAbort;
     }
 
     excecute = () => {
@@ -11,7 +11,7 @@ export default class Command {
             throw 'Can only excecude a command once';
         }
         this.isStarted = true;
-        this.start();
+        this.onExecute();
     }
 
     abort = () => {
@@ -19,6 +19,6 @@ export default class Command {
             throw 'Can only abort a command in progress.';
         }
         this.isStopped = true;
-        this.stop();
+        this.onAbort();
     }
 }

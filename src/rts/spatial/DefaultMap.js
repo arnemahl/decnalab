@@ -30,15 +30,15 @@ export default class DefaultMap {
             Vectors.add(this.startingPositions[north], Vectors.new(600,    0)),
             Vectors.add(this.startingPositions[north], Vectors.new(600,   50)),
             Vectors.add(this.startingPositions[north], Vectors.new(600,  -50)),
-            Vectors.add(this.startingPositions[north], Vectors.new(600,  100)),
-            Vectors.add(this.startingPositions[north], Vectors.new(600, -100))
+            Vectors.add(this.startingPositions[north], Vectors.new(610,  100)),
+            Vectors.add(this.startingPositions[north], Vectors.new(610, -100))
         ],
         south: [
             Vectors.add(this.startingPositions[south], Vectors.new(-600,    0)),
             Vectors.add(this.startingPositions[south], Vectors.new(-600,   50)),
             Vectors.add(this.startingPositions[south], Vectors.new(-600,  -50)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-600,  100)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-600, -100))
+            Vectors.add(this.startingPositions[south], Vectors.new(-610,  100)),
+            Vectors.add(this.startingPositions[south], Vectors.new(-610, -100))
         ]
         /*eslint-enable no-multi-spaces */
     }

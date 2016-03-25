@@ -24,14 +24,14 @@ export default class Game {
         this.AIs = teams.map(team => new TeamAI(team, map));
     }
 
-    isFinished(tick) {
+    isFinished(/*tick*/) {
         // TODO ask engine
-        console.info('tick:', tick, '\tloops:', loops); // DEBUG
-        return loops++ > 10;
+        // console.info('tick:', tick, '\tloops:', loops); // DEBUG
+        return loops++ > 9;
     }
 
     play = () => {
-        console.info('\n\n----- play -----\n');
+        // console.info('\n\n----- play -----\n');
 
         // TODO do stuff
         const tick = this.engine.doTick();
@@ -39,6 +39,7 @@ export default class Game {
 
         // Callbacks
         if (this.isFinished(tick)) {
+            this.engine.dumpLog();
             this.onFinish(this);
         } else {
             setImmediate(this.play);

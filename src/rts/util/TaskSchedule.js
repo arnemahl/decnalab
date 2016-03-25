@@ -30,8 +30,6 @@ export default class TaskSchedule {
     }
 
     getNextTick() {
-        console.log('Object.keys(this.tasks):', Object.keys(this.tasks)); // DEBUG
-
         const nextTick = Object.keys(this.tasks)[0];
 
         if (this.lastTick === nextTick || !nextTick) {

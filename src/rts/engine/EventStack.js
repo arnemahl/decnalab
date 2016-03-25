@@ -5,11 +5,11 @@ export default class EventStack {
         this.eventsPerTick = {};
     }
 
-    push = (eventString) => {
+    push = (event) => {
         const currentTick = this.tickReader.getCurrentTick();
         const eventsAtCurrentTick = this.eventsPerTick[currentTick] || (this.eventsPerTick[currentTick] = []);
 
-        eventsAtCurrentTick.push(eventString);
+        eventsAtCurrentTick.push(event);
     }
 
     toString = () => {
