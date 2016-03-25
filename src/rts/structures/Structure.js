@@ -11,4 +11,11 @@ export default class Structure extends Commandable {
         };
     }
 
+    setState = (nextState) => {
+        this.position = {...nextState.position};
+        this.healthLeftFactor = nextState.healthLeftFactor;
+
+        this.specs = this.team.structureSpecs[this.constructor.name]; // OMG. This is fucked
+    }
+
 }

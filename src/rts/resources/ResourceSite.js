@@ -71,6 +71,18 @@ class ResourceSite {
         };
     }
 
+    setState = (nextState) => {
+        const {
+            resourcesLeft,
+            harvestAmmount,
+            currentHarvesters
+        } = nextState;
+
+        this.resourcesLeft = resourcesLeft;
+        this.harvestAmmount = harvestAmmount;
+        this.currentHarvesters = currentHarvesters;
+    }
+
 }
 
 export class AbundantResourceSite extends ResourceSite {

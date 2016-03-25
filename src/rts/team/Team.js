@@ -3,6 +3,8 @@ import Vectors from '~/rts/spatial/Vectors';
 import UnitSpecs from '~/rts/units/UnitSpecs';
 import StructureSpecs from '~/rts/structures/StructureSpecs';
 
+// import UnitCreator // TODO import
+
 import {isBaseStructure} from '~/rts/structures/BaseStructure';
 
 
@@ -36,8 +38,8 @@ export default class Team {
         return {
             id: this.id,
             resources: {...this.resources},
-            unitSpecs: {...this.unitSpecs},
-            structureSpecs: {...this.structureSpecs},
+            unitSpecs: this.unitSpecs.clone(),
+            structureSpecs: this.structureSpecs.clone(),
             units: mapToStates(this.units),
             structures: mapToStates(this.structures)
         };

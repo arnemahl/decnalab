@@ -93,4 +93,12 @@ export default class DefaultMap {
             resourceSites
         };
     }
+
+    setState = (nextState) => {
+        nextState.resourceSites.forEach(anotherMap => anotherMap.map(one => {
+            const {id, resourceType, ...state} = one;
+
+            this.resourceSites[resourceType].find(rs => rs.id === id).setState(state);
+        }));
+    }
 }

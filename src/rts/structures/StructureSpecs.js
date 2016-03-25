@@ -38,38 +38,8 @@ export default class StructureSpecs {
         this.BaseStructure = new BaseStructure();
         this.Barracks = new Barracks();
     }
+
+    clone() {
+        return new StructureSpecs();
+    }
 }
-
-
-// class ResearchLab {
-//     category = 'util'
-
-//     cost = {
-//         abundant: 200,
-//         spase:
-//     }
-
-//     size = 800
-//     maxHealth = 800
-//     armor = 2
-
-//     produces = {
-//         upgrades: ['weapon.damage.military']
-//     }
-// }
-
-// const applyUpgrade = newUnitSpecs => {
-//     if (newUnitSpecs.category !== 'military') {
-//         return newUnitSpecs;
-//     } else {
-//         const {weapon: {damage, cooldown}, ...other} = newUnitSpecs;
-
-//         return {
-//             weapon: {
-//                 damage + 1,
-//                 cooldown
-//             }
-//             ...other
-//         }
-//     }
-// }

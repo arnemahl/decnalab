@@ -38,4 +38,8 @@ export default class UnitSpecs {
         this.Worker = new Worker();
         this.Marine = new Marine();
     }
+
+    clone() {
+        return new UnitSpecs();
+    }
 }

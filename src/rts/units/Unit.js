@@ -49,4 +49,11 @@ export default class Unit extends Commandable {
         };
     }
 
+    setState = (nextState) => {
+        this.position = {...nextState.position};
+        this.healthLeftFactor = nextState.healthLeftFactor;
+
+        this.specs = this.team.unitSpecs[this.constructor.name]; // OMG. This is fucked
+    }
+
 }
