@@ -13,7 +13,7 @@ export default class Engine {
         this.taskSchedule = new TaskSchedule();
         this.commandIdGenerator = getIdGenerator('command');
         this.tick = 0;
-        this.ticker = {
+        this.tickReader = {
             getCurrentTick: () => this.tick
         };
 
@@ -21,7 +21,7 @@ export default class Engine {
         this.commandableManager = new CommandableManager(eventReceiver, teams, map);
     }
 
-    tick = () => {
+    doTick = () => {
         const {tick, tasks} = this.taskSchedule.getNext();
 
         this.tick = tick;
@@ -74,22 +74,6 @@ export default class Engine {
         commandable.addCommand(new Command(commandId, start, stop));
     }
 
-
-    /*******************************/
-    /***  All sorts of commands  ***/
-    /*******************************/
-
-
-    arbitraryCommand = (commandable, methodName, params) => {
-        const calcFinishedTick = () => this.tick;
-        const onStart = () => true;
-        const onFinish = () => commandable[methodName](params);
-        const onAbort = () => {};
-
-        this.addCommand(commandable, calcFinishedTick, onStart, onFinish, onAbort);
-    }
-
-
     /***********************/
     /***  Unit commands  ***/
     /***********************/
@@ -104,9 +88,13 @@ export default class Engine {
             return true;
         };
         const onFinish = () => {
+            const dist = Vectors.absoluteDistance(unit.position, targetPosition);
+            if (dist > unit.specs.speed) {
+                console.error('ERROR in moveUnit, ended up:', dist, 'from targetPosition');
+            }
             unit.currentSpeed = Vectors.zero();
         };
-        const onAbort = onFinish;
+        const onAbort = onFinish();
 
         this.addCommand(unit, calcFinishedTick, onStart, onFinish, onAbort);
     }
@@ -134,7 +122,7 @@ export default class Engine {
         };
         const onAbort = () => {};
 
-        this.addCommand(calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand(unit, calcFinishedTick, onStart, onFinish, onAbort);
     }
 
     harvestWithUnit = (worker, resourceSite) => {
@@ -145,7 +133,7 @@ export default class Engine {
             return resourceSite.startHarvesting(worker);
         };
         const onFinish = () => {
-            worker.carriedResources = resourceSite.finishHarvesting();
+            resourceSite.finishHarvesting(worker);
             if (worker.commandQueue.isEmpty()) {
                 worker.returnHarvest();
             }
@@ -154,7 +142,7 @@ export default class Engine {
             resourceSite.abortHarvesting();
         };
 
-        this.addCommand(calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand(worker, calcFinishedTick, onStart, onFinish, onAbort);
     }
 
     dropOffHarvestWithUnit = (worker, baseStructure) => {
@@ -174,7 +162,7 @@ export default class Engine {
         };
         const onAbort = () => {};
 
-        this.addCommand(calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand(worker, calcFinishedTick, onStart, onFinish, onAbort);
     }
 
     constructWithUnit = (worker, structureSpec, targetPosition) => {
@@ -195,6 +183,6 @@ export default class Engine {
             this.commandableManager.structureCancelled(structure);
         };
 
-        this.addCommand(calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand(worker, calcFinishedTick, onStart, onFinish, onAbort);
     }
 }

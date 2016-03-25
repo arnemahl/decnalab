@@ -6,7 +6,7 @@ export class WorkerCommander extends UnitCommander {
         if (!waitForQueuedCommandsToComplete) {
             this.eventReceiver.clearCommands(this.unit);
         }
-        this.eventReceiver.moveUnitTo(this.unit, resourceSite.position);
+        this.eventReceiver.moveUnit(this.unit, resourceSite.position);
         this.eventReceiver.harvestWithUnit(this.unit, resourceSite);
     }
 
@@ -14,7 +14,7 @@ export class WorkerCommander extends UnitCommander {
         if (!waitForQueuedCommandsToComplete) {
             this.eventReceiver.clearCommands(this.unit);
         }
-        this.eventReceiver.moveUnitTo(this.unit, baseStructure.position);
+        this.eventReceiver.moveUnit(this.unit, baseStructure.position); // FOR SOME REASON WORKERS END UP FAR FROM THE BASE
         this.eventReceiver.dropOffHarvestWithUnit(this.unit, baseStructure);
     }
 
@@ -22,7 +22,7 @@ export class WorkerCommander extends UnitCommander {
         if (!waitForQueuedCommandsToComplete) {
             this.eventReceiver.clearCommands(this.unit);
         }
-        this.eventReceiver.moveUnitTo(this.unit, position);
+        this.eventReceiver.moveUnit(this.unit, position);
         this.eventReceiver.buildWithUnit(this.unit, structureClass, position);
     }
 }
@@ -33,11 +33,11 @@ export default class Worker extends Unit {
     currentResourceSite = false;
 
     getCommander = () => {
-        return this.safeCommander || (this.safeCommander = new WorkerCommander(this, this.game.eventReceiver));
+        return this.safeCommander || (this.safeCommander = new WorkerCommander(this, this.eventReceiver));
     }
 
     carriesResources = () => {
-        return !this.carriedResources;
+        return this.carriedResources;
     }
 
     returnHarvest = () => {

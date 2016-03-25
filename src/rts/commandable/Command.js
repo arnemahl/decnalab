@@ -1,6 +1,7 @@
 
 export default class Command {
-    constructor(commandId, start, stop) {
+    constructor(id, start, stop) {
+        this.id = id;
         this.start = start;
         this.stop = stop;
     }

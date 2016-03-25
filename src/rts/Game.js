@@ -5,6 +5,8 @@ import DefaultMap from '~/rts/spatial/DefaultMap';
 import Team from '~/rts/team/Team';
 import TeamAI from '~/ai/TeamAI';
 
+let loops = 0;
+
 export default class Game {
 
     constructor(id) {
@@ -19,20 +21,24 @@ export default class Game {
         ];
 
         this.engine = new Engine(map, teams);
-        this.AIs = teams.map(team => new TeamAI(team));
+        this.AIs = teams.map(team => new TeamAI(team, map));
     }
 
-    isFinished() {
-        return true; // TODO ask engine
+    isFinished(tick) {
+        // TODO ask engine
+        console.info('tick:', tick, '\tloops:', loops); // DEBUG
+        return loops++ > 10;
     }
 
     play = () => {
-        console.log('\n\n----- play -----\n');
+        console.info('\n\n----- play -----\n');
 
         // TODO do stuff
+        const tick = this.engine.doTick();
+        this.AIs.forEach(ai => ai.doTick(tick));
 
         // Callbacks
-        if (this.isFinished()) {
+        if (this.isFinished(tick)) {
             this.onFinish(this);
         } else {
             setImmediate(this.play);

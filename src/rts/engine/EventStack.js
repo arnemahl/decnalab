@@ -1,12 +1,12 @@
 
 export default class EventStack {
-    constuctor(ticker) {
-        this.ticker = ticker;
+    constructor(tickReader) {
+        this.tickReader = tickReader;
         this.eventsPerTick = {};
     }
 
     push = (eventString) => {
-        const currentTick = this.ticker.getCurrentTick();
+        const currentTick = this.tickReader.getCurrentTick();
         const eventsAtCurrentTick = this.eventsPerTick[currentTick] || (this.eventsPerTick[currentTick] = []);
 
         eventsAtCurrentTick.push(eventString);
@@ -18,7 +18,7 @@ export default class EventStack {
 }
 
 export class ReplayEventStack {
-    constuctor(string) {
+    constructor(string) {
         this.eventsPerTick = JSON.parse(string);
     }
 

@@ -4,11 +4,11 @@ export default class EventReceiver {
 
     constructor(engine) {
         this.engine = engine;
-        this.eventStack = new EventStack({ticker: this.engine.ticker});
+        this.eventStack = new EventStack(engine.tickReader);
     }
 
     clearCommands = (commandable) => {
-        this.eventsStack.push(JSON.stringify({
+        this.eventStack.push(JSON.stringify({
             method: 'clearCommands',
             arguments: {
                 commandableId: commandable.id
@@ -16,22 +16,6 @@ export default class EventReceiver {
         }));
 
         this.engine.clearCommands(commandable);
-    }
-
-    arbitraryCommand = (commandable, methodName, params) => {
-        this.eventStack.push(JSON.stringify({
-            method: 'arbitraryCommand',
-            arguments: {
-                methodName,
-                arguments: {
-                    commandableId: commandable.id,
-                    methodName,
-                    params: JSON.stringify(params)
-                }
-            }
-        }));
-
-        this.engine.arbitraryCommand(commandable, methodName, params);
     }
 
     moveUnit = (unit, targetPosition) => {

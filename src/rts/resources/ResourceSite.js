@@ -25,7 +25,7 @@ class ResourceSite {
     }
 
     _canBeHarvestedBy(worker) {
-        return isWorker(worker) && !worker.carriesResources() && this.canAccomodateMoreHarvesters();
+        return isWorker(worker) && !worker.carriedResources && this.canAccomodateMoreHarvesters();
     }
 
     startHarvesting = (worker) => {
@@ -37,10 +37,10 @@ class ResourceSite {
         return true;
     }
 
-    finishHarvesting = () => {
+    finishHarvesting = (worker) => {
         this.currentHarvesters--;
         this.resourcesLeft -= this.harvestAmmount;
-        return new Harvest(this.harvestAmmount, this.resourceType);
+        worker.carriedResources = new Harvest(this.harvestAmmount, this.resourceType);
     }
 
     abortHarvesting = () => {

@@ -45,7 +45,7 @@ export default class CommandableManager {
         unit.team = team;
 
         this.units[unit.id] = unit;
-        this.teams[unit.team.id][unit.id] = unit;
+        this.teams[unit.team.id].units[unit.id] = unit;
     }
 
     addStructure(team, structureSpec, position, isUnderContruction = false) {
@@ -54,19 +54,19 @@ export default class CommandableManager {
         structure.isUnderContruction = isUnderContruction;
 
         this.structures[structure.id] = structure;
-        this.teams[structure.team.id][structure.id] = structure;
+        this.teams[structure.team.id].structures[structure.id] = structure;
 
         return structure;
     }
 
     removeUnit(unit) {
         delete this.units[unit.id];
-        delete this.teams[unit.team.id][unit.id];
+        delete this.teams[unit.team.id].units[unit.id];
     }
 
     removeStructure(structure) {
         delete this.structures[structure.id];
-        delete this.teams[structure.team.id][structure.id];
+        delete this.teams[structure.team.id].structures[structure.id];
     }
 
     remove(commandable) {

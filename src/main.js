@@ -1,8 +1,5 @@
 import Game from '~/rts/Game';
 
-// console.log('this:', this); // DEBUG
-// console.log('this.prop:', this.prop); // DEBUG
-
 function play(game) {
     return new Promise((resolve/*, reject*/) => {
 

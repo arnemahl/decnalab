@@ -24,7 +24,7 @@ export default class Team {
         const distanceTo = baseStructure => Vectors.absoluteDistance(fromPosition, baseStructure.position);
 
         return (
-            this.structures
+            Object.values(this.structures)
                 .filter(isBaseStructure)
                 .sort((one, two) => distanceTo(one) - distanceTo(two))
                 [0]

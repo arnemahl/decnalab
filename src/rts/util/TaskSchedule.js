@@ -1,8 +1,11 @@
 
 export default class TaskSchedule {
     tasks = []; // array of arrays of tasks -- works like a map with key = tick and value = tasks at tick
+    lastTick = -1;
 
-    add = (task, tick) => {
+    addTask = (task, tick) => {
+        tick = Math.ceil(tick);
+
         if (!this.tasks[tick]) {
             this.tasks[tick] = [];
         }
@@ -10,7 +13,7 @@ export default class TaskSchedule {
         this.tasks[tick].push(task);
     }
 
-    remove = (taskToRemove, tick) => {
+    removeTask = (taskToRemove, tick) => {
         this.tasks[tick] = this.tasks[tick].filter(task => task !== taskToRemove);
 
         if (this.tasks[tick].length === 0) {
@@ -27,7 +30,17 @@ export default class TaskSchedule {
     }
 
     getNextTick() {
-        return Object.keys(this.tasks)[0];
+        console.log('Object.keys(this.tasks):', Object.keys(this.tasks)); // DEBUG
+
+        const nextTick = Object.keys(this.tasks)[0];
+
+        if (this.lastTick === nextTick || !nextTick) {
+            this.lastTick += 1;
+        } else {
+            this.lastTick = parseInt(nextTick);
+        }
+
+        return this.lastTick;
     }
 
     getNext = () => {
@@ -35,7 +48,7 @@ export default class TaskSchedule {
 
         return {
             tick,
-            tasks: this.get(tick)
+            tasks: this.getTasks(tick)
         };
     }
 

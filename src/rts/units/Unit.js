@@ -32,7 +32,7 @@ export class UnitCommander {
 export default class Unit extends Commandable {
 
     getCommander = () => {
-        return this.safeCommander || (this.safeCommander = new UnitCommander(this, this.game.eventReceiver));
+        return this.safeCommander || (this.safeCommander = new UnitCommander(this, this.eventReceiver));
     }
 
 }
