@@ -5,6 +5,8 @@ import DefaultMap from '~/rts/spatial/DefaultMap';
 import Team from '~/rts/team/Team';
 import TeamAI from '~/ai/TeamAI';
 
+// import * as FileWriter from '~/rts/FileWriter';
+
 export default class Game {
 
     states = []
@@ -27,6 +29,7 @@ export default class Game {
         this.AIs = this.teams.map(team => new TeamAI(team, this.map));
 
         this.states.push(this.getState());
+        // FileWriter.writeJSON('game-state.log', this.states[0]);
     }
 
     isFinished(/*tick*/) {

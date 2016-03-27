@@ -30,17 +30,17 @@ export default class DefaultMap {
         /*eslint-disable no-multi-spaces */
         north: [
             Vectors.add(this.startingPositions[north], Vectors.new(600,    0)),
-            Vectors.add(this.startingPositions[north], Vectors.new(600,   50)),
-            Vectors.add(this.startingPositions[north], Vectors.new(600,  -50)),
-            Vectors.add(this.startingPositions[north], Vectors.new(610,  100)),
-            Vectors.add(this.startingPositions[north], Vectors.new(610, -100))
+            Vectors.add(this.startingPositions[north], Vectors.new(600,   150)),
+            Vectors.add(this.startingPositions[north], Vectors.new(600,  -150)),
+            Vectors.add(this.startingPositions[north], Vectors.new(610,  300)),
+            Vectors.add(this.startingPositions[north], Vectors.new(610, -300))
         ],
         south: [
             Vectors.add(this.startingPositions[south], Vectors.new(-600,    0)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-600,   50)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-600,  -50)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-610,  100)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-610, -100))
+            Vectors.add(this.startingPositions[south], Vectors.new(-600,   150)),
+            Vectors.add(this.startingPositions[south], Vectors.new(-600,  -150)),
+            Vectors.add(this.startingPositions[south], Vectors.new(-610,  300)),
+            Vectors.add(this.startingPositions[south], Vectors.new(-610, -300))
         ]
         /*eslint-enable no-multi-spaces */
     }
@@ -75,12 +75,12 @@ export default class DefaultMap {
     rsidGen = getIdGenerator('resourceSite');
     resourceSites = {
         abundant: [
-            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[north], Vectors.new(1000, 0))),
-            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[south], Vectors.new(-1000, 0)))
+            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[north], Vectors.new(1500, 0))),
+            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[south], Vectors.new(-1500, 0)))
         ],
         sparse: [
-            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[north], Vectors.new(1000, 0))),
-            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[south], Vectors.new(-1000, 0)))
+            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[north], Vectors.new(1200, -1200))),
+            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[south], Vectors.new(-1200, 1200)))
         ]
     }
 

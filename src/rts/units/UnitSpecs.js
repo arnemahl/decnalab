@@ -5,7 +5,8 @@ class Worker {
     class = WorkerClass
     category = 'worker'
 
-    size = 50
+    size = 100
+    radius = this.size / 2
     speed = 9
 
     maxHealth = 60
@@ -21,7 +22,8 @@ class Marine {
     class = MarineClass;
     category = 'military'
 
-    size = 40
+    size = 80
+    radius = this.size / 2
     speed = 10
 
     maxHealth = 50

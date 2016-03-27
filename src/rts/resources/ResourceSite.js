@@ -51,6 +51,7 @@ class ResourceSite {
     getState = () => {
         const {
             id,
+            position,
             resourceType,
             resourcesLeft,
             harvestDuration,
@@ -61,8 +62,9 @@ class ResourceSite {
 
         return {
             id,
-            position: {...this.position},
+            position: {...position},
             resourceType,
+            type: resourceType + ' resource site',
             resourcesLeft,
             harvestDuration,
             harvestAmmount,
