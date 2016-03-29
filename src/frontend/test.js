@@ -55,7 +55,7 @@ var redraw = (function() {
             paper.text(thing.type)
                 .center(thing.position.x, thing.position.y)
                 .attr({
-                    fill: 'red'
+                    fill: 'white'
                 });
         }
         function drawSquare(thing, specs, attr) {
@@ -72,24 +72,64 @@ var redraw = (function() {
                 })
                 .center(thing.position.x, thing.position.y)
                 .attr({
-                    fill: 'red',
+                    fill: 'white',
 
                 });
         }
 
+        var init = (function() {
+            var initalized = false;
+
+            var wbx = 29000;
+            var wby = 8000;
+            var span = 4000;
+
+            return function() {
+                if (initalized) {
+                    return;
+                }
+                initialized = true;
+
+                paper.viewbox(wbx, wby, span, span);
+
+                document.addEventListener('wheel', function(event) {
+                    event.preventDefault();
+                    if (event.ctrlKey) {
+                        var zoom = span / 1000 * event.deltaY;
+
+                        if (100000 < (span + zoom) || (span + zoom) < 10) {
+                            return;
+                        }
+
+                        span += zoom;
+                        wbx -= zoom * event.clientX / window.innerWidth;
+                        wby -= zoom * event.clientY / window.innerHeight;
+                    } else {
+                        wbx += event.deltaX * span / 2000;
+                        wby += event.deltaY * span / 2000;
+                    }
+                    paper.viewbox(wbx, wby, span, span);
+                });
+            }
+        })();
+
         return function() {
-            paper.viewbox(29000, 28000, 4000, 4000);
+            init();
+
+            paper.rect(state.map.width, state.map.height).attr({
+                fill: '#111'
+            });
 
             state.map.resourceSites.forEach(function(arr) {
                 console.log('arr:', arr); // DEBUG
                 arr.forEach(function(rs) {
                     console.log('rs:', rs); // DEBUG
                     if (rs.resourceType === 'abundant') {
-                        drawSquare(rs, {size: 800}, {fill: 'cyan'});
+                        drawSquare(rs, {size: 800}, {fill: 'indigo'});
                         return;
                     }
                     if (rs.resourceType === 'sparse') {
-                        drawSquare(rs, {size: 300}, {fill: 'mangenta'});
+                        drawSquare(rs, {size: 300}, {fill: 'lawngreen'});
                         return;
                     }
                     // unknown

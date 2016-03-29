@@ -12,17 +12,21 @@ export default class DefaultMap {
         max: 2
     }
 
-    width = 40*1000;
-    height = 200*1000;
+    width = 40*1000; // TODO remove
+    height = 80*1000; // TODO remove
+    size = {
+        x: 40*1000,
+        y: 80*1000
+    }
 
     startingPositions = {
         north: {
             x: 30*1000,
-            y: 30*1000
+            y: 10*1000
         },
         south: {
             x: this.width - 30*1000,
-            y: this.height - 30*1000
+            y: this.height - 10*1000
         }
     }
 

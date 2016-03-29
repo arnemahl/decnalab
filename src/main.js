@@ -40,8 +40,6 @@ ioAppSocket.on('connection', (socket) => {
         }
 
         simulateGame(maxLoops).then((game) => {
-        console.log('hola');
-
             ioAppSocket.emit('game-state', game.states[0]);
             // TODO launch replay
 
