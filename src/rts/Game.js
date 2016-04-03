@@ -27,9 +27,6 @@ export default class Game {
 
         this.engine = new Engine(this.map, this.teams);
         this.AIs = this.teams.map(team => new TeamAI(team, this.map));
-
-        this.states.push(this.getState());
-        // FileWriter.writeJSON('game-state.log', this.states[0]);
     }
 
     isFinished(/*tick*/) {

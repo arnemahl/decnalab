@@ -1,34 +1,72 @@
 /*eslint-disable*/
 
+var stateIndex;
 var state;
 var error;
 
 var redraw = (function() {
+
+    if (!SVG.supported) {
+        alert('Your browser does not support SVG');
+        return;
+    }
+
     var paper = SVG('svg').size('100%', '100%');
-    // var paper = Snap('#snap-svg');
 
     function drawInit() {
-        var ww = window.innerWidth;
-        var wh = window.innerHeight;
+
+        function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+          var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
+
+          return {
+            x: centerX + (radius * Math.cos(angleInRadians)),
+            y: centerY + (radius * Math.sin(angleInRadians))
+          };
+        }
+
+        function describeArc(x, y, radius, startAngle, endAngle){
+
+            var start = polarToCartesian(x, y, radius, endAngle);
+            var end = polarToCartesian(x, y, radius, startAngle);
+
+            var arcSweep = endAngle - startAngle <= 180 ? "0" : "1";
+
+            return [
+                "M", start.x, start.y, 
+                "A", radius, radius, 0, arcSweep, 0, end.x, end.y
+            ].join(" ");
+        }
 
         var center = {
-            x: ww / 2,
-            y: wh / 2
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 2
         };
 
-        paper
-            .circle(500)
-            .center(center.x, center.y)
+        function spinner(color, radius, rotation) {
+            return paper.path(describeArc(0, 0, radius, 0, 270))
             .attr({
-                fill: '#bada55',
-                stroke: '#000',
-                strokeWidth: 5
+                fill: 'none',
+                stroke: color,
+                'stroke-width': 10
             })
-            .click(function() {
-                console.log('click');
-                startSimulation();
-            });
+            .center(center.x, center.y)
+            .animate(2000)
+            .rotate(rotation)
+            .loop();
+        }
 
+        spinner('mediumvioletred', 50, 360);
+        spinner('mediumseagreen', 70, -360);
+
+        paper.text('LOADING')
+            .x(center.x)
+            .y(center.y)
+            .dy(150)
+            .font({size: 54, anchor: 'middle'})
+            .fill('peachpuff')
+            .animate(1000, '>')
+            .attr({opacity: 0.5})
+            .loop(true, true);
     }
 
     function drawError() {
@@ -39,7 +77,6 @@ var redraw = (function() {
             x: ww / 2,
             y: wh / 2
         };
-        console.log('draw error', error);
 
         paper.text(error).center(center.x, center.y);
     }
@@ -79,41 +116,52 @@ var redraw = (function() {
                     }
                     paper.viewbox(wbx, wby, span, span);
                 });
+
+                // Show controls, add onclick listener to Left and Right buttons
+                document.getElementById('game-controls').style.display = 'unset';
+                document.getElementById('button-next').onclick = nextState;
+                document.getElementById('button-previous').onclick = previousState;
+
+                // Add Listener for Left and Right arrow keys
+                window.onkeydown = function(event) {
+                    if (event.code === 'ArrowLeft') {
+                        previousState();
+                    }
+                    if (event.code === 'ArrowRight') {
+                        nextState();
+                    }
+                }
             }
         })();
 
         function drawCircle(position, size, text, attr) {
             paper.circle(size)
                 .center(position.x, position.y)
+                .opacity(0.7)
                 .attr(attr);
             paper.text(text)
                 .x(position.x)
                 .y(position.y)
                 .dy(-40)
                 .font({size: 40, anchor: 'middle'})
-                .attr({
-                    fill: 'white'
-                });
+                .fill('white');
         }
         function drawSquare(position, size, text, attr) {
             paper.rect(size, size)
                 .center(position.x, position.y)
+                .opacity(0.7)
                 .attr(attr);
             paper.text(text)
                 .x(position.x)
                 .y(position.y)
                 .dy(-54)
                 .font({size: 54, anchor: 'middle'})
-                .attr({
-                    fill: 'white',
-
-                });
+                // .opacity(0.7)
+                .fill('white');
         }
 
         function drawMapBackground() {
-            paper.rect(state.map.width, state.map.height).attr({
-                fill: '#111'
-            });
+            paper.rect(state.map.width, state.map.height).fill('#222');
         }
 
         function drawResourceSites() {
@@ -129,31 +177,31 @@ var redraw = (function() {
             });
         }
 
-        function drawTeams() {
+        function drawTeamsUnitsAndStructures() {
             state.teams.forEach(function(team) {
-                var teamAttr = {fill: team.id}; // TODO make this sensible. Currently, teamId = 'blue'||'red'
+                var teamAttr = {fill: team.id, stroke: '#222'}; // TODO make this sensible. Currently, teamId = 'blue'||'red'
 
-                team.units.forEach(function(unit) {
-                    drawCircle(unit.position, team.unitSpecs[unit.type].size, unit.type, teamAttr);
-                });
                 team.structures.forEach(function(structure) {
                     drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type, teamAttr);
+                });
+                team.units.forEach(function(unit) {
+                    drawCircle(unit.position, team.unitSpecs[unit.type].size, unit.type, teamAttr);
                 });
             });
         }
 
         return function() {
             ensureNavigationListenersAreInitialized();
+            document.getElementById('state-index').textContent = 'State '+stateIndex+' | Tick '+state.tick;
 
             drawMapBackground();
             drawResourceSites();
-            drawTeams();
+            drawTeamsUnitsAndStructures();
         }
     })();
 
     return function () {
         paper.clear();
-        console.log(!!error);
 
         if (error) {
             drawError();
@@ -175,24 +223,15 @@ var redraw = (function() {
 })();
 
 
+var maxLoops = 500;
+
 var socket = io();
 
-var startSimulation = (function() {
-    var started = false;
+socket.emit('simulate-game', maxLoops);
 
-    return function() {
-        console.log('simulate-game');
-        if (started === true) {
-            return;
-        }
-
-        started = true;
-        socket.emit('simulate-game', 1);
-    }
-})();
-
-socket.on('game-state', function(nextState) {
-    state = nextState;
+socket.on('game-state', function(update) {
+    stateIndex = update.stateIndex;
+    state = update.state;
     redraw();
 });
 
@@ -200,5 +239,12 @@ socket.on('error', function(newError) {
     error = newError;
     redraw();
 });
+
+function previousState() {
+    socket.emit('previous-state');
+}
+function nextState() {
+    socket.emit('next-state');
+}
 
 /*eslint-enable*/

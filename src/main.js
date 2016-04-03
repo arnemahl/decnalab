@@ -23,9 +23,7 @@ app.get('/', (req, res) => {
 
 ioAppSocket.on('connection', (socket) => {
     console.log('a user connected');
-    // socket.on('disconnect', () => {
-    //     console.log('a user disconnected');
-    // });
+    socket.on('disconnect', () => console.log('a user disconnected'));
 
     socket.on('simulate-game', (maxLoops_in) => {
         const maxLoops = parseInt(maxLoops_in);
@@ -33,16 +31,35 @@ ioAppSocket.on('connection', (socket) => {
         if (isNaN(maxLoops) || maxLoops < 0) {
             const inputError = `Input error: maxLoops="${maxLoops_in}" is not valid`;
             console.log(inputError);
-            ioAppSocket.emit('error', inputError);
+            socket.emit('error', inputError);
             return;
         }
 
         simulateGame(maxLoops).then((game) => {
-            ioAppSocket.emit('game-state', game.states[0]);
-            // TODO launch replay
+            let stateIndex = 0;
+
+            function emitState() {
+                socket.emit('game-state', {stateIndex, state: game.states[stateIndex]});
+            }
+            emitState();
+
+            socket.on('next-state', () => {
+                if (stateIndex < game.states.length - 1) {
+                    stateIndex++;
+                    emitState();
+                } else {
+                    socket.emit('replay-finished', true);
+                }
+            });
+            socket.on('previous-state', () => {
+                if (stateIndex > 0) {
+                    stateIndex--;
+                    emitState();
+                }
+            });
 
         }).catch((error) => {
-            ioAppSocket.emit('error', error);
+            socket.emit('error', error);
         });
     });
 

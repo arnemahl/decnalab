@@ -34,17 +34,17 @@ export default class DefaultMap {
         /*eslint-disable no-multi-spaces */
         north: [
             Vectors.add(this.startingPositions[north], Vectors.new(600,    0)),
-            Vectors.add(this.startingPositions[north], Vectors.new(600,   150)),
-            Vectors.add(this.startingPositions[north], Vectors.new(600,  -150)),
-            Vectors.add(this.startingPositions[north], Vectors.new(610,  300)),
-            Vectors.add(this.startingPositions[north], Vectors.new(610, -300))
+            Vectors.add(this.startingPositions[north], Vectors.new(620,   150)),
+            Vectors.add(this.startingPositions[north], Vectors.new(620,  -150)),
+            Vectors.add(this.startingPositions[north], Vectors.new(660,  300)),
+            Vectors.add(this.startingPositions[north], Vectors.new(660, -300))
         ],
         south: [
             Vectors.add(this.startingPositions[south], Vectors.new(-600,    0)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-600,   150)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-600,  -150)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-610,  300)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-610, -300))
+            Vectors.add(this.startingPositions[south], Vectors.new(-620,   150)),
+            Vectors.add(this.startingPositions[south], Vectors.new(-620,  -150)),
+            Vectors.add(this.startingPositions[south], Vectors.new(-660,  300)),
+            Vectors.add(this.startingPositions[south], Vectors.new(-660, -300))
         ]
         /*eslint-enable no-multi-spaces */
     }
