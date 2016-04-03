@@ -4,16 +4,23 @@ var stateIndex;
 var state;
 var error;
 
-var redraw = (function() {
+var rendering = false;
+var isLoading = true;
+var justFinishedLoading = false;
+
+var magicSpace = ' '; // Not pruned by SVG.js (U+2007: figure space -- https://en.wikipedia.org/wiki/Whitespace_character)
+
+var Renderer = (function() {
 
     if (!SVG.supported) {
         alert('Your browser does not support SVG');
         return;
     }
 
-    var paper = SVG('svg').size('100%', '100%');
+    var paper = SVG('game-map').size('100%', '100%');
+    var staticPaper = SVG('game-overlay').size('100%', '100%');
 
-    function drawInit() {
+    function drawLoadingScreen() {
 
         function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
           var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
@@ -43,7 +50,7 @@ var redraw = (function() {
         };
 
         function spinner(color, radius, rotation) {
-            return paper.path(describeArc(0, 0, radius, 0, 270))
+            return staticPaper.path(describeArc(0, 0, radius, 0, 270))
             .attr({
                 fill: 'none',
                 stroke: color,
@@ -58,7 +65,7 @@ var redraw = (function() {
         spinner('mediumvioletred', 50, 360);
         spinner('mediumseagreen', 70, -360);
 
-        paper.text('LOADING')
+        staticPaper.text('LOADING')
             .x(center.x)
             .y(center.y)
             .dy(150)
@@ -78,23 +85,18 @@ var redraw = (function() {
             y: wh / 2
         };
 
-        paper.text(error).center(center.x, center.y);
+        staticPaper.text(error).center(center.x, center.y);
     }
 
-    var drawState = (function() {
+    var drawGameState = (function() {
 
         var ensureNavigationListenersAreInitialized = (function() {
-            var initalized = false;
-
-            var wbx = 29000;
-            var wby = 8000;
-            var span = 4000;
-
             return function() {
-                if (initalized) {
-                    return;
-                }
-                initialized = true;
+                ensureNavigationListenersAreInitialized = function() {}
+
+                var wbx = 29000;
+                var wby = 8000;
+                var span = 4000;
 
                 paper.viewbox(wbx, wby, span, span);
 
@@ -144,7 +146,7 @@ var redraw = (function() {
                 .y(position.y)
                 .dy(-40)
                 .font({size: 40, anchor: 'middle'})
-                .fill('white');
+                .fill('snow');
         }
         function drawSquare(position, size, text, attr) {
             paper.rect(size, size)
@@ -156,8 +158,8 @@ var redraw = (function() {
                 .y(position.y)
                 .dy(-54)
                 .font({size: 54, anchor: 'middle'})
-                // .opacity(0.7)
-                .fill('white');
+                .opacity(0.9)
+                .fill('snow');
         }
 
         function drawMapBackground() {
@@ -190,6 +192,44 @@ var redraw = (function() {
             });
         }
 
+        function drawTeamResources() {
+            var resourceTypeAttrs = {
+                abundant: {fill: 'darkturquoise'},
+                sparse: {fill: 'hotpink'}
+            };
+
+            var text = staticPaper.text(function(add) {
+                add.tspan('Resources');
+
+                state.teams.forEach(function(team) {
+                    add.tspan('').newLine();
+                    add.tspan('Team '+team.id).fill(team.id).style('text-transform: capitalize').newLine();
+
+                    Object.keys(team.resources).forEach(function(resourceType) {
+                        var ammount = team.resources[resourceType];
+                        var textPadding = Array(15-(resourceType + ammount).length).fill(magicSpace).join('');
+                        add.tspan(resourceType + textPadding + ammount).attr(resourceTypeAttrs[resourceType]).newLine();
+                    });
+                });
+            });
+
+            text.x(20)
+                .y(14)
+                .font({size: 14});
+
+            var bbox = text.bbox();
+
+            staticPaper.rect(bbox.width, bbox.height)
+                .x(bbox.x)
+                .y(bbox.y)
+                .fill('snow')
+                .stroke('#222')
+                .stroke({width: 2, opacity: 0.85})
+                .scale(1.4, 1.25)
+                .opacity(0.85)
+                .back();
+        }
+
         return function() {
             ensureNavigationListenersAreInitialized();
             document.getElementById('state-index').textContent = 'State '+stateIndex+' | Tick '+state.tick;
@@ -197,33 +237,58 @@ var redraw = (function() {
             drawMapBackground();
             drawResourceSites();
             drawTeamsUnitsAndStructures();
+            drawTeamResources();
         }
     })();
 
-    return function () {
+    function _render () {
+        rendering = true;
+
         paper.clear();
+        staticPaper.clear();
+
 
         if (error) {
             drawError();
-            return;
-        }
-        if (state) {
-            drawState();
-            return;
+        } else if (state) {
+            drawGameState();
         } else {
-            drawInit();
-            return;
+            drawLoadingScreen();
         }
+        rendering = false;
     }
+
+    return {
+        render: function() {
+            if (justFinishedLoading) {
+                justFinishedLoading = false;
+                paper.opacity(0);
+
+                staticPaper.animate(250)
+                    .opacity(0)
+                    .after(function() {
+                        _render();
+                        staticPaper.animate(250).opacity(1);
+                        paper.animate(250).opacity(1).after(function() {
+                            Renderer.render = _render;
+                            window.onresize = _render;
+                        });
+                    });
+            } else {
+                _render();
+            }
+        }
+    };
+
 })();
 
 (function init() {
-    redraw();
-    window.onresize = redraw;
+    Renderer.render();
+    window.onresize = Renderer.render;
 })();
 
 
-var maxLoops = 500;
+var maxLoops = 10000;
 
 var socket = io();
 
@@ -232,18 +297,26 @@ socket.emit('simulate-game', maxLoops);
 socket.on('game-state', function(update) {
     stateIndex = update.stateIndex;
     state = update.state;
-    redraw();
+
+    if (isLoading) {
+        justFinishedLoading = true;
+        isLoading = false;
+    }
+
+    Renderer.render();
 });
 
 socket.on('error', function(newError) {
     error = newError;
-    redraw();
+    Renderer.render();
 });
 
 function previousState() {
+    if (rendering) return;
     socket.emit('previous-state');
 }
 function nextState() {
+    if (rendering) return;
     socket.emit('next-state');
 }
 
