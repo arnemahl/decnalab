@@ -45,39 +45,8 @@ var redraw = (function() {
     }
 
     var drawState = (function() {
-        var ww = window.innerWidth;
-        var wh = window.innerHeight;
 
-        function drawCircle(thing, specs, attr) {
-            paper.circle(specs.size)
-                .center(thing.position.x, thing.position.y)
-                .attr(attr);
-            paper.text(thing.type)
-                .center(thing.position.x, thing.position.y)
-                .attr({
-                    fill: 'white'
-                });
-        }
-        function drawSquare(thing, specs, attr) {
-            console.log('sqr thing:', thing); // DEBUG
-            console.log('thing.type:', thing.type); // DEBUG
-            paper.rect(specs.size, specs.size)
-                .center(thing.position.x, thing.position.y)
-                .attr(attr);
-            paper.text(thing.type)
-                .font({
-                    size: 54,
-                    // anchor:   'middle',
-                    // leading:  '1.5em'
-                })
-                .center(thing.position.x, thing.position.y)
-                .attr({
-                    fill: 'white',
-
-                });
-        }
-
-        var init = (function() {
+        var ensureNavigationListenersAreInitialized = (function() {
             var initalized = false;
 
             var wbx = 29000;
@@ -113,40 +82,72 @@ var redraw = (function() {
             }
         })();
 
-        return function() {
-            init();
+        function drawCircle(position, size, text, attr) {
+            paper.circle(size)
+                .center(position.x, position.y)
+                .attr(attr);
+            paper.text(text)
+                .x(position.x)
+                .y(position.y)
+                .dy(-40)
+                .font({size: 40, anchor: 'middle'})
+                .attr({
+                    fill: 'white'
+                });
+        }
+        function drawSquare(position, size, text, attr) {
+            paper.rect(size, size)
+                .center(position.x, position.y)
+                .attr(attr);
+            paper.text(text)
+                .x(position.x)
+                .y(position.y)
+                .dy(-54)
+                .font({size: 54, anchor: 'middle'})
+                .attr({
+                    fill: 'white',
 
+                });
+        }
+
+        function drawMapBackground() {
             paper.rect(state.map.width, state.map.height).attr({
                 fill: '#111'
             });
+        }
+
+        function drawResourceSites() {
+            var resourceTypeAttrs = {
+                abundant: {fill: 'darkturquoise'},
+                sparse: {fill: 'hotpink'}
+            };
 
             state.map.resourceSites.forEach(function(arr) {
-                console.log('arr:', arr); // DEBUG
                 arr.forEach(function(rs) {
-                    console.log('rs:', rs); // DEBUG
-                    if (rs.resourceType === 'abundant') {
-                        drawSquare(rs, {size: 800}, {fill: 'indigo'});
-                        return;
-                    }
-                    if (rs.resourceType === 'sparse') {
-                        drawSquare(rs, {size: 300}, {fill: 'lawngreen'});
-                        return;
-                    }
-                    // unknown
-                    drawSquare(rs, {radius: 1000}, {fill: 'black'});
+                    drawSquare(rs.position, rs.size, rs.resourceType + '\nresource site', resourceTypeAttrs[rs.resourceType]);
                 });
             });
+        }
 
+        function drawTeams() {
             state.teams.forEach(function(team) {
-                var attr = {fill: team.id}; // TODO make this sensible. Currently, teamId = 'blue'||'red'
+                var teamAttr = {fill: team.id}; // TODO make this sensible. Currently, teamId = 'blue'||'red'
 
                 team.units.forEach(function(unit) {
-                    drawCircle(unit, team.unitSpecs[unit.type], attr);
+                    drawCircle(unit.position, team.unitSpecs[unit.type].size, unit.type, teamAttr);
                 });
                 team.structures.forEach(function(structure) {
-                    drawSquare(structure, team.structureSpecs[structure.type], attr);
+                    drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type, teamAttr);
                 });
             });
+        }
+
+        return function() {
+            ensureNavigationListenersAreInitialized();
+
+            drawMapBackground();
+            drawResourceSites();
+            drawTeams();
         }
     })();
 

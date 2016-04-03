@@ -2,9 +2,7 @@ import http from 'http';
 import express from 'express';
 import socket_io from 'socket.io';
 
-import {simulateGame, runSimulations} from '~/Simulation';
-
-// runSimulations();
+import {simulateGame} from '~/Simulation';
 
 
 /**************************/
