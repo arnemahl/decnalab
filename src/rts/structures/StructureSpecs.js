@@ -8,7 +8,7 @@ class BaseStructure {
 
     cost = {
         abundant: 300,
-        spase: 0,
+        sparse: 0,
         time: 500
     }
 
@@ -25,7 +25,7 @@ class Barracks {
 
     cost = {
         abundant: 200,
-        spase: 0,
+        sparse: 0,
         time: 300
     }
 

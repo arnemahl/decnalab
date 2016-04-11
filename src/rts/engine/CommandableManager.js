@@ -48,10 +48,10 @@ export default class CommandableManager {
         this.teams[unit.team.id].units[unit.id] = unit;
     }
 
-    addStructure(team, structureSpec, position, isUnderContruction = false) {
+    addStructure(team, structureSpec, position, isUnderConstruction = false) {
         const structure = this.structureCreator.create(structureSpec, position);
         structure.team = team;
-        structure.isUnderContruction = isUnderContruction;
+        structure.isUnderConstruction = isUnderConstruction;
 
         this.structures[structure.id] = structure;
         this.teams[structure.team.id].structures[structure.id] = structure;
@@ -82,7 +82,7 @@ export default class CommandableManager {
         return this.addStructure(unit.team, structureType, position, true);
     }
     structureFinished(structure) {
-        structure.isUnderContruction = false;
+        structure.isUnderConstruction = false;
     }
     structureCancelled(structure) {
         this.removeStructure(structure);

@@ -179,21 +179,29 @@ export default class Engine {
 
     buildWithUnit = (worker, structureSpec, targetPosition) => {
         let structure; // initialized upon start
+        let didStart; // initialized upon start
 
         const calcFinishedTick = () => this.tick + structureSpec.cost.time;
         const onStart = () => {
-            const canBuild = worker.isAt(targetPosition);
+            const canBuild = worker.isAt(targetPosition)
+                && ['abundant', 'sparse'].every(resourceType => worker.team.resources[resourceType] - structureSpec.cost[resourceType] >= 0);
 
             if (canBuild) {
-                structure = this.commandableManager.structureStarted(worker, structureSpec.structureType, targetPosition);
+                structure = this.commandableManager.structureStarted(worker, structureSpec, targetPosition);
+                ['abundant', 'sparse'].forEach(resourceType => worker.team.resources[resourceType] -= structureSpec.cost[resourceType]); // eslint-disable-line no-return-assign
             }
+            didStart = canBuild;
+
             return canBuild;
         };
         const onFinish = () => {
             this.commandableManager.structureFinished(structure);
         };
         const onAbort = () => {
-            this.commandableManager.structureCancelled(structure);
+            if (didStart) {
+                this.commandableManager.structureCancelled(structure);
+                ['abundant', 'sparse'].forEach(resourceType => worker.team.resources[resourceType] += structureSpec.cost[resourceType]); // eslint-disable-line no-return-assign
+            }
         };
 
         this.addCommand(worker, calcFinishedTick, onStart, onFinish, onAbort);

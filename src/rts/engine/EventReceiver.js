@@ -66,16 +66,16 @@ export default class EventReceiver {
         this.engine.dropOffHarvestWithUnit(unit, baseStructure);
     }
 
-    buildWithUnit = (unit, structureClass, position) => {
+    buildWithUnit = (unit, structureSpec, position) => {
         this.eventStack.push({
             method: 'buildWithUnit',
             arguments: {
                 unitId: unit.id,
-                structureClass, // is structureClass a string??
+                structureName: structureSpec.constructor.name,
                 position
             }
         });
 
-        this.engine.buildWithUnit(unit, structureClass, position);
+        this.engine.buildWithUnit(unit, structureSpec, position);
     }
 }
