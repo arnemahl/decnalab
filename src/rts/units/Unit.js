@@ -27,6 +27,13 @@ export class UnitCommander {
     //     }
     //     // TODO implement
     // }
+
+    build = (structureSpec, position, waitForQueuedCommandsToComplete) => {
+        if (!waitForQueuedCommandsToComplete) {
+            this.eventReceiver.clearCommands(this.unit);
+        }
+        this.eventReceiver.buildWithUnit(this.unit, structureSpec, position);
+    }
 }
 
 

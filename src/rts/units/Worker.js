@@ -14,16 +14,16 @@ export class WorkerCommander extends UnitCommander {
         if (!waitForQueuedCommandsToComplete) {
             this.eventReceiver.clearCommands(this.unit);
         }
-        this.eventReceiver.moveUnit(this.unit, baseStructure.position); // FOR SOME REASON WORKERS END UP FAR FROM THE BASE
+        this.eventReceiver.moveUnit(this.unit, baseStructure.position);
         this.eventReceiver.dropOffHarvestWithUnit(this.unit, baseStructure);
     }
 
-    build = (structureClass, position, waitForQueuedCommandsToComplete) => {
+    build = (structureSpec, position, waitForQueuedCommandsToComplete) => {
         if (!waitForQueuedCommandsToComplete) {
             this.eventReceiver.clearCommands(this.unit);
         }
         this.eventReceiver.moveUnit(this.unit, position);
-        this.eventReceiver.buildWithUnit(this.unit, structureClass, position);
+        this.eventReceiver.buildWithUnit(this.unit, structureSpec, position);
     }
 }
 

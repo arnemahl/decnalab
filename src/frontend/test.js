@@ -182,9 +182,15 @@ var Renderer = (function() {
         function drawTeamsUnitsAndStructures() {
             state.teams.forEach(function(team) {
                 var teamAttr = {fill: team.id, stroke: '#222'}; // TODO make this sensible. Currently, teamId = 'blue'||'red'
+                var teamAttrUnderConstruction = {fill: team.id, stroke: '#222', opacity: 0.3};
 
                 team.structures.forEach(function(structure) {
-                    drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type, teamAttr);
+                    if (structure.isUnderConstruction) {
+                        console.log('structure is under construction', structure);
+                        drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type + '\n\[under construction\]', teamAttrUnderConstruction);
+                    } else {
+                        drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type, teamAttr);
+                    }
                 });
                 team.units.forEach(function(unit) {
                     drawCircle(unit.position, team.unitSpecs[unit.type].size, unit.type, teamAttr);
@@ -288,7 +294,7 @@ var Renderer = (function() {
 })();
 
 
-var maxLoops = 10000;
+var maxLoops = 100;
 
 var socket = io();
 

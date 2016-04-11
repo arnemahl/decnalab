@@ -8,7 +8,6 @@ export default class StructureCreator {
 
     create = (specs, position) => {
         const Structure = specs.class;
-
         const id = this.idGenerator.generateId();
 
         return new Structure(id, specs, position, this.eventReceiver);
