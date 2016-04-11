@@ -5,6 +5,8 @@ import DefaultMap from '~/rts/spatial/DefaultMap';
 import Team from '~/rts/team/Team';
 import TeamAI from '~/ai/TeamAI';
 
+// import * as FileWriter from '~/rts/FileWriter';
+
 export default class Game {
 
     states = []
@@ -25,8 +27,6 @@ export default class Game {
 
         this.engine = new Engine(this.map, this.teams);
         this.AIs = this.teams.map(team => new TeamAI(team, this.map));
-
-        this.states.push(this.getState());
     }
 
     isFinished(/*tick*/) {

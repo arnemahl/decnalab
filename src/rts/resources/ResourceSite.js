@@ -51,18 +51,22 @@ class ResourceSite {
     getState = () => {
         const {
             id,
+            position,
             resourceType,
             resourcesLeft,
             harvestDuration,
             harvestAmmount,
             maxHarvesters,
-            currentHarvesters
+            currentHarvesters,
+            size
         } = this;
 
         return {
             id,
-            position: {...this.position},
+            position: {...position},
+            size,
             resourceType,
+            type: resourceType + ' resource site',
             resourcesLeft,
             harvestDuration,
             harvestAmmount,
@@ -91,6 +95,7 @@ export class AbundantResourceSite extends ResourceSite {
     maxHarvesters = 15
     harvestDuration = 75
     harvestAmmount = 50
+    size = 800
 
     canBeHarvestedBy = worker => this._canBeHarvestedBy(worker);
 }
@@ -101,6 +106,7 @@ export class SparseResourceSite extends ResourceSite {
     maxHarvesters = 4
     harvestDuration = 100
     harvestAmmount = 10
+    size = 300
 
     canBeHarvestedBy = worker => this._canBeHarvestedBy(worker) && worker.xp > 100;
 }

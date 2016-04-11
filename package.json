@@ -18,6 +18,11 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-root-import": "^3.2.2",
     "eslint": "~2.2.0",
-    "fs": "0.0.2"
+    "fs": "0.0.2",
+    "http": "0.0.0"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "socket.io": "^1.4.5"
   }
 }

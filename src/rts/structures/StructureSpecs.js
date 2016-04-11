@@ -13,6 +13,7 @@ class BaseStructure {
     }
 
     size = 1000
+    radius = this.size / 2
     maxHealth = 1000
     armor = 2
 
@@ -29,6 +30,7 @@ class Barracks {
     }
 
     size = 800
+    radius = this.size / 2
     maxHealth = 800
     armor = 2
 }
