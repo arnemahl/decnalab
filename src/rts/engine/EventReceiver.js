@@ -78,4 +78,17 @@ export default class EventReceiver {
 
         this.engine.buildWithUnit(unit, structureSpec, position);
     }
+
+
+    produceUnitFromStructure = (structure, unitSpec) => {
+        this.eventStack.push({
+            method: 'produceUnitFromStructure',
+            arguments: {
+                structureId: structure.id,
+                unitName: unitSpec.constructor.name
+            }
+        });
+
+        this.engine.produceUnitFromStructure(structure, unitSpec);
+    }
 }

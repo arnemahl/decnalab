@@ -12,6 +12,8 @@ export default class Team {
 
     units = {}
     structures = {}
+    supply = 0
+    usedSupply = 0
 
     constructor(id, startingResources) {
         this.id = id;
@@ -41,7 +43,10 @@ export default class Team {
             unitSpecs: this.unitSpecs.clone(),
             structureSpecs: this.structureSpecs.clone(),
             units: mapToStates(this.units),
-            structures: mapToStates(this.structures)
+            structures: mapToStates(this.structures),
+            unitSpawnPosition: {...this.unitSpawnPosition},
+            supply: this.supply,
+            usedSupply: this.usedSupply
         };
     }
 

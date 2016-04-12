@@ -2,9 +2,6 @@ import Vectors from '~/rts/spatial/Vectors';
 import {AbundantResourceSite, SparseResourceSite} from '~/rts/resources/ResourceSite';
 import {getIdGenerator} from '~/rts/util/IdGenerator';
 
-const north = 'north';
-const south = 'south';
-
 export default class DefaultMap {
 
     nofTeams = {
@@ -33,18 +30,18 @@ export default class DefaultMap {
     startingWorkerPositions = {
         /*eslint-disable no-multi-spaces */
         north: [
-            Vectors.add(this.startingPositions[north], Vectors.new(600,    0)),
-            Vectors.add(this.startingPositions[north], Vectors.new(620,   150)),
-            Vectors.add(this.startingPositions[north], Vectors.new(620,  -150)),
-            Vectors.add(this.startingPositions[north], Vectors.new(660,  300)),
-            Vectors.add(this.startingPositions[north], Vectors.new(660, -300))
+            Vectors.add(this.startingPositions.north, Vectors.new(600,    0)),
+            Vectors.add(this.startingPositions.north, Vectors.new(620,   150)),
+            Vectors.add(this.startingPositions.north, Vectors.new(620,  -150)),
+            Vectors.add(this.startingPositions.north, Vectors.new(660,  300)),
+            Vectors.add(this.startingPositions.north, Vectors.new(660, -300))
         ],
         south: [
-            Vectors.add(this.startingPositions[south], Vectors.new(-600,    0)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-620,   150)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-620,  -150)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-660,  300)),
-            Vectors.add(this.startingPositions[south], Vectors.new(-660, -300))
+            Vectors.add(this.startingPositions.south, Vectors.new(-600,    0)),
+            Vectors.add(this.startingPositions.south, Vectors.new(-620,   150)),
+            Vectors.add(this.startingPositions.south, Vectors.new(-620,  -150)),
+            Vectors.add(this.startingPositions.south, Vectors.new(-660,  300)),
+            Vectors.add(this.startingPositions.south, Vectors.new(-660, -300))
         ]
         /*eslint-enable no-multi-spaces */
     }
@@ -54,37 +51,42 @@ export default class DefaultMap {
         sparse: 0
     }
 
+    unitSpawnPositions = [
+        Vectors.add(this.startingPositions.north, Vectors.new(0, 1500)),
+        Vectors.add(this.startingPositions.south, Vectors.new(0, -1500))
+    ]
+
     startingUnits = [
         [{
             unitType: 'Worker',
-            positions: this.startingWorkerPositions[north]
+            positions: this.startingWorkerPositions.north
         }],
         [{
             unitType: 'Worker',
-            positions: this.startingWorkerPositions[south]
+            positions: this.startingWorkerPositions.south
         }]
     ]
 
     startingStructures = [
         [{
             structureType: 'BaseStructure',
-            positions: [this.startingPositions[north]]
+            positions: [this.startingPositions.north]
         }],
         [{
             structureType: 'BaseStructure',
-            positions: [this.startingPositions[south]]
+            positions: [this.startingPositions.south]
         }]
     ]
 
     rsidGen = getIdGenerator('resourceSite');
     resourceSites = {
         abundant: [
-            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[north], Vectors.new(1500, 0))),
-            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[south], Vectors.new(-1500, 0)))
+            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions.north, Vectors.new(1500, 0))),
+            new AbundantResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions.south, Vectors.new(-1500, 0)))
         ],
         sparse: [
-            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[north], Vectors.new(1200, -1200))),
-            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions[south], Vectors.new(-1200, 1200)))
+            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions.north, Vectors.new(1200, -1200))),
+            new SparseResourceSite(this.rsidGen.generateId(), Vectors.add(this.startingPositions.south, Vectors.new(-1200, 1200)))
         ]
     }
 

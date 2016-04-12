@@ -186,7 +186,6 @@ var Renderer = (function() {
 
                 team.structures.forEach(function(structure) {
                     if (structure.isUnderConstruction) {
-                        console.log('structure is under construction', structure);
                         drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type + '\n\[under construction\]', teamAttrUnderConstruction);
                     } else {
                         drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type, teamAttr);
@@ -195,6 +194,7 @@ var Renderer = (function() {
                 team.units.forEach(function(unit) {
                     drawCircle(unit.position, team.unitSpecs[unit.type].size, unit.type, teamAttr);
                 });
+                drawCircle(team.unitSpawnPosition, 500, 'spawn location', {fill: '#333', stroke: team.id, 'stroke-width': 5});
             });
         }
 
@@ -294,7 +294,7 @@ var Renderer = (function() {
 })();
 
 
-var maxLoops = 100;
+var maxLoops = 1000;
 
 var socket = io();
 
