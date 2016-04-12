@@ -25,6 +25,10 @@ export default class Commandable {
         return !!this.currentCommand;
     }
 
+    isIdle = () => {
+        return !this.isBusy();
+    }
+
     addCommand = (command) => {
         if (this.isBusy()) {
             this.commandQueue.push(command);

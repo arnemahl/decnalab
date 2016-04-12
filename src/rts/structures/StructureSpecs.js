@@ -1,6 +1,8 @@
 import BaseStructureClass from '~/rts/structures/BaseStructure';
 import BarracksClass from '~/rts/structures/Barracks';
 
+import UnitSpecs from '~/rts/units/UnitSpecs';
+
 
 class BaseStructure {
     class = BaseStructureClass
@@ -17,6 +19,11 @@ class BaseStructure {
     maxHealth = 1000
     armor = 2
 
+    providesSupply = 10
+
+    produces = [
+        UnitSpecs.Worker
+    ]
 }
 
 class Barracks {
@@ -33,6 +40,10 @@ class Barracks {
     radius = this.size / 2
     maxHealth = 800
     armor = 2
+
+    produces = [
+        UnitSpecs.Worker
+    ]
 }
 
 export default class StructureSpecs {

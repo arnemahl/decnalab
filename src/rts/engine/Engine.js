@@ -206,4 +206,43 @@ export default class Engine {
 
         this.addCommand(worker, calcFinishedTick, onStart, onFinish, onAbort);
     }
+
+    /****************************/
+    /***  Structure commands  ***/
+    /****************************/
+
+
+    produceUnitFromStructure = (structure, unitSpec) => {
+        let didStart;
+
+        const calcFinishedTick = () => this.tick + unitSpec.cost.time;
+        const onStart = () => {
+            const canProduce = (
+                ['abundant', 'sparse'].every(resourceType => structure.team.resources[resourceType] - unitSpec.cost[resourceType] >= 0)
+                && structure.team.supply - structure.team.usedSupply - unitSpec.cost.supply >= 0
+                // && structure.specs.produces.indexOf(unitSpec) !== -1 // TODO ensure structure can produce that unit - cannot use class instance
+            );
+
+            if (canProduce) {
+                ['abundant', 'sparse'].forEach(resourceType => structure.team.resources[resourceType] -= unitSpec.cost[resourceType]); // eslint-disable-line no-return-assign
+                structure.team.usedSupply += unitSpec.cost.supply;
+            }
+            didStart = canProduce;
+
+            return canProduce;
+        };
+        const onFinish = () => {
+            this.commandableManager.structureProducedUnit(structure, unitSpec);
+        };
+        const onAbort = () => {
+            if (didStart) {
+                ['abundant', 'sparse'].forEach(resourceType => structure.team.resources[resourceType] += unitSpec.cost[resourceType]); // eslint-disable-line no-return-assign
+                structure.team.usedSupply -= unitSpec.cost.supply;
+            }
+        };
+
+        this.addCommand(structure, calcFinishedTick, onStart, onFinish, onAbort);
+    }
+
+
 }

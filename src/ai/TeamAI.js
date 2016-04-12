@@ -1,5 +1,6 @@
 import Vectors from '~/rts/spatial/Vectors';
 import {isWorker} from '~/rts/units/Worker';
+import {isBaseStructure} from '~/rts/structures/BaseStructure';
 
 const isIdle = unit => !unit.isBusy();
 
@@ -29,7 +30,27 @@ export default class TeamAI {
             getClosestResourceSite(this.map, worker, 'abundant')
         ));
 
+        this.produceWorkerIfPossible();
         this.buildBarracksIfPossible();
+    }
+
+    produceWorkerIfPossible() {
+        // Only let blue team produce
+        if (this.team.id !== 'blue') {
+            return;
+        }
+
+        const structures = Object.values(this.team.structures);
+        const anyBaseStructure = structures.find(isBaseStructure);
+        const {resources, unitSpecs} = this.team;
+        const canProduce = this.team.supply - this.team.usedSupply - unitSpecs.Worker.cost.supply >= 0
+            && ['abundant', 'sparse'].every(resourceType => resources[resourceType] - unitSpecs.Worker.cost[resourceType] >= 0);
+
+        if (canProduce && anyBaseStructure && anyBaseStructure.isIdle()) {
+            anyBaseStructure.getCommander().produceUnit(unitSpecs.Worker);
+            this.didProduce = true;
+            console.log('Producing new worker');
+        }
     }
 
     buildBarracksIfPossible() {
@@ -39,10 +60,10 @@ export default class TeamAI {
         }
 
         const units = Object.values(this.team.units);
+        const anyWorker = units.find(isWorker);
         const {resources, structureSpecs} = this.team;
         const canBuild = ['abundant', 'sparse'].every(
             resourceType => resources[resourceType] - structureSpecs.Barracks.cost[resourceType] >= 0);
-        const anyWorker = units.find(isWorker);
 
         if (canBuild && anyWorker) {
             const queueCommand = true;

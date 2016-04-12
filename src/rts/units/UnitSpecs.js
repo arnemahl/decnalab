@@ -5,6 +5,13 @@ class Worker {
     class = WorkerClass
     category = 'worker'
 
+    cost = {
+        abundant: 40,
+        sparse: 0,
+        supply: 1,
+        time: 200
+    }
+
     size = 100
     radius = this.size / 2
     speed = 9
@@ -21,6 +28,13 @@ class Worker {
 class Marine {
     class = MarineClass;
     category = 'military'
+
+    cost = {
+        abundant: 40,
+        sparse: 0,
+        supply: 1,
+        time: 180
+    }
 
     size = 80
     radius = this.size / 2

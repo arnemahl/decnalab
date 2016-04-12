@@ -37,15 +37,18 @@ export default class CommandableManager {
 
             addStartingUnits(team, map.startingUnits[index]);
             addStartingStructures(team, map.startingStructures[index]);
+            team.unitSpawnPosition = map.unitSpawnPositions[index];
         });
     }
 
-    addUnit(team, unitSpec, position) {
+    addUnit(team, unitSpec, position, skipSupplyUpdate = false) {
         const unit = this.unitCreator.create(unitSpec, position);
         unit.team = team;
 
         this.units[unit.id] = unit;
         this.teams[unit.team.id].units[unit.id] = unit;
+
+        team.usedSupply += skipSupplyUpdate ? 0 : unitSpec.cost.supply;
     }
 
     addStructure(team, structureSpec, position, isUnderConstruction = false) {
@@ -56,17 +59,23 @@ export default class CommandableManager {
         this.structures[structure.id] = structure;
         this.teams[structure.team.id].structures[structure.id] = structure;
 
+        team.supply += structureSpec.providesSupply || 0;
+
         return structure;
     }
 
     removeUnit(unit) {
         delete this.units[unit.id];
         delete this.teams[unit.team.id].units[unit.id];
+
+        unit.team.usedSupply -= unit.specs.cost.supply;
     }
 
     removeStructure(structure) {
         delete this.structures[structure.id];
         delete this.teams[structure.team.id].structures[structure.id];
+
+        structure.team.supply -= structure.specs.providesSupply || 0;
     }
 
     remove(commandable) {
@@ -74,8 +83,8 @@ export default class CommandableManager {
         this.removeStructure(commandable);
     }
 
-    structureProducedUnit(structure, unitSpec, position) {
-        this.addUnit(structure.team, unitSpec, position);
+    structureProducedUnit(structure, unitSpec) {
+        this.addUnit(structure.team, unitSpec, structure.team.unitSpawnPosition, true);
     }
 
     structureStarted(unit, structureType, position) {
