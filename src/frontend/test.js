@@ -10,6 +10,8 @@ var justFinishedLoading = false;
 
 var magicSpace = ' '; // Not pruned by SVG.js (U+2007: figure space -- https://en.wikipedia.org/wiki/Whitespace_character)
 
+var cssDisableTextSelection = 'user-select: none; -moz-user-select: none; -webkit-user-select: none; -ms-user-select: none;';
+
 var Renderer = (function() {
 
     if (!SVG.supported) {
@@ -90,6 +92,54 @@ var Renderer = (function() {
 
     var drawGameState = (function() {
 
+        var selectedUnits = []; // user selected units
+
+        function isSelected(unit) {
+            return selectedUnits.indexOf(unit) !== -1;
+        }
+
+        function getMapArea(screenArea) {
+            var viewbox = paper.viewbox();
+
+            // Magic to adjust for the fact that all of the viewbox will fit on the screen,
+            // and to perserve aspet ratio some padding may be added on one one of the dimensions
+            var xx = document.documentElement.clientWidth / viewbox.width;
+            var yy = document.documentElement.clientHeight / viewbox.height;
+
+            var offsetX = xx <= yy ? 0 : (xx - yy) * 0.5 * viewbox.width;
+            var offsetY = yy <= xx ? 0 : (yy - xx) * 0.5 * viewbox.height;
+
+            return {
+                x: viewbox.x + (screenArea.x - offsetX) / viewbox.zoom,
+                y: viewbox.y + (screenArea.y - offsetY) / viewbox.zoom,
+                width: screenArea.width / viewbox.zoom,
+                height: screenArea.height / viewbox.zoom
+            }
+        }
+
+        function contains(mapArea, position) {
+            return mapArea.x <= position.x && position.x <= mapArea.x + mapArea.width
+                && mapArea.y <= position.y && position.y <= mapArea.y + mapArea.height;
+        }
+
+        function getUnitsInScreenArea(area) {
+            var mapArea = getMapArea(area);
+
+            var selectedUnits = state.teams[0].units.filter(function(unit) {
+                return contains(mapArea, unit.position);
+            });
+
+            return selectedUnits;
+        }
+
+        function selectUnitsInArea(area) {
+            selectedUnits = getUnitsInScreenArea(area);
+
+            console.log('selectedUnits:', selectedUnits); // DEBUG
+
+            Renderer.render();
+        }
+
         var ensureNavigationListenersAreInitialized = (function() {
             return function() {
                 ensureNavigationListenersAreInitialized = function() {}
@@ -117,6 +167,60 @@ var Renderer = (function() {
                         wby += event.deltaY * span / 2000;
                     }
                     paper.viewbox(wbx, wby, span, span);
+                });
+
+                // Enable drag selection of units
+                document.addEventListener('mousedown', asdf = function(event) {
+                    var rectX = event.pageX;
+                    var rectY = event.pageY;
+
+                    var rect = staticPaper
+                        .rect(0, 0)
+                        .move(rectX, rectY)
+                        .fill({
+                            color: 'olivedrab',
+                            opacity: 0.3
+                        })
+                        .stroke({
+                            color: 'olivedrab',
+                            opacity: 0.8,
+                            width: 1
+                        });
+
+                    var getSelectionArea = function(event) {
+                        var x = Math.min(event.pageX, rectX);
+                        var width = Math.max(event.pageX, rectX) - x;
+
+                        var y = Math.min(event.pageY, rectY);
+                        var height = Math.max(event.pageY, rectY) - y;
+
+                        return {
+                            x: x,
+                            y: y,
+                            width: width,
+                            height: height
+                        };
+                    }
+
+                    var onMouseMove = (function() {
+                        return function(event) {
+                            rect.attr(getSelectionArea(event));
+                        }
+                    })();
+
+                    var onMouseUp = (function() {
+                        return function(event) {
+                            rect.remove();
+                            rect = void 0;
+                            document.removeEventListener('mousemove', onMouseMove);
+                            document.removeEventListener('mouseup', onMouseUp);
+
+                            selectUnitsInArea(getSelectionArea(event));
+                        }
+                    })();
+
+                    document.addEventListener('mousemove', onMouseMove);
+                    document.addEventListener('mouseup', onMouseUp);
                 });
 
                 // Show controls, add onclick listener to Left and Right buttons
@@ -182,6 +286,7 @@ var Renderer = (function() {
         function drawTeamsUnitsAndStructures() {
             state.teams.forEach(function(team) {
                 var teamAttr = {fill: team.id, stroke: '#222'}; // TODO make this sensible. Currently, teamId = 'blue'||'red'
+                var teamAttrSelected = {fill: 'coral'};
                 var teamAttrUnderConstruction = {fill: team.id, stroke: '#222', opacity: 0.3};
 
                 team.structures.forEach(function(structure) {
@@ -192,7 +297,11 @@ var Renderer = (function() {
                     }
                 });
                 team.units.forEach(function(unit) {
-                    drawCircle(unit.position, team.unitSpecs[unit.type].size, unit.type, teamAttr);
+                    if (isSelected(unit)) {
+                        drawCircle(unit.position, team.unitSpecs[unit.type].size, unit.type, teamAttrSelected);
+                    } else {
+                        drawCircle(unit.position, team.unitSpecs[unit.type].size, unit.type, teamAttr);
+                    }
                 });
                 drawCircle(team.unitSpawnPosition, 500, 'spawn location', {fill: '#333', stroke: team.id, 'stroke-width': 5});
             });
@@ -221,7 +330,8 @@ var Renderer = (function() {
 
             text.x(20)
                 .y(14)
-                .font({size: 14});
+                .font({size: 14})
+                .style(cssDisableTextSelection);
 
             var bbox = text.bbox();
 
