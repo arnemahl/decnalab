@@ -41,14 +41,14 @@ export default class CommandableManager {
         });
     }
 
-    addUnit(team, unitSpec, position, skipSupplyUpdate = false) {
+    addUnit(team, unitSpec, position, usedSupplyAlreadyUpdated = false) {
         const unit = this.unitCreator.create(unitSpec, position);
         unit.team = team;
 
         this.units[unit.id] = unit;
         this.teams[unit.team.id].units[unit.id] = unit;
 
-        team.usedSupply += skipSupplyUpdate ? 0 : unitSpec.cost.supply;
+        team.usedSupply += usedSupplyAlreadyUpdated ? 0 : unitSpec.cost.supply;
     }
 
     addStructure(team, structureSpec, position, isUnderConstruction = false) {

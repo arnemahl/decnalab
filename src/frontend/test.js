@@ -241,16 +241,18 @@ var Renderer = (function() {
         })();
 
         function drawCircle(position, size, text, attr) {
-            paper.circle(size)
+            var circle = paper.circle(size)
                 .center(position.x, position.y)
                 .opacity(0.7)
                 .attr(attr);
-            paper.text(text)
+            var text = paper.text(text)
                 .x(position.x)
                 .y(position.y)
                 .dy(-40)
                 .font({size: 40, anchor: 'middle'})
                 .fill('snow');
+
+            return paper.set().add(circle, text);
         }
         function drawSquare(position, size, text, attr) {
             paper.rect(size, size)
@@ -267,7 +269,7 @@ var Renderer = (function() {
         }
 
         function drawMapBackground() {
-            paper.rect(state.map.width, state.map.height).fill('#222');
+            paper.rect(state.map.width, state.map.height).fill('#222').back();
         }
 
         function drawResourceSites() {
@@ -303,7 +305,7 @@ var Renderer = (function() {
                         drawCircle(unit.position, team.unitSpecs[unit.type].size, unit.type, teamAttr);
                     }
                 });
-                drawCircle(team.unitSpawnPosition, 500, 'spawn location', {fill: '#333', stroke: team.id, 'stroke-width': 5});
+                drawCircle(team.unitSpawnPosition, 500, 'spawn location', {fill: '#333', stroke: team.id, 'stroke-width': 5}).back();
             });
         }
 
@@ -350,11 +352,10 @@ var Renderer = (function() {
             ensureNavigationListenersAreInitialized();
             document.getElementById('state-index').textContent = 'State '+stateIndex+' | Tick '+state.tick;
 
-            drawMapBackground();
             drawResourceSites();
             drawTeamsUnitsAndStructures();
             drawTeamResources();
-        }
+            drawMapBackground();        }
     })();
 
     function _render () {
