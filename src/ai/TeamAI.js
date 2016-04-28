@@ -31,6 +31,7 @@ export default class TeamAI {
 
         this.produceUnitsIfPossible();
         this.buildBarracksIfPossible();
+        this.buildSupplyDepotIfNecessary();
     }
 
     workerHandler = (worker) => {
@@ -39,21 +40,31 @@ export default class TeamAI {
         );
     }
 
+    buildSupplyDepotIfNecessary() {
+        if (this.team.supply - this.team.usedSupply < 3) {
+            this.buildStructureIfPossible(this.team.structureSpecs.SupplyDepot);
+        }
+    }
+
     buildBarracksIfPossible() {
+        this.buildStructureIfPossible(this.team.structureSpecs.Barracks);
+    }
+
+    buildStructureIfPossible(structureSpec) {
         const units = Object.values(this.team.units);
         const anyWorker = units.find(isWorker); // TODO get a worker which is harvesting (or idle)
-        const {resources, structureSpecs} = this.team;
+        const {resources} = this.team;
         const canBuild = ['abundant', 'sparse'].every(
-            resourceType => resources[resourceType] - structureSpecs.Barracks.cost[resourceType] >= 0);
+            resourceType => resources[resourceType] - structureSpec.cost[resourceType] >= 0);
         const structurePosition = this.getNextAvailableStructurePosition();
 
         if (canBuild && anyWorker && structurePosition) {
             const queueCommand = true;
 
-            anyWorker.getCommander().build(structureSpecs.Barracks, structurePosition, queueCommand);
+            anyWorker.getCommander().build(structureSpec, structurePosition, queueCommand);
 
             this.usedStructurePositions.push(structurePosition);
-            console.log(`${anyWorker.id} building new Barracks`);
+            console.log(`${anyWorker.id} building new ${structureSpec.constructor.name}`);
         }
     }
 

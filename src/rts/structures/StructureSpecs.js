@@ -1,5 +1,6 @@
 import BaseStructureClass from '~/rts/structures/BaseStructure';
 import BarracksClass from '~/rts/structures/Barracks';
+import SupplyDepotClass from '~/rts/structures/SupplyDepot';
 
 import UnitSpecs from '~/rts/units/UnitSpecs';
 
@@ -19,11 +20,31 @@ class BaseStructure {
     maxHealth = 1000
     armor = 2
 
-    providesSupply = 10
+    providesSupply = 12
 
     produces = [
         UnitSpecs.Worker
     ]
+}
+
+class SupplyDepot {
+    class = SupplyDepotClass
+    category = 'util'
+
+    cost = {
+        abundant: 100,
+        sparse: 0,
+        time: 200
+    }
+
+    size = 500
+    radius = this.size / 2
+    maxHealth = 300
+    armor = 2
+
+    providesSupply = 10
+
+    produces = []
 }
 
 class Barracks {
@@ -49,6 +70,7 @@ class Barracks {
 export default class StructureSpecs {
     constructor() {
         this.BaseStructure = new BaseStructure();
+        this.SupplyDepot = new SupplyDepot();
         this.Barracks = new Barracks();
     }
 
