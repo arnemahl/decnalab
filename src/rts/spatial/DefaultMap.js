@@ -31,20 +31,37 @@ export default class DefaultMap {
         /*eslint-disable no-multi-spaces */
         north: [
             Vectors.add(this.startingPositions.north, Vectors.new(600,    0)),
-            Vectors.add(this.startingPositions.north, Vectors.new(620,   150)),
-            Vectors.add(this.startingPositions.north, Vectors.new(620,  -150)),
+            Vectors.add(this.startingPositions.north, Vectors.new(620,  150)),
+            Vectors.add(this.startingPositions.north, Vectors.new(620, -150)),
             Vectors.add(this.startingPositions.north, Vectors.new(660,  300)),
             Vectors.add(this.startingPositions.north, Vectors.new(660, -300))
         ],
         south: [
             Vectors.add(this.startingPositions.south, Vectors.new(-600,    0)),
-            Vectors.add(this.startingPositions.south, Vectors.new(-620,   150)),
-            Vectors.add(this.startingPositions.south, Vectors.new(-620,  -150)),
+            Vectors.add(this.startingPositions.south, Vectors.new(-620,  150)),
+            Vectors.add(this.startingPositions.south, Vectors.new(-620, -150)),
             Vectors.add(this.startingPositions.south, Vectors.new(-660,  300)),
             Vectors.add(this.startingPositions.south, Vectors.new(-660, -300))
         ]
         /*eslint-enable no-multi-spaces */
     }
+
+    suggestedStructurePositions = (() => {
+        const getPositions = (startingPosition, addX, addY) => {
+            const positions = [];
+            let pos = Vectors.add(startingPosition, {x: 0, y: addY});
+
+            while (2000 < pos.x && pos.x < this.width - 2000) {
+                pos = Vectors.add(pos, {x: addX, y: 0});
+                positions.push(pos);
+            }
+            return positions;
+        };
+        return {
+            north: getPositions(this.startingPositions.north, -1000, 1500),
+            south: getPositions(this.startingPositions.south, 1000, -1500)
+        };
+    })()
 
     startingResources = {
         abundant: 50,

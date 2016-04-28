@@ -52,6 +52,14 @@ class Vectors {
             Math.pow(vector.y, 2)
         );
     }
+
+    equals(one, two) {
+        return one.x === two.x
+            && one.y === two.y;
+    }
+    notEquals(one, two) {
+        return !this.equals(one, two);
+    }
 }
 
 export default new Vectors();
