@@ -17,6 +17,8 @@ function getClosestResourceSite(map, worker, resourceType) {
 }
 
 export default class TeamAI {
+    usedStructurePositions = [];
+
     constructor(team, map) {
         this.team = team;
         this.map = map;
@@ -38,24 +40,28 @@ export default class TeamAI {
     }
 
     buildBarracksIfPossible() {
-        // Only build one, and only let blue team build
-        if (this.didBuild || this.team.id !== 'blue') {
-            return;
-        }
-
         const units = Object.values(this.team.units);
-        const anyWorker = units.find(isWorker);
+        const anyWorker = units.find(isWorker); // TODO get a worker which is harvesting (or idle)
         const {resources, structureSpecs} = this.team;
         const canBuild = ['abundant', 'sparse'].every(
             resourceType => resources[resourceType] - structureSpecs.Barracks.cost[resourceType] >= 0);
+        const structurePosition = this.getNextAvailableStructurePosition();
 
-        if (canBuild && anyWorker) {
+        if (canBuild && anyWorker && structurePosition) {
             const queueCommand = true;
 
-            anyWorker.getCommander().build(structureSpecs.Barracks, Vectors.new(29000, 11500), queueCommand);
-            this.didBuild = true;
-            console.log('building new Barracks');
+            anyWorker.getCommander().build(structureSpecs.Barracks, structurePosition, queueCommand);
+
+            this.usedStructurePositions.push(structurePosition);
+            console.log(`${anyWorker.id} building new Barracks`);
         }
+    }
+
+    getNextAvailableStructurePosition() {
+        const notUsed = position => this.usedStructurePositions.every(usedPosition => Vectors.notEquals(position, usedPosition));
+        const suggestedPositions = this.map.suggestedStructurePositions[ {blue: 'north', red: 'south'}[this.team.id] ];
+
+        return suggestedPositions.find(notUsed);
     }
 
     produceUnitsIfPossible() {
