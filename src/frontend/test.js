@@ -125,7 +125,9 @@ var Renderer = (function() {
         function getUnitsInScreenArea(area) {
             var mapArea = getMapArea(area);
 
-            var selectedUnits = state.teams[0].units.filter(function(unit) {
+            var allUnits = state.teams[0].units.concat(state.teams[1].units);
+
+            var selectedUnits = allUnits.filter(function(unit) {
                 return contains(mapArea, unit.position);
             });
 
@@ -312,7 +314,8 @@ var Renderer = (function() {
         function drawTeamResources() {
             var resourceTypeAttrs = {
                 abundant: {fill: 'darkturquoise'},
-                sparse: {fill: 'hotpink'}
+                sparse: {fill: 'hotpink'},
+                supply: {fill: 'slategray'}
             };
 
             var text = staticPaper.text(function(add) {
@@ -322,11 +325,18 @@ var Renderer = (function() {
                     add.tspan('').newLine();
                     add.tspan('Team '+team.id).fill(team.id).style('text-transform: capitalize').newLine();
 
+                    function foo(resourceType, amount) {
+                        var textPadding = Array(15-(resourceType + amount).length).fill(magicSpace).join('');
+                        add.tspan(resourceType + textPadding + amount).attr(resourceTypeAttrs[resourceType]).newLine();
+                    }
+
                     Object.keys(team.resources).forEach(function(resourceType) {
-                        var ammount = team.resources[resourceType];
-                        var textPadding = Array(15-(resourceType + ammount).length).fill(magicSpace).join('');
-                        add.tspan(resourceType + textPadding + ammount).attr(resourceTypeAttrs[resourceType]).newLine();
+                        var amount = team.resources[resourceType];
+                        foo(resourceType, amount);
                     });
+
+                    var supplyValues = '' + team.usedSupply + '/' + team.supply;
+                        foo('supply', supplyValues);
                 });
             });
 
