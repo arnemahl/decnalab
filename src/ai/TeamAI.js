@@ -76,11 +76,6 @@ export default class TeamAI {
     }
 
     produceUnitsIfPossible() {
-        // Only let blue team produce
-        if (this.team.id !== 'blue') {
-            return;
-        }
-
         const structures = Object.values(this.team.structures);
 
         // structures.filter(isBaseStructure).forEach(this.baseStructureHandler);
