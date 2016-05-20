@@ -1,9 +1,8 @@
 import Vectors from '~/rts/spatial/Vectors';
+import {isIdle, isHarvesting} from '~/rts/commandable/Commandable';
 import {isWorker} from '~/rts/units/Worker';
 import {isBaseStructure} from '~/rts/structures/BaseStructure';
 import {isBarracks} from '~/rts/structures/Barracks';
-
-const isIdle = commandable => commandable.isIdle();
 
 function getClosestResourceSite(map, worker, resourceType) {
     const distanceTo = resourceSite => Vectors.absoluteDistance(worker.position, resourceSite.position);
@@ -15,6 +14,7 @@ function getClosestResourceSite(map, worker, resourceType) {
         [0]
     );
 }
+
 
 export default class TeamAI {
     usedStructurePositions = [];
@@ -52,14 +52,14 @@ export default class TeamAI {
 
     buildStructureIfPossible(structureSpec) {
         const units = Object.values(this.team.units);
-        const anyWorker = units.find(isWorker); // TODO get a worker which is harvesting (or idle)
+        const anyWorker = units.filter(isWorker).find(unit => isIdle(unit) || isHarvesting(unit));
         const {resources} = this.team;
         const canBuild = ['abundant', 'sparse'].every(
             resourceType => resources[resourceType] - structureSpec.cost[resourceType] >= 0);
         const structurePosition = this.getNextAvailableStructurePosition();
 
         if (canBuild && anyWorker && structurePosition) {
-            const queueCommand = true;
+            const queueCommand = false;
 
             anyWorker.getCommander().build(structureSpec, structurePosition, queueCommand);
 
@@ -78,7 +78,7 @@ export default class TeamAI {
     produceUnitsIfPossible() {
         const structures = Object.values(this.team.structures);
 
-        // structures.filter(isBaseStructure).forEach(this.baseStructureHandler);
+        structures.filter(isBaseStructure).forEach(this.baseStructureHandler);
         structures.filter(isBarracks).forEach(this.barracksHandler);
     }
 

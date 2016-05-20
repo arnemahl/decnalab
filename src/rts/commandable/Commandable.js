@@ -52,3 +52,6 @@ export default class Commandable {
     }
 
 }
+
+export const isIdle = commandable => commandable.isIdle();
+export const isHarvesting = commandable => commandable.commandQueue.seeFirst(2).find(command => ['harvest', 'dropOffHarvest'].includes(command.type));

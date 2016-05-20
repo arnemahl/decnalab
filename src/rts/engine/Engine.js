@@ -34,7 +34,7 @@ export default class Engine {
         commandable.clearCommands();
     }
 
-    addCommand(commandable, calcFinishedTick, onStart, onFinish, onAbort) {
+    addCommand(commandType, commandable, calcFinishedTick, onStart, onFinish, onAbort) {
         const commandId = this.commandIdGenerator.generateId();
 
         let didStart = false;
@@ -85,7 +85,7 @@ export default class Engine {
             }
         };
 
-        commandable.addCommand(new Command(commandId, start, stop));
+        commandable.addCommand(new Command(commandId, commandType, start, stop));
     }
 
     /***********************/
@@ -118,7 +118,7 @@ export default class Engine {
         };
         const onAbort = doMove;
 
-        this.addCommand(unit, calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand('move', unit, calcFinishedTick, onStart, onFinish, onAbort);
     }
 
     attackWithUnit = (unit, target) => {
@@ -144,7 +144,7 @@ export default class Engine {
         };
         const onAbort = () => {};
 
-        this.addCommand(unit, calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand('attack', unit, calcFinishedTick, onStart, onFinish, onAbort);
     }
 
     harvestWithUnit = (worker, resourceSite) => {
@@ -171,7 +171,7 @@ export default class Engine {
             resourceSite.abortHarvesting();
         };
 
-        this.addCommand(worker, calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand('harvest', worker, calcFinishedTick, onStart, onFinish, onAbort);
     }
 
     dropOffHarvestWithUnit = (worker, baseStructure) => {
@@ -191,7 +191,7 @@ export default class Engine {
         };
         const onAbort = () => {};
 
-        this.addCommand(worker, calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand('dropOffHarvest', worker, calcFinishedTick, onStart, onFinish, onAbort);
     }
 
     buildWithUnit = (worker, structureSpec, targetPosition) => {
@@ -221,7 +221,7 @@ export default class Engine {
             }
         };
 
-        this.addCommand(worker, calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand('build', worker, calcFinishedTick, onStart, onFinish, onAbort);
     }
 
     /****************************/
@@ -258,7 +258,7 @@ export default class Engine {
             }
         };
 
-        this.addCommand(structure, calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand('produce', structure, calcFinishedTick, onStart, onFinish, onAbort);
     }
 
 
