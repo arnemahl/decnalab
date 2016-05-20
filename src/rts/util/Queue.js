@@ -29,4 +29,8 @@ export default class Queue {
 
         return item;
     }
+
+    seeFirst = (count) => {
+        return this.array.slice(this.nextIndex, this.nextIndex + count);
+    }
 }

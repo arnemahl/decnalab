@@ -1,7 +1,8 @@
 
 export default class Command {
-    constructor(id, onExecute, onAbort) {
+    constructor(id, type, onExecute, onAbort) {
         this.id = id;
+        this.type = type;
         this.onExecute = onExecute;
         this.onAbort = onAbort;
     }

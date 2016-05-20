@@ -21,8 +21,8 @@ export default class Game {
 
         const startingResources = this.map.startingResources;
         this.teams = [
-            new Team('blue', {...startingResources}),
-            new Team('red', {...startingResources})
+            new Team('blue', 0, {...startingResources}),
+            new Team('red', 1, {...startingResources})
         ];
 
         this.engine = new Engine(this.map, this.teams);

@@ -15,7 +15,8 @@ export default class Team {
     supply = 0
     usedSupply = 0
 
-    constructor(id, startingResources) {
+    constructor(id, index, startingResources) {
+        this.index = index;
         this.id = id;
         this.resources = startingResources;
 
