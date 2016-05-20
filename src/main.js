@@ -4,6 +4,20 @@ import socket_io from 'socket.io';
 
 import {simulateGame} from '~/Simulation';
 
+function test() {
+    const loops = 10;
+
+    simulateGame(loops)
+    .then(() => {
+        console.log(`Running ${loops} loops, OK`);
+    })
+    .catch((error) => {
+        console.log(`Running ${loops} loops FAILED`, error);
+        process.exit();
+    });
+}
+test();
+
 
 /**************************/
 /***  Socket.IO server  ***/
