@@ -1,10 +1,16 @@
+function ensureInteger(tick) {
+    if (!Number.isInteger(tick)) {
+        const error = `TickError: ${tick} is not an integer`;
+        throw error;
+    }
+}
 
 export default class TaskSchedule {
     tasks = []; // array of arrays of tasks -- works like a map with key = tick and value = tasks at tick
     lastTick = -1;
 
     addTask = (task, tick) => {
-        tick = Math.ceil(tick);
+        ensureInteger(tick);
 
         if (!this.tasks[tick]) {
             this.tasks[tick] = [];
@@ -14,6 +20,8 @@ export default class TaskSchedule {
     }
 
     removeTask = (taskToRemove, tick) => {
+        ensureInteger(tick);
+
         this.tasks[tick] = this.tasks[tick].filter(task => task !== taskToRemove);
 
         if (this.tasks[tick].length === 0) {
@@ -22,6 +30,8 @@ export default class TaskSchedule {
     }
 
     getTasks = (tick) => {
+        ensureInteger(tick);
+
         const next = this.tasks[tick];
 
         delete this.tasks[tick];
