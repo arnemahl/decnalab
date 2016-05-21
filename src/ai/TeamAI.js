@@ -3,6 +3,7 @@ import {isIdle, isHarvesting} from '~/rts/commandable/Commandable';
 import {isWorker} from '~/rts/units/Worker';
 import {isBaseStructure} from '~/rts/structures/BaseStructure';
 import {isBarracks} from '~/rts/structures/Barracks';
+import ReactiveControl from '~/ai/ReactiveControl';
 
 function getClosestResourceSite(map, worker, resourceType) {
     const distanceTo = resourceSite => Vectors.absoluteDistance(worker.position, resourceSite.position);
@@ -22,6 +23,7 @@ export default class TeamAI {
     constructor(team, map) {
         this.team = team;
         this.map = map;
+        this.reactiveControl = new ReactiveControl(team, map);
     }
 
     doTick = (/*tick*/) => {
@@ -32,6 +34,15 @@ export default class TeamAI {
         this.produceUnitsIfPossible();
         this.buildBarracksIfPossible();
         this.buildSupplyDepotIfNecessary();
+        this.attackIfReady(units);
+    }
+
+    attackIfReady(units) {
+        const armyUnits = units.filter(unit => !isWorker(unit));
+
+        if (armyUnits.length > 10) {
+            this.reactiveControl.attackWith(armyUnits);
+        }
     }
 
     workerHandler = (worker) => {
@@ -78,7 +89,7 @@ export default class TeamAI {
     produceUnitsIfPossible() {
         const structures = Object.values(this.team.structures);
 
-        structures.filter(isBaseStructure).forEach(this.baseStructureHandler);
+        // structures.filter(isBaseStructure).forEach(this.baseStructureHandler);
         structures.filter(isBarracks).forEach(this.barracksHandler);
     }
 
