@@ -37,7 +37,20 @@ export default class Engine {
     addCommand(commandable, calcFinishedTick, onStart, onFinish, onAbort) {
         const commandId = this.commandIdGenerator.generateId();
 
+        let didStart = false;
+        let isScheduled = false;
         let finishedTick; // calculated upon start
+
+        const safeCalcFinishedTick = () => {
+            const finishedTickFloat = calcFinishedTick(this.tick);
+
+            if (typeof finishedTickFloat !== 'number') {
+                const error = `Command ${commandType} did not provide finishedTick of type number`;
+                throw error;
+            }
+
+            return Math.ceil(finishedTickFloat);
+        };
 
         const finishAndContinue = () => {
             onFinish();
@@ -45,30 +58,31 @@ export default class Engine {
         };
 
         const start = () => {
-            const didStart = onStart();
+            didStart = onStart();
 
             if (!didStart) {
                 onAbort();
                 return;
             }
 
-            const finishedTick = calcFinishedTick(this.tick);
+            finishedTick = safeCalcFinishedTick();
 
             if (finishedTick === this.tick) {
                 finishAndContinue();
             } else {
+                isScheduled = true;
                 this.taskSchedule.addTask(finishAndContinue, finishedTick);
             }
         };
 
         const stop = () => {
-            onAbort();
-
-            if (typeof finishedTick === 'undefined') {
-                throw 'Cannot stop command before it is started.';
+            if (didStart) {
+                onAbort();
             }
 
-            this.taskSchedule.removeTask(finishAndContinue, finishedTick);
+            if (isScheduled) {
+                this.taskSchedule.removeTask(finishAndContinue, finishedTick);
+            }
         };
 
         commandable.addCommand(new Command(commandId, start, stop));
@@ -90,23 +104,26 @@ export default class Engine {
             unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.specs.speed);
             return true;
         };
-        const onFinish = () => {
+        const doMove = () => {
             const moved = Vectors.scale(unit.currentSpeed, this.tick - startTick);
             unit.position = Vectors.add(unit.position, moved);
+            unit.currentSpeed = Vectors.zero();
+        }
+        const onFinish = () => {
+            doMove();
 
             if (!unit.isAt(targetPosition)) {
                 console.error('ERROR in moveUnit, ended up:', Vectors.absoluteDistance(unit.position, targetPosition), 'from targetPosition');
             }
-            unit.currentSpeed = Vectors.zero();
         };
-        const onAbort = onFinish;
+        const onAbort = doMove;
 
         this.addCommand(unit, calcFinishedTick, onStart, onFinish, onAbort);
     }
 
     attackWithUnit = (unit, target) => {
         const calcFinishedTick = () => {
-            this.tick + unit.specs.weapon.cooldown;
+            return this.tick + unit.specs.weapon.cooldown;
         };
         const onStart = () => {
             if (unit.isOnCooldown) {
