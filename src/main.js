@@ -1,6 +1,7 @@
 import http from 'http';
 import express from 'express';
 import socket_io from 'socket.io';
+import rustTest from './rustTest';
 
 import {simulateGame} from '~/Simulation';
 
