@@ -1,38 +1,59 @@
-
-
 <!doctype html>
 <html>
     <head>
-        <title>Socket.IO chat</title>
+        <title>decnalab</title>
         <style>
-            * { margin: 0; padding: 0; box-sizing: border-box; }
-            body { font: 13px Helvetica, Arial; }
-            form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-            form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-            form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-            #messages { list-style-type: none; margin: 0; padding: 0; }
-            #messages li { padding: 5px 10px; }
-            #messages li:nth-child(odd) { background: #eee; }
+            body {
+                overflow:hidden;
+                margin: 0;
+                padding: 0;
+                background-color: coral;
+            }
+            #game-state {
+                position: fixed;
+                top: 83vh;
+                left: 50vw;
+            }
+            #game-controls {
+                position: fixed;
+                top: 90vh;
+                left: 50vw;
+            }
+            .adjust-position {
+                transform: translate(-50%, -50%);
+            }
+            #game-controls input {
+                font-size: 20px;
+                padding: 5px 10px;
+                outline: none;
+                border-width: thick;
+                border-color: snow;
+                background-color: whitesmoke;
+                color: #222;
+            }
+            #state-index {
+                font-size: 20px;
+                color: snow;
+                margin: 10px auto;
+            }
         </style>
     </head>
     <body>
-        <ul id="messages"></ul>
-        <form action="">
-            <input id="m" autocomplete="off" /><button>Send</button>
-        </form>
+        <div id="game-map" style="position: absolute; width: 100vw; height: 100vh"></div>
+        <div id="game-overlay" style="position: absolute; width: 100vw; height: 100vh"></div>
+
+        <div id="game-state">
+            <div class="adjust-position" id="state-index"></div>
+        </div>
+        <div id="game-controls" style="display: none">
+            <div class="adjust-position">
+                <input type="button" id="button-previous" value="&#9664;">
+                <input type="button" id="button-next" value="&#9654;">
+            </div>
+        </div>
 
         <script src="/socket.io/socket.io.js"></script>
-        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-        <script>
-            var socket = io();
-            $('form').submit(function() {
-                socket.emit('chat message', $('#m').val());
-                $('#m').val('');
-                return false;
-            });
-            socket.on('chat message', function(msg){
-                $('#messages').append($('<li>').text(msg));
-            });
-        </script>
+        <script src="static/svg.min.js"></script>
+        <script src="static/app.js"></script>
     </body>
 </html>

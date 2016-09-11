@@ -32,7 +32,7 @@ app.use('/lib', express.static(__dirname + '/../lib'));
 app.use('/static', express.static(__dirname + '/frontend'));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/frontend/App.html');
+    res.sendFile(__dirname + '/frontend/index.html');
 });
 
 ioAppSocket.on('connection', (socket) => {
