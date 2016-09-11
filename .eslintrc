@@ -6,7 +6,8 @@
     },
     "ecmaFeatures": {
         "classes": true,
-        "modules": true
+        "modules": true,
+        "experimentalObjectRestSpread": true
     },
     "env": {
         "node": true,
@@ -30,10 +31,11 @@
         "indent": [ 2, 4, { "SwitchCase": 1 } ],
         "key-spacing": 0,
         "max-len": [ 1, 180, 4, { "ignoreComments": true } ],
-        "newline-after-var": 1,
+        "newline-after-var": 0,
         "no-cond-assign": 1,
         "no-constant-condition": 1,
         "no-const-assign": 1,
+        "no-return-assign": 1,
         "no-debugger": 1,
         "no-dupe-args": 1,
         "no-dupe-keys": 1,
@@ -44,7 +46,7 @@
         "no-loop-func": 0,
         "no-mixed-requires": 1,
         "no-mixed-spaces-and-tabs": 1,
-        "no-multiple-empty-lines": [ 1, { "max": 1 } ],
+        "no-multiple-empty-lines": [ 1, { "max": 3 } ],
         "no-multi-spaces": [
             1,
             {
@@ -65,6 +67,7 @@
         "no-useless-call": 1,
         "no-use-before-define": 1,
         "no-var": 1,
+        "no-unused-vars": 1,
         "no-with": 2,
         "object-shorthand": 1,
         "operator-assignment": 2,

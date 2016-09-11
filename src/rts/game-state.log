@@ -1,0 +1,304 @@
+{
+    "id": 0,
+    "tick": 0,
+    "teams": [
+        {
+            "id": "blue",
+            "resources": {
+                "abundant": 50,
+                "sparse": 0
+            },
+            "unitSpecs": {
+                "Worker": {
+                    "category": "worker",
+                    "size": 50,
+                    "speed": 9,
+                    "maxHealth": 60,
+                    "armor": 0,
+                    "weapon": {
+                        "cooldown": 30,
+                        "damage": 5
+                    }
+                },
+                "Marine": {
+                    "category": "military",
+                    "size": 40,
+                    "speed": 10,
+                    "maxHealth": 50,
+                    "armor": 0,
+                    "weapon": {
+                        "cooldown": 20,
+                        "damage": 10
+                    }
+                }
+            },
+            "structureSpecs": {
+                "BaseStructure": {
+                    "category": "basic",
+                    "cost": {
+                        "abundant": 300,
+                        "spase": 0,
+                        "time": 500
+                    },
+                    "size": 1000,
+                    "maxHealth": 1000,
+                    "armor": 2
+                },
+                "Barracks": {
+                    "category": "military",
+                    "cost": {
+                        "abundant": 200,
+                        "spase": 0,
+                        "time": 300
+                    },
+                    "size": 800,
+                    "maxHealth": 800,
+                    "armor": 2
+                }
+            },
+            "units": [
+                {
+                    "id": "unit-0",
+                    "type": "Worker",
+                    "position": {
+                        "x": 30600,
+                        "y": 30000
+                    },
+                    "healthLeftFactor": 1,
+                    "carriedResources": {}
+                },
+                {
+                    "id": "unit-1",
+                    "type": "Worker",
+                    "position": {
+                        "x": 30600,
+                        "y": 30050
+                    },
+                    "healthLeftFactor": 1,
+                    "carriedResources": {}
+                },
+                {
+                    "id": "unit-2",
+                    "type": "Worker",
+                    "position": {
+                        "x": 30600,
+                        "y": 29950
+                    },
+                    "healthLeftFactor": 1,
+                    "carriedResources": {}
+                },
+                {
+                    "id": "unit-3",
+                    "type": "Worker",
+                    "position": {
+                        "x": 30610,
+                        "y": 30100
+                    },
+                    "healthLeftFactor": 1,
+                    "carriedResources": {}
+                },
+                {
+                    "id": "unit-4",
+                    "type": "Worker",
+                    "position": {
+                        "x": 30610,
+                        "y": 29900
+                    },
+                    "healthLeftFactor": 1,
+                    "carriedResources": {}
+                }
+            ],
+            "structures": [
+                {
+                    "id": "structure-0",
+                    "type": "BaseStructure",
+                    "position": {
+                        "x": 30000,
+                        "y": 30000
+                    },
+                    "healthLeftFactor": 1
+                }
+            ]
+        },
+        {
+            "id": "red",
+            "resources": {
+                "abundant": 50,
+                "sparse": 0
+            },
+            "unitSpecs": {
+                "Worker": {
+                    "category": "worker",
+                    "size": 50,
+                    "speed": 9,
+                    "maxHealth": 60,
+                    "armor": 0,
+                    "weapon": {
+                        "cooldown": 30,
+                        "damage": 5
+                    }
+                },
+                "Marine": {
+                    "category": "military",
+                    "size": 40,
+                    "speed": 10,
+                    "maxHealth": 50,
+                    "armor": 0,
+                    "weapon": {
+                        "cooldown": 20,
+                        "damage": 10
+                    }
+                }
+            },
+            "structureSpecs": {
+                "BaseStructure": {
+                    "category": "basic",
+                    "cost": {
+                        "abundant": 300,
+                        "spase": 0,
+                        "time": 500
+                    },
+                    "size": 1000,
+                    "maxHealth": 1000,
+                    "armor": 2
+                },
+                "Barracks": {
+                    "category": "military",
+                    "cost": {
+                        "abundant": 200,
+                        "spase": 0,
+                        "time": 300
+                    },
+                    "size": 800,
+                    "maxHealth": 800,
+                    "armor": 2
+                }
+            },
+            "units": [
+                {
+                    "id": "unit-5",
+                    "type": "Worker",
+                    "position": {
+                        "x": 9400,
+                        "y": 170000
+                    },
+                    "healthLeftFactor": 1,
+                    "carriedResources": {}
+                },
+                {
+                    "id": "unit-6",
+                    "type": "Worker",
+                    "position": {
+                        "x": 9400,
+                        "y": 170050
+                    },
+                    "healthLeftFactor": 1,
+                    "carriedResources": {}
+                },
+                {
+                    "id": "unit-7",
+                    "type": "Worker",
+                    "position": {
+                        "x": 9400,
+                        "y": 169950
+                    },
+                    "healthLeftFactor": 1,
+                    "carriedResources": {}
+                },
+                {
+                    "id": "unit-8",
+                    "type": "Worker",
+                    "position": {
+                        "x": 9390,
+                        "y": 170100
+                    },
+                    "healthLeftFactor": 1,
+                    "carriedResources": {}
+                },
+                {
+                    "id": "unit-9",
+                    "type": "Worker",
+                    "position": {
+                        "x": 9390,
+                        "y": 169900
+                    },
+                    "healthLeftFactor": 1,
+                    "carriedResources": {}
+                }
+            ],
+            "structures": [
+                {
+                    "id": "structure-1",
+                    "type": "BaseStructure",
+                    "position": {
+                        "x": 10000,
+                        "y": 170000
+                    },
+                    "healthLeftFactor": 1
+                }
+            ]
+        }
+    ],
+    "map": {
+        "width": 40000,
+        "height": 200000,
+        "resourceSites": [
+            [
+                {
+                    "id": "resourceSite-0",
+                    "position": {
+                        "x": 31000,
+                        "y": 30000
+                    },
+                    "resourceType": "abundant",
+                    "resourcesLeft": 20000,
+                    "harvestDuration": 75,
+                    "harvestAmmount": 50,
+                    "maxHarvesters": 15,
+                    "currentHarvesters": 0
+                },
+                {
+                    "id": "resourceSite-1",
+                    "position": {
+                        "x": 9000,
+                        "y": 170000
+                    },
+                    "resourceType": "abundant",
+                    "resourcesLeft": 20000,
+                    "harvestDuration": 75,
+                    "harvestAmmount": 50,
+                    "maxHarvesters": 15,
+                    "currentHarvesters": 0
+                }
+            ],
+            [
+                {
+                    "id": "resourceSite-2",
+                    "position": {
+                        "x": 31000,
+                        "y": 30000
+                    },
+                    "resourceType": "sparse",
+                    "resourcesLeft": 6000,
+                    "harvestDuration": 100,
+                    "harvestAmmount": 10,
+                    "maxHarvesters": 4,
+                    "currentHarvesters": 0
+                },
+                {
+                    "id": "resourceSite-3",
+                    "position": {
+                        "x": 9000,
+                        "y": 170000
+                    },
+                    "resourceType": "sparse",
+                    "resourcesLeft": 6000,
+                    "harvestDuration": 100,
+                    "harvestAmmount": 10,
+                    "maxHarvesters": 4,
+                    "currentHarvesters": 0
+                }
+            ]
+        ]
+    }
+}

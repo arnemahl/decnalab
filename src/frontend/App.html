@@ -1,0 +1,65 @@
+
+<!doctype html>
+<html>
+    <head>
+        <title>decnalab</title>
+        <style>
+            body {
+                overflow:hidden;
+                margin: 0;
+                padding: 0;
+                background-color: coral;
+            }
+            #game-state {
+                position: fixed;
+                top: 83vh;
+                left: 50vw;
+            }
+            #game-controls {
+                position: fixed;
+                top: 90vh;
+                left: 50vw;
+            }
+            .adjust-position {
+                transform: translate(-50%, -50%);
+            }
+            #game-controls input {
+                font-size: 20px;
+                padding: 5px 10px;
+                outline: none;
+                border-width: thick;
+                border-color: snow;
+                background-color: whitesmoke;
+                color: #222;
+            }
+            #state-index {
+                font-size: 20px;
+                color: snow;
+                margin: 10px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <ul id="messages"></ul>
+        <form action="">
+            <input id="m" autocomplete="on" /><button>Send</button>
+        </form> -->
+        <div id="game-map" style="position: absolute; width: 100vw; height: 100vh"></div>
+        <div id="game-overlay" style="position: absolute; width: 100vw; height: 100vh"></div>
+
+
+        <div id="game-state">
+            <div class="adjust-position" id="state-index"></div>
+        </div>
+        <div id="game-controls" style="display: none">
+            <div class="adjust-position">
+                <input type="button" id="button-previous" value="&#9664;">
+                <input type="button" id="button-next" value="&#9654;">
+            </div>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="lib/svg.min.js"></script>
+        <script src="static/test.js"></script>
+    </body>
+</html>
