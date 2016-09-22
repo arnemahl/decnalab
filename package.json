@@ -4,8 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "watch-rust": "(cd rust && cargo watch)",
     "build-rust": "(cd rust && cargo build --release)",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "launch" : "npm run build-rust && npm run start",
     "eslint": "eslint src/",
     "watch": "watch -n 15 --color 'eslint src/' --color"
   },
