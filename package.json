@@ -4,7 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-rust": "(cd rust && cargo watch)",
+    "build-rust": "(cd rust && cargo build --release)",
+    "launch" : "npm run build-rust && npm run start",
     "eslint": "eslint src/",
     "watch": "watch -n 15 --color 'eslint src/' --color"
   },
@@ -23,6 +25,7 @@
   },
   "dependencies": {
     "express": "^4.13.4",
+    "ffi": "~2.1.0",
     "socket.io": "^1.4.5"
   }
 }

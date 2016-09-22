@@ -1,0 +1,11 @@
+[package]
+name = "decnalab"
+version = "0.0.1"
+authors = ["Arne Mæhlum <arne.mahlum@gmail.com>"]
+
+[lib]
+name = "decnalab"
+crate-type = ["dylib"]
+
+[dependencies]
+rustc-serialize = "0.3.19"

@@ -1,3 +1,9 @@
+# JS/npm/Node
 node_modules/
 dist/
 npm-debug.log
+
+# Rust
+target
+Cargo.lock
+build
