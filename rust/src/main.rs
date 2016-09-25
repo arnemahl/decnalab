@@ -4,11 +4,11 @@ use rts::spatial::vector::Vector;
 
 fn main() {
     // create
-    let vector = Vector{ x: 10, y: 13 };
+    let vector = Vector{ x: 10.0, y: 13.0 };
     println!("This is a vector: {:?}", vector);
 
     // new()
-    let another_vector = Vector::new(1, 4);
+    let another_vector = Vector::new(1.0, 4.0);
     println!("This is anoter vector: {:?}", another_vector);
 
     // clone()
@@ -24,7 +24,7 @@ fn main() {
     println!("This is the difference between two vectors: {:?}", vector.subtract(&another_vector));
 
     // scale()
-    println!("This is the first vector multiplied by 2: {:?}", vector.scale(2));
+    println!("This is the first vector multiplied by 2: {:?}", vector.scale(2.0));
 
     // length()
     println!("This is the (absolute) length of a vector: {:?}", vector.length());
