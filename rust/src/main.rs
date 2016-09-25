@@ -26,8 +26,8 @@ fn main() {
     // scale()
     println!("This is the first vector multiplied by 2: {:?}", vector.scale(2));
 
-    // absolute_length()
-    println!("This is the absolute length of a vector: {:?}", vector.absolute_length());
+    // length()
+    println!("This is the (absolute) length of a vector: {:?}", vector.length());
 
     // to_unit_vector()
     println!("This is the unit vector of vector: {:?}", vector.to_unit_vector());
@@ -38,11 +38,11 @@ fn main() {
     // direction()
     println!("This is the direction between two points (vectors): {:?}", vector.direction(&another_vector));
 
-    // is_equal_to()
-    println!("Is {:?} equal to {:?} ? {}", vector, another_vector, if vector.is_equal_to(&another_vector) { "Yes :)" } else { "No :(" });
-    println!("Is {:?} equal to {:?} ? {}", vector, vector.clone(), if vector.is_equal_to(&vector.clone()) { "Yes :)" } else { "No :(" });
+    // equals()
+    println!("Is {:?} equal to {:?} ? {}", vector, another_vector, if vector.equals(&another_vector) { "Yes :)" } else { "No :(" });
+    println!("Is {:?} equal to {:?} ? {}", vector, vector.clone(), if vector.equals(&vector.clone()) { "Yes :)" } else { "No :(" });
 
-    // is_equal_to()
-    println!("Is {:?} different than {:?} ? {}", vector, another_vector, if vector.is_not_equal_to(&another_vector) { "Yes :)" } else { "No :(" });
-    println!("Is {:?} different than {:?} ? {}", vector, vector.clone(), if vector.is_not_equal_to(&vector.clone()) { "Yes :)" } else { "No :(" });
+    // not_equals()
+    println!("Is {:?} different than {:?} ? {}", vector, another_vector, if vector.not_equals(&another_vector) { "Yes :)" } else { "No :(" });
+    println!("Is {:?} different than {:?} ? {}", vector, vector.clone(), if vector.not_equals(&vector.clone()) { "Yes :)" } else { "No :(" });
 }

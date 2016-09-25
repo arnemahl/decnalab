@@ -16,6 +16,15 @@ impl Vector {
     pub fn zero() -> Vector {
         Vector::new(0, 0)
     }
+
+    pub fn equals(&self, other: &Vector) -> bool {
+           self.x == other.x
+        && self.y == other.y
+    }
+    pub fn not_equals(&self, other: &Vector) -> bool {
+        !self.equals(other)
+    }
+
     pub fn add(&self, other: &Vector) -> Vector {
         Vector {
             x: self.x + other.x,
@@ -35,7 +44,7 @@ impl Vector {
         }
     }
 
-    pub fn absolute_length(&self) -> i32 {
+    pub fn length(&self) -> i32 {
         ((
             (self.x).pow(2) +
             (self.y).pow(2)
@@ -43,7 +52,7 @@ impl Vector {
     }
 
     pub fn to_unit_vector(&self) -> Vector {
-        let length = self.absolute_length();
+        let length = self.length();
 
         self.clone().scale(1 / length)
     }
@@ -60,12 +69,99 @@ impl Vector {
     pub fn direction(&self, other: &Vector) -> Vector {
         other.subtract(&self).to_unit_vector()
     }
+}
 
-    pub fn is_equal_to(&self, other: &Vector) -> bool {
-           self.x == other.x
-        && self.y == other.y
+#[cfg(test)]
+mod vector_tests {
+    use super::Vector;
+
+    #[test]
+    fn test_create() {
+        let vector = Vector{ x: 10, y: 13 };
+
+        assert_eq!(vector.x, 10);
+        assert_eq!(vector.y, 13);
     }
-    pub fn is_not_equal_to(&self, other: &Vector) -> bool {
-        !self.is_equal_to(other)
+
+    #[test]
+    fn test_new() {
+        let vector = Vector::new(10, 13);
+
+        assert_eq!(vector.x, 10);
+        assert_eq!(vector.y, 13);
     }
+
+    #[test]
+    fn test_zero() {
+        let vector = Vector::zero();
+
+        assert_eq!(vector.x, 0);
+        assert_eq!(vector.y, 0);
+    }
+
+    #[test]
+    fn test_equals() {
+        let a = Vector::new(11, 13);
+        let b = Vector::new(11, 13);
+
+        assert!(a.equals(&b));
+    }
+
+    #[test]
+    fn test_clone() {
+        let vector = Vector::new(11, 13);
+        let clone = vector.clone();
+
+        assert!(vector.equals(&clone));
+    }
+
+    #[test]
+    fn test_add() {
+        let result = Vector::new(10, 15).add(&Vector::new(2, -3));
+        let ans = Vector::new(12, 12);
+
+        assert!(result.equals(&ans));
+    }
+
+    #[test]
+    fn test_subtract() {
+        let result = Vector::new(10, 15).subtract(&Vector::new(2, -3));
+        let ans = Vector::new(8, 18);
+
+        assert!(result.equals(&ans));
+    }
+
+    #[test]
+    fn test_scale() {
+        let result = Vector::new(5, 8).scale(2);
+        let ans = Vector::new(10, 16);
+
+        assert!(result.equals(&ans));
+    }
+
+    #[test]
+    fn test_length() {
+        let length = Vector::new(3, 4).length();
+
+        assert_eq!(length, 5);
+    }
+
+    #[test]
+    fn test_distance() {
+        let distance = Vector::new(5, 5).absolute_distance(&Vector::new(8, 1));
+
+        assert_eq!(distance, 5);
+    }
+
+    // #[test]
+    // fn test_to_unit_vector() {
+    //     Vector.new(5, 5).to_unit_vector();
+    // }
+
+    // #[test]
+    // fn test_direction_simple() {
+    //     let one_y = Vector::new(0, 1);
+    //     let simple_direction = Vector::zero().direction(&one_y);
+    //     assert!(simple_direction.equals(&one_y));
+    // }
 }
