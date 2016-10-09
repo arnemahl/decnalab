@@ -6,9 +6,13 @@ pub struct Vector {
     pub y: f64,
 }
 
+#[allow(dead_code)]
 impl Vector {
     pub fn new(x: f64, y: f64) -> Vector {
         Vector{x: x, y: y}
+    }
+    pub fn new_int(x: i32, y: i32) -> Vector {
+        Vector{x: x as f64, y: y as f64}
     }
     pub fn clone(&self) -> Vector {
         Vector::new(self.x, self.y)
