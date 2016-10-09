@@ -5,7 +5,7 @@ authors = ["Arne Mæhlum <arne.mahlum@gmail.com>"]
 
 [lib]
 name = "decnalab"
-crate-type = ["dylib"]
+crate-type = ["dylib", "rlib"]
 
 [dependencies]
 rustc-serialize = "0.3.19"

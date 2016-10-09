@@ -2,6 +2,7 @@ extern crate rustc_serialize;
 use rustc_serialize::json;
 use std::os::raw::c_char;
 
+pub mod rts;
 mod string_converter;
 
 // Automatically generate `RustcDecodable` and `RustcEncodable` trait implementations
