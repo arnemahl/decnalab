@@ -108,7 +108,7 @@ export default class Engine {
             const moved = Vectors.scale(unit.currentSpeed, this.tick - startTick);
             unit.position = Vectors.add(unit.position, moved);
             unit.currentSpeed = Vectors.zero();
-        }
+        };
         const onFinish = () => {
             doMove();
 

@@ -1,7 +1,6 @@
 import Vectors from '~/rts/spatial/Vectors';
 import {isIdle, isHarvesting} from '~/rts/commandable/Commandable';
 import {isWorker} from '~/rts/units/Worker';
-import {isBaseStructure} from '~/rts/structures/BaseStructure';
 import {isBarracks} from '~/rts/structures/Barracks';
 import ReactiveControl from '~/ai/ReactiveControl';
 
