@@ -1,7 +1,3 @@
 import {createStore} from 'redux';
 
-const store = createStore([
-    gameState
-]);
-
-export default store;
+export const createNewStore = () => createStore([ gameState ]);

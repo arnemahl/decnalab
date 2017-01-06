@@ -1,35 +1,35 @@
 
-const unitReducer = (state, action) => {
-    switch (action.type) {
-        case CREATE_UNIT:
+const unitReducer = (state, event) => {
+    switch (event.type) {
+        case 'CREATE':
             return {
-                specId: action.specId,
-                position: action.position,
-                moveTarget: action.moveTarget
+                specId: event.specId,
+                position: event.position,
+                // TODO should set receive a target position to move to (as Command?)
             };
-        case MOVE_UNIT:
+        case 'MOVE':
             return {
                 ...state,
-                position: Vectors.add(state.position + action.vector)
+                position: Vectors.add(state.position + event.vector)
             };
-        case DAMAGE_UNIT:
+        case 'DAMAGE':
             return {
                 ...state,
-                healthLeftPercentage: state.healthLeftPercentage - Math.min(0, state.damage - getUnitSpecs(state.specId).armor)
+                healthLeftPercentage: state.healthLeftPercentage - (event.damage - getUnitSpecs(state.specId).armor)
             };
         default:
             return state;
     }
 };
 
-const unitList = (state, action) => {
-    // action.target: Idea to easily know which reducers may be affected.
+const unitList = (state, event) => {
+    // event.target: Idea to easily know which reducers may be affected.
     // A bit of an antipattern in some ways, but still worth considering
-    switch (action.target) {
+    switch (event.target) {
         case UNIT:
             return {
                 ...state,
-                [action.unitId]: unitReducer(state[action.unitId])
+                [event.targetId]: unitReducer(state[event.targetId])
             };
         default:
             return state;
