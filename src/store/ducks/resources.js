@@ -6,12 +6,14 @@ const initialState = {
     map: {
         resourceSites: {
             east: {
-                location: { x: 5000, y: 8000 }, // TODO size?
+                location: { x: 5000, y: 8000 },
+                size: 200,
                 abundant: 8000,
                 sparse: 4000,
             },
             west: {
                 location: { x: 45000, y: 8000 },
+                size: 200,
                 abundant: 8000,
                 sparse: 4000,
             },

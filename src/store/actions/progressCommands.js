@@ -1,5 +1,8 @@
 import Vectors from '~/rts/spatial/Vectors';
 
+import {UNIT_CREATED} from '~/store/ducks/units';
+import {SPECS_UPDATED} from '~/store/ducks/specs';
+
 import {getTarget} from './util/action-util';
 import {applyCommandEffects} from '~/store/actions/applyCommandEffects';
 import {UPDATE_EVENT_ADDED} from '~/store/ducks/updateEvents';
@@ -15,18 +18,31 @@ const addUpdateEvent = (update) => {
 
 const createUpdateForStructureCommand = (structure, command) => {
     return (dispatch, getState) => {
-        const elapsed = getState().tick.elapsed; // time since last time this action-creator was dispatched
+        const {currentTick} = getState().tick;
+        const {finishedAtTick} = command;
 
-        switch (command.type) {
-            // STRUCTURES
-            case 'PRODUCE_UNIT': {
-                // TODO
-                break;
+        if (command.finishedAtTick > currentTick) {
+            // progress command?
+        } else {
+            switch (command.type) {
+                // STRUCTURES
+                case 'PRODUCE_UNIT': {
+                    dispatch({
+                        type: UNIT_CREATED,
+                        unitId: generateId(),
+                        teamId: structure.teamId,
+                        specId: command.unitType,
+                        position: structure.position,
+                        // commands: [ go to rallypoint ],
+                    });
+                    break;
+                }
+                case 'PRDUCE_UPGRADE': {
+                    dispatch(command.onFinish(structure.teamId));
+                    break;
+                }
             }
-            case 'PRDUCE_UPGRADE': {
-                // TODO
-                break;
-            }
+            dispatch({ type: STRUCTURE_COMMAND_COMPLETED });
         }
     }
 }

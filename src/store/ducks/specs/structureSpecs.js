@@ -91,6 +91,8 @@ export const structureSpecs = (state, event) => {
                 ...state,
                 [event.structureType]: structureSpec(state[event.structureType], event),
             };
+        default:
+            return state;
     }
 };
 

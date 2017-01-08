@@ -118,5 +118,7 @@ export const unitSpecs = (state, event) => {
                 ...state,
                 [event.unitType]: unitSpec(state[event.unitType], event),
             };
+        default:
+            return state;
     }
 };
