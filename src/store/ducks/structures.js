@@ -12,6 +12,7 @@ const structureReducer = (globalState, state, event) => {
     switch (event.type) {
         case STRUCTURE_CREATED:
             return {
+                id: event.structureId,
                 teamId: event.teamId,
                 specId: event.specId,
                 position: event.position,
@@ -55,7 +56,7 @@ export const structures = (globalState, state = {}, event) => {
         case STRUCTURE_COMMANDS_CLEARED:
             return {
                 ...state,
-                [event.targetId]: structureReducer(globalState, state[event.targetId])
+                [event.targetId]: structureReducer(globalState, state[event.targetId], event),
             };
         case STRUCTURE_DESTROYED: {
             const { [event.targetId]: killed, ...remainingStructures } = state; // eslint-disable-line no-unused-vars

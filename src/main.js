@@ -7,14 +7,14 @@ import {simulateGame} from '~/Simul2';
 function test() {
     const loops = 10;
 
-    simulateGame(loops)
-    .then(() => {
-        console.log(`Running ${loops} loops, OK`);
-    })
-    .catch((error) => {
-        console.log(`Running ${loops} loops FAILED`, error);
-        process.exit();
-    });
+    simulateGame(loops);
+    // .then(() => {
+    //     console.log(`Running ${loops} loops, OK`);
+    // })
+    // .catch((error) => {
+    //     console.log(`Running ${loops} loops FAILED`, error);
+    //     process.exit();
+    // });
 }
 test();
 

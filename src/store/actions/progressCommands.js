@@ -2,7 +2,9 @@ import Vectors from '~/rts/spatial/Vectors';
 
 import {getTarget} from './util/action-util';
 import {applyCommandEffects} from '~/store/actions/applyCommandEffects';
-import {UPDATE_EVENT_ADDED} from '~/store/ducks/queuedUpdates';
+import {UPDATE_EVENT_ADDED} from '~/store/ducks/updateEvents';
+
+const values = object => Object.keys(object).map(key => object[key]);
 
 const addUpdateEvent = (update) => {
     return {
@@ -94,7 +96,7 @@ const progressStructureCommands = () => {
     return (dispatch, getState) => {
         const {structures, currentTick} = getState();
 
-        structures.forEach(structure => {
+        values(structures).forEach(structure => {
             const command = structure.commands[0];
 
             if (command) {
@@ -108,7 +110,7 @@ const progressUnitCommands = () => {
     return (dispatch, getState) => {
         const {units, structures, currentTick} = getState();
 
-        units.forEach(unit => {
+        values(units).forEach(unit => {
             const command = unit.commands[0];
 
             if (command) {

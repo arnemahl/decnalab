@@ -8,7 +8,7 @@ export const addUpdateEvent = (update) => {
     };
 }
 
-export function queuedUpdates(state = [], event) {
+export function updateEvents(state = [], event) {
     switch (event.type) {
         case UPDATE_EVENT_ADDED:
             return [
@@ -17,5 +17,7 @@ export function queuedUpdates(state = [], event) {
             ];
         case UPDATE_EVENTS_CLEARED:
             return [];
+        default:
+            return state;
     }
 }

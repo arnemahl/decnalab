@@ -3,7 +3,7 @@ import Vectors from '~/rts/spatial/Vectors';
 import {
     RESOURCES_PICKED_UP,
     RESOURCES_DROPPED_OFF,
-} from '~/store/ducks/resourcesPickedUp';
+} from '~/store/ducks/resources';
 
 export const UNIT_CREATED = Symbol('UNIT_CREATED');
 export const UNIT_MOVED = Symbol('UNIT_MOVED');
@@ -20,6 +20,7 @@ const unitReducer = (globalState, state, event) => {
     switch (event.type) {
         case UNIT_CREATED:
             return {
+                id: event.unitId,
                 teamId: event.teamId,
                 specId: event.specId,
                 position: event.position,
@@ -84,7 +85,7 @@ export const units = (globalState, state = {}, event) => {
         case RESOURCES_DROPPED_OFF:
             return {
                 ...state,
-                [event.unitId]: unitReducer(globalState, state[event.unitId])
+                [event.unitId]: unitReducer(globalState, state[event.unitId], event),
             };
         case UNIT_KILLED: {
             const { [event.unitId]: killed, ...remainingUnits } = state; // eslint-disable-line no-unused-vars
