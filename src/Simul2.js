@@ -61,13 +61,16 @@
 */
 
 import {createNewStore} from '~/store/store';
+import {initializeGame} from '~/store/actions/initializeGame';
 import {progressCommands} from '~/store/actions/progressCommands';
 import {letPlayersGiveCommands} from '~/store/actions/letPlayersGiveCommands';
 import {proceedToNextTick} from '~/store/actions/proceedToNextTick';
 
 export function simulateGame(maxLoops = 999) {
     // Initialize game state
-    const gameStore = createNewStore();
+    const store = createNewStore();
+
+    store.dispatch(initializeGame());
 
     for (let loops = 0; loops < maxLoops; loops++) {
         store.dispatch(progressCommands());

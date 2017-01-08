@@ -1,4 +1,4 @@
-import {TEAM_ADDED} from './specs'; // TODO WILL BE MOVED
+import {TEAM_ADDED} from '~/store/actions/initializeGame';
 import {UNIT_SPECS_UPDATED} from './specs';
 
 const SIZE = Symbol('SIZE');
@@ -18,45 +18,51 @@ export const UNIT_PROPERTY = {
 };
 
 const workerInitState = {
-    size: 100,
-    speed: 9,
-
-    maxHealth: 60,
-    armor: 0,
-
-    weapon: {
-        cooldown: 30,
-        damage: 5,
-        range: 10,
-    },
-
     cost: {
         abundant: 40,
         sparse: 0,
+        time: 13,
         supply: 1,
-        time: 200,
     },
+
+    defense: {
+        maxHealth: 60,
+        armor: 0,
+    }
+
+    weapon: { // ground
+        damage: 5,
+        range: 1,
+        cooldown: 0.63,
+    },
+
+    speed: 3.720,
+    sight: 7,
+    size: 100,
 };
 
 const marineInitState = {
-    size: 100,
-    speed: 9,
-
-    maxHealth: 60,
-    armor: 0,
-
-    weapon: {
-        cooldown: 20,
-        damage: 5,
-        range: 1000,
-    },
-
     cost: {
-        abundant: 40,
+        abundant: 50,
         sparse: 0,
+        time: 15,
         supply: 1,
-        time: 180,
     },
+
+    defense: {
+        maxHealth: 40,
+        armor: 0,
+    }
+
+    weapon: { // ground + air
+        damage: 6,
+        range: 4,
+        cooldown: 0.63,
+    },
+
+    speed: 2.976,
+    sight: 7,
+    size: 80,
 };
 
 const unitSpec = (state, event) => {

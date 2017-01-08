@@ -1,4 +1,4 @@
-import {TEAM_ADDED} from './specs'; // TODO WILL BE MOVED
+import {TEAM_ADDED} from '~/store/actions/initializeGame';
 import {STRUCTURE_SPECS_UPDATED} from './specs';
 
 const MAX_HEALTH = Symbol('MAX_HEALTH');

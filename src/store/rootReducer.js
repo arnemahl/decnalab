@@ -8,8 +8,8 @@ export default function rootReducer(state = {}, event) {
     return {
         updateEvents: updateEvents(state.updateEvents, event),
         specs: specs(state.specs, event),
-        units: units(state.units, event),
-        structures: structures(state.structures, event),
+        units: units(state, state.units, event),
+        structures: structures(state, state.structures, event),
         resources: resources(state.resources, event),
     };
 }

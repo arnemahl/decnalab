@@ -5,10 +5,13 @@ export const STRUCTURE_COMMAND_RECEIVED = Symbol('STRUCTURE_COMMAND_RECEIVED');
 export const STRUCTURE_COMMAND_COMPLETED = Symbol('STRUCTURE_COMMAND_COMPLETED');
 export const STRUCTURE_COMMANDS_CLEARED = Symbol('STRUCTURE_COMMANDS_CLEARED');
 
-const structureReducer = (state = initialUnitState, event) => {
+const getStructureSpecs = (globalState, structure) => globalState.specs[structure.teamId].structures[structure.specId];
+
+const structureReducer = (globalState, state = initialUnitState, event) => {
     switch (event.type) {
         case STRUCTURE_CREATED:
             return {
+                teamId: event.teamId,
                 specId: event.specId,
                 position: event.position,
                 healthLeftFactor: 1,
@@ -17,7 +20,7 @@ const structureReducer = (state = initialUnitState, event) => {
         case STRUCTURE_DAMAGED:
             return {
                 ...state,
-                healthLeftFactor: state.healthLeftFactor - (event.damage - getUnitSpecs(state.specId).armor),
+                healthLeftFactor: state.healthLeftFactor - (event.damage - getStructureSpecs(state.specId).armor),
             };
         case STRUCTURE_COMMAND_RECEIVED:
             return {
@@ -42,7 +45,7 @@ const structureReducer = (state = initialUnitState, event) => {
     }
 };
 
-export const structures = (state = {}, event) => {
+export const structures = (globalState, state = {}, event) => {
     switch (event.type) {
         case STRUCTURE_CREATED:
         case STRUCTURE_DAMAGED:
@@ -51,7 +54,7 @@ export const structures = (state = {}, event) => {
         case STRUCTURE_COMMANDS_CLEARED:
             return {
                 ...state,
-                [event.targetId]: structureReducer(state[event.targetId])
+                [event.targetId]: structureReducer(globalState, state[event.targetId])
             };
         case STRUCTURE_KILLED: {
             const { [event.targetId]: killed, ...remainingUnits } = state;

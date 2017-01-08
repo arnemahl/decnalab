@@ -1,7 +1,5 @@
 export const getTarget = (state, targetId) => {
-    // TODO move to util file
-    // TODO implement
-    const target = ?;
+    const target = state.units[targetId] || state.structures[targetId];
 
     if (!target) {
         throw Error('target does not exist:', attackTargetId);

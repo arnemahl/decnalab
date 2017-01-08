@@ -1,4 +1,4 @@
-export const TEAM_ADDED = Symbol('TEAM_ADDED'); // SHOULD BE USED OTHER PLACES TOO
+import {TEAM_ADDED} from '~/store/actions/initializeGame';
 export const UNIT_SPECS_UPDATED = Symbol('UNIT_SPECS_UPDATED');
 export const STRUCTURE_SPECS_UPDATED = Symbol('STRUCTURE_SPECS_UPDATED');
 
