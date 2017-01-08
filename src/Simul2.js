@@ -1,5 +1,3 @@
-import {createNewStore} from '~/store/store';
-
 // Things we need in state
 /*
     Units: {
@@ -62,6 +60,7 @@ import {createNewStore} from '~/store/store';
     ]
 */
 
+import {createNewStore} from '~/store/store';
 import {progressCommands} from '~/store/actions/progressCommands';
 import {letPlayersGiveCommands} from '~/store/actions/letPlayersGiveCommands';
 import {proceedToNextTick} from '~/store/actions/proceedToNextTick';
