@@ -1,10 +1,11 @@
 import {getTarget} from './util/action-util';
 import {applyCommandEffects} from '~/store/actions/applyCommandEffects';
+import {UPDATE_EVENT_ADDED} from '~/store/ducks/queuedUpdates';
 
-const addUpdateEvent = (event) => {
+const addUpdateEvent = (update) => {
     return {
-        type: 'UPDATE_EVENT_ADDED',
-        event
+        type: UPDATE_EVENT_ADDED,
+        update
     };
 }
 
