@@ -75,10 +75,10 @@ const structureSpec = (state, event) => {
 
         default:
             return state;
-    };
+    }
 };
 
-const structureSpecs = (state, event) => {
+export const structureSpecs = (state, event) => {
     switch (event.type) {
         case TEAM_ADDED:
             return {
@@ -96,8 +96,10 @@ const structureSpecs = (state, event) => {
 
 // Actions (upgrades)
 export const structureArmorUpgradeCompleted = (teamId) => {
-    return (dispatch, getState) => {
-        ['base', 'barracks', 'supplyDepot'].forEach(structureType => {
+    return (dispatch) => {
+        const structureTypes = ['base', 'barracks', 'supplyDepot'];
+
+        structureTypes.forEach(structureType => {
             dispatch({
                 type: STRUCTURE_SPECS_UPDATED,
                 teamId,

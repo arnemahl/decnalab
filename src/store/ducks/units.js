@@ -1,4 +1,4 @@
-import {TEAM_ADDED} from '~/store/actions/initializeGame';
+import Vectors from '~/rts/spatial/Vectors';
 
 import {
     RESOURCES_PICKED_UP,
@@ -8,6 +8,7 @@ import {
 export const UNIT_CREATED = Symbol('UNIT_CREATED');
 export const UNIT_MOVED = Symbol('UNIT_MOVED');
 export const UNIT_DAMAGED = Symbol('UNIT_DAMAGED');
+export const UNIT_KILLED = Symbol('UNIT_KILLED');
 
 export const UNIT_COMMAND_RECEIVED = Symbol('UNIT_COMMAND_RECEIVED');
 export const UNIT_COMMAND_COMPLETED = Symbol('UNIT_COMMAND_COMPLETED');
@@ -86,7 +87,7 @@ export const units = (globalState, state = {}, event) => {
                 [event.unitId]: unitReducer(globalState, state[event.unitId])
             };
         case UNIT_KILLED: {
-            const { [event.unitId]: killed, ...remainingUnits } = state;
+            const { [event.unitId]: killed, ...remainingUnits } = state; // eslint-disable-line no-unused-vars
 
             return {
                 ...remainingUnits

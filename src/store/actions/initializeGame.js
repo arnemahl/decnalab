@@ -1,7 +1,10 @@
+import {STRUCTURE_CREATED} from '~/store/ducks/structures';
+import {UNIT_CREATED} from '~/store/ducks/units';
+
 export const TEAM_ADDED = Symbol('TEAM_ADDED'); // SHOULD BE USED OTHER PLACES TOO
 
 export const initializeGame = () => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         /*
             Add teams - will give them:
                 * specs for units and structures

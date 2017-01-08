@@ -28,7 +28,7 @@ const workerInitState = {
     defense: {
         maxHealth: 60,
         armor: 0,
-    }
+    },
 
     weapon: { // ground
         damage: 5,
@@ -52,7 +52,7 @@ const marineInitState = {
     defense: {
         maxHealth: 40,
         armor: 0,
-    }
+    },
 
     weapon: { // ground + air
         damage: 6,
@@ -103,10 +103,10 @@ const unitSpec = (state, event) => {
                     ...event.cost,
                 },
             };
-    };
+    }
 };
 
-const unitSpecs = (state, event) => {
+export const unitSpecs = (state, event) => {
     switch (event.type) {
         case TEAM_ADDED:
             return {

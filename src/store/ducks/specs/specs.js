@@ -2,7 +2,10 @@ import {TEAM_ADDED} from '~/store/actions/initializeGame';
 export const UNIT_SPECS_UPDATED = Symbol('UNIT_SPECS_UPDATED');
 export const STRUCTURE_SPECS_UPDATED = Symbol('STRUCTURE_SPECS_UPDATED');
 
-const teamSpec = (state, event) => {
+import {unitSpecs} from './unitSpecs';
+import {structureSpecs} from './structureSpecs';
+
+const teamSpecs = (state, event) => {
     switch (event.type) {
         case TEAM_ADDED:
             return {

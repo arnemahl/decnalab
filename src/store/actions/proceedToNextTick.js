@@ -1,6 +1,8 @@
 /** PROCEED TO NEXT TICK WHERE "SOMETHING" HAPPENS **/
 export const proceedToNextTick = () => {
-    return (dispatch, getState) => {
+    return (dispatch, getState) => { // eslint-disable-line
+        // TODO implement
+
         /*
             Things that can happen are:
                 - Command completes

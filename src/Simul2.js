@@ -72,6 +72,8 @@ export function simulateGame(maxLoops = 999) {
 
     store.dispatch(initializeGame());
 
+    console.log(store.getState());
+
     for (let loops = 0; loops < maxLoops; loops++) {
         store.dispatch(progressCommands());
 

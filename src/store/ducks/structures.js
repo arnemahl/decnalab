@@ -1,5 +1,6 @@
 export const STRUCTURE_CREATED = Symbol('STRUCTURE_CREATED');
 export const STRUCTURE_DAMAGED = Symbol('STRUCTURE_DAMAGED');
+export const STRUCTURE_DESTROYED = Symbol('STRUCTURE_DESTROYED');
 
 export const STRUCTURE_COMMAND_RECEIVED = Symbol('STRUCTURE_COMMAND_RECEIVED');
 export const STRUCTURE_COMMAND_COMPLETED = Symbol('STRUCTURE_COMMAND_COMPLETED');
@@ -7,7 +8,7 @@ export const STRUCTURE_COMMANDS_CLEARED = Symbol('STRUCTURE_COMMANDS_CLEARED');
 
 const getStructureSpecs = (globalState, structure) => globalState.specs[structure.teamId].structures[structure.specId];
 
-const structureReducer = (globalState, state = initialUnitState, event) => {
+const structureReducer = (globalState, state, event) => {
     switch (event.type) {
         case STRUCTURE_CREATED:
             return {
@@ -56,11 +57,11 @@ export const structures = (globalState, state = {}, event) => {
                 ...state,
                 [event.targetId]: structureReducer(globalState, state[event.targetId])
             };
-        case STRUCTURE_KILLED: {
-            const { [event.targetId]: killed, ...remainingUnits } = state;
+        case STRUCTURE_DESTROYED: {
+            const { [event.targetId]: killed, ...remainingStructures } = state; // eslint-disable-line no-unused-vars
 
             return {
-                ...remainingUnits
+                ...remainingStructures
             };
         }
         default:
