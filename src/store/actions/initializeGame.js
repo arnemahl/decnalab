@@ -1,5 +1,4 @@
 import {STRUCTURE_CREATED} from '~/store/ducks/structures';
-import {unitIdGenerator} from '~/store/ducks/structures';
 import {UNIT_CREATED} from '~/store/ducks/units';
 
 export const TEAM_ADDED = Symbol('TEAM_ADDED');
@@ -8,7 +7,7 @@ import {getIdGenerator} from '~/rts/util/IdGenerator';
 const idGenerator = getIdGenerator('id');
 
 export const initializeGame = () => {
-    return (dispatch, getState) => {
+    return (dispatch) => {
         /*
             Add teams - will give them:
                 * specs for units and structures
@@ -23,8 +22,6 @@ export const initializeGame = () => {
             type: TEAM_ADDED,
             teamId: 'red'
         });
-
-        const {specs} = getState();
 
 
         // Add structures (1. base) for blue team

@@ -1,7 +1,17 @@
 import Vectors from '~/rts/spatial/Vectors';
 
-import {UNIT_CREATED} from '~/store/ducks/units';
-import {SPECS_UPDATED} from '~/store/ducks/specs';
+import {
+    PRODUCE_UNIT,
+    PRODUCE_UPGRADE,
+    MOVE,
+    ATTACK,
+    GATHER_RESOURCES,
+    DELIVER_RESOURCES,
+    BUILD_STRUCTURE,
+} from './commandTypes';
+
+import {UNIT_CREATED, UNIT_COMMAND_COMPLETED} from '~/store/ducks/units';
+import {STRUCTURE_CREATED, STRUCTURE_COMMAND_COMPLETED} from '~/store/ducks/structures';
 
 import {getTarget} from './util/action-util';
 import {applyCommandEffects} from '~/store/actions/applyCommandEffects';
@@ -26,10 +36,10 @@ const createUpdateForStructureCommand = (structure, command) => {
         } else {
             switch (command.type) {
                 // STRUCTURES
-                case 'PRODUCE_UNIT': {
+                case PRODUCE_UNIT: {
                     dispatch({
                         type: UNIT_CREATED,
-                        unitId: generateId(),
+                        unitId: generateId(), // TODO decide where it should live
                         teamId: structure.teamId,
                         specId: command.unitType,
                         position: structure.position,
@@ -37,8 +47,10 @@ const createUpdateForStructureCommand = (structure, command) => {
                     });
                     break;
                 }
-                case 'PRDUCE_UPGRADE': {
-                    dispatch(command.onFinish(structure.teamId));
+                case PRODUCE_UPGRADE: {
+                    command.specUpdates.forEach(specUpdate =>
+                        dispatch(specUpdate)
+                    );
                     break;
                 }
             }
@@ -52,7 +64,7 @@ const createUpdateForUnitCommand = (unit, command) => {
         const {currentTick, elapsed} = getState().tick; // time since last time this action-creator was dispatched
 
         switch (command.type) {
-            case 'MOVE':
+            case MOVE:
                 // Allow all movement (no collision detection or edge of map restriction)
                 dispatch(addUpdateEvent({
                     type: 'POSITION',
@@ -64,9 +76,9 @@ const createUpdateForUnitCommand = (unit, command) => {
                 }));
                 break;
 
-            case 'ATTACK': {
+            case ATTACK: {
                 if (unit.cooldownEnd < currentTick) {
-                    // unit is on cooldown and cannot attack
+                    // Unit is on cooldown and cannot attack
                     break;
                 }
 
@@ -76,7 +88,7 @@ const createUpdateForUnitCommand = (unit, command) => {
                     // Too far away to attack. Move toward unit instead.
                     dispatch(addUpdateEvent({
                         type: 'DAMAGE',
-                        attackTargetId: command.attackTargetId,
+                        unitId: command.attackTargetId,
                         damage: unit.weapon.damage
                     }));
                 } else {
@@ -95,16 +107,26 @@ const createUpdateForUnitCommand = (unit, command) => {
                 }
                 break;
             }
-
-            case 'HARVEST': {
-                // TODO
+            case GATHER_RESOURCES: {
+                dispatch(addUpdateEvent(resourcesPickedUp(unit.id, command.resourceSiteId, command.resourceType)));
                 break;
             }
-            case 'CONSTRUCT': {
-                // TODO
+            case DELIVER_RESOURCES: {
+                dispatch(addUpdateEvent(/* RESOURCES_DROPPED_OFF */));
+                break;
+            }
+            case BUILD_STRUCTURE: {
+                dispatch(addUpdateEvent({
+                    type: STRUCTURE_CREATED,
+                    id: generateId(),
+                    teamId: unit.teamId,
+                    specId: command.structureType,
+                    position: command.position,
+                }));
                 break;
             }
         }
+        dispatch({ type: STRUCTURE_COMMAND_COMPLETED });
     };
 }
 
