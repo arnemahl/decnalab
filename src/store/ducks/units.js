@@ -10,6 +10,7 @@ export const UNIT_MOVED = Symbol('UNIT_MOVED');
 export const UNIT_DAMAGED = Symbol('UNIT_DAMAGED');
 export const UNIT_KILLED = Symbol('UNIT_KILLED');
 
+// TODO only one command at a time?
 export const UNIT_COMMAND_RECEIVED = Symbol('UNIT_COMMAND_RECEIVED');
 export const UNIT_COMMAND_COMPLETED = Symbol('UNIT_COMMAND_COMPLETED');
 export const UNIT_COMMANDS_CLEARED = Symbol('UNIT_COMMANDS_CLEARED');
@@ -25,7 +26,7 @@ const unitReducer = (globalState, state, event) => {
                 specId: event.specId,
                 position: event.position,
                 healthLeftFactor: 1,
-                commands: event.commands || [],
+                commands: [],
             };
         case UNIT_MOVED:
             return {
@@ -42,7 +43,7 @@ const unitReducer = (globalState, state, event) => {
                 ...state,
                 commands: [
                     ...state.commands,
-                    event.command
+                    event.commandId
                 ],
             };
         case UNIT_COMMAND_COMPLETED:

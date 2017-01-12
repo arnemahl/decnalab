@@ -20,29 +20,147 @@ import {
 const UNIT = Symbol('UNIT');
 const STRUCTURE = Symbol('STRUCTURE');
 
+export const continueAtTick = (state, event) => {
+    switch (event.type) {
+        case SCHEDULED_CONTINUATION_AT_TICK: {
+            if (state[event.tick]) {
+                return {
+                    ...state,
+                    [event.tick]: [
+                        ...state[event.tick],
+                        event.commandIds,
+                    ];
+                };
+            } else {
+                return {
+                    ...state,
+                    [tick]: [
+                        event.commandIds,
+                    ],
+                };
+            };
+        }
+        case UNSCHEDULED_CONTINUATION_AT_TICK: {
+            const { [event.tick]: atTick, ...otherTicks } = state;
+            const otherCommands = atTick.filter(commandIds => commandIds.every(id => id !== event.commandId));
+
+            if (otherCommandIds.length === 0) {
+                return {
+                    ...otherTicks
+                };
+            } else {
+                return {
+                    ...otherTicks,
+                    [event.tick]: {
+                        ...otherCommandIds
+                    },
+                };
+            }
+        }
+    }
+};
+
 // Event-creators
 export const moveCommand = {
-    started: ({ unit, unitSpecs, targetLocation, currentTick }) => {
+    started: ({ unit, unitSpecs, targetLocation }) => {
         // NB: Command both given and started at the same time. Assume only one command at a time per unit.
-        return {
-            type: UNIT_COMMAND_RECEIVED,
-            unitId: unit.id,
-            command: {
+        return (dispatch, getState) => (
+            const state = getState();
+
+            const command = {
                 type: MOVE_UNIT_COMMAND,
-                startedAtTick: currentTick,
+                id: generateId,
+                teamId: unit.teamId,
                 target: {
                     type: UNIT,
                     id: unit.id
                 },
+                startedAtTick: state.tick.currentTick,
+                finishedAtTick: Vectors.absoluteDistance(unit.position, targetLocation) / unitSpecs.speed,
+                originPosition: unit.position,
                 moveVector: Vectors.direction(unit.position, targetLocation, unitSpecs.speed),
-            },
-        };
+                // originPosition3d: {
+                //     ...unit.position,
+                //     z: state.tick.currentTick,
+                // },
+                // targetLocation3d: {
+                //     ...targetLocation,
+                //     z: Vectors.absoluteDistance(unit.position, targetLocation) / unitSpecs.speed,
+                // },
+            };
+            dispatch({
+                type: UNIT_COMMAND_RECEIVED,
+                unitId: unit.id,
+                commandId: command.id,
+            });
+
+            // TODO: use memoized selector (`npm install reselect`)
+            state.units
+                .filter(otherUnit => otherUnit.team !== unit.team)
+                .filter(enemyUnit => enemyUnit.command.type === MOVE_UNIT_COMMAND)
+                .map(enemyUnit => enemyUnit.command)
+                .forEach(enemyMoveCommand => { // Schedule SCHEDULED_CONTINUATION_AT_TICK if movements intersect
+
+                    /*
+                        Room for performance improvement:
+
+                        // Given 3D Vectors
+                        const {
+                            originPosition3d: enemyStart,
+                            targetLocation3d: enemyEnd,
+                        } = enemyMoveCommand;
+                        const {
+                            originPosition3d: unitStart,
+                            targetLocation3d: unitEnd,
+                        } = command;
+
+                        Efficiently calculate intersection(s) (if any) between
+                            * skewed cylinder (from unitStart to unitEnd, radius: unitSpecs.sight)
+                            * line (from enemyStart to enemyEnd)
+                        If there is one or more intersetions, the intersection with the lowest
+                        z-coordinate is where the units will first spot eachother.
+                        At that tick (z) the game must recalculate state and inform players.
+                    */
+
+                    let tick = command.startedAtTick;
+                    const maxTick = Math.min(command.finishedAtTick, enemyMoveCommand.finishedAtTick);
+
+                    for (; tick < maxTick; tick++) {
+                        const unitPos = Vectors.add(command.originPosition, command.moveVector);
+                        const enemyPos = Vectors.add(enemyMoveCommand.originPosition, enemyMoveCommand.moveVector);
+
+                        if (Vectors.absoluteDistance(unitPos, enemyPos) < unitSpecs.sight) {
+                            // They will see eachother at tick
+                            dispatch({
+                                type: SCHEDULED_CONTINUATION_AT_TICK,
+                                commandIds: [
+                                    command.id,
+                                    enemyMoveCommand.id,
+                                ],
+                                tick,
+                            });
+                            break;
+                        }
+                    }
+                });
+
+            if ()
+        ];
     },
-    finished: (dispatch, command) => {
-        return {
-            type: UNIT_MOVED,
-            unitId: command.unitId,
-            vector: (currentTick - command.startedAtTick) * command.moveVector,
+    finished: (command) => {
+        return (dispatch, getState) => {
+            if (getState().tick.currentTick < command.finishedAtTick) {
+                dispatch({
+                    type: UNSCHEDULED_CONTINUATION_AT_TICK,
+                    tick: command.finishedAtTick,
+                    command: commandId,
+                });
+            }
+            dispatch({
+                type: UNIT_MOVED,
+                unitId: command.unitId,
+                vector: Vectors.scale(command.moveVector, (currentTick - command.startedAtTick)),
+            });
         };
     },
 };
