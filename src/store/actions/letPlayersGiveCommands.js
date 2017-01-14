@@ -62,28 +62,39 @@ import {UNIT_COMMAND_RECEIVED} from '~/store/ducks/units';
 import {STRUCTURE_COMMAND_RECEIVED} from '~/store/ducks/structures';
 import {PRODUCE_UNIT, BUILD_STRUCTURE} from './commandTypes';
 
+/* Impelent and import selectors:
+    getTeams(state)
+    getUnitsForTeam(state, teamId)
+    getStructuresForTeam(state, teamId)
+    findMakers(state, teamId, thingToMake)
+    getNofMakers(state, teamId, thingToMake)
+
+    getResources(state, teamId)
+    getPriceOfUnitsAndStructures(state, teamId)
+    getUnitAndStructureCount(state, teamId)
+    getIsUnderAttack(state, teamId)
+    getVisionOfEnemy(state, teamId)
+*/
+
 /** LET PLAYERS GIVE COMMANDS TO UNITS/STRUCTURES **/
-export const letPlayersGiveCommands = () => {
-    return (dispatch, getState) => {
-        const state = getState();
+export const letPlayersGiveCommands = (state, commandUtil) => {
+        getTeams(state).forEach(teamId => {
 
-        state.players.map(teamId => {
-
-            const produceUnit = (structure, unitType) => ({
-                type: STRUCTURE_COMMAND_RECEIVED,
-                command: {
-                    type: PRODUCE_UNIT,
-                    unitType,
-                },
-            });
-            const buildStructure = (unit, structureType, location) => ({
-                type: UNIT_COMMAND_RECEIVED,
-                command: {
-                    type: BUILD_STRUCTURE,
-                    structureType,
-                    location,
-                },
-            });
+            // const produceUnit = (structure, unitType) => ({
+            //     type: STRUCTURE_COMMAND_RECEIVED,
+            //     command: {
+            //         type: PRODUCE_UNIT,
+            //         unitType,
+            //     },
+            // });
+            // const buildStructure = (unit, structureType, location) => ({
+            //     type: UNIT_COMMAND_RECEIVED,
+            //     command: {
+            //         type: BUILD_STRUCTURE,
+            //         structureType,
+            //         location,
+            //     },
+            // });
 
             const unitsOnTeam = state.units.filter(unit => unit.teamId === teamId);
             const structuresOnTeam = state.structures.filter(structure => structure.teamId === teamId);
@@ -119,12 +130,12 @@ export const letPlayersGiveCommands = () => {
                     case 'worker':
                     case 'marine': {
                         const maker = makers[usedMakers[thing]++];
-                        dispatch(produceUnit(maker, thing));
+                        commandUtil.produceFromStructure(maker, thing);
                     }
                     case 'supplyDepot':
                     case 'barracks': {
                         const maker = makers[usedMakers[thing]++];
-                        dispatch(buildStructure(maker, thing, location)); // TODO get location
+                        commandUtil.buildStructure(maker, thing);
                     }
                 }
             };
@@ -147,5 +158,4 @@ export const letPlayersGiveCommands = () => {
                 visionOfEnemy: getVisionOfEnemy(state, teamId),
             });
         });
-    }
 }

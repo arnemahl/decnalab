@@ -84,3 +84,62 @@ export function simulateGame(maxLoops = 999) {
 
     console.log('\nDONE', store.getState());
 }
+
+
+
+
+// function letPlayersGiveCommands(state, eventSchedule) {
+//     // selecting variables from state omitted for brevity
+
+//     teams.forEach(teamId => {
+//         const make = (thing) => {
+
+//         }
+//         const aMove = (unit, targetLocation) => {
+
+//         }
+//         macro(buildOrder, knowledge, make);
+//         micro(gamePlan, knowledge, aMove);
+//     });
+// }
+
+export function simulateGame_v2(maxLoops = 999) {
+    // Initialize game state
+    const store = createNewStore();
+
+    store.dispatch(initializeGame());
+
+    // Create shcedule for events in this game.
+    // Used to keep track of next tick, what happens there, and allows
+    // to cancel scheduled events (e.g. as result of cancelling a command)
+    const eventSchedule = new EventSchedule();
+
+    // Create a commandUtil, used to take player commands
+    const commandUtil = new CommandUtil(store, eventSchedule);
+
+    for (let loops = 0; loops < maxLoops; loops++) {
+        const {tick, events} = eventSchedule.getNext();
+
+        store.dispatch(setTick(tick)); // Probably useful to keep track of tick in game state
+
+        // Progress commands
+        events.forEach(event => {
+            switch (event.type) {
+                case EVENTS.GAINED_VISION:
+                    // TODO: progress all move commands
+                    // => When we let players give commands they may want to attack, or at least move
+                    // This will likely cancel previously issued commands
+                    break;
+                case EVENTS.COMMAND_COMPLETED:
+                    // TODO: finish that unit's command
+                    //   * whatever it was doing probably had an impact on the game state
+                    //   * commandable is now unemployed
+                    // => When we let players give commands, they probably want to use the commandable for something new, may event decide to approach enemy base
+                    // Not so likely to cancel previously issued commands
+            }
+        });
+
+        // Let players give commands
+        letPlayersGiveCommands(store.getState(), commandUtil);
+    }
+}
