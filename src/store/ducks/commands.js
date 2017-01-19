@@ -1,3 +1,174 @@
+/**********************************/
+/**   LIST OF ONGOING COMMANDS   **/
+/**********************************/
+const ADD_COMMAND = Symbol();
+const REMOVE_COMMAND = Symbol();
+
+// Reducer (NB: does not "act immutable")
+export default function listOfOngoingCommands(list = [], event) {
+    switch (event.type) {
+        case ADD_COMMAND:
+            list[event.commandId] = event.finishedAtTick;
+            break;
+
+        case REMOVE_COMMAND:
+            delete list[event.commandId];
+            break;
+
+        default:
+            return list;
+    }
+    list.UNIQUE = Symbol(); // used instead of object equality check
+
+    return list;
+}
+
+// Selectors
+import {createSelector} from 'reselect';
+
+const ascending = (t1, t2) => t1 - t2;
+
+const listOfOngoingCommands = state => state.listOfOngoingCommands;
+const UNIQUE = state => state.listOfOngoingCommands.UNIQUE;
+
+export const getNextTickWhenAnyCommandsFinish = createSelector(
+    listOfOngoingCommands,
+    UNIQUE, // ensures re-calculation of memoized method output upon list update
+    listOfOngoingCommands => (
+        listOfOngoingCommands.sort(ascending)[0]
+    )
+);
+
+// Actions
+export function addCommand(commandId, finishedAtTick) {
+    return {
+        type: ADD_COMMAND,
+        commandId,
+        finishedAtTick,
+    };
+}
+
+export function removeCommand(commandId) {
+    return {
+        type: REMOVE_COMMAND,
+        commandId,
+    };
+}
+
+/****************************************/
+/**   END:  LIST OF ONGOING COMMANDS   **/
+/****************************************/
+
+
+
+/**************************************/
+/**   COLLITION TABLE OF ALL MOVES   **/
+/**************************************/
+
+/*
+    Concept:
+    Table of all moves
+    x denotes interception between move on row and column
+
+    |---|---|---|---|
+    |   | 0 | 1 | 2 |
+    |---|---|---|---|
+    | 0 | \ | x |   |
+    |---|---|---|---|
+    | 1 | x | \ |   |
+    |---|---|---|---|
+    | 2 |   |   | \ |
+    |---|---|---|---|
+
+*/
+const ADD_MOVE = Symbol();
+const COLLIDING_MOVES = Symbol();
+const REMOVE_MOVE = Symbol();
+
+// Reducer (NB: does not "act immutable")
+export default function tableOfAllMoves(table = [], event) {
+    const {a, b, tick} = event;
+
+    switch (event.type) {
+        case ADD_MOVE:
+            // Add row for a
+            table[a] = [];
+            break;
+
+        case COLLIDING_MOVES:
+            // Set (a,b) and (b,a)
+            table[a][b] = tick;
+            table[b][a] = tick;
+            break;
+
+        case REMOVE_MOVE:
+            // Delete a from all rows and columns
+            Object.keys(table[a]).forEach(b => delete table[b][a]);
+            delete table[a];
+            break;
+
+        default:
+            return table;
+    }
+    table.UNIQUE = Symbol(); // used instead of object equality check
+
+    return table;
+}
+
+// Selectors
+import {createSelector} from 'reselect';
+
+const ascending = (t1, t2) => t1 - t2;
+const values = array => Object.keys(array).map(index => array[index]);
+
+const tableOfAllMoves = state => state.tableOfAllMoves;
+const UNIQUE = state => state.tableOfAllMoves.UNIQUE;
+
+// Get next tick (possibly undefined: when table is empty)
+export const getNextTickWhenThereIsACollision = createSelector(
+    tableOfAllMoves,
+    UNIQUE, // ensures re-calculation of memoized method output upon table update
+    tableOfAllMoves => (
+        tableOfAllMoves
+            .filter(row => row.length > 0)
+            .map(row => values(row).sort(ascending)[0])
+            .sort(ascending)[0];
+    )
+);
+
+// Actions
+export function addMove(commandId) {
+    return {
+        type: ADD_MOVE,
+        a: commandId,
+    };
+}
+export function registerCollision(oneCommandId, anotherCommandId, tick) {
+    return {
+        type: COLLIDING_MOVES,
+        a: oneCommandId,
+        b: anotherCommandId,
+        tick: tick,
+    };
+}
+export function removeMove(commandId) {
+    return {
+        type: REMOVE_MOVE,
+        a: commandId,
+    };
+}
+
+
+/*******************************************/
+/**  END:  COLLITION TABLE OF ALL MOVES   **/
+/*******************************************/
+
+/******************/
+/**   Commands   **/
+/******************/
+import * as collisionTable from 'TODO/move/to/file';
+import * as commandList from 'TODO/move/to/file';
+
 import {
     UNIT_COMMAND_RECEIVED,
     UNIT_COMMAND_COMPLETED,
@@ -17,48 +188,6 @@ import {
     STRUCTURE_COMMANDS_CLEARED,
 } from './structures';
 
-const UNIT = Symbol('UNIT');
-const STRUCTURE = Symbol('STRUCTURE');
-
-export const continueAtTick = (state, event) => {
-    switch (event.type) {
-        case SCHEDULED_CONTINUATION_AT_TICK: {
-            if (state[event.tick]) {
-                return {
-                    ...state,
-                    [event.tick]: [
-                        ...state[event.tick],
-                        event.commandIds,
-                    ];
-                };
-            } else {
-                return {
-                    ...state,
-                    [tick]: [
-                        event.commandIds,
-                    ],
-                };
-            };
-        }
-        case UNSCHEDULED_CONTINUATION_AT_TICK: {
-            const { [event.tick]: atTick, ...otherTicks } = state;
-            const otherCommands = atTick.filter(commandIds => commandIds.every(id => id !== event.commandId));
-
-            if (otherCommandIds.length === 0) {
-                return {
-                    ...otherTicks
-                };
-            } else {
-                return {
-                    ...otherTicks,
-                    [event.tick]: {
-                        ...otherCommandIds
-                    },
-                };
-            }
-        }
-    }
-};
 
 // Event-creators
 export const moveCommand = {
@@ -76,7 +205,7 @@ export const moveCommand = {
                     id: unit.id
                 },
                 startedAtTick: state.tick.currentTick,
-                finishedAtTick: Vectors.absoluteDistance(unit.position, targetLocation) / unitSpecs.speed,
+                finishedAtTick: Vectors.absoluteDistance(unit.position, targetLocation) / unitSpecs.speed + state.tick.currentTick,
                 originPosition: unit.position,
                 moveVector: Vectors.direction(unit.position, targetLocation, unitSpecs.speed),
                 // originPosition3d: {
@@ -93,13 +222,15 @@ export const moveCommand = {
                 unitId: unit.id,
                 commandId: command.id,
             });
+            dispatch(commandList.addCommand(command.id, command.finishedAtTick))
+            dispatch(collisionTable.addMove(command.id));
 
             // TODO: use memoized selector (`npm install reselect`)
             state.units
                 .filter(otherUnit => otherUnit.team !== unit.team)
                 .filter(enemyUnit => enemyUnit.command.type === MOVE_UNIT_COMMAND)
                 .map(enemyUnit => enemyUnit.command)
-                .forEach(enemyMoveCommand => { // Schedule SCHEDULED_CONTINUATION_AT_TICK if movements intersect
+                .forEach(enemyMoveCommand => {
 
                     /*
                         Room for performance improvement:
@@ -122,23 +253,22 @@ export const moveCommand = {
                         At that tick (z) the game must recalculate state and inform players.
                     */
 
-                    let tick = command.startedAtTick;
+                    let minTick = Math.min(command.startedAtTick, enemyMoveCommand.startedAtTick);
                     const maxTick = Math.min(command.finishedAtTick, enemyMoveCommand.finishedAtTick);
 
-                    for (; tick < maxTick; tick++) {
-                        const unitPos = Vectors.add(command.originPosition, command.moveVector);
-                        const enemyPos = Vectors.add(enemyMoveCommand.originPosition, enemyMoveCommand.moveVector);
+                    for (let tick = minTick; tick < maxTick; tick++) {
+                        const unitPos = Vectors.add(
+                            command.originPosition,
+                            Vectors.scale(command.moveVector, tick - command.startedAtTick)
+                        );
+                        const enemyPos = Vectors.add(
+                            enemyMoveCommand.originPosition,
+                            Vectors.scale(enemyMoveCommand.moveVector, tick - enemyMoveCommand.startedAtTick)
+                        );
 
                         if (Vectors.absoluteDistance(unitPos, enemyPos) < unitSpecs.sight) {
-                            // They will see eachother at tick
-                            dispatch({
-                                type: SCHEDULED_CONTINUATION_AT_TICK,
-                                commandIds: [
-                                    command.id,
-                                    enemyMoveCommand.id,
-                                ],
-                                tick,
-                            });
+                            // They will see eachother at `tick`
+                            dispatch(collisionTable.registerCollision(command.id, enemyMoveCommand.id, tick));
                             break;
                         }
                     }
@@ -149,13 +279,8 @@ export const moveCommand = {
     },
     finished: (command) => {
         return (dispatch, getState) => {
-            if (getState().tick.currentTick < command.finishedAtTick) {
-                dispatch({
-                    type: UNSCHEDULED_CONTINUATION_AT_TICK,
-                    tick: command.finishedAtTick,
-                    command: commandId,
-                });
-            }
+            dispatch(collisionTable.removeMove(command.id));
+
             dispatch({
                 type: UNIT_MOVED,
                 unitId: command.unitId,
@@ -166,6 +291,9 @@ export const moveCommand = {
 };
 
 // Process
+const UNIT = Symbol('UNIT');
+const STRUCTURE = Symbol('STRUCTURE');
+
 export const progressCommands = () => {
     return (dispatch, getState) => {
         const commands = ?;// all commands that affect the state at this tick
