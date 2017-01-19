@@ -62,7 +62,7 @@ export function removeCommand(commandId) {
 
 
 /**************************************/
-/**   COLLITION TABLE OF ALL MOVES   **/
+/**   COLLISION TABLE OF ALL MOVES   **/
 /**************************************/
 
 /*
@@ -86,13 +86,13 @@ const COLLIDING_MOVES = Symbol();
 const REMOVE_MOVE = Symbol();
 
 // Reducer (NB: does not "act immutable")
-export default function tableOfAllMoves(table = [], event) {
+export default function tableOfAllMoves(table = {}, event) {
     const {a, b, tick} = event;
 
     switch (event.type) {
         case ADD_MOVE:
             // Add row for a
-            table[a] = [];
+            table[a] = {};
             break;
 
         case COLLIDING_MOVES:
@@ -119,7 +119,7 @@ export default function tableOfAllMoves(table = [], event) {
 import {createSelector} from 'reselect';
 
 const ascending = (t1, t2) => t1 - t2;
-const values = array => Object.keys(array).map(index => array[index]);
+
 
 const tableOfAllMoves = state => state.tableOfAllMoves;
 const UNIQUE = state => state.tableOfAllMoves.UNIQUE;
@@ -160,8 +160,55 @@ export function removeMove(commandId) {
 
 
 /*******************************************/
-/**  END:  COLLITION TABLE OF ALL MOVES   **/
+/**  END:  COLLISION TABLE OF ALL MOVES   **/
 /*******************************************/
+
+
+
+/*****************************************/
+/**   KEEP TRACK OF ALL MOVE COMMANDS   **/
+/*****************************************/
+
+TODO: Sync with other events or action creators
+
+// Reducer
+export default function mapOfAllMoveCommands(map = {}, event) {
+    switch (event.type) {
+        case ADD_MOVE_COMMAND:
+            map[command.id] = event.command;
+
+        case REMOVE_MOVE_COMMAND:
+            delete map[commandId];
+
+        default:
+            return map;
+
+    }
+    table.UNIQUE = Symbol(); // used instead of object equality check
+
+    return table;
+};
+
+// Selectors
+import {createSelector} from 'reselect';
+
+const ascending = (t1, t2) => t1 - t2;
+const values = object => Object.keys(object).map(key => object[key]);
+
+const mapOfAllMoveCommands = state => state.mapOfAllMoveCommands;
+const UNIQUE = state => state.mapOfAllMoveCommands.UNIQUE;
+
+export const getAllMoveCommandIds = createSelector(
+    mapOfAllMoveCommands,
+    UNIQUE,
+    mapOfAllMoveCommands => values(mapOfAllMoveCommands)
+);
+
+/***********************************************/
+/**   END:  KEEP TRACK OF ALL MOVE COMMANDS   **/
+/***********************************************/
+
+
 
 /******************/
 /**   Commands   **/
@@ -190,7 +237,7 @@ import {
 
 
 // Event-creators
-export const moveCommand = {
+export const MoveCommand_v3 = {
     started: ({ unit, unitSpecs, targetLocation }) => {
         // NB: Command both given and started at the same time. Assume only one command at a time per unit.
         return (dispatch, getState) => (
@@ -277,6 +324,27 @@ export const moveCommand = {
             if ()
         ];
     },
+    progress: (command) => {
+        return (dispatch, getState) => {
+            // Move unit
+            dispatch({
+                type: UNIT_MOVED,
+                unitId: command.unitId,
+                vector: Vectors.scale(command.moveVector, (currentTick - command.startedAtTick)),
+            });
+            // "Change startedAtTick for command" (actually removing and adding it back with new startedAtTick)
+            dispatch({
+                type: UNIT_COMMANDS_CLEARED,
+            });
+            dispatch({
+                type: UNIT_COMMAND_RECEIVED,
+                command: {
+                    ...command,
+                    startedAtTick: command.startedAtTick,
+                },
+            });
+        };
+    },
     finished: (command) => {
         return (dispatch, getState) => {
             dispatch(collisionTable.removeMove(command.id));
@@ -294,39 +362,92 @@ export const moveCommand = {
 const UNIT = Symbol('UNIT');
 const STRUCTURE = Symbol('STRUCTURE');
 
-export const progressCommands = () => {
+const progressMoveCommands = () => {
     return (dispatch, getState) => {
-        const commands = ?;// all commands that affect the state at this tick
-        /*
-            Move commands may be important although not finished?
-            Not important:
-                * production
-                * construction
-                * harvesting
-                * cooldowns
-        */
+        const moveCommands = getAllMoveCommands(getState());
 
-        commands.forEach(command => {
-            switch (command.target.type) {
-                case UNIT:
-                    switch (command.info.type) {
-                        case MOVE_UNIT_COMMAND: // ASSUME IT'S FINISHED
-                            moveCommand.finished(command);
-                            break;
-                    }
-                    dispatch({
-                        type: UNIT_COMMAND_COMPLETED,
-                        unidId: command.target.id,
-                    });
+        moveCommands.forEach(move => {
+            dispatch(MoveCommand_v3.progress(move));
+        });
+    };
+}
+
+const progressStructureCommands = () => {
+    return (dispatch, getState) => {
+        structureCommands.forEach(command => {
+            dispatch({
+                type: STRUCTURE_COMMAND_COMPLETED,
+                structureId: command.target.id,
+            });
+
+            switch (command.type) {
+                case TODO:
+                    // TODO
                     break;
-                case STRUCTURE:
-                    dispatch({
-                        type: STRUCTURE_COMMAND_COMPLETED,
-                        structureId: command.target.id,
-                    });
+            }
+            break;
+        });
+    };
+}
+
+const progressUnitCommands = () => {
+    return (dispatch, getState) => {
+        unitCommands.forEach(command => {
+            dispatch({
+                type: UNIT_COMMAND_COMPLETED,
+                unidId: command.target.id,
+            });
+
+            switch (command.type) {
+                case MOVE_UNIT_COMMAND:
+                    MoveCommand_v3.finished(command);
                     break;
             }
         });
+    };
+}
 
+const finishCompletedCommands = () => {
+    return (dispatch, getState) => {
+        // TODO
+        dispatch(progressStructureCommands());
+        dispatch(applyCommandEffects());
+
+        dispatch(progressUnitCommands());
+        dispatch(applyCommandEffects());
+    };
+}
+
+export const progressCommands = () => {
+    return (dispatch, getState) => {
+        const state = getState();
+
+        const nectCollisionTick = collisionTable.getNextTickWhenThereIsACollision(state);
+        const commandStuff = commandList.getNextTickWhenAnyCommandsFinish(state);
+
+        if (typeof nectCollisionTick !== 'undefined' && typeof commandStuff.nextTick !== 'undefined') {
+            if (nectCollisionTick < commandStuff.nextTick) {
+                // Progress all move commands
+                dispatch(progressMoveCommands());
+            } else if (nectCollisionTick > commandStuff.nextTick) {
+                // Finish commands that are done
+                dispatch(finishCompletedCommands());
+            } else {
+                // Progress all move commands
+                dispatch(progressMoveCommands());
+                // Finish commands that are done
+                dispatch(finishCompletedCommands());
+            }
+
+        } else if (typeof nectCollisionTick !== 'undefined') {
+            // Progress all move commands
+            dispatch(progressMoveCommands());
+        } else if (typeof commandStuff.nextTick !== 'undefined') {
+            // Finish commands that are done
+            dispatch(finishCompletedCommands());
+        }
+        // else {
+        //     // Nothing to do until the players give commands
+        // }
     };
 };
