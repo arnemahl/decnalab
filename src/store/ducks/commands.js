@@ -210,6 +210,7 @@ export const getAllMoveCommandIds = createSelector(
 
 
 
+
 /******************/
 /**   Commands   **/
 /******************/
@@ -422,14 +423,14 @@ export const progressCommands = () => {
     return (dispatch, getState) => {
         const state = getState();
 
-        const nectCollisionTick = collisionTable.getNextTickWhenThereIsACollision(state);
+        const nextCollisionTick = collisionTable.getNextTickWhenThereIsACollision(state);
         const commandStuff = commandList.getNextTickWhenAnyCommandsFinish(state);
 
-        if (typeof nectCollisionTick !== 'undefined' && typeof commandStuff.nextTick !== 'undefined') {
-            if (nectCollisionTick < commandStuff.nextTick) {
+        if (typeof nextCollisionTick !== 'undefined' && typeof commandStuff.nextTick !== 'undefined') {
+            if (nextCollisionTick < commandStuff.nextTick) {
                 // Progress all move commands
                 dispatch(progressMoveCommands());
-            } else if (nectCollisionTick > commandStuff.nextTick) {
+            } else if (nextCollisionTick > commandStuff.nextTick) {
                 // Finish commands that are done
                 dispatch(finishCompletedCommands());
             } else {
@@ -439,7 +440,7 @@ export const progressCommands = () => {
                 dispatch(finishCompletedCommands());
             }
 
-        } else if (typeof nectCollisionTick !== 'undefined') {
+        } else if (typeof nextCollisionTick !== 'undefined') {
             // Progress all move commands
             dispatch(progressMoveCommands());
         } else if (typeof commandStuff.nextTick !== 'undefined') {
