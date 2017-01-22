@@ -1,4 +1,6 @@
-export const STRUCTURE_CREATED = Symbol('STRUCTURE_CREATED');
+export const STRUCTURE_STARTED = Symbol('STRUCTURE_STARTED');
+export const STRUCTURE_CANCELLED = Symbol('STRUCTURE_CANCELLED');
+export const STRUCTURE_FINISHED = Symbol('STRUCTURE_FINISHED');
 export const STRUCTURE_DAMAGED = Symbol('STRUCTURE_DAMAGED');
 export const STRUCTURE_DESTROYED = Symbol('STRUCTURE_DESTROYED');
 
@@ -10,13 +12,19 @@ const getStructureSpecs = (globalState, structure) => globalState.specs[structur
 
 const structureReducer = (globalState, state, event) => {
     switch (event.type) {
-        case STRUCTURE_CREATED:
+        case STRUCTURE_STARTED:
             return {
                 id: event.structureId,
                 teamId: event.teamId,
                 specId: event.specId,
                 position: event.position,
-                healthLeftFactor: 1,
+                healthLeftFactor: 1, // starts with 100% health
+                progressFactor: 0, // progressFactor < 1 means it's under construction
+            };
+        case STRUCTURE_FINISHED:
+            return {
+                ...state,
+                progressFactor: 1, // it's finished
                 commands: [],
             };
         case STRUCTURE_DAMAGED:
@@ -49,17 +57,19 @@ const structureReducer = (globalState, state, event) => {
 
 export const structures = (globalState, state = {}, event) => {
     switch (event.type) {
-        case STRUCTURE_CREATED:
+        case STRUCTURE_STARTED:
+        case STRUCTURE_FINISHED:
         case STRUCTURE_DAMAGED:
         case STRUCTURE_COMMAND_RECEIVED:
         case STRUCTURE_COMMAND_COMPLETED:
         case STRUCTURE_COMMANDS_CLEARED:
             return {
                 ...state,
-                [event.targetId]: structureReducer(globalState, state[event.targetId], event),
+                [event.structureId]: structureReducer(globalState, state[event.structureId], event),
             };
+        case STRUCTURE_CANCELLED:
         case STRUCTURE_DESTROYED: {
-            const { [event.targetId]: killed, ...remainingStructures } = state; // eslint-disable-line no-unused-vars
+            const { [event.structureId]: killed, ...remainingStructures } = state; // eslint-disable-line no-unused-vars
 
             return {
                 ...remainingStructures

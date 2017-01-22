@@ -63,7 +63,7 @@
 import {createNewStore} from '~/store/store';
 import {initializeGame} from '~/store/actions/initializeGame';
 import {progressCommands} from '~/store/actions/progressCommands';
-import {letPlayersGiveCommands} from '~/store/actions/letPlayersGiveCommands';
+import {letPlayersGiveCommands} from '~/store/actions/players/giveCommands';
 import {proceedToNextTick} from '~/store/actions/proceedToNextTick';
 
 export function simulateGame(maxLoops = 999) {
