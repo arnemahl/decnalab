@@ -3,6 +3,7 @@ import {specs} from '~/store/ducks/specs';
 import {units} from '~/store/ducks/units';
 import {structures} from '~/store/ducks/structures';
 import {resources} from '~/store/ducks/resources';
+import {commands} from '~/store/ducks/commands';
 
 import {TEAM_ADDED} from '~/store/actions/initializeGame';
 
@@ -40,5 +41,6 @@ export default function rootReducer(state = {}, event) {
         structures: structures(state, state.structures, event),
         resources: resources(state.resources, event),
         tick: tickReducer(state.tick, event),
+        commands: commands(state.commands, event),
     };
 }
