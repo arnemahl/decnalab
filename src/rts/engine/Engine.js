@@ -108,7 +108,7 @@ export default class Engine {
             const moved = Vectors.scale(unit.currentSpeed, this.tick - startTick);
             unit.position = Vectors.add(unit.position, moved);
             unit.currentSpeed = Vectors.zero();
-        }
+        };
         const onFinish = () => {
             doMove();
 
@@ -237,7 +237,7 @@ export default class Engine {
             const canProduce = (
                 ['abundant', 'sparse'].every(resourceType => structure.team.resources[resourceType] - unitSpec.cost[resourceType] >= 0)
                 && structure.team.supply - structure.team.usedSupply - unitSpec.cost.supply >= 0
-                // && structure.specs.produces.indexOf(unitSpec) !== -1 // TODO ensure structure can produce that unit - cannot use class instance
+                && structure instanceof unitSpec.producedBy
             );
 
             if (canProduce) {

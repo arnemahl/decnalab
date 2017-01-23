@@ -1,6 +1,9 @@
 import WorkerClass from '~/rts/units/Worker';
 import MarineClass from '~/rts/units/Marine';
 
+import BaseStructureClass from '~/rts/structures/BaseStructure';
+import BarracksClass from '~/rts/structures/Barracks';
+
 class Worker {
     class = WorkerClass
     category = 'worker'
@@ -23,6 +26,8 @@ class Worker {
         cooldown: 30,
         damage: 5
     }
+
+    producedBy = BaseStructureClass
 }
 
 class Marine {
@@ -47,6 +52,8 @@ class Marine {
         cooldown: 20,
         damage: 10
     }
+
+    producedBy = BarracksClass
 }
 
 export default class UnitSpecs {

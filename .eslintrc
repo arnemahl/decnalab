@@ -22,7 +22,7 @@
         "brace-style": 1,
         "camelcase": 0,
         "curly": 1,
-        "comma-dangle": 2,
+        "comma-dangle": 0,
         "comma-spacing": 1,
         "dot-notation": 1,
         "dot-location": [1, "property"],
