@@ -1,3 +1,4 @@
+export const STRUCTURE_PLANNED = Symbol('STRUCTURE_PLANNED');
 export const STRUCTURE_STARTED = Symbol('STRUCTURE_STARTED');
 export const STRUCTURE_CANCELLED = Symbol('STRUCTURE_CANCELLED');
 export const STRUCTURE_FINISHED = Symbol('STRUCTURE_FINISHED');
@@ -12,12 +13,16 @@ const getStructureSpecs = (globalState, structure) => globalState.specs[structur
 
 const structureReducer = (globalState, state, event) => {
     switch (event.type) {
-        case STRUCTURE_STARTED:
+        case STRUCTURE_PLANNED:
             return {
                 id: event.structureId,
                 teamId: event.teamId,
                 specId: event.specId,
                 position: event.position,
+            };
+        case STRUCTURE_STARTED:
+            return {
+                ...state,
                 healthLeftFactor: 1, // starts with 100% health
                 progressFactor: 0, // progressFactor < 1 means it's under construction
             };
@@ -57,6 +62,7 @@ const structureReducer = (globalState, state, event) => {
 
 export const structures = (globalState, state = {}, event) => {
     switch (event.type) {
+        case STRUCTURE_PLANNED:
         case STRUCTURE_STARTED:
         case STRUCTURE_FINISHED:
         case STRUCTURE_DAMAGED:

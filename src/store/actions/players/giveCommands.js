@@ -3,8 +3,6 @@
 /******************************************/
 import * as player from './player';
 
-import {UNIT_COMMAND_RECEIVED} from '~/store/ducks/units';
-import {STRUCTURE_COMMAND_RECEIVED} from '~/store/ducks/structures';
 import {PRODUCE_UNIT, BUILD_STRUCTURE} from './commandTypes';
 
 /* Impelent and import selectors:
@@ -26,22 +24,6 @@ import playerApi from '~/store/ducks/commands/player-api';
 /** LET PLAYERS GIVE COMMANDS TO UNITS/STRUCTURES **/
 export const letPlayersGiveCommands = (state) => {
         getTeams(state).forEach(teamId => {
-
-            // const produceUnit = (structure, unitType) => ({
-            //     type: STRUCTURE_COMMAND_RECEIVED,
-            //     command: {
-            //         type: PRODUCE_UNIT,
-            //         unitType,
-            //     },
-            // });
-            // const buildStructure = (unit, structureType, location) => ({
-            //     type: UNIT_COMMAND_RECEIVED,
-            //     command: {
-            //         type: BUILD_STRUCTURE,
-            //         structureType,
-            //         location,
-            //     },
-            // });
 
             const unitsOnTeam = state.units.filter(unit => unit.teamId === teamId);
             const structuresOnTeam = state.structures.filter(structure => structure.teamId === teamId);
@@ -82,7 +64,11 @@ export const letPlayersGiveCommands = (state) => {
                     case 'supplyDepot':
                     case 'barracks': {
                         const maker = makers[usedMakers[thing]++];
-                        playerApi.buildStructure(maker, thing);
+                        playerApi.buildStructure({
+                            worker: maker,
+                            structureSpecId: thing,
+                            targetLocation: nextStructureLocation(), // TODO
+                        });
                     }
                 }
             };
@@ -90,11 +76,11 @@ export const letPlayersGiveCommands = (state) => {
             const getUnitSpecs = (unit) => {}; // TODO
 
             const move = (unit, targetLocation) => {
-                dispatch(playerApi.move(
-                    unit,
-                    getUnitSpecs(unit),
-                    targetLocation,
-                ));
+                dispatch(playerApi.move({
+                    unit: unit,
+                    unitSpecs: getUnitSpecs(unit),
+                    targetLocation: targetLocation,
+                }));
             };
 
             // TODO: Implement selectors

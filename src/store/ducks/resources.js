@@ -1,6 +1,8 @@
 import {TEAM_ADDED} from '~/store/actions/initializeGame';
 export const RESOURCES_PICKED_UP = Symbol('RESOURCES_PICKED_UP');
 export const RESOURCES_DROPPED_OFF = Symbol('RESOURCES_PICKED_UP');
+export const RESOURCES_RESERVED = Symbol('RESOURCES_RESERVED');
+export const RESOURCES_UN_RESERVED = Symbol('RESOURCES_UN_RESERVED');
 
 const initialState = {
     map: {
@@ -54,6 +56,28 @@ export const resources = (state = initialState, event) => {
                     [event.teamId]: {
                         ...state.teams[event.teamId],
                         [event.resourceType]: state[event.resourceType] + event.resourceAmount
+                    },
+                },
+            };
+        case RESOURCES_RESERVED:
+            return {
+                ...state,
+                teams: {
+                    ...state.teams,
+                    [event.teamId]: {
+                        abundant: state.teams.abundant - event.abundant,
+                        sparse: state.teams.sparse - event.sparse,
+                    },
+                },
+            };
+        case RESOURCES_UN_RESERVED:
+            return {
+                ...state,
+                teams: {
+                    ...state.teams,
+                    [event.teamId]: {
+                        abundant: state.teams.abundant - event.abundant,
+                        sparse: state.teams.sparse - event.sparse,
                     },
                 },
             };

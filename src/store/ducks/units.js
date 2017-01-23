@@ -11,8 +11,8 @@ export const UNIT_DAMAGED = Symbol('UNIT_DAMAGED');
 export const UNIT_KILLED = Symbol('UNIT_KILLED');
 
 // TODO only one command at a time?
-export const UNIT_COMMAND_RECEIVED = Symbol('UNIT_COMMAND_RECEIVED');
-export const UNIT_COMMAND_COMPLETED = Symbol('UNIT_COMMAND_COMPLETED');
+export const UNIT_COMMAND_ADDED = Symbol('UNIT_COMMAND_ADDED');
+export const UNIT_COMMAND_REMOVED = Symbol('UNIT_COMMAND_REMOVED');
 export const UNIT_COMMANDS_CLEARED = Symbol('UNIT_COMMANDS_CLEARED');
 
 const getUnitSpecs = (globalState, unit) => globalState.specs[unit.teamId].units[unit.specId];
@@ -38,7 +38,7 @@ const unitReducer = (globalState, state, event) => {
                 ...state,
                 healthLeftFactor: state.healthLeftFactor - (event.damage - getUnitSpecs(globalState, state).armor),
             };
-        case UNIT_COMMAND_RECEIVED:
+        case UNIT_COMMAND_ADDED:
             return {
                 ...state,
                 commands: [
@@ -46,7 +46,7 @@ const unitReducer = (globalState, state, event) => {
                     event.commandId
                 ],
             };
-        case UNIT_COMMAND_COMPLETED:
+        case UNIT_COMMAND_REMOVED:
             return {
                 ...state,
                 commands: state.commands.slice(1),
@@ -79,8 +79,8 @@ export const units = (globalState, state = {}, event) => {
         case UNIT_CREATED:
         case UNIT_MOVED:
         case UNIT_DAMAGED:
-        case UNIT_COMMAND_RECEIVED:
-        case UNIT_COMMAND_COMPLETED:
+        case UNIT_COMMAND_ADDED:
+        case UNIT_COMMAND_REMOVED:
         case UNIT_COMMANDS_CLEARED:
         case RESOURCES_PICKED_UP:
         case RESOURCES_DROPPED_OFF:

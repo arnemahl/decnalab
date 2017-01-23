@@ -1,10 +1,12 @@
+import Vectors from '~/rts/spatial/Vectors';
+
 import * as collisionTable from '~/store/ducks/commands/mgmt/moveCollisionTable';
 import * as ongoingMoveCommands from '~/store/ducks/commands/mgmt/ongoingMoveCommands';
 import * as ongoingCommands from '~/store/ducks/commands/mgmt/ongoingCommands';
 
 import {
-    UNIT_COMMAND_RECEIVED,
-    UNIT_COMMAND_COMPLETED,
+    UNIT_COMMAND_ADDED,
+    UNIT_COMMAND_REMOVED,
     UNIT_COMMANDS_CLEARED,
     UNIT_CREATED,
     UNIT_MOVED,
@@ -50,7 +52,7 @@ export const start = ({ unit, unitSpecs, targetLocation }) => {
             // },
         };
         dispatch({
-            type: UNIT_COMMAND_RECEIVED,
+            type: UNIT_COMMAND_ADDED,
             unitId: unit.id,
             commandId: command.id,
         });
@@ -122,7 +124,7 @@ export const progress = (command) => {
             type: UNIT_COMMANDS_CLEARED,
         });
         dispatch({
-            type: UNIT_COMMAND_RECEIVED,
+            type: UNIT_COMMAND_ADDED,
             command: {
                 ...command,
                 startedAtTick: command.startedAtTick,
