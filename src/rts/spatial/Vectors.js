@@ -41,9 +41,13 @@ class Vectors {
     direction(one, two, vectorLength = 1) {
         const distance = this.subtract(two, one);
 
-        const absoluetDistance = this.absoluteDistance(one, two);
+        const absoluteDistance = this.absoluteDistance(one, two);
 
-        return this.scale(distance, vectorLength / absoluetDistance);
+        if (absoluteDistance === 0) {
+            return this.zero();
+        } else {
+            return this.scale(distance, vectorLength / absoluteDistance);
+        }
     }
 
     length(vector) {
