@@ -26,6 +26,7 @@ export default class Structure extends Commandable {
             type: this.constructor.name,
             position: {...this.position},
             healthLeftFactor: this.healthLeftFactor,
+            isOnlyPlanned: this.isOnlyPlanned,
             isUnderConstruction: this.isUnderConstruction
         };
     }
@@ -33,6 +34,7 @@ export default class Structure extends Commandable {
     setState = (nextState) => {
         this.position = {...nextState.position};
         this.healthLeftFactor = nextState.healthLeftFactor;
+        this.isOnlyPlanned = nextState.isOnlyPlanned;
         this.isUnderConstruction = nextState.isUnderConstruction;
 
         this.specs = this.team.structureSpecs[this.constructor.name]; // OMG. This is fucked

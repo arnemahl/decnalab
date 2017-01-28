@@ -34,7 +34,13 @@ export default class Engine {
         commandable.clearCommands();
     }
 
-    addCommand(commandType, commandable, calcFinishedTick, onStart, onFinish, onAbort) {
+    addCommand(commandType, commandable, calcFinishedTick, onReceive, onStart, onFinish, onAbort) {
+        const commandAccepted = onReceive();
+
+        if (!commandAccepted) {
+            throw Error(`Unacceptable command ${commandType} issued to ${commandable.id}`);
+        }
+
         const commandId = this.commandIdGenerator.generateId();
 
         let didStart = false;
@@ -96,6 +102,7 @@ export default class Engine {
     moveUnit = (unit, targetPosition) => {
         let startTick; // set upon start
 
+        const onReceive = () => true;
         const calcFinishedTick = () => {
             return this.tick + Vectors.absoluteDistance(unit.position, targetPosition) / unit.specs.speed;
         };
@@ -118,13 +125,14 @@ export default class Engine {
         };
         const onAbort = doMove;
 
-        this.addCommand('move', unit, calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand('move', unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     attackWithUnit = (unit, target) => {
         const calcFinishedTick = () => {
             return this.tick + unit.specs.weapon.cooldown;
         };
+        const onReceive = () => true;
         const onStart = () => {
             if (unit.isOnCooldown) {
                 return false;
@@ -144,11 +152,12 @@ export default class Engine {
         };
         const onAbort = () => {};
 
-        this.addCommand('attack', unit, calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand('attack', unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     harvestWithUnit = (worker, resourceSite) => {
         const calcFinishedTick = () => this.tick + resourceSite.harvestDuration;
+        const onReceive = () => true;
         const onStart = () => {
             const canHarvest = worker.isAt(resourceSite.position) && resourceSite.canBeHarvestedBy(worker);
 
@@ -171,11 +180,12 @@ export default class Engine {
             resourceSite.abortHarvesting();
         };
 
-        this.addCommand('harvest', worker, calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand('harvest', worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     dropOffHarvestWithUnit = (worker, baseStructure) => {
         const calcFinishedTick = () => this.tick;
+        const onReceive = () => true;
         const onStart = () => {
             return worker.isAt(baseStructure.position);
         };
@@ -191,37 +201,45 @@ export default class Engine {
         };
         const onAbort = () => {};
 
-        this.addCommand('dropOffHarvest', worker, calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand('dropOffHarvest', worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     buildWithUnit = (worker, structureSpec, targetPosition) => {
-        let structure; // initialized upon start
-        let didStart; // initialized upon start
+        let structure; // initialized on receive
+        let didPlan; // initialized on receive
 
         const calcFinishedTick = () => this.tick + structureSpec.cost.time;
-        const onStart = () => {
-            const canBuild = worker.isAt(targetPosition)
-                && ['abundant', 'sparse'].every(resourceType => worker.team.resources[resourceType] - structureSpec.cost[resourceType] >= 0);
+        const onReceive = () => {
+            const hasEnoughResources = ['abundant', 'sparse'].every(resourceType => worker.team.resources[resourceType] - structureSpec.cost[resourceType] >= 0);
 
-            if (canBuild) {
-                structure = this.commandableManager.structureStarted(worker, structureSpec, targetPosition);
+            if (hasEnoughResources) {
+                structure = this.commandableManager.structurePlanned(worker, structureSpec, targetPosition);
                 ['abundant', 'sparse'].forEach(resourceType => worker.team.resources[resourceType] -= structureSpec.cost[resourceType]); // eslint-disable-line no-return-assign
             }
-            didStart = canBuild;
+            didPlan = hasEnoughResources;
 
-            return canBuild;
+            return hasEnoughResources;
+        };
+        const onStart = () => {
+            const canStart = worker.isAt(targetPosition);
+
+            if (canStart) {
+                this.commandableManager.structureStarted(structure);
+            }
+
+            return canStart;
         };
         const onFinish = () => {
             this.commandableManager.structureFinished(structure);
         };
         const onAbort = () => {
-            if (didStart) {
+            if (didPlan) {
                 this.commandableManager.structureCancelled(structure);
                 ['abundant', 'sparse'].forEach(resourceType => worker.team.resources[resourceType] += structureSpec.cost[resourceType]); // eslint-disable-line no-return-assign
             }
         };
 
-        this.addCommand('build', worker, calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand('build', worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     /****************************/
@@ -233,6 +251,7 @@ export default class Engine {
         let didStart;
 
         const calcFinishedTick = () => this.tick + unitSpec.cost.time;
+        const onReceive = () => true;
         const onStart = () => {
             const canProduce = (
                 ['abundant', 'sparse'].every(resourceType => structure.team.resources[resourceType] - unitSpec.cost[resourceType] >= 0)
@@ -258,7 +277,7 @@ export default class Engine {
             }
         };
 
-        this.addCommand('produce', structure, calcFinishedTick, onStart, onFinish, onAbort);
+        this.addCommand('produce', structure, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
 

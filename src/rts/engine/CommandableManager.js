@@ -25,7 +25,7 @@ export default class CommandableManager {
                 const structureSpec = team.structureSpecs[structureType];
 
                 positions.forEach(position => {
-                    this.addStructure(team, structureSpec, position);
+                    this.structureFinished(this.addStructure(team, structureSpec, position));
                 });
             });
         };
@@ -51,15 +51,12 @@ export default class CommandableManager {
         team.usedSupply += usedSupplyAlreadyUpdated ? 0 : unitSpec.cost.supply;
     }
 
-    addStructure(team, structureSpec, position, isUnderConstruction = false) {
+    addStructure(team, structureSpec, position) {
         const structure = this.structureCreator.create(structureSpec, position);
         structure.team = team;
-        structure.isUnderConstruction = isUnderConstruction;
 
         this.structures[structure.id] = structure;
         this.teams[structure.team.id].structures[structure.id] = structure;
-
-        team.supply += structureSpec.providesSupply || 0;
 
         return structure;
     }
@@ -87,11 +84,18 @@ export default class CommandableManager {
         this.addUnit(structure.team, unitSpec, structure.team.unitSpawnPosition, true);
     }
 
-    structureStarted(unit, structureType, position) {
-        return this.addStructure(unit.team, structureType, position, true);
+    structurePlanned(unit, structureSpec, position) {
+        const structure = this.addStructure(unit.team, structureSpec, position);
+        structure.isOnlyPlanned = true;
+        return structure;
+    }
+    structureStarted(structure) {
+        delete structure.isOnlyPlanned;
+        structure.isUnderConstruction = true;
     }
     structureFinished(structure) {
-        structure.isUnderConstruction = false;
+        delete structure.isUnderConstruction;
+        structure.team.supply += structure.specs.providesSupply || 0;
     }
     structureCancelled(structure) {
         this.removeStructure(structure);
