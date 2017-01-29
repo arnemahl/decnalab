@@ -13,7 +13,6 @@ function getClosestResourceSite(map, worker, resourceType) {
 }
 
 export default class DumbAI {
-    usedStructurePositions = [];
 
     constructor(team, map) {
         this.team = team;
@@ -105,7 +104,8 @@ export default class DumbAI {
     }
 
     getNextAvailableStructurePosition() {
-        const isUnused = position => this.usedStructurePositions.every(usedPosition => Vectors.notEquals(position, usedPosition));
+        const usedStructurePositions = Object.values(this.team.structures).map(structure => structure.position);
+        const isUnused = position => usedStructurePositions.every(usedPosition => Vectors.notEquals(position, usedPosition));
         const suggestedPositions = this.map.suggestedStructurePositions[ {blue: 'north', red: 'south'}[this.team.id] ];
 
         return suggestedPositions.find(isUnused);
