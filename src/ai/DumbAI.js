@@ -135,16 +135,18 @@ export default class DumbAI {
     micro() {
         const marines = this.getAllCommandablesOfClass(Marine);
 
-        if (marines.length > 10) {
+        const seesEnemies = this.team.visibleEnemyCommandables.length !== 0;
+
+        if (seesEnemies) {
             marines
                 .filter(marine => marine.isIdle())
-                .forEach(marine =>
-                    marine
-                        .getCommander()
-                        .move(Vectors.new(this.map.width / 2, this.map.height / 2))
-                        // .move(Vectors.add(marine.position, Vectors.random(500, 500)))
-                );
+                .forEach(this.attackClosestEnemy);
+        } else if (marines.length > 10) {
+            marines
+                .filter(marine => marine.isIdle())
+                .forEach(this.approachEnemyBase);
         }
+
         // // TODO
         // if (seesEnemyUnit) {
         //     // for each army-unit:
@@ -155,5 +157,24 @@ export default class DumbAI {
         // } else if (attackTiming.count <= thingCounts[attackTiming.unit]) {
         //     // A_MOVE toward enemy base
         // }
+    }
+
+    // Curried sort method
+    byClosenessTo = (position) => (one, two) => Vectors.absoluteDistance(position, one.position) - Vectors.absoluteDistance(position, two.position);
+
+    attackClosestEnemy = (unit) => {
+        const {visibleEnemyCommandables} = this.team;
+
+        const closestEnemy = visibleEnemyCommandables
+            .sort(this.byClosenessTo(unit.position))
+            [0];
+
+        unit.getCommander().attackMove(closestEnemy);
+    }
+
+    approachEnemyBase = (unit) => {
+        const direction = Vectors.direction(unit.position, this.map.center, 1000); // 1000: don't walk too far at once...
+
+        unit.getCommander().move(Vectors.add(unit.position, direction));
     }
 }

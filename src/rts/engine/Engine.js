@@ -138,7 +138,9 @@ export default class Engine {
         const calcFinishedTick = () => {
             return this.tick + unit.specs.weapon.cooldown;
         };
-        const onReceive = () => true;
+        const onReceive = () => {
+            return Vectors.absoluteDistance(unit.position, target.position) <= unit.specs.weapon.range;
+        };
         const onStart = () => {
             if (unit.isOnCooldown) {
                 return false;

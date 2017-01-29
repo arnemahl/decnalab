@@ -34,6 +34,8 @@ export default class DefaultMap {
         y: 80*1000
     }
 
+    center = Vectors.new(this.width / 2, this.height / 2);
+
     visionSectors = (() => {
         const nofSectors = 5;
         const sectorHeight = this.height / nofSectors;

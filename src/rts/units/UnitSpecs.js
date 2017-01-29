@@ -27,7 +27,8 @@ class Worker extends Unit {
 
     weapon = {
         cooldown: 30,
-        damage: 5
+        damage: 5,
+        range: 50,
     }
 
     producedBy = BaseStructureClass
@@ -52,7 +53,8 @@ class Marine extends Unit {
 
     weapon = {
         cooldown: 20,
-        damage: 10
+        damage: 10,
+        range: 500,
     }
 
     producedBy = BarracksClass
