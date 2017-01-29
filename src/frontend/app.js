@@ -233,10 +233,22 @@ var Renderer = (function() {
                 // Add Listener for Left and Right arrow keys
                 window.onkeydown = function(event) {
                     if (event.code === 'ArrowLeft') {
-                        previousState();
+                        skipBack(event.ctrlKey ? 10 : 1);
                     }
                     if (event.code === 'ArrowRight') {
-                        nextState();
+                        skipForward(event.ctrlKey ? 10 : 1);
+                    }
+                    if (event.code === 'PageUp') {
+                        skipBack(100);
+                    }
+                    if (event.code === 'PageDown') {
+                        skipForward(100);
+                    }
+                    if (event.code === 'Home') {
+                        skipBack(1000);
+                    }
+                    if (event.code === 'End') {
+                        skipForward(1000);
                     }
                 }
             }
@@ -444,11 +456,19 @@ socket.on('error', function(newError) {
 
 function previousState() {
     if (rendering) return;
-    socket.emit('previous-state');
+    socket.emit('skip-back', 1);
 }
 function nextState() {
     if (rendering) return;
-    socket.emit('next-state');
+    socket.emit('skip-forward', 1);
+}
+function skipForward(nofSkips) {
+    if (rendering) return;
+    socket.emit('skip-forward', nofSkips);
+}
+function skipBack(nofSkips) {
+    if (rendering) return;
+    socket.emit('skip-back', nofSkips);
 }
 
 /*eslint-enable*/

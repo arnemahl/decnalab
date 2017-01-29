@@ -50,6 +50,7 @@ ioAppSocket.on('connection', (socket) => {
         }
 
         simulateGame(maxLoops).then((game) => {
+            const lastStateIndex = game.states.length - 1;
             let stateIndex = 0;
 
             function emitState() {
@@ -57,17 +58,19 @@ ioAppSocket.on('connection', (socket) => {
             }
             emitState();
 
-            socket.on('next-state', () => {
-                if (stateIndex < game.states.length - 1) {
-                    stateIndex++;
-                    emitState();
-                } else {
+            socket.on('skip-forward', (nofSkips) => {
+                if (stateIndex === lastStateIndex) {
                     socket.emit('replay-finished', true);
+                } else {
+                    stateIndex = Math.min(lastStateIndex, stateIndex + nofSkips);
+                    emitState();
                 }
             });
-            socket.on('previous-state', () => {
-                if (stateIndex > 0) {
-                    stateIndex--;
+            socket.on('skip-back', (nofSkips) => {
+                if (stateIndex === 0) {
+                    socket.emit('replay-already-rewound-to-start', true);
+                } else {
+                    stateIndex = Math.max(0, stateIndex - nofSkips);
                     emitState();
                 }
             });
