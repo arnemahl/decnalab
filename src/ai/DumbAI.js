@@ -1,5 +1,6 @@
 import Vectors from '~/rts/spatial/Vectors';
 import Worker from '~/rts/units/Worker';
+import Marine from '~/rts/units/Marine';
 
 function getClosestResourceSite(map, worker, resourceType) {
     const distanceTo = resourceSite => Vectors.absoluteDistance(worker.position, resourceSite.position);
@@ -42,7 +43,7 @@ export default class DumbAI {
 
     doTick = (/*tick*/) => {
         this.macro();
-        // this.micro();
+        this.micro();
         this.harvestWithIdleWorkers();
     }
 
@@ -132,6 +133,18 @@ export default class DumbAI {
     /***   micro   ***/
     /*****************/
     micro() {
+        const marines = this.getAllCommandablesOfClass(Marine);
+
+        if (marines.length > 10) {
+            marines
+                .filter(marine => marine.isIdle())
+                .forEach(marine =>
+                    marine
+                        .getCommander()
+                        .move(Vectors.new(this.map.width / 2, this.map.height / 2))
+                        // .move(Vectors.add(marine.position, Vectors.random(500, 500)))
+                );
+        }
         // // TODO
         // if (seesEnemyUnit) {
         //     // for each army-unit:

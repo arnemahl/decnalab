@@ -12,6 +12,12 @@ class Vectors {
     zero() {
         return this.new(0, 0);
     }
+    random(x = 1, y = 1) {
+        return {
+            x: x * (Math.random() - 0.5) * 2,
+            y: y * (Math.random() - 0.5) * 2,
+        };
+    }
     add(one, two) {
         return {
             x: one.x + two.x,
