@@ -4,9 +4,12 @@ import MarineClass from '~/rts/units/Marine';
 import BaseStructureClass from '~/rts/structures/BaseStructure';
 import BarracksClass from '~/rts/structures/Barracks';
 
-class Worker {
+class Unit {
+    type = 'unit'
+}
+
+class Worker extends Unit {
     class = WorkerClass
-    category = 'worker'
 
     cost = {
         abundant: 40,
@@ -30,9 +33,8 @@ class Worker {
     producedBy = BaseStructureClass
 }
 
-class Marine {
+class Marine extends Unit {
     class = MarineClass;
-    category = 'military'
 
     cost = {
         abundant: 40,

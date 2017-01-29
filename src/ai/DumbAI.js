@@ -58,22 +58,34 @@ export default class DumbAI {
     /*****************/
     /***   macro   ***/
     /*****************/
+    getAllCommandablesOfClass = (clazz) => {
+        switch (clazz.type) {
+            case 'unit':
+                return Object.values(this.team.units)
+                    .filter(unit => unit instanceof clazz);
+            case 'structure':
+                return Object.values(this.team.structures)
+                    .filter(structure => structure instanceof clazz);
+            default:
+                throw Error('woot');
+        }
+    }
+    countCommandablesWithSpec = (spec) => {
+        switch (spec.type) {
+            case 'unit':
+                return Object.values(this.team.units)
+                    .filter(unit => unit.constructor.name === spec.constructor.name)
+                    .length;
+            case 'structure':
+                return Object.values(this.team.structures)
+                    .filter(structure => structure.constructor.name === spec.constructor.name)
+                    .length;
+        }
+    }
+
     macro() {
-        const commandableMap = [
-            ...Object.values(this.team.units),
-            ...Object.values(this.team.structures),
-        ].reduce((map, commandable) => {
-            const arr = map[commandable.constructor.name] || (map[commandable.constructor.name] = []);
-
-            arr.push(commandable);
-
-            return map;
-        }, {});
-
         while (true) { // eslint-disable-line
-            const nextTarget = this.buildOrder.find(target =>
-                (commandableMap[target.spec.constructor.name] || {length: 0}).length < target.count
-            );
+            const nextTarget = this.buildOrder.find(target => this.countCommandablesWithSpec(target.spec) < target.count);
 
             const {spec} = nextTarget;
 
@@ -84,10 +96,10 @@ export default class DumbAI {
             let availableProducers;
 
             if (spec.producedBy === Worker) {
-                availableProducers = commandableMap[spec.producedBy.name]
+                availableProducers = this.getAllCommandablesOfClass(spec.producedBy)
                     .filter(worker => worker.commandQueue.array.every(command => command.type !== 'build'));
             } else {
-                availableProducers = commandableMap[spec.producedBy.name]
+                availableProducers = this.getAllCommandablesOfClass(spec.producedBy)
                     .filter(producer => producer.isIdle());
             }
 

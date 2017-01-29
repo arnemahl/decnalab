@@ -15,6 +15,8 @@ export class StructureCommander {
 }
 
 export default class Structure extends Commandable {
+    static type = 'structure'
+    type = 'structure'
 
     getCommander = () => {
         return this.safeCommander || (this.safeCommander = new StructureCommander(this, this.eventReceiver));

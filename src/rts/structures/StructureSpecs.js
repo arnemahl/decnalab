@@ -4,9 +4,12 @@ import SupplyDepotClass from '~/rts/structures/SupplyDepot';
 
 import WorkerClass from '~/rts/units/Worker';
 
-class BaseStructure {
+class Structure {
+    type = 'structure'
+}
+
+class BaseStructure extends Structure {
     class = BaseStructureClass
-    category = 'basic'
 
     cost = {
         abundant: 300,
@@ -25,9 +28,8 @@ class BaseStructure {
     producedBy = WorkerClass
 }
 
-class SupplyDepot {
+class SupplyDepot extends Structure {
     class = SupplyDepotClass
-    category = 'util'
 
     cost = {
         abundant: 100,
@@ -46,9 +48,8 @@ class SupplyDepot {
     producedBy = WorkerClass
 }
 
-class Barracks {
+class Barracks extends Structure {
     class = BarracksClass
-    category = 'military'
 
     cost = {
         abundant: 200,

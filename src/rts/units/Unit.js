@@ -38,6 +38,8 @@ export class UnitCommander {
 
 
 export default class Unit extends Commandable {
+    static type = 'unit'
+    type = 'unit'
 
     getCommander = () => {
         return this.safeCommander || (this.safeCommander = new UnitCommander(this, this.eventReceiver));
