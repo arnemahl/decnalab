@@ -139,9 +139,15 @@ export default class Engine {
             return this.tick + unit.specs.weapon.cooldown;
         };
         const onReceive = () => {
-            return Vectors.absoluteDistance(unit.position, target.position) <= unit.specs.weapon.range;
+            return true;
+            // return Vectors.absoluteDistance(unit.position, target.position) <= unit.specs.weapon.range;
         };
         const onStart = () => {
+            const isWithinRange = Vectors.absoluteDistance(unit.position, target.position) <= unit.specs.weapon.range;
+            if (isWithinRange) {
+                return false;
+            }
+
             if (unit.isOnCooldown) {
                 return false;
             }
