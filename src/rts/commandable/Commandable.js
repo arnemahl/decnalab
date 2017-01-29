@@ -17,6 +17,7 @@ export default class Commandable {
     clearCommands = () => {
         if (this.currentCommand) {
             this.currentCommand.abort();
+            this.currentCommand = false;
         }
         this.commandQueue = new Queue();
     }
@@ -30,10 +31,10 @@ export default class Commandable {
     }
 
     addCommand = (command) => {
-        if (this.isBusy()) {
-            this.commandQueue.push(command);
-        } else {
-            this.currentCommand = command;
+        this.commandQueue.push(command);
+
+        if (this.isIdle()) {
+            this.currentCommand = this.commandQueue.next();
             this.currentCommand.excecute();
         }
     }
