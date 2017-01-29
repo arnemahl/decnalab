@@ -1,3 +1,5 @@
+import Vectors from '~/rts/spatial/Vectors';
+
 export default class SimpleVision {
     constructor(map, teams) {
         this.map = map;
@@ -31,7 +33,13 @@ export default class SimpleVision {
     }
 
     _getSector = (position) => {
-        return this.map.visionSectors.find(sector => sector.contains(position));
+        const sector = this.map.visionSectors.find(sector => sector.contains(position));
+
+        if (!sector) {
+            throw Error(`No sector found for position ${Vectors.toString(position)}`);
+        }
+
+        return sector;
     }
 
     _commandablePlacedAtPosition = (commandable, position) => {

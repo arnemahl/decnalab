@@ -35,6 +35,12 @@ export default class DefaultMap {
     }
 
     center = Vectors.new(this.width / 2, this.height / 2);
+    bounds = new Rectangle({
+        x: 0,
+        y: 0,
+        width: this.width,
+        height: this.height,
+    });
 
     visionSectors = (() => {
         const nofSectors = 5;

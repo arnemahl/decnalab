@@ -70,6 +70,10 @@ class Vectors {
     notEquals(one, two) {
         return !this.equals(one, two);
     }
+
+    toString({ x, y }) {
+        return `{ x: ${x}, y: ${y} }`;
+    }
 }
 
 export default new Vectors();

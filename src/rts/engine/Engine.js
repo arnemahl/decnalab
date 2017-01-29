@@ -11,6 +11,7 @@ import SimpleVision from '~/rts/spatial/SimpleVision';
 export default class Engine {
 
     constructor(map, teams) {
+        this.map = map;
         this.taskSchedule = new TaskSchedule();
         this.commandIdGenerator = getIdGenerator('command');
         this.tick = 0;
@@ -104,6 +105,10 @@ export default class Engine {
     moveUnit = (unit, targetPosition) => {
         let startTick; // set upon start
         let startPosition; // set on start
+
+        if (!this.map.bounds.contains(targetPosition)) {
+            throw Error(`Target position out of bounds ${Vectors.toString(targetPosition)}`);
+        }
 
         const onReceive = () => true;
         const calcFinishedTick = () => {
