@@ -49,6 +49,8 @@ export default class CommandableManager {
         this.teams[unit.team.id].units[unit.id] = unit;
 
         team.usedSupply += usedSupplyAlreadyUpdated ? 0 : unitSpec.cost.supply;
+
+        return unit;
     }
 
     addStructure(team, structureSpec, position) {
@@ -81,7 +83,7 @@ export default class CommandableManager {
     }
 
     structureProducedUnit(structure, unitSpec) {
-        this.addUnit(structure.team, unitSpec, structure.team.unitSpawnPosition, true);
+        return this.addUnit(structure.team, unitSpec, structure.team.unitSpawnPosition, true);
     }
 
     structurePlanned(unit, structureSpec, position) {

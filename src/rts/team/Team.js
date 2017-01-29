@@ -14,6 +14,8 @@ export default class Team {
     structures = {}
     supply = 0
     usedSupply = 0
+    visibleMapSectorIds = []
+    visibleEnemyCommandables = []
 
     constructor(id, index, startingResources) {
         this.index = index;
@@ -47,7 +49,9 @@ export default class Team {
             structures: mapToStates(this.structures),
             unitSpawnPosition: {...this.unitSpawnPosition},
             supply: this.supply,
-            usedSupply: this.usedSupply
+            usedSupply: this.usedSupply,
+            visibleMapSectorIds: [...this.visibleMapSectorIds],
+            visibleEnemyCommandableIds: this.visibleEnemyCommandables.map(commandable => commandable.id),
         };
     }
 

@@ -6,6 +6,7 @@ import {getIdGenerator} from '~/rts/util/IdGenerator';
 import EventReceiver from '~/rts/engine/EventReceiver';
 import CommandableManager from '~/rts/engine/CommandableManager';
 import AttackEngine from '~/rts/engine/AttackEngine';
+import SimpleVision from '~/rts/spatial/SimpleVision';
 
 export default class Engine {
 
@@ -19,6 +20,7 @@ export default class Engine {
 
         const eventReceiver = new EventReceiver(this);
         this.commandableManager = new CommandableManager(eventReceiver, teams, map);
+        this.simpleVision = new SimpleVision(map, teams);
     }
 
     doTick = () => {
@@ -101,12 +103,14 @@ export default class Engine {
 
     moveUnit = (unit, targetPosition) => {
         let startTick; // set upon start
+        let startPosition; // set on start
 
         const onReceive = () => true;
         const calcFinishedTick = () => {
             return this.tick + Vectors.absoluteDistance(unit.position, targetPosition) / unit.specs.speed;
         };
         const onStart = () => {
+            startPosition = unit.position;
             startTick = this.tick;
             unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.specs.speed);
             return true;
@@ -115,6 +119,8 @@ export default class Engine {
             const moved = Vectors.scale(unit.currentSpeed, this.tick - startTick);
             unit.position = Vectors.add(unit.position, moved);
             unit.currentSpeed = Vectors.zero();
+
+            this.simpleVision.commandableMoved(unit, startPosition);
         };
         const onFinish = () => {
             doMove();
@@ -143,6 +149,7 @@ export default class Engine {
 
             if (didKill) {
                 this.commandableManager.remove(target); // Ideally let the other unit attack at same tick before dying.
+                this.simpleVision.commandableRemoved(target);
             }
 
             return true;
@@ -225,6 +232,7 @@ export default class Engine {
 
             if (canStart) {
                 this.commandableManager.structureStarted(structure);
+                this.simpleVision.commandableAdded(structure);
             }
 
             return canStart;
@@ -235,6 +243,7 @@ export default class Engine {
         const onAbort = () => {
             if (didPlan) {
                 this.commandableManager.structureCancelled(structure);
+                this.simpleVision.commandableRemoved(structure);
                 ['abundant', 'sparse'].forEach(resourceType => worker.team.resources[resourceType] += structureSpec.cost[resourceType]); // eslint-disable-line no-return-assign
             }
         };
@@ -268,7 +277,8 @@ export default class Engine {
             return canProduce;
         };
         const onFinish = () => {
-            this.commandableManager.structureProducedUnit(structure, unitSpec);
+            const unit = this.commandableManager.structureProducedUnit(structure, unitSpec);
+            this.simpleVision.commandableAdded(unit);
         };
         const onAbort = () => {
             if (didStart) {

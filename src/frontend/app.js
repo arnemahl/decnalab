@@ -374,6 +374,22 @@ var Renderer = (function() {
                 .back();
         }
 
+        function drawFogOfWar() {
+            state.map.visionSectors
+                .filter(sector => state.teams.every(team =>
+                    team.visibleMapSectorIds.indexOf(sector.id) === -1
+                ))
+                .forEach(sector => {
+                    // Draw for of war
+                    paper.rect(sector.width, sector.height)
+                        .center(
+                            sector.x + sector.width / 2,
+                            sector.y + sector.height / 2
+                        )
+                        .fill('#272727')
+                });
+        }
+
         return function() {
             ensureNavigationListenersAreInitialized();
             document.getElementById('state-index').textContent = 'State '+stateIndex+' | Tick '+state.tick;
@@ -381,7 +397,9 @@ var Renderer = (function() {
             drawResourceSites();
             drawTeamsUnitsAndStructures();
             drawTeamResources();
-            drawMapBackground();        }
+            drawFogOfWar();
+            drawMapBackground();
+        }
     })();
 
     function _render () {

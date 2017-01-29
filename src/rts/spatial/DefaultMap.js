@@ -2,6 +2,24 @@ import Vectors from '~/rts/spatial/Vectors';
 import {AbundantResourceSite, SparseResourceSite} from '~/rts/resources/ResourceSite';
 import {getIdGenerator} from '~/rts/util/IdGenerator';
 
+class Rectangle {
+    constructor({ x, y, width, height }) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.xClosedUpperBound = x + width;
+        this.yClosedUpperBound = y + height;
+    }
+
+    contains = (position) => { // Half open interval
+        return (
+            this.x <= position.x && position.x < this.xClosedUpperBound &&
+            this.y <= position.y && position.y < this.yClosedUpperBound
+        );
+    }
+}
+
 export default class DefaultMap {
 
     nofTeams = {
@@ -15,6 +33,23 @@ export default class DefaultMap {
         x: 40*1000,
         y: 80*1000
     }
+
+    visionSectors = (() => {
+        const nofSectors = 5;
+        const sectorHeight = this.height / nofSectors;
+
+        return Array(nofSectors).fill(void 0)
+            .map((_, index) => {
+                const sector = new Rectangle({
+                    x: 0,
+                    y: sectorHeight * index,
+                    height: sectorHeight,
+                    width: this.width,
+                });
+                sector.id = `sector-${index}`;
+                return sector;
+            });
+    })()
 
     startingPositions = {
         north: {
@@ -113,7 +148,8 @@ export default class DefaultMap {
         return {
             width: this.width,
             height: this.height,
-            resourceSites
+            resourceSites,
+            visionSectors: this.visionSectors,
         };
     }
 
