@@ -291,10 +291,14 @@ var Renderer = (function() {
             state.teams.forEach(function(team) {
                 var teamAttr = {fill: team.id, stroke: '#222'}; // TODO make this sensible. Currently, teamId = 'blue'||'red'
                 var teamAttrSelected = {fill: 'coral'};
+                var teamAttrOnlyPlanned = {fill: 'transparent', stroke: team.id, 'stroke-width': 3};
                 var teamAttrUnderConstruction = {fill: team.id, stroke: '#222', opacity: 0.3};
 
                 team.structures.forEach(function(structure) {
-                    if (structure.isUnderConstruction) {
+                    if (structure.isOnlyPlanned) {
+                        drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type + '\n\[planned\]', teamAttrOnlyPlanned);
+                    }
+                    else if (structure.isUnderConstruction) {
                         drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type + '\n\[under construction\]', teamAttrUnderConstruction);
                     } else {
                         drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type, teamAttr);
