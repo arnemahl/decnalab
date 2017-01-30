@@ -21,18 +21,11 @@ export class UnitCommander {
         this.eventReceiver.attackWithUnit(this.unit, target);
     }
 
-    attackMove = (target, waitForQueuedCommandsToComplete) => {
+    attackMove = (targetPosition, waitForQueuedCommandsToComplete) => {
         if (!waitForQueuedCommandsToComplete) {
             this.eventReceiver.clearCommands(this.unit);
         }
-        const distanceToTarget = Vectors.absoluteDistance(this.unit.position, target.position);
-
-        if (distanceToTarget > this.unit.specs.weapon.range) {
-            const halfWayToTarget = Vectors.add(this.unit.position, Vectors.direction(this.unit.position, target.position, 0.5));
-
-            this.eventReceiver.moveUnit(this.unit, halfWayToTarget);
-        }
-        this.eventReceiver.attackWithUnit(this.unit, target); // Will not work yet, as positions are not updated on each tick
+        this.eventReceiver.attackMoveUnit(this.unit, targetPosition);
     }
 
     // attackMove = (position, waitForQueuedCommandsToComplete) => {

@@ -132,49 +132,28 @@ export default class DumbAI {
     /*****************/
     /***   micro   ***/
     /*****************/
+
     micro() {
         const marines = this.getAllCommandablesOfClass(Marine);
+        const enemySpawnPosition = this.map.unitSpawnPositions.find((_, index) => index !== this.team.index);
 
-        const seesEnemies = this.team.visibleEnemyCommandables.length !== 0;
+        marines
+            .filter(marine => marine.isIdle())
+            .forEach(marine => {
+                const closestEnemy = this.getClosestEnemy(marine);
 
-        if (seesEnemies) {
-            marines
-                .filter(marine => marine.isIdle())
-                .forEach(this.attackClosestEnemy);
-        } else if (marines.length > 10) {
-            marines
-                .filter(marine => marine.isIdle())
-                .forEach(this.approachEnemyBase);
-        }
-
-        // // TODO
-        // if (seesEnemyUnit) {
-        //     // for each army-unit:
-        //     // A_MOVE toward closest visible enemy unit
-        // } else if (seesEnemyStructure) {
-        //     // for each army-unit:
-        //     // A_MOVE toward closest visible enemy strucure
-        // } else if (attackTiming.count <= thingCounts[attackTiming.unit]) {
-        //     // A_MOVE toward enemy base
-        // }
+                if (Vectors.absoluteDistance(marine, closestEnemy) <= marine.specs.weapon.range) {
+                    marine.getCommander().attack(closestEnemy);
+                } else {
+                    marine.getCommander().attackMove(enemySpawnPosition);
+                }
+            });
     }
 
-    // Curried sort method
+    /** Curried sort method */
     byClosenessTo = (position) => (one, two) => Vectors.absoluteDistance(position, one.position) - Vectors.absoluteDistance(position, two.position);
 
-    attackClosestEnemy = (unit) => {
-        const {visibleEnemyCommandables} = this.team;
-
-        const closestEnemy = visibleEnemyCommandables
-            .sort(this.byClosenessTo(unit.position))
-            [0];
-
-        unit.getCommander().attackMove(closestEnemy);
-    }
-
-    approachEnemyBase = (unit) => {
-        const direction = Vectors.direction(unit.position, this.map.center, 1000); // 1000: don't walk too far at once...
-
-        unit.getCommander().move(Vectors.add(unit.position, direction));
+    getClosestEnemy = (unit) => {
+        return this.team.visibleEnemyCommandables.sort(this.byClosenessTo(unit.position))[0];
     }
 }

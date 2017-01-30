@@ -1,3 +1,10 @@
+/* eslint-disable */
+
+/*
+ * Deprecated: use DumbAI instead
+ * Kept for reference only
+ */
+
 import Vectors from '~/rts/spatial/Vectors';
 import {isIdle, isHarvesting} from '~/rts/commandable/Commandable';
 import {isWorker} from '~/rts/units/Worker';

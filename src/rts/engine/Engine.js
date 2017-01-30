@@ -7,6 +7,7 @@ import EventReceiver from '~/rts/engine/EventReceiver';
 import CommandableManager from '~/rts/engine/CommandableManager';
 import AttackEngine from '~/rts/engine/AttackEngine';
 import SimpleVision from '~/rts/spatial/SimpleVision';
+import CollisionDetector from '~/rts/spatial/CollisionDetector';
 
 export default class Engine {
 
@@ -22,6 +23,7 @@ export default class Engine {
         const eventReceiver = new EventReceiver(this);
         this.commandableManager = new CommandableManager(eventReceiver, teams, map);
         this.simpleVision = new SimpleVision(map, teams);
+        this.collisionDetector = new CollisionDetector(this.taskSchedule, () => this.tick, teams, map);
     }
 
     doTick = () => {
@@ -137,6 +139,51 @@ export default class Engine {
         const onAbort = doMove;
 
         this.addCommand('move', unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+    }
+
+    attackMoveUnit = (unit, targetPosition) => {
+        let startTick; // set upon start
+        let startPosition; // set on start
+
+        if (!this.map.bounds.contains(targetPosition)) {
+            throw Error(`Target position out of bounds ${Vectors.toString(targetPosition)}`);
+        }
+
+        /* should only be used to walk in a straight line toward the enemy spawn point (because that makes it easy to calculate collisions) */
+        const onCollision = (enemyUnit) => {
+            unit.getCommander().attack(enemyUnit);
+        };
+
+        const onReceive = () => true;
+        const calcFinishedTick = () => {
+            // will most likely be aborted before this due to collision with enemy
+            return this.tick + Vectors.absoluteDistance(unit.position, targetPosition) / unit.specs.speed;
+        };
+        const onStart = () => {
+            startPosition = unit.position;
+            startTick = this.tick;
+            unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.specs.speed);
+            this.collisionDetector.startMove(unit, targetPosition, onCollision); // <- diff from moveUnit
+            return true;
+        };
+        const doMove = () => {
+            const moved = Vectors.scale(unit.currentSpeed, this.tick - startTick);
+            unit.position = Vectors.add(unit.position, moved);
+            unit.currentSpeed = Vectors.zero();
+
+            this.simpleVision.commandableMoved(unit, startPosition);
+            this.collisionDetector.endMove(unit); // <- diff from moveUnit
+        };
+        const onFinish = () => {
+            doMove();
+
+            if (!unit.isAt(targetPosition)) {
+                console.error('ERROR in moveUnit, ended up:', Vectors.absoluteDistance(unit.position, targetPosition), 'from targetPosition');
+            }
+        };
+        const onAbort = doMove;
+
+        this.addCommand('attack-move', unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     attackWithUnit = (unit, target) => {

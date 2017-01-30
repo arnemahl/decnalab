@@ -27,6 +27,8 @@ export default class DefaultMap {
         max: 2
     }
 
+    direction = 'vertical' // teams spawn at top and bottom
+
     width = 40*1000; // TODO remove
     height = 80*1000; // TODO remove
     size = {
