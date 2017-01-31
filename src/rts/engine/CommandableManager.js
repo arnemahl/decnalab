@@ -64,6 +64,8 @@ export default class CommandableManager {
     }
 
     removeUnit(unit) {
+        unit.clearCommands();
+
         delete this.units[unit.id];
         delete this.teams[unit.team.id].units[unit.id];
 
@@ -71,6 +73,8 @@ export default class CommandableManager {
     }
 
     removeStructure(structure) {
+        structure.clearCommands();
+
         delete this.structures[structure.id];
         delete this.teams[structure.team.id].structures[structure.id];
 

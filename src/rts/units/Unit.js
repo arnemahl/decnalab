@@ -61,7 +61,8 @@ export default class Unit extends Commandable {
             id: this.id,
             type: this.constructor.name,
             position: {...this.position},
-            healthLeftFactor: this.healthLeftFactor
+            healthLeftFactor: this.healthLeftFactor,
+            currentCommandType: this.currentCommand ? this.currentCommand.type : 'idle',
         };
     }
 

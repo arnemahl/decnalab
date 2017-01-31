@@ -14,6 +14,7 @@ export default class Engine {
     constructor(map, teams) {
         this.map = map;
         this.taskSchedule = new TaskSchedule();
+        this.tickCleanupTasks = [];
         this.commandIdGenerator = getIdGenerator('command');
         this.tick = 0;
         this.tickReader = {
@@ -31,6 +32,9 @@ export default class Engine {
 
         this.tick = tick;
         tasks.forEach(task => task());
+
+        this.tickCleanupTasks.forEach(task => task());
+        this.tickCleanupTasks = [];
 
         return this.tick;
     }
@@ -151,7 +155,14 @@ export default class Engine {
 
         /* should only be used to walk in a straight line toward the enemy spawn point (because that makes it easy to calculate collisions) */
         const onCollision = (enemyUnit) => {
-            unit.getCommander().attack(enemyUnit);
+            const isWithinRange = Vectors.absoluteDistance(unit.position, enemyUnit.position) <= unit.specs.weapon.range;
+
+            if (!isWithinRange) {
+                console.log('Collided but are too far away:', unit.position, enemyUnit.position, unit.specs.weapon.range); // DEBUG
+                throw Error('Collided but are too far away');
+            } else {
+                this.attackWithUnit(unit, enemyUnit);
+            }
         };
 
         const onReceive = () => true;
@@ -192,24 +203,25 @@ export default class Engine {
         };
         const onReceive = () => {
             return true;
-            // return Vectors.absoluteDistance(unit.position, target.position) <= unit.specs.weapon.range;
         };
         const onStart = () => {
             const isWithinRange = Vectors.absoluteDistance(unit.position, target.position) <= unit.specs.weapon.range;
-            if (isWithinRange) {
+            if (!isWithinRange) {
                 return false;
             }
 
             if (unit.isOnCooldown) {
+                console.log('COOLDOWN'); // DEBUG
                 return false;
             }
             unit.isOnCooldown = true;
 
             const didKill = AttackEngine.applyAttack(unit, target);
-
             if (didKill) {
-                this.commandableManager.remove(target); // Ideally let the other unit attack at same tick before dying.
-                this.simpleVision.commandableRemoved(target);
+                this.tickCleanupTasks.push(() => {
+                    this.commandableManager.remove(target);
+                    this.simpleVision.commandableRemoved(target);
+                });
             }
 
             return true;
@@ -217,7 +229,11 @@ export default class Engine {
         const onFinish = () => {
             unit.isOnCooldown = false;
         };
-        const onAbort = () => {};
+        const onAbort = () => {
+            if (unit.healthLeftFactor > 0) {
+                console.log('Uh oh, stuck on cooldown!');
+            }
+        };
 
         this.addCommand('attack', unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }

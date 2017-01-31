@@ -8,9 +8,9 @@ class AttackEngine {
             return false;
         }
 
-        const targetHealth = target.healtLeftFactor * target.specs.maxHealth - damage;
+        const targetHealth = target.healthLeftFactor * target.specs.maxHealth - damage;
 
-        target.healtLeftFactor = targetHealth / target.specs.maxHealth;
+        target.healthLeftFactor = targetHealth / target.specs.maxHealth;
 
         return targetHealth <= 0;
     }

@@ -107,7 +107,7 @@ export default class SimpleVision {
                 const commandablesTeamLostVisionOf = this.commandablesPerSector[otherTeam.id][sector.id];
 
                 commandable.team.visibleEnemyCommandables = commandable.team.visibleEnemyCommandables
-                    .filter(enemyCommandable => !commandablesTeamLostVisionOf.includes(enemyCommandable));
+                    .filter(enemyCommandable => !commandablesTeamLostVisionOf[enemyCommandable.id]);
             });
         }
     }

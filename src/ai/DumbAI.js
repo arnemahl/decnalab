@@ -142,7 +142,7 @@ export default class DumbAI {
             .forEach(marine => {
                 const closestEnemy = this.getClosestEnemy(marine);
 
-                if (Vectors.absoluteDistance(marine, closestEnemy) <= marine.specs.weapon.range) {
+                if (closestEnemy && Vectors.absoluteDistance(marine.position, closestEnemy.position) <= marine.specs.weapon.range) {
                     marine.getCommander().attack(closestEnemy);
                 } else {
                     marine.getCommander().attackMove(enemySpawnPosition);

@@ -5,7 +5,7 @@ import socket_io from 'socket.io';
 import {simulateGame} from '~/Simulation';
 
 function test() {
-    const loops = 10;
+    const loops = 1000;
 
     simulateGame(loops)
     .then(() => {

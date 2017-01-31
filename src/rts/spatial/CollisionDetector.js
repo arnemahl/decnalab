@@ -1,3 +1,5 @@
+import Vectors from '~/rts/spatial/Vectors';
+
 const DEBUG = true;
 function calcExpctected(move, enemyMove, ticks) {
     const endY = move.y0 + move.dy * ticks;
@@ -13,7 +15,7 @@ function assertCorrectCalculation(move, enemyMove, ticks) {
         console.log(`ticks=${ticks}`);
         console.log(`move.y0=${move.y0} move.dy=${move.dy} expected.endY=${expected.endY}`);
         console.log(`enemyMove.y0=${enemyMove.y0} enemyMove.dy=${enemyMove.dy} expected.enemyEndY=${expected.enemyEndY}`);
-        throw 'nCOLLICION CALCULATION ERROR';
+        throw Error('COLLICION CALCULATION ERROR');
     }
 }
 
@@ -81,15 +83,18 @@ export default class CollitionDetector {
 
     registerCollision(move, enemyMove, tick, expected) {
         const task = () => {
-            move.onCollision(enemyMove.unit);
-            enemyMove.onCollision(move.unit);
+            move.unit.clearCommands();
+            enemyMove.unit.clearCommands();
 
             if (DEBUG && (
                     Math.abs(move.unit.position.y - expected.endY) > move.unit.specs.speed ||
                     Math.abs(enemyMove.unit.position.y !== expected.enemyEndY) > enemyMove.unit.specs.speed
                 )) {
-                throw 'ENDED UP WRONG';
+                throw Error('ENDED UP WRONG');
             }
+
+            move.onCollision(enemyMove.unit);
+            enemyMove.onCollision(move.unit);
         };
 
         let alreadyRemoved = false;

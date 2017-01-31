@@ -29,7 +29,8 @@ export default class Structure extends Commandable {
             position: {...this.position},
             healthLeftFactor: this.healthLeftFactor,
             isOnlyPlanned: this.isOnlyPlanned,
-            isUnderConstruction: this.isUnderConstruction
+            isUnderConstruction: this.isUnderConstruction,
+            currentCommandType: this.currentCommand ? this.currentCommand.type : 'idle',
         };
     }
 
