@@ -286,6 +286,14 @@ var Renderer = (function() {
                         ANIMATE_MOVES = !ANIMATE_MOVES;
                         Renderer.render();
                     }
+                    if (event.code === 'ArrowUp') {
+                        MS_PER_TICK /= 1.5;
+                        Renderer.render();
+                    }
+                    if (event.code === 'ArrowDown') {
+                        MS_PER_TICK *= 1.5;
+                        Renderer.render();
+                    }
                 }
             }
         })();
