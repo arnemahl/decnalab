@@ -281,6 +281,11 @@ var Renderer = (function() {
                 .opacity(0.9)
                 .fill('snow');
         }
+        function drawHealthBar(commandable, specs) {
+            paper.rect(commandable.healthLeftFactor * specs.size, 20)
+                .center(commandable.position.x, commandable.position.y - specs.radius - 30)
+                .attr({ fill: 'green' });
+        }
 
         function drawMapBackground() {
             paper.rect(state.map.width, state.map.height).fill('#222').back();
@@ -315,6 +320,7 @@ var Renderer = (function() {
                     } else {
                         drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type, teamAttr);
                     }
+                    drawHealthBar(structure, team.structureSpecs[structure.type]);
                 });
                 team.units.forEach(function(unit) {
                     if (isSelected(unit)) {
@@ -322,6 +328,7 @@ var Renderer = (function() {
                     } else {
                         drawCircle(unit.position, team.unitSpecs[unit.type].size, unit.type, teamAttr);
                     }
+                    drawHealthBar(unit, team.unitSpecs[unit.type]);
                 });
                 drawCircle(team.unitSpawnPosition, 500, 'spawn location', {fill: '#333', stroke: team.id, 'stroke-width': 5}).back();
             });
