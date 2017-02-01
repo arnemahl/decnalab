@@ -6,6 +6,7 @@ var MS_PER_TICK = 20;
 var stateIndex;
 var state;
 var nextState;
+var replayFinished;
 var error;
 
 var rendering = false;
@@ -92,6 +93,18 @@ var Renderer = (function() {
         };
 
         staticPaper.text(error).center(center.x, center.y);
+    }
+
+    function drawReplayFinished() {
+        var ww = window.innerWidth;
+        var wh = window.innerHeight;
+
+        var center = {
+            x: ww / 2,
+            y: wh / 2
+        };
+
+        staticPaper.text('Replay finished').center(center.x, center.y).font({size: ww / 15, anchor: 'middle'}).fill('mediumvioletred');
     }
 
     var drawGameState = (function() {
@@ -494,7 +507,6 @@ var Renderer = (function() {
         paper.clear();
         staticPaper.clear();
 
-
         if (error) {
             drawError();
         } else if (state) {
@@ -504,6 +516,9 @@ var Renderer = (function() {
 
             if (ANIMATE_MOVES && nextState) {
                 timeout = setTimeout(goToNextState, (nextState.tick - state.tick) * MS_PER_TICK);
+            }
+            if (replayFinished) {
+                drawReplayFinished();
             }
         } else {
             drawLoadingScreen();
@@ -556,7 +571,13 @@ socket.on('game-state', function(update) {
         justFinishedLoading = true;
         isLoading = false;
     }
+    replayFinished = !update.nextState;
 
+    Renderer.render();
+});
+
+socket.on('replay-finished', function() {
+    replayFinished = true;
     Renderer.render();
 });
 
