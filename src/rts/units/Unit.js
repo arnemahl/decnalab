@@ -56,4 +56,13 @@ export default class Unit extends Commandable {
         return Vectors.absoluteDistance(this.position, position) < this.specs.speed;
     }
 
+    getUnitState = () => {
+        return {
+            ...this.getCommandableState(),
+            speed: Vectors.clone(this.currentSpeed),
+            speedSetAtTick: this.speedSetAtTick,
+        };
+    }
+    getState = () => this.getUnitState();
+
 }

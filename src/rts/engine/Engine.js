@@ -124,12 +124,14 @@ export default class Engine {
             startPosition = unit.position;
             startTick = this.tick;
             unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.specs.speed);
+            unit.speedSetAtTick = this.tick;
             return true;
         };
         const doMove = () => {
             const moved = Vectors.scale(unit.currentSpeed, this.tick - startTick);
             unit.position = Vectors.add(unit.position, moved);
             unit.currentSpeed = Vectors.zero();
+            unit.speedSetAtTick = this.tick;
 
             this.simpleVision.commandableMoved(unit, startPosition);
         };
@@ -174,6 +176,7 @@ export default class Engine {
             startPosition = unit.position;
             startTick = this.tick;
             unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.specs.speed);
+            unit.speedSetAtTick = this.tick;
             this.collisionDetector.startMove(unit, targetPosition, onCollision); // <- diff from moveUnit
             return true;
         };
@@ -181,6 +184,7 @@ export default class Engine {
             const moved = Vectors.scale(unit.currentSpeed, this.tick - startTick);
             unit.position = Vectors.add(unit.position, moved);
             unit.currentSpeed = Vectors.zero();
+            unit.speedSetAtTick = this.tick;
 
             this.simpleVision.commandableMoved(unit, startPosition);
             this.collisionDetector.endMove(unit); // <- diff from moveUnit

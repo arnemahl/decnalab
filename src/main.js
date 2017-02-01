@@ -54,7 +54,9 @@ ioAppSocket.on('connection', (socket) => {
             let stateIndex = 0;
 
             function emitState() {
-                socket.emit('game-state', {stateIndex, state: game.states[stateIndex]});
+                const nextState = (stateIndex !== lastStateIndex) && game.states[stateIndex + 1];
+
+                socket.emit('game-state', {stateIndex, state: game.states[stateIndex], nextState });
             }
             emitState();
 

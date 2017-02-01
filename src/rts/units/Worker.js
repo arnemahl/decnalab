@@ -51,7 +51,7 @@ export default class Worker extends Unit {
 
     getState = () => {
         return {
-            ...this.getCommandableState(),
+            ...this.getUnitState(),
             carriedResources: {...this.carriedResources},
             currentResourceSiteId: this.currentResourceSite.id,
         };

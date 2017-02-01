@@ -1,7 +1,11 @@
 /*eslint-disable*/
 
+var ANIMATE_MOVES = true;
+var MS_PER_TICK = 20;
+
 var stateIndex;
 var state;
+var nextState;
 var error;
 
 var rendering = false;
@@ -128,7 +132,7 @@ var Renderer = (function() {
             var allUnits = state.teams[0].units.concat(state.teams[1].units);
 
             var selectedUnits = allUnits.filter(function(unit) {
-                return contains(mapArea, unit.position);
+                return contains(mapArea, calculateUnitPosition(unit, state.tick));
             });
 
             return selectedUnits;
@@ -141,6 +145,20 @@ var Renderer = (function() {
 
             Renderer.render();
         }
+
+        function getUnitInState(gameState, teamId, unitId) {
+            return gameState && gameState
+                .teams.find(team => team.id === teamId)
+                .units.find(unit => unit.id === unitId);
+        }
+
+        function calculateUnitPosition(unit, currentTick) {
+            return {
+                x: unit.position.x + unit.speed.x * (currentTick - unit.speedSetAtTick),
+                y: unit.position.y + unit.speed.y * (currentTick - unit.speedSetAtTick)
+            };
+        }
+
 
         var ensureNavigationListenersAreInitialized = (function() {
             return function() {
@@ -227,8 +245,8 @@ var Renderer = (function() {
 
                 // Show controls, add onclick listener to Left and Right buttons
                 document.getElementById('game-controls').style.display = 'unset';
-                document.getElementById('button-next').onclick = nextState;
-                document.getElementById('button-previous').onclick = previousState;
+                document.getElementById('button-next').onclick = goToNextState;
+                document.getElementById('button-previous').onclick = goToPreviousState;
 
                 // Add Listener for Left and Right arrow keys
                 window.onkeydown = function(event) {
@@ -249,6 +267,11 @@ var Renderer = (function() {
                     }
                     if (event.code === 'End') {
                         skipForward(1000);
+                    }
+
+                    if (event.code === 'Space') {
+                        ANIMATE_MOVES = !ANIMATE_MOVES;
+                        Renderer.render();
                     }
                 }
             }
@@ -282,17 +305,58 @@ var Renderer = (function() {
                 .fill('snow');
         }
         function drawHealthBar(commandable, specs) {
-            paper.rect(commandable.healthLeftFactor * specs.size, 20)
+            return paper.rect(commandable.healthLeftFactor * specs.size, 20)
                 .center(commandable.position.x, commandable.position.y - specs.radius - 30)
                 .attr({ fill: 'green' });
         }
         function drawCommands(commandable, specs) {
-            paper.text(commandable.commands.join('\n'))
+            return paper.text(commandable.commands.join('\n'))
                 .x(commandable.position.x)
                 .y(commandable.position.y)
                 .font({ size: 36, anchor: 'middle'})
                 .opacity(0.7)
                 .fill('snow');
+        }
+        function drawUnit(unit, specs, circleAttr, nextUnitState) {
+
+            var unitElement = paper.nested();
+
+            // circle
+            unitElement.circle(specs.size)
+                .center(specs.radius, specs.radius)
+                .opacity(0.7)
+                .attr(circleAttr);
+            // unit type
+            unitElement.text(unit.type)
+                .x(specs.radius)
+                .y(specs.radius - 32)
+                .font({size: 40, anchor: 'middle'})
+                .fill('snow');
+            // health bar
+            unitElement.rect(unit.healthLeftFactor * specs.size, 20)
+                .center(specs.radius, -20)
+                .attr({ fill: 'green' });
+            // commands
+            unitElement.text(unit.commands[0]/*.join('\n')*/)
+                .x(specs.radius)
+                .y(specs.radius + 10)
+                .font({size: 30, anchor: 'middle'})
+                .opacity(0.7)
+                .fill('white');
+
+            // move to current position
+            var currentPosition = calculateUnitPosition(unit, state.tick);
+
+            unitElement.move(currentPosition.x, currentPosition.y);
+
+            if (ANIMATE_MOVES && nextUnitState) {
+                const ticksToAnimate = nextState.tick - state.tick;
+                const nextPosition = calculateUnitPosition(nextUnitState, nextState.tick);
+
+                if (unit.speed && (unit.speed.x !== 0 || unit.speed.y !== 0)) {
+                    unitElement.animate(MS_PER_TICK * ticksToAnimate, '-').move(nextPosition.x, nextPosition.y);
+                }
+            }
         }
 
         function drawMapBackground() {
@@ -334,14 +398,13 @@ var Renderer = (function() {
                 });
                 team.units.forEach(function(unit) {
                     const specs = team.unitSpecs[unit.type];
+                    const nextUnitState = nextState && getUnitInState(nextState, team.id, unit.id);
 
                     if (isSelected(unit)) {
-                        drawCircle(unit.position, specs.size, unit.type, teamAttrSelected);
+                        drawUnit(unit, specs, teamAttrSelected, nextUnitState);
                     } else {
-                        drawCircle(unit.position, specs.size, unit.type, teamAttr);
+                        drawUnit(unit, specs, teamAttr, nextUnitState);
                     }
-                    drawHealthBar(unit, specs);
-                    drawCommands(unit, specs);
                 });
                 drawCircle(team.unitSpawnPosition, 500, 'spawn location', {fill: '#333', stroke: team.id, 'stroke-width': 5}).back();
             });
@@ -407,6 +470,7 @@ var Renderer = (function() {
                             sector.y + sector.height / 2
                         )
                         .fill('#272727')
+                        .back();
                 });
         }
 
@@ -422,6 +486,8 @@ var Renderer = (function() {
         }
     })();
 
+    let timeout;
+
     function _render () {
         rendering = true;
 
@@ -433,6 +499,12 @@ var Renderer = (function() {
             drawError();
         } else if (state) {
             drawGameState();
+
+            clearTimeout(timeout);
+
+            if (ANIMATE_MOVES && nextState) {
+                timeout = setTimeout(goToNextState, (nextState.tick - state.tick) * MS_PER_TICK);
+            }
         } else {
             drawLoadingScreen();
         }
@@ -478,6 +550,7 @@ socket.emit('simulate-game', maxLoops);
 socket.on('game-state', function(update) {
     stateIndex = update.stateIndex;
     state = update.state;
+    nextState = update.nextState;
 
     if (isLoading) {
         justFinishedLoading = true;
@@ -492,11 +565,11 @@ socket.on('error', function(newError) {
     Renderer.render();
 });
 
-function previousState() {
+function goToPreviousState() {
     if (rendering) return;
     socket.emit('skip-back', 1);
 }
-function nextState() {
+function goToNextState() {
     if (rendering) return;
     socket.emit('skip-forward', 1);
 }
