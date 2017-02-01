@@ -201,6 +201,25 @@ var Renderer = (function() {
                     }
                     paper.viewbox(wbx, wby, span, span);
                 });
+                function panViewbox(direction) {
+                    switch (direction) {
+                        case 'UP':
+                            wby -= span / 5;
+                            break;
+                        case 'DOWN':
+                            wby += span / 5;
+                            break;
+                        case 'LEFT':
+                            wbx -= span / 5;
+                            break;
+                        case 'RIGHT':
+                            wbx += span / 5;
+                            break;
+                        default:
+                            return;
+                    }
+                    paper.viewbox(wbx, wby, span, span);
+                }
 
                 // Enable drag selection of units
                 document.addEventListener('mousedown', asdf = function(event) {
@@ -293,6 +312,19 @@ var Renderer = (function() {
                     if (event.code === 'ArrowDown') {
                         MS_PER_TICK *= 1.5;
                         Renderer.render();
+                    }
+
+                    if (event.code === 'KeyW') {
+                        panViewbox('UP');
+                    }
+                    if (event.code === 'KeyA') {
+                        panViewbox('LEFT');
+                    }
+                    if (event.code === 'KeyS') {
+                        panViewbox('DOWN');
+                    }
+                    if (event.code === 'KeyD') {
+                        panViewbox('RIGHT');
                     }
                 }
             }
