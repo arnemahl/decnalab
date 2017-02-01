@@ -52,6 +52,18 @@ export default class Commandable {
         }
     }
 
+    // Replay state
+    getCommandableState = () => {
+        return {
+            id: this.id,
+            type: this.constructor.name,
+            position: {...this.position},
+            healthLeftFactor: this.healthLeftFactor,
+            commands: this.currentCommand ? [this.currentCommand.type].concat(this.commandQueue.seeFirst(3).map(cmd => cmd.type)) : [],
+        };
+    }
+    getState = () => this.getCommandableState();
+
 }
 
 export const isIdle = commandable => commandable.isIdle();

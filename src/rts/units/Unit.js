@@ -56,21 +56,4 @@ export default class Unit extends Commandable {
         return Vectors.absoluteDistance(this.position, position) < this.specs.speed;
     }
 
-    getState = () => {
-        return {
-            id: this.id,
-            type: this.constructor.name,
-            position: {...this.position},
-            healthLeftFactor: this.healthLeftFactor,
-            currentCommandType: this.currentCommand ? this.currentCommand.type : 'idle',
-        };
-    }
-
-    setState = (nextState) => {
-        this.position = {...nextState.position};
-        this.healthLeftFactor = nextState.healthLeftFactor;
-
-        this.specs = this.team.unitSpecs[this.constructor.name]; // OMG. This is fucked
-    }
-
 }

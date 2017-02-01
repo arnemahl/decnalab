@@ -286,6 +286,14 @@ var Renderer = (function() {
                 .center(commandable.position.x, commandable.position.y - specs.radius - 30)
                 .attr({ fill: 'green' });
         }
+        function drawCommands(commandable, specs) {
+            paper.text(commandable.commands.join('\n'))
+                .x(commandable.position.x)
+                .y(commandable.position.y)
+                .font({ size: 36, anchor: 'middle'})
+                .opacity(0.7)
+                .fill('snow');
+        }
 
         function drawMapBackground() {
             paper.rect(state.map.width, state.map.height).fill('#222').back();
@@ -312,23 +320,28 @@ var Renderer = (function() {
                 var teamAttrUnderConstruction = {fill: team.id, stroke: '#222', opacity: 0.3};
 
                 team.structures.forEach(function(structure) {
+                    const specs = team.structureSpecs[structure.type];
+
                     if (structure.isOnlyPlanned) {
-                        drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type + '\n\[planned\]', teamAttrOnlyPlanned);
-                    }
-                    else if (structure.isUnderConstruction) {
-                        drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type + '\n\[under construction\]', teamAttrUnderConstruction);
+                        drawSquare(structure.position, specs.size, structure.type + '\n\[planned\]', teamAttrOnlyPlanned);
+                    } else if (structure.isUnderConstruction) {
+                        drawSquare(structure.position, specs.size, structure.type + '\n\[under construction\]', teamAttrUnderConstruction);
                     } else {
-                        drawSquare(structure.position, team.structureSpecs[structure.type].size, structure.type, teamAttr);
+                        drawSquare(structure.position, specs.size, structure.type, teamAttr);
                     }
-                    drawHealthBar(structure, team.structureSpecs[structure.type]);
+                    drawHealthBar(structure, specs);
+                    drawCommands(structure, specs);
                 });
                 team.units.forEach(function(unit) {
+                    const specs = team.unitSpecs[unit.type];
+
                     if (isSelected(unit)) {
-                        drawCircle(unit.position, team.unitSpecs[unit.type].size, unit.type, teamAttrSelected);
+                        drawCircle(unit.position, specs.size, unit.type, teamAttrSelected);
                     } else {
-                        drawCircle(unit.position, team.unitSpecs[unit.type].size, unit.type, teamAttr);
+                        drawCircle(unit.position, specs.size, unit.type, teamAttr);
                     }
-                    drawHealthBar(unit, team.unitSpecs[unit.type]);
+                    drawHealthBar(unit, specs);
+                    drawCommands(unit, specs);
                 });
                 drawCircle(team.unitSpawnPosition, 500, 'spawn location', {fill: '#333', stroke: team.id, 'stroke-width': 5}).back();
             });
