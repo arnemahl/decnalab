@@ -7,7 +7,6 @@ import EventReceiver from '~/rts/engine/EventReceiver';
 import CommandableManager from '~/rts/engine/CommandableManager';
 import AttackEngine from '~/rts/engine/AttackEngine';
 import SimpleVision from '~/rts/spatial/SimpleVision';
-import CollisionDetector from '~/rts/spatial/CollisionDetector';
 
 export default class Engine {
 
@@ -15,6 +14,7 @@ export default class Engine {
         this.map = map;
         this.taskSchedule = new TaskSchedule();
         this.tickCleanupTasks = [];
+        this.onEveryTickTasks = [];
         this.commandIdGenerator = getIdGenerator('command');
         this.tick = 0;
         this.tickReader = {
@@ -24,11 +24,12 @@ export default class Engine {
         const eventReceiver = new EventReceiver(this);
         this.commandableManager = new CommandableManager(eventReceiver, teams, map);
         this.simpleVision = new SimpleVision(map, teams);
-        this.collisionDetector = new CollisionDetector(this.taskSchedule, () => this.tick, teams, map);
     }
 
     doTick = () => {
         const {tick, tasks} = this.taskSchedule.getNext();
+
+        Object.values(this.onEveryTickTasks).forEach(task => task());
 
         this.tick = tick;
         tasks.forEach(task => task());
@@ -132,11 +133,13 @@ export default class Engine {
         };
         const onStart = () => {
             this.setUnitSpeed(unit, Vectors.direction(unit.position, targetPosition, unit.specs.speed));
+            this.onEveryTickTasks[unit.id] = () => this.updateUnitPosition(unit);
             return true;
         };
         const doMove = () => {
             this.updateUnitPosition(unit);
             this.setUnitSpeed(unit, Vectors.zero());
+            delete this.onEveryTickTasks[unit.id];
         };
         const onFinish = () => {
             doMove();
@@ -155,16 +158,9 @@ export default class Engine {
             throw Error(`Target position out of bounds ${Vectors.toString(targetPosition)}`);
         }
 
-        /* should only be used to walk in a straight line toward the enemy spawn point (because that makes it easy to calculate collisions) */
-        const onCollision = (enemyUnit) => {
-            const isWithinRange = Vectors.absoluteDistance(unit.position, enemyUnit.position) <= unit.specs.weapon.range;
-
-            if (!isWithinRange) {
-                console.log('Collided but are too far away:', unit.position, enemyUnit.position, unit.specs.weapon.range); // DEBUG
-                throw Error('Collided but are too far away');
-            } else {
-                this.attackWithUnit(unit, enemyUnit);
-            }
+        const onEveryTick = () => {
+            this.updateUnitPosition(unit);
+            // TODO if enemy in range, attack
         };
 
         const onReceive = () => true;
@@ -174,13 +170,13 @@ export default class Engine {
         };
         const onStart = () => {
             this.setUnitSpeed(unit, Vectors.direction(unit.position, targetPosition, unit.specs.speed));
-            this.collisionDetector.startMove(unit, targetPosition, onCollision); // <- diff from moveUnit // TODO always do when setting speed??
+            this.onEveryTickTasks[unit.id] = onEveryTick;
             return true;
         };
         const doMove = () => {
             this.updateUnitPosition(unit);
             this.setUnitSpeed(unit, Vectors.zero());
-            this.collisionDetector.endMove(unit); // <- diff from moveUnit // TODO always do when moving unit??
+            delete this.onEveryTickTasks[unit.id];
         };
         const onFinish = () => {
             doMove();
