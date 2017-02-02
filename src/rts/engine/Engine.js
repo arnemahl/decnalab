@@ -339,22 +339,28 @@ export default class Engine {
     produceUnitFromStructure = (structure, unitSpec) => {
         let didStart;
 
+        const isProducer = structure instanceof unitSpec.producedBy;
+        if (!isProducer) {
+            throw Error(`Trying to produce ${unitSpec.constructor.name} from structure ${structure.constructor.name}, not possible`);
+        }
+        if (structure.isOnlyPlanned || structure.isUnderConstruction) {
+            throw Error('Trying to produce from unfinished structure');
+        }
+
         const calcFinishedTick = () => this.tick + unitSpec.cost.time;
         const onReceive = () => true;
         const onStart = () => {
-            const canProduce = (
+            const canAfford = (
                 ['abundant', 'sparse'].every(resourceType => structure.team.resources[resourceType] - unitSpec.cost[resourceType] >= 0)
                 && structure.team.supply - structure.team.usedSupply - unitSpec.cost.supply >= 0
-                && structure instanceof unitSpec.producedBy
             );
-
-            if (canProduce) {
+            if (canAfford) {
                 ['abundant', 'sparse'].forEach(resourceType => structure.team.resources[resourceType] -= unitSpec.cost[resourceType]); // eslint-disable-line no-return-assign
                 structure.team.usedSupply += unitSpec.cost.supply;
             }
-            didStart = canProduce;
+            didStart = canAfford;
 
-            return canProduce;
+            return canAfford;
         };
         const onFinish = () => {
             const unit = this.commandableManager.structureProducedUnit(structure, unitSpec);

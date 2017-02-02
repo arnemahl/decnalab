@@ -101,6 +101,8 @@ export default class DumbAI {
                     .filter(worker => worker.commandQueue.array.every(command => command.type !== 'build'));
             } else {
                 availableProducers = this.getAllCommandablesOfClass(spec.producedBy)
+                    .filter(producer => !producer.isOnlyPlanned)
+                    .filter(producer => !producer.isUnderConstruction)
                     .filter(producer => producer.isIdle());
             }
 
