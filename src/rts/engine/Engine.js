@@ -24,7 +24,7 @@ export default class Engine {
         const eventReceiver = new EventReceiver(this);
         this.commandableManager = new CommandableManager(eventReceiver, teams, map);
         this.simpleVision = new SimpleVision(map, teams);
-        this.collisionDetector = new CollisionDetector(this.taskSchedule, () => this.tick, teams, map);
+        this.collisionDetector = new CollisionDetector(this.taskSchedule, () => this.tick, this.updateUnitPosition, teams, map);
     }
 
     doTick = () => {
@@ -165,6 +165,7 @@ export default class Engine {
                 console.log('Collided but are too far away:', unit.position, enemyUnit.position, unit.specs.weapon.range); // DEBUG
                 throw Error('Collided but are too far away');
             } else {
+                this.clearCommands(unit);
                 this.attackWithUnit(unit, enemyUnit);
             }
         };

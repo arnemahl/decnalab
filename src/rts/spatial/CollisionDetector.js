@@ -21,9 +21,10 @@ function assertCorrectCalculation(move, enemyMove, ticks) {
 
 export default class CollitionDetector {
 
-    constructor(taskSchedule, getTick, teams, map) {
+    constructor(taskSchedule, getTick, updateUnitPosition, teams, map) {
         this.taskSchedule = taskSchedule;
         this.getTick = getTick;
+        this.updateUnitPosition = updateUnitPosition;
         this.moves = teams.reduce((moves, team) => {
             moves[team.id] = [];
             return moves;
@@ -83,8 +84,8 @@ export default class CollitionDetector {
 
     registerCollision(move, enemyMove, tick, expected) {
         const task = () => {
-            move.unit.clearCommands();
-            enemyMove.unit.clearCommands();
+            this.updateUnitPosition(move.unit);
+            this.updateUnitPosition(enemyMove.unit);
 
             if (DEBUG && (
                     Math.abs(move.unit.position.y - expected.endY) > move.unit.specs.speed ||
