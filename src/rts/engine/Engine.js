@@ -27,13 +27,15 @@ export default class Engine {
         this.collisionDetector = new CollisionDetector({
             taskSchedule: this.taskSchedule,
             getTick: () => this.tick,
-            updateUnitPosition: this.updateUnitPosition,
             simpleVision: this.simpleVision, // is simpleVision used?
         }, teams, map);
+        this.movingUnits = {};
     }
 
     doTick = () => {
         const {tick, tasks} = this.taskSchedule.getNext();
+
+        Object.values(this.movingUnits).forEach(this.updateUnitPosition);
 
         this.tick = tick;
         tasks.forEach(task => task());
@@ -47,6 +49,12 @@ export default class Engine {
     setUnitSpeed = (unit, speed) => {
         unit.currentSpeed = speed;
         unit.speedSetAtTick = this.tick;
+
+        if (Vectors.isZero(speed)) {
+            delete this.movingUnits[unit.id];
+        } else {
+            this.movingUnits[unit.id] = unit;
+        }
     }
     updateUnitPosition = (unit) => {
         if (unit.speedSetAtTick === this.tick) {

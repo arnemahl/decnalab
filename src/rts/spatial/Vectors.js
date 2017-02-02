@@ -70,6 +70,14 @@ class Vectors {
     notEquals(one, two) {
         return !this.equals(one, two);
     }
+    isZero(vector) {
+        return vector.x === 0
+            && vector.y === 0;
+    }
+    isNotZero(vector) {
+        return vector.x !== 0
+            || vector.y !== 0;
+    }
 
     toString({ x, y }) {
         return `{ x: ${x}, y: ${y} }`;

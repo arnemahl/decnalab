@@ -29,9 +29,6 @@ export default class CollitionDetector {
         const {unit: one} = moveOne;
         const {unit: two} = moveOne;
 
-        this.engine.updateUnitPosition(one);
-        this.engine.updateUnitPosition(two);
-
         const ticksUntilCollision = (one.position.y - two.position.y) / (two.currentSpeed.y - two.currentSpeed.y); // May be +/-infinity, but that's OK!
         const collisionTick = this.engine.getTick() + Math.ceil(ticksUntilCollision);
 
@@ -81,14 +78,8 @@ export default class CollitionDetector {
         }
     }
 
-    handleCollision(move, anotherUnit) {
-        this.engine.updateUnitPosition(move.unit);
-        this.engine.updateUnitPosition(anotherUnit);
-
-        move.onCollision(anotherUnit);
-    }
     scheduleCollision(move, anotherUnit, collisionTick) {
-        const task = () => this.handleCollision(move, anotherUnit);
+        const task = () => move.onCollision(anotherUnit);
 
         const removeTask = () => {
             if (this.engine.getTick() < tick) {
@@ -172,7 +163,7 @@ export default class CollitionDetector {
             const collisionTick = this.getCollisionTick(move, enemyMove);
 
             if (collisionTick === this.engine.getTick()) {
-                this.handleCollision(move, enemyMove.unit);
+                move.onCollision(anotherUnit);
             } else if (Number.isFinite(collisionTick)) {
                 this.scheduleCollision(move, enemyMove.unit, collisionTick);
             }
