@@ -132,11 +132,13 @@ export default class Engine {
         };
         const onStart = () => {
             this.setUnitSpeed(unit, Vectors.direction(unit.position, targetPosition, unit.specs.speed));
+            this.collisionDetector.startMove(unit, targetPosition, () => {});
             return true;
         };
         const doMove = () => {
             this.updateUnitPosition(unit);
             this.setUnitSpeed(unit, Vectors.zero());
+            this.collisionDetector.endMove(unit);
         };
         const onFinish = () => {
             doMove();
@@ -174,13 +176,13 @@ export default class Engine {
         };
         const onStart = () => {
             this.setUnitSpeed(unit, Vectors.direction(unit.position, targetPosition, unit.specs.speed));
-            this.collisionDetector.startMove(unit, targetPosition, onCollision); // <- diff from moveUnit // TODO always do when setting speed??
+            this.collisionDetector.startMove(unit, targetPosition, onCollision);
             return true;
         };
         const doMove = () => {
             this.updateUnitPosition(unit);
             this.setUnitSpeed(unit, Vectors.zero());
-            this.collisionDetector.endMove(unit); // <- diff from moveUnit // TODO always do when moving unit??
+            this.collisionDetector.endMove(unit);
         };
         const onFinish = () => {
             doMove();
