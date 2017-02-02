@@ -1,4 +1,5 @@
 import Vectors from '~/rts/spatial/Vectors';
+import getClosestEnemy from '~/rts/spatial/getClosestEnemy';
 import TaskSchedule from '~/rts/util/TaskSchedule';
 import Command from '~/rts/commandable/Command';
 import {getIdGenerator} from '~/rts/util/IdGenerator';
@@ -160,7 +161,13 @@ export default class Engine {
 
         const onEveryTick = () => {
             this.updateUnitPosition(unit);
-            // TODO if enemy in range, attack
+
+            const closestEnemy = getClosestEnemy(unit);
+
+            if (closestEnemy && Vectors.absoluteDistance(unit.position, closestEnemy.position) < unit.specs.weapon.range) {
+                this.clearCommands(unit);
+                this.attackWithUnit(unit, closestEnemy);
+            }
         };
 
         const onReceive = () => true;
