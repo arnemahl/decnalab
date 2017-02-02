@@ -12,6 +12,12 @@ class Vectors {
     zero() {
         return this.new(0, 0);
     }
+    random(x = 1, y = 1) {
+        return {
+            x: x * (Math.random() - 0.5) * 2,
+            y: y * (Math.random() - 0.5) * 2,
+        };
+    }
     add(one, two) {
         return {
             x: one.x + two.x,
@@ -41,9 +47,13 @@ class Vectors {
     direction(one, two, vectorLength = 1) {
         const distance = this.subtract(two, one);
 
-        const absoluetDistance = this.absoluteDistance(one, two);
+        const absoluteDistance = this.absoluteDistance(one, two);
 
-        return this.scale(distance, vectorLength / absoluetDistance);
+        if (absoluteDistance === 0) {
+            return this.zero();
+        } else {
+            return this.scale(distance, vectorLength / absoluteDistance);
+        }
     }
 
     length(vector) {
@@ -59,6 +69,10 @@ class Vectors {
     }
     notEquals(one, two) {
         return !this.equals(one, two);
+    }
+
+    toString({ x, y }) {
+        return `{ x: ${x}, y: ${y} }`;
     }
 }
 

@@ -3,7 +3,7 @@ import DefaultMap from '~/rts/spatial/DefaultMap';
 // import TeamVisionHelper from '~/rts/spatial/TeamVisionHelper';
 
 import Team from '~/rts/team/Team';
-import TeamAI from '~/ai/TeamAI';
+import DumbAI from '~/ai/DumbAI';
 
 // import * as FileWriter from '~/rts/FileWriter';
 
@@ -26,7 +26,7 @@ export default class Game {
         ];
 
         this.engine = new Engine(this.map, this.teams);
-        this.AIs = this.teams.map(team => new TeamAI(team, this.map));
+        this.AIs = this.teams.map(team => new DumbAI(team, this.map));
     }
 
     isFinished(/*tick*/) {

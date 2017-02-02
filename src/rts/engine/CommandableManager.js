@@ -25,7 +25,7 @@ export default class CommandableManager {
                 const structureSpec = team.structureSpecs[structureType];
 
                 positions.forEach(position => {
-                    this.addStructure(team, structureSpec, position);
+                    this.structureFinished(this.addStructure(team, structureSpec, position));
                 });
             });
         };
@@ -49,22 +49,23 @@ export default class CommandableManager {
         this.teams[unit.team.id].units[unit.id] = unit;
 
         team.usedSupply += usedSupplyAlreadyUpdated ? 0 : unitSpec.cost.supply;
+
+        return unit;
     }
 
-    addStructure(team, structureSpec, position, isUnderConstruction = false) {
+    addStructure(team, structureSpec, position) {
         const structure = this.structureCreator.create(structureSpec, position);
         structure.team = team;
-        structure.isUnderConstruction = isUnderConstruction;
 
         this.structures[structure.id] = structure;
         this.teams[structure.team.id].structures[structure.id] = structure;
-
-        team.supply += structureSpec.providesSupply || 0;
 
         return structure;
     }
 
     removeUnit(unit) {
+        unit.clearCommands();
+
         delete this.units[unit.id];
         delete this.teams[unit.team.id].units[unit.id];
 
@@ -72,6 +73,8 @@ export default class CommandableManager {
     }
 
     removeStructure(structure) {
+        structure.clearCommands();
+
         delete this.structures[structure.id];
         delete this.teams[structure.team.id].structures[structure.id];
 
@@ -84,14 +87,21 @@ export default class CommandableManager {
     }
 
     structureProducedUnit(structure, unitSpec) {
-        this.addUnit(structure.team, unitSpec, structure.team.unitSpawnPosition, true);
+        return this.addUnit(structure.team, unitSpec, structure.team.unitSpawnPosition, true);
     }
 
-    structureStarted(unit, structureType, position) {
-        return this.addStructure(unit.team, structureType, position, true);
+    structurePlanned(unit, structureSpec, position) {
+        const structure = this.addStructure(unit.team, structureSpec, position);
+        structure.isOnlyPlanned = true;
+        return structure;
+    }
+    structureStarted(structure) {
+        delete structure.isOnlyPlanned;
+        structure.isUnderConstruction = true;
     }
     structureFinished(structure) {
-        structure.isUnderConstruction = false;
+        delete structure.isUnderConstruction;
+        structure.team.supply += structure.specs.providesSupply || 0;
     }
     structureCancelled(structure) {
         this.removeStructure(structure);

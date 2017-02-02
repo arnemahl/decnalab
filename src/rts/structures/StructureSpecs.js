@@ -2,16 +2,19 @@ import BaseStructureClass from '~/rts/structures/BaseStructure';
 import BarracksClass from '~/rts/structures/Barracks';
 import SupplyDepotClass from '~/rts/structures/SupplyDepot';
 
-import UnitSpecs from '~/rts/units/UnitSpecs';
+import WorkerClass from '~/rts/units/Worker';
 
+class Structure {
+    type = 'structure'
+}
 
-class BaseStructure {
+class BaseStructure extends Structure {
     class = BaseStructureClass
-    category = 'basic'
 
     cost = {
         abundant: 300,
         sparse: 0,
+        supply: 0,
         time: 500
     }
 
@@ -22,18 +25,16 @@ class BaseStructure {
 
     providesSupply = 12
 
-    produces = [
-        UnitSpecs.Worker
-    ]
+    producedBy = WorkerClass
 }
 
-class SupplyDepot {
+class SupplyDepot extends Structure {
     class = SupplyDepotClass
-    category = 'util'
 
     cost = {
         abundant: 100,
         sparse: 0,
+        supply: 0,
         time: 200
     }
 
@@ -44,16 +45,16 @@ class SupplyDepot {
 
     providesSupply = 10
 
-    produces = []
+    producedBy = WorkerClass
 }
 
-class Barracks {
+class Barracks extends Structure {
     class = BarracksClass
-    category = 'military'
 
     cost = {
         abundant: 200,
         sparse: 0,
+        supply: 0,
         time: 300
     }
 
@@ -62,9 +63,7 @@ class Barracks {
     maxHealth = 800
     armor = 2
 
-    produces = [
-        UnitSpecs.Worker
-    ]
+    producedBy = WorkerClass
 }
 
 export default class StructureSpecs {

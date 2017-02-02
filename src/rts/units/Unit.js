@@ -21,6 +21,13 @@ export class UnitCommander {
         this.eventReceiver.attackWithUnit(this.unit, target);
     }
 
+    attackMove = (targetPosition, waitForQueuedCommandsToComplete) => {
+        if (!waitForQueuedCommandsToComplete) {
+            this.eventReceiver.clearCommands(this.unit);
+        }
+        this.eventReceiver.attackMoveUnit(this.unit, targetPosition);
+    }
+
     // attackMove = (position, waitForQueuedCommandsToComplete) => {
     //     if (!waitForQueuedCommandsToComplete) {
     //         this.eventReceiver.clearCommands(this.unit);
@@ -38,6 +45,8 @@ export class UnitCommander {
 
 
 export default class Unit extends Commandable {
+    static type = 'unit'
+    type = 'unit'
 
     getCommander = () => {
         return this.safeCommander || (this.safeCommander = new UnitCommander(this, this.eventReceiver));
@@ -47,20 +56,13 @@ export default class Unit extends Commandable {
         return Vectors.absoluteDistance(this.position, position) < this.specs.speed;
     }
 
-    getState = () => {
+    getUnitState = () => {
         return {
-            id: this.id,
-            type: this.constructor.name,
-            position: {...this.position},
-            healthLeftFactor: this.healthLeftFactor
+            ...this.getCommandableState(),
+            speed: Vectors.clone(this.currentSpeed),
+            speedSetAtTick: this.speedSetAtTick,
         };
     }
-
-    setState = (nextState) => {
-        this.position = {...nextState.position};
-        this.healthLeftFactor = nextState.healthLeftFactor;
-
-        this.specs = this.team.unitSpecs[this.constructor.name]; // OMG. This is fucked
-    }
+    getState = () => this.getUnitState();
 
 }

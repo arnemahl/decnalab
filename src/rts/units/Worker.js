@@ -49,16 +49,11 @@ export default class Worker extends Unit {
         this.getCommander().harvest(this.currentResourceSite, wait);
     }
 
-
-
     getState = () => {
         return {
-            id: this.id,
-            type: this.constructor.name,
-            position: {...this.position},
-            healthLeftFactor: this.healthLeftFactor,
+            ...this.getUnitState(),
             carriedResources: {...this.carriedResources},
-            currentResourceSiteId: this.currentResourceSite.id
+            currentResourceSiteId: this.currentResourceSite.id,
         };
     }
 

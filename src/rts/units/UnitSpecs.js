@@ -1,9 +1,15 @@
 import WorkerClass from '~/rts/units/Worker';
 import MarineClass from '~/rts/units/Marine';
 
-class Worker {
+import BaseStructureClass from '~/rts/structures/BaseStructure';
+import BarracksClass from '~/rts/structures/Barracks';
+
+class Unit {
+    type = 'unit'
+}
+
+class Worker extends Unit {
     class = WorkerClass
-    category = 'worker'
 
     cost = {
         abundant: 40,
@@ -21,13 +27,15 @@ class Worker {
 
     weapon = {
         cooldown: 30,
-        damage: 5
+        damage: 5,
+        range: 50,
     }
+
+    producedBy = BaseStructureClass
 }
 
-class Marine {
+class Marine extends Unit {
     class = MarineClass;
-    category = 'military'
 
     cost = {
         abundant: 40,
@@ -45,8 +53,11 @@ class Marine {
 
     weapon = {
         cooldown: 20,
-        damage: 10
+        damage: 10,
+        range: 500,
     }
+
+    producedBy = BarracksClass
 }
 
 export default class UnitSpecs {

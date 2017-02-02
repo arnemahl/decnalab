@@ -30,6 +30,18 @@ export default class EventReceiver {
         this.engine.moveUnit(unit, targetPosition);
     }
 
+    attackMoveUnit = (unit, targetPosition) => {
+        this.eventStack.push({
+            method: 'attackMoveUnit',
+            arguments: {
+                unitId: unit.id,
+                targetPosition
+            }
+        });
+
+        this.engine.attackMoveUnit(unit, targetPosition);
+    }
+
     attackWithUnit = (unit, target) => {
         this.eventStack.push({
             method: 'attackWithUnit',

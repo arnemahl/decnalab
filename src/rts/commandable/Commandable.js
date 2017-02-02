@@ -17,6 +17,7 @@ export default class Commandable {
     clearCommands = () => {
         if (this.currentCommand) {
             this.currentCommand.abort();
+            this.currentCommand = false;
         }
         this.commandQueue = new Queue();
     }
@@ -30,10 +31,10 @@ export default class Commandable {
     }
 
     addCommand = (command) => {
-        if (this.isBusy()) {
-            this.commandQueue.push(command);
-        } else {
-            this.currentCommand = command;
+        this.commandQueue.push(command);
+
+        if (this.isIdle()) {
+            this.currentCommand = this.commandQueue.next();
             this.currentCommand.excecute();
         }
     }
@@ -50,6 +51,18 @@ export default class Commandable {
             this.currentCommand.excecute();
         }
     }
+
+    // Replay state
+    getCommandableState = () => {
+        return {
+            id: this.id,
+            type: this.constructor.name,
+            position: {...this.position},
+            healthLeftFactor: this.healthLeftFactor,
+            commands: this.currentCommand ? [this.currentCommand.type].concat(this.commandQueue.seeFirst(3).map(cmd => cmd.type)) : [],
+        };
+    }
+    getState = () => this.getCommandableState();
 
 }
 
