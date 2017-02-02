@@ -39,6 +39,19 @@ export default class Engine {
         return this.tick;
     }
 
+    setUnitSpeed = (unit, speed) => {
+        unit.currentSpeed = speed;
+        unit.speedSetAtTick = this.tick;
+    }
+    updateUnitPosition = (unit) => {
+        const oldPosition = unit.position;
+
+        unit.position = Vectors.add(unit.position, Vectors.scale(unit.currentSpeed, this.tick - unit.speedSetAtTick));
+        unit.speedSetAtTick = this.tick;
+
+        this.simpleVision.commandableMoved(unit, oldPosition);
+    }
+
     clearCommands = (commandable) => {
         commandable.clearCommands();
     }
@@ -109,9 +122,6 @@ export default class Engine {
 
 
     moveUnit = (unit, targetPosition) => {
-        let startTick; // set upon start
-        let startPosition; // set on start
-
         if (!this.map.bounds.contains(targetPosition)) {
             throw Error(`Target position out of bounds ${Vectors.toString(targetPosition)}`);
         }
@@ -121,19 +131,12 @@ export default class Engine {
             return this.tick + Vectors.absoluteDistance(unit.position, targetPosition) / unit.specs.speed;
         };
         const onStart = () => {
-            startPosition = unit.position;
-            startTick = this.tick;
-            unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.specs.speed);
-            unit.speedSetAtTick = this.tick;
+            this.setUnitSpeed(unit, Vectors.direction(unit.position, targetPosition, unit.specs.speed));
             return true;
         };
         const doMove = () => {
-            const moved = Vectors.scale(unit.currentSpeed, this.tick - startTick);
-            unit.position = Vectors.add(unit.position, moved);
-            unit.currentSpeed = Vectors.zero();
-            unit.speedSetAtTick = this.tick;
-
-            this.simpleVision.commandableMoved(unit, startPosition);
+            this.updateUnitPosition(unit);
+            this.setUnitSpeed(unit, Vectors.zero());
         };
         const onFinish = () => {
             doMove();
@@ -148,9 +151,6 @@ export default class Engine {
     }
 
     attackMoveUnit = (unit, targetPosition) => {
-        let startTick; // set upon start
-        let startPosition; // set on start
-
         if (!this.map.bounds.contains(targetPosition)) {
             throw Error(`Target position out of bounds ${Vectors.toString(targetPosition)}`);
         }
@@ -169,25 +169,18 @@ export default class Engine {
 
         const onReceive = () => true;
         const calcFinishedTick = () => {
-            // will most likely be aborted before this due to collision with enemy
+            // note: will most likely be aborted before this due to collision with enemy
             return this.tick + Vectors.absoluteDistance(unit.position, targetPosition) / unit.specs.speed;
         };
         const onStart = () => {
-            startPosition = unit.position;
-            startTick = this.tick;
-            unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.specs.speed);
-            unit.speedSetAtTick = this.tick;
-            this.collisionDetector.startMove(unit, targetPosition, onCollision); // <- diff from moveUnit
+            this.setUnitSpeed(unit, Vectors.direction(unit.position, targetPosition, unit.specs.speed));
+            this.collisionDetector.startMove(unit, targetPosition, onCollision); // <- diff from moveUnit // TODO always do when setting speed??
             return true;
         };
         const doMove = () => {
-            const moved = Vectors.scale(unit.currentSpeed, this.tick - startTick);
-            unit.position = Vectors.add(unit.position, moved);
-            unit.currentSpeed = Vectors.zero();
-            unit.speedSetAtTick = this.tick;
-
-            this.simpleVision.commandableMoved(unit, startPosition);
-            this.collisionDetector.endMove(unit); // <- diff from moveUnit
+            this.updateUnitPosition(unit);
+            this.setUnitSpeed(unit, Vectors.zero());
+            this.collisionDetector.endMove(unit); // <- diff from moveUnit // TODO always do when moving unit??
         };
         const onFinish = () => {
             doMove();
