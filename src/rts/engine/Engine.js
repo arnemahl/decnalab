@@ -62,7 +62,7 @@ export default class Engine {
         const commandAccepted = onReceive();
 
         if (!commandAccepted) {
-            throw Error(`Unacceptable command ${commandType} issued to ${commandable.id}`);
+            return;
         }
 
         const commandId = this.commandIdGenerator.generateId();
@@ -170,7 +170,16 @@ export default class Engine {
             }
         };
 
-        const onReceive = () => true;
+        const onReceive = () => {
+            const closestEnemy = getClosestEnemy(unit);
+
+            if (closestEnemy && Vectors.absoluteDistance(unit.position, closestEnemy.position) < unit.specs.weapon.range) {
+                this.attackWithUnit(unit, closestEnemy);
+                return false;
+            } else {
+                return true;
+            }
+        };
         const calcFinishedTick = () => {
             // note: will most likely be aborted before this due to collision with enemy
             return this.tick + Vectors.absoluteDistance(unit.position, targetPosition) / unit.specs.speed;
@@ -298,6 +307,8 @@ export default class Engine {
             if (hasEnoughResources) {
                 structure = this.commandableManager.structurePlanned(worker, structureSpec, targetPosition);
                 ['abundant', 'sparse'].forEach(resourceType => worker.team.resources[resourceType] -= structureSpec.cost[resourceType]); // eslint-disable-line no-return-assign
+            } else {
+                throw Error(`Unacceptable command build ${structureSpec}: not enough resources`);
             }
             didPlan = hasEnoughResources;
 
