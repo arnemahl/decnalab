@@ -24,7 +24,12 @@ export default class Engine {
         const eventReceiver = new EventReceiver(this);
         this.commandableManager = new CommandableManager(eventReceiver, teams, map);
         this.simpleVision = new SimpleVision(map, teams);
-        this.collisionDetector = new CollisionDetector(this.taskSchedule, () => this.tick, this.updateUnitPosition, teams, map);
+        this.collisionDetector = new CollisionDetector({
+            taskSchedule: this.taskSchedule,
+            getTick: () => this.tick,
+            updateUnitPosition: this.updateUnitPosition,
+            simpleVision: this.simpleVision, // is simpleVision used?
+        }, teams, map);
     }
 
     doTick = () => {
@@ -44,6 +49,10 @@ export default class Engine {
         unit.speedSetAtTick = this.tick;
     }
     updateUnitPosition = (unit) => {
+        if (unit.speedSetAtTick === this.tick) {
+            return;
+        }
+
         const oldPosition = unit.position;
 
         unit.position = Vectors.add(unit.position, Vectors.scale(unit.currentSpeed, this.tick - unit.speedSetAtTick));

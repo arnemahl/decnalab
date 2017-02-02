@@ -21,96 +21,69 @@ function assertCorrectCalculation(move, enemyMove, ticks) {
 
 export default class CollitionDetector {
 
-    constructor(taskSchedule, getTick, updateUnitPosition, teams, map) {
-        this.taskSchedule = taskSchedule;
-        this.getTick = getTick;
-        this.updateUnitPosition = updateUnitPosition;
-        this.moves = teams.reduce((moves, team) => {
-            moves[team.id] = [];
-            return moves;
-        }, {});
-        this.teamIds = teams.map(team => team.id);
-        this.registeredCollisions = {};
+    constructor(engine, teams, map) {
+        this.engine = engine;
+        this.teams = teams.map(team => team.id);
 
         if (map.direction !== 'vertical') {
             throw Error('CollisionDetector is only implemented for vertical maps');
         }
+
+        this.moves = teams.reduce((moves, team) => {
+            moves[team.id] = [];
+            return moves;
+        }, {});
+        this.leaders = teams.reduce((leaders, team) => {
+            leaders[team.id] = [];
+            return leaders;
+        }, {});
+        this.registeredCollisions = {};
     }
 
-    startMove = (unit, targetPosition, onCollision) => {
-        const currentTick = this.getTick();
+    getEnemyTeamId = (team) => this.teams.find(anyTeam => anyTeam !== team);
+    getEnemyMoves = (team) => this.moves[this.getEnemyTeamId(team)];
+    getDirectionToEnemyBase = (team) => Vectors.direction(team.unitSpawnPosition, this.getEnemyTeam(team).unitSpawnPosition);
 
-        const move = {
-            id: unit.id,
-            t0: currentTick,
-            y0: unit.position.y,
-            dy: unit.currentSpeed.y,
-            end: (targetPosition.y - unit.position.y) / unit.currentSpeed.y,
-            onCollision,
-            unit,
-        };
+    getCollisionTick(moveOne, moveTwo) {
+        const {unit: one} = moveOne;
+        const {unit: two} = moveOne;
 
-        this.registeredCollisions[move.id] = {};
+        this.engine.updateUnitPosition(one);
+        this.engine.updateUnitPosition(two);
 
-        this.teamIds
-            .filter(teamId => teamId !== unit.team.teamId)
-            .map(teamId => this.moves[teamId])
-            .forEach(enemyMoves => {
-                enemyMoves.forEach(enemyMove => {
-                    const currentEnemyY = enemyMove.y0 + enemyMove.dy * (currentTick - enemyMove.t0);
-                    const ticks = (move.y0 - currentEnemyY) / (enemyMove.dy - move.dy);
-                    const tick = currentTick + Math.ceil(ticks);
+        const ticksUntilCollision = (one.position.y - two.position.y) / (two.currentSpeed.y - two.currentSpeed.y); // Note: May be +/-infinity (if divide by zero), but that's OK!
+        const collisionTick = currentTick + Math.ceil(ticksUntilCollision);
 
-                    if (currentTick <= tick && tick <= Math.min(move.end, enemyMove.end)) {
-                        if (DEBUG) {
-                            assertCorrectCalculation(move, { ...enemyMove, y0: currentEnemyY}, ticks);
-                            const expected = calcExpctected(move, { ...enemyMove, y0: currentEnemyY }, ticks);
-
-                            this.registerCollision(move, enemyMove, tick, expected);
-                            return;
-                        }
-
-                        this.registerCollision(move, enemyMove, tick); // to stop weapon.range away, scedule for each with differnt tick
-                    }
-                });
-            });
-
-        this.moves[unit.team.id].push(move);
-    }
-    endMove = (unit) => {
-        delete this.moves[unit.team.id][unit.id];
-        this.deregisterAllCollisions(unit.id);
+        if (this.engine.getTick() <= collisionTick && collisionTick <= Math.max(moveOne.maxTick, moveTwo.maxTick)) {
+            return collisionTick;
+        } else {
+            return Number.POSITIVE_INFINITY;
+        }
     }
 
-    registerCollision(move, enemyMove, tick, expected) {
-        const task = () => {
-            this.updateUnitPosition(move.unit);
-            this.updateUnitPosition(enemyMove.unit);
+    handleCollision(moveOne, moveTwo) {
+        this.engine.updateUnitPosition(move.unit);
+        this.engine.updateUnitPosition(enemyMove.unit);
 
-            if (DEBUG && (
-                    Math.abs(move.unit.position.y - expected.endY) > move.unit.specs.speed ||
-                    Math.abs(enemyMove.unit.position.y !== expected.enemyEndY) > enemyMove.unit.specs.speed
-                )) {
-                throw Error('ENDED UP WRONG');
-            }
-
-            move.onCollision(enemyMove.unit);
-            enemyMove.onCollision(move.unit);
-        };
+        move.onCollision(enemyMove.unit);
+        enemyMove.onCollision(move.unit);
+    }
+    scheduleCollision(moveOne, moveTwo, collisionTick) {
+        const task = () => this.handleCollision(moveOne, moveTwo);
 
         let alreadyRemoved = false;
         const removeTask = () => {
-            if (this.getTick() < tick && !alreadyRemoved) {
+            if (this.engine.getTick() < tick && !alreadyRemoved) {
                 alreadyRemoved = true;
-                this.taskSchedule.removeTask(task, tick);
+                this.engine.taskSchedule.removeTask(task, tick);
             }
         };
 
-        this.taskSchedule.addTask(task, tick);
-        this.registeredCollisions[move.id][enemyMove.id] = removeTask;
-        this.registeredCollisions[enemyMove.id][move.id] = removeTask;
+        this.engine.taskSchedule.addTask(task, tick);
+        this.registeredCollisions[move.unit.id][enemyMove.unit.id] = removeTask;
+        this.registeredCollisions[enemyMove.unit.id][move.unit.id] = removeTask;
     }
-    deregisterAllCollisions(moveId) {
+    unscheduleAllCollisions(moveId) {
         // Remove the tasks to fire onCollision for moves
         Object.values(this.registeredCollisions[moveId]).forEach(removeTask => removeTask());
 
@@ -119,5 +92,55 @@ export default class CollitionDetector {
         Object.values(this.registeredCollisions).forEach(otherMovesCollisions => {
             delete otherMovesCollisions[moveId];
         });
+    }
+
+    startMove = (unit, targetPosition, onCollision) => {
+        const currentTick = this.engine.getTick();
+
+        const move = {
+            unit,
+            onCollision,
+            endTick: (targetPosition.y - unit.position.y) / unit.currentSpeed.y,
+        };
+
+        this.moves[unit.team.id].push(move);
+
+        // For each unit speed, keep track of the leader (closest one to the enemy base)
+        if (!this.leaders[unit.team.id][unit.specs.speed]) {
+            this.leaders[unit.team.id][unit.specs.speed] = move;
+            return;
+        } else {
+            const speedLeader = this.leaders[unit.team.id][unit.specs.speed].unit;
+            const isCloserToEnemyBase = getDirectionToEnemyBase(unit.team).y > 0
+                ? unit.position.y > speedLeader.position.y
+                : unit.position.y < speedLeader.position.y;
+
+            if (isCloserToEnemyBase) {
+                this.leaders[unit.team.id][unit.specs.speed] = move;
+            }
+        }
+
+        // For enemy teams
+        this.getEnemyMoves(unit.team).forEach(leadersForEachMoveSpeed => {
+            const collisionMove = Object.values(leadersForEachMoveSpeed)
+                .sort((enemyMoveA, enemyMoveB) => this.getCollisionTick(move, enemyMoveA) - this.getCollisionTick(move, enemyMoveB))[0];
+
+            if (!collisionMove) {
+                return;
+            }
+
+            const collisionTick = this.getCollisionTick(move, collisionMove);
+
+            if (collisionTick === currentTick) {
+                this.handleCollision(move, collisionMove);
+            } else if (Number.isFinite(collisionTick)) {
+                this.scheduleCollision(move, collisionMove, collisionTick);
+            }
+        });
+    }
+
+    endMove = (unit) => {
+        delete this.moves[unit.team.id][unit.id];
+        this.unscheduleAllCollisions(unit.id);
     }
 }
