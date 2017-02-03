@@ -15,7 +15,7 @@ class BaseStructure extends Structure {
         abundant: 300,
         sparse: 0,
         supply: 0,
-        time: 500
+        time: 1000
     }
 
     size = 1000
@@ -35,7 +35,7 @@ class SupplyDepot extends Structure {
         abundant: 100,
         sparse: 0,
         supply: 0,
-        time: 200
+        time: 400
     }
 
     size = 500
@@ -55,7 +55,7 @@ class Barracks extends Structure {
         abundant: 200,
         sparse: 0,
         supply: 0,
-        time: 300
+        time: 600
     }
 
     size = 800

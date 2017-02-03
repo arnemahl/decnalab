@@ -17,7 +17,7 @@ class Worker extends Unit {
         abundant: 40,
         sparse: 0,
         supply: 1,
-        time: 200
+        time: 400
     }
 
     size = 100
@@ -43,7 +43,7 @@ class Marine extends Unit {
         abundant: 40,
         sparse: 0,
         supply: 1,
-        time: 180
+        time: 360
     }
 
     size = 80
