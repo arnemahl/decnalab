@@ -59,7 +59,7 @@ export default class Commandable {
             type: this.constructor.name,
             position: {...this.position},
             healthLeftFactor: this.healthLeftFactor,
-            commands: this.currentCommand ? [this.currentCommand.type].concat(this.commandQueue.seeFirst(3).map(cmd => cmd.type)) : [],
+            commands: !this.currentCommand ? [] : [this.currentCommand].concat(this.commandQueue.seeFirst(3)).map(cmd => ({ type: cmd.type, target: cmd.target })),
         };
     }
     getState = () => this.getCommandableState();

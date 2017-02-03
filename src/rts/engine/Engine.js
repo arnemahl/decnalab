@@ -58,7 +58,7 @@ export default class Engine {
         commandable.clearCommands();
     }
 
-    addCommand(commandType, commandable, calcFinishedTick, onReceive, onStart, onFinish, onAbort) {
+    addCommand(commandType, commandTarget, commandable, calcFinishedTick, onReceive, onStart, onFinish, onAbort) {
         const commandAccepted = onReceive();
 
         if (!commandAccepted) {
@@ -115,7 +115,7 @@ export default class Engine {
             }
         };
 
-        commandable.addCommand(new Command(commandId, commandType, start, stop));
+        commandable.addCommand(new Command(commandId, commandType, commandTarget, start, stop));
     }
 
     /***********************/
@@ -150,8 +150,9 @@ export default class Engine {
             }
         };
         const onAbort = doMove;
+        const commandTarget = {position: targetPosition};
 
-        this.addCommand('move', unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('move', commandTarget, unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     attackMoveUnit = (unit, targetPosition) => {
@@ -202,8 +203,9 @@ export default class Engine {
             }
         };
         const onAbort = doMove;
+        const commandTarget = {position: targetPosition};
 
-        this.addCommand('attack-move', unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('attack-move', commandTarget, unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     attackWithUnit = (unit, target) => {
@@ -243,8 +245,9 @@ export default class Engine {
                 console.log('Uh oh, stuck on cooldown!');
             }
         };
+        const commandTarget = { id: target.id, position: target.position };
 
-        this.addCommand('attack', unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('attack', commandTarget, unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     harvestWithUnit = (worker, resourceSite) => {
@@ -271,8 +274,10 @@ export default class Engine {
         const onAbort = () => {
             resourceSite.abortHarvesting();
         };
+        const {id, position} = resourceSite;
+        const commandTarget = {id, position};
 
-        this.addCommand('harvest', worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('harvest', commandTarget, worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     dropOffHarvestWithUnit = (worker, baseStructure) => {
@@ -292,8 +297,10 @@ export default class Engine {
             }
         };
         const onAbort = () => {};
+        const {id, position} = baseStructure;
+        const commandTarget = {id, position};
 
-        this.addCommand('dropOffHarvest', worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('dropOffHarvest', commandTarget, worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     buildWithUnit = (worker, structureSpec, targetPosition) => {
@@ -334,8 +341,9 @@ export default class Engine {
                 ['abundant', 'sparse'].forEach(resourceType => worker.team.resources[resourceType] += structureSpec.cost[resourceType]); // eslint-disable-line no-return-assign
             }
         };
+        const commandTarget = {position: targetPosition};
 
-        this.addCommand('build', worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('build', commandTarget, worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     /****************************/
@@ -379,8 +387,9 @@ export default class Engine {
                 structure.team.usedSupply -= unitSpec.cost.supply;
             }
         };
+        const commandTarget = { unitType: unitSpec.constructor.name };
 
-        this.addCommand('produce', structure, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('produce', commandTarget, structure, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
 

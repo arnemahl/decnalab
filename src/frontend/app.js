@@ -395,7 +395,7 @@ var Renderer = (function() {
                 .center(0, -specs.radius - 20)
                 .attr({ fill: 'green' });
             // commands
-            unitElement.text(unit.commands[0]/*.join('\n')*/)
+            unitElement.text(unit.commands.map(cmd => cmd.type)[0]/*.join('\n')*/)
                 .x(0)
                 .y(0 + 10)
                 .font({size: 30, anchor: 'middle'})
