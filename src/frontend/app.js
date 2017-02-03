@@ -109,10 +109,10 @@ var Renderer = (function() {
 
     var drawGameState = (function() {
 
-        var selectedUnits = []; // user selected units
+        var selectedUnitIds = []; // user selected units
 
         function isSelected(unit) {
-            return selectedUnits.indexOf(unit) !== -1;
+            return selectedUnitIds.indexOf(unit.id) !== -1;
         }
 
         function getMapArea(screenArea) {
@@ -152,9 +152,11 @@ var Renderer = (function() {
         }
 
         function selectUnitsInArea(area) {
-            selectedUnits = getUnitsInScreenArea(area);
+            var selectedUnits = getUnitsInScreenArea(area);
 
             console.log('selectedUnits:', selectedUnits); // DEBUG
+
+            selectedUnitIds = selectedUnits.map(unit => unit.id);
 
             Renderer.render();
         }
