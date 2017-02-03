@@ -86,7 +86,7 @@ export default class SimpleVision {
         const lostVision = Object.keys(this.commandablesPerSector[commandable.team.id][sector.id]).length === 0;
 
         if (lostVision) {
-            commandable.team.visibleMapSectorIds.filter(id => id !== sector.id);
+            commandable.team.visibleMapSectorIds = commandable.team.visibleMapSectorIds.filter(id => id !== sector.id);
         }
 
 
