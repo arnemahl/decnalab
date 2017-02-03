@@ -5,14 +5,9 @@ import socket_io from 'socket.io';
 import {simulateGame} from '~/Simulation';
 
 function test() {
-    const loops = 1000;
-
-    simulateGame(loops)
-    .then(() => {
-        console.log(`Running ${loops} loops, OK`);
-    })
+    simulateGame(10)
     .catch((error) => {
-        console.log(`Running ${loops} loops FAILED`, error);
+        console.log(`Simulation test run FAILED`, error);
         process.exit();
     });
 }
