@@ -429,10 +429,6 @@ var Renderer = (function() {
                     paper.line(unit.position.x, unit.position.y, command.target.position.x, command.target.position.y)
                         .stroke({ color: 'coral', width: 10 });
                 }
-                if (unit.closestEnemyPosition) {
-                    paper.line(unit.position.x, unit.position.y, unit.closestEnemyPosition.x, unit.closestEnemyPosition.y)
-                        .stroke({ color: 'mediumseagreen', width: 20 });
-                }
             }
 
             // animate moving units
