@@ -380,7 +380,7 @@ var Renderer = (function() {
                 .attr({ fill: 'green' });
         }
         function drawCommands(commandable, specs) {
-            return paper.text(commandable.commands.join('\n'))
+            return paper.text(commandable.commands.map(command => command.type).join('\n'))
                 .x(commandable.position.x)
                 .y(commandable.position.y)
                 .font({ size: 36, anchor: 'middle'})
