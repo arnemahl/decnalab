@@ -31,14 +31,26 @@ export default class DumbAI {
             },
         } = team;
 
-        this.buildOrder = [
-            { spec: Worker, count: 9, },
-            { spec: SupplyDepot, count: 1, },
-            { spec: Worker, count: 10, },
-            { spec: Barracks, count: 1, },
-            { spec: Worker, count: 11, },
-            { spec: Marine, count: Number.POSITIVE_INFINITY, },
-        ];
+        if (this.team.id === 'blue') {
+            this.buildOrder = [
+                { spec: Worker, count: 9, },
+                { spec: SupplyDepot, count: 1, },
+                { spec: Worker, count: 10, },
+                { spec: Barracks, count: 1, },
+                { spec: Worker, count: 11, },
+                { spec: Marine, count: 1, },
+                { spec: Barracks, count: 2, },
+                { spec: Marine, count: 10, },
+                { spec: SupplyDepot, count: 2, },
+                { spec: Marine, count: Number.POSITIVE_INFINITY, },
+            ];
+        } else {
+            this.buildOrder = [
+                { spec: Worker, count: 10, },
+                { spec: Barracks, count: 1, },
+                { spec: Marine, count: Number.POSITIVE_INFINITY, },
+            ];
+        }
     }
 
     doTick = (/*tick*/) => {
