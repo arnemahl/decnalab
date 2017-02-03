@@ -404,9 +404,18 @@ var Renderer = (function() {
 
             // move to current position
             var currentPosition = calculateUnitPosition(unit, state.tick);
-
             unitElement.move(currentPosition.x, currentPosition.y);
 
+            // visualize current command if selected
+            if (isSelected(unit) && unit.commands[0]) {
+                const command = unit.commands[0];
+                if (command.target.position) {
+                    paper.line(currentPosition.x, currentPosition.y, command.target.position.x, command.target.position.y)
+                        .stroke({ color: 'coral', width: 10 });
+                }
+            }
+
+            // animate moving units
             if (ANIMATE_MOVES && nextUnitState) {
                 const ticksToAnimate = nextState.tick - state.tick;
                 const nextPosition = calculateUnitPosition(nextUnitState, nextState.tick);
