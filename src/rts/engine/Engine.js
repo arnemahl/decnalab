@@ -198,7 +198,7 @@ export default class Engine {
             doMove();
 
             if (!unit.isAt(targetPosition)) {
-                console.error('ERROR in moveUnit, ended up:', Vectors.absoluteDistance(unit.position, targetPosition), 'from targetPosition');
+                console.error('ERROR in attackMoveUnit, ended up:', Vectors.absoluteDistance(unit.position, targetPosition), 'from targetPosition');
             }
         };
         const onAbort = doMove;
