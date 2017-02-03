@@ -145,7 +145,7 @@ var Renderer = (function() {
             var allUnits = state.teams[0].units.concat(state.teams[1].units);
 
             var selectedUnits = allUnits.filter(function(unit) {
-                return contains(mapArea, calculateUnitPosition(unit, state.tick));
+                return contains(mapArea, unit.position);
             });
 
             return selectedUnits;
@@ -165,13 +165,6 @@ var Renderer = (function() {
             return gameState && gameState
                 .teams.find(team => team.id === teamId)
                 .units.find(unit => unit.id === unitId);
-        }
-
-        function calculateUnitPosition(unit, currentTick) {
-            return {
-                x: unit.position.x + unit.speed.x * (currentTick - unit.speedSetAtTick),
-                y: unit.position.y + unit.speed.y * (currentTick - unit.speedSetAtTick)
-            };
         }
 
 
@@ -405,25 +398,27 @@ var Renderer = (function() {
                 .fill('white');
 
             // move to current position
-            var currentPosition = calculateUnitPosition(unit, state.tick);
-            unitElement.move(currentPosition.x, currentPosition.y);
+            unitElement.move(unit.position.x, unit.position.y);
 
             // visualize current command if selected
-            if (isSelected(unit) && unit.commands[0]) {
+            if (isSelected(unit)) {
                 const command = unit.commands[0];
-                if (command.target.position) {
-                    paper.line(currentPosition.x, currentPosition.y, command.target.position.x, command.target.position.y)
+                if (command && command.target.position) {
+                    paper.line(unit.position.x, unit.position.y, command.target.position.x, command.target.position.y)
                         .stroke({ color: 'coral', width: 10 });
+                }
+                if (unit.closestEnemyPosition) {
+                    paper.line(unit.position.x, unit.position.y, unit.closestEnemyPosition.x, unit.closestEnemyPosition.y)
+                        .stroke({ color: 'mediumseagreen', width: 20 });
                 }
             }
 
             // animate moving units
             if (ANIMATE_MOVES && nextUnitState) {
                 const ticksToAnimate = nextState.tick - state.tick;
-                const nextPosition = calculateUnitPosition(nextUnitState, nextState.tick);
 
                 if (unit.speed && (unit.speed.x !== 0 || unit.speed.y !== 0)) {
-                    unitElement.animate(MS_PER_TICK * ticksToAnimate, '-').move(nextPosition.x, nextPosition.y);
+                    unitElement.animate(MS_PER_TICK * ticksToAnimate, '-').move(nextUnitState.position.x, nextUnitState.position.y);
                 }
             }
         }

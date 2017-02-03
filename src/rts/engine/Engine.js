@@ -15,7 +15,8 @@ export default class Engine {
         this.map = map;
         this.taskSchedule = new TaskSchedule();
         this.tickCleanupTasks = [];
-        this.onEveryTickTasks = [];
+        this.everyTickTasks = [];
+        this.movingUnits = [];
         this.commandIdGenerator = getIdGenerator('command');
         this.tick = 0;
         this.tickReader = {
@@ -28,12 +29,12 @@ export default class Engine {
     }
 
     doTick = () => {
-        const {tick, tasks} = this.taskSchedule.getNext();
+        const scheduled = this.taskSchedule.getNext();
+        this.tick = scheduled.tick;
 
-        Object.values(this.onEveryTickTasks).forEach(task => task());
-
-        this.tick = tick;
-        tasks.forEach(task => task());
+        this.movingUnits.forEach(this.updateUnitPosition);
+        scheduled.tasks.forEach(task => task());
+        this.everyTickTasks.forEach(task => task());
 
         this.tickCleanupTasks.forEach(task => task());
         this.tickCleanupTasks = [];
@@ -44,6 +45,12 @@ export default class Engine {
     setUnitSpeed = (unit, speed) => {
         unit.currentSpeed = speed;
         unit.speedSetAtTick = this.tick;
+
+        if (Vectors.isZero(speed)) {
+            this.movingUnits = this.movingUnits.filter(otherUnit => otherUnit !== unit);
+        } else {
+            this.movingUnits.push(unit);
+        }
     }
     updateUnitPosition = (unit) => {
         const oldPosition = unit.position;
@@ -134,13 +141,10 @@ export default class Engine {
         };
         const onStart = () => {
             this.setUnitSpeed(unit, Vectors.direction(unit.position, targetPosition, unit.specs.speed));
-            this.onEveryTickTasks[unit.id] = () => this.updateUnitPosition(unit);
             return true;
         };
         const doMove = () => {
-            this.updateUnitPosition(unit);
             this.setUnitSpeed(unit, Vectors.zero());
-            delete this.onEveryTickTasks[unit.id];
         };
         const onFinish = () => {
             doMove();
@@ -161,9 +165,9 @@ export default class Engine {
         }
 
         const onEveryTick = () => {
-            this.updateUnitPosition(unit);
-
             const closestEnemy = getClosestEnemy(unit);
+
+            unit.closestEnemyPosition = closestEnemy && closestEnemy.position;
 
             if (closestEnemy && Vectors.absoluteDistance(unit.position, closestEnemy.position) < unit.specs.weapon.range) {
                 this.clearCommands(unit);
@@ -187,13 +191,12 @@ export default class Engine {
         };
         const onStart = () => {
             this.setUnitSpeed(unit, Vectors.direction(unit.position, targetPosition, unit.specs.speed));
-            this.onEveryTickTasks[unit.id] = onEveryTick;
+            this.everyTickTasks.push(onEveryTick);
             return true;
         };
         const doMove = () => {
-            this.updateUnitPosition(unit);
             this.setUnitSpeed(unit, Vectors.zero());
-            delete this.onEveryTickTasks[unit.id];
+            this.everyTickTasks = this.everyTickTasks.filter(task => task !== onEveryTick);
         };
         const onFinish = () => {
             doMove();
