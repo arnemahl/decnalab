@@ -30,11 +30,7 @@ export default class CommandableManager {
             });
         };
 
-        this.teams = {};
-
         teams.forEach((team, index) => {
-            this.teams[team.id] = team;
-
             addStartingUnits(team, map.startingUnits[index]);
             addStartingStructures(team, map.startingStructures[index]);
             team.unitSpawnPosition = map.unitSpawnPositions[index];
@@ -43,10 +39,9 @@ export default class CommandableManager {
 
     addUnit(team, unitSpec, position, usedSupplyAlreadyUpdated = false) {
         const unit = this.unitCreator.create(unitSpec, position);
-        unit.team = team;
 
-        this.units[unit.id] = unit;
-        this.teams[unit.team.id].units[unit.id] = unit;
+        unit.team = team;
+        team.units[unit.id] = unit;
 
         team.usedSupply += usedSupplyAlreadyUpdated ? 0 : unitSpec.cost.supply;
 
@@ -55,35 +50,35 @@ export default class CommandableManager {
 
     addStructure(team, structureSpec, position) {
         const structure = this.structureCreator.create(structureSpec, position);
-        structure.team = team;
 
-        this.structures[structure.id] = structure;
-        this.teams[structure.team.id].structures[structure.id] = structure;
+        structure.team = team;
+        team.structures[structure.id] = structure;
 
         return structure;
     }
 
     removeUnit(unit) {
+        if (!unit.team.units[unit.id]) {
+            return;
+        }
+
         unit.clearCommands();
 
-        delete this.units[unit.id];
-        delete this.teams[unit.team.id].units[unit.id];
+        delete unit.team.units[unit.id];
 
         unit.team.usedSupply -= unit.specs.cost.supply;
     }
 
     removeStructure(structure) {
+        if (!structure.team.structures[structure.id]) {
+            return;
+        }
+
         structure.clearCommands();
 
-        delete this.structures[structure.id];
-        delete this.teams[structure.team.id].structures[structure.id];
+        delete structure.team.structures[structure.id];
 
         structure.team.supply -= structure.specs.providesSupply || 0;
-    }
-
-    remove(commandable) {
-        this.removeUnit(commandable);
-        this.removeStructure(commandable);
     }
 
     structureProducedUnit(structure, unitSpec) {

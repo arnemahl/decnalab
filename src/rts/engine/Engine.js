@@ -215,9 +215,7 @@ export default class Engine {
         const calcFinishedTick = () => {
             return this.tick + unit.specs.weapon.cooldown;
         };
-        const onReceive = () => {
-            return true;
-        };
+        const onReceive = () => true;
         const onStart = () => {
             const isWithinRange = Vectors.absoluteDistance(unit.position, target.position) <= unit.specs.weapon.range;
             if (!isWithinRange) {
@@ -232,16 +230,20 @@ export default class Engine {
 
             const didKill = AttackEngine.applyAttack(unit, target);
             if (didKill) {
-                this.tickCleanupTasks.push(() => {
-                    this.commandableManager.remove(target);
-                    this.simpleVision.commandableRemoved(target);
-                });
                 switch (target.type) {
                     case 'unit':
-                        this.scoreCounter.unitKilled(unit.team.id, target.specs);
+                        this.tickCleanupTasks.push(() => {
+                            this.scoreCounter.unitKilled(unit.team.id, target.specs);
+                            this.commandableManager.removeUnit(target);
+                            this.simpleVision.commandableRemoved(target);
+                        });
                         break;
                     case 'structure':
-                        this.scoreCounter.structureKilled(unit.team.id, target.specs);
+                        this.tickCleanupTasks.push(() => {
+                            this.scoreCounter.structureKilled(unit.team.id, target.specs);
+                            this.commandableManager.removeStructure(target);
+                            this.simpleVision.commandableRemoved(target);
+                        });
                         break;
                     default:
                         throw Error(`Invalid target type: ${target.type}`);
