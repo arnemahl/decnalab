@@ -27,14 +27,8 @@ export default class DefaultMap {
         max: 2
     }
 
-    direction = 'vertical' // teams spawn at top and bottom
-
-    width = 40*1000; // TODO remove
-    height = 80*1000; // TODO remove
-    size = {
-        x: 40*1000,
-        y: 80*1000
-    }
+    width = 20*1000;
+    height = 40*1000;
 
     center = Vectors.new(this.width / 2, this.height / 2);
     bounds = new Rectangle({
@@ -63,12 +57,12 @@ export default class DefaultMap {
 
     startingPositions = {
         north: {
-            x: 30*1000,
-            y: 10*1000
+            x: this.width * (3 / 4),
+            y: this.height * (1 / 8),
         },
         south: {
-            x: this.width - 30*1000,
-            y: this.height - 10*1000
+            x: this.width * (1 / 4),
+            y: this.height * (7 / 8),
         }
     }
 
@@ -160,14 +154,7 @@ export default class DefaultMap {
             height: this.height,
             resourceSites,
             visionSectors: this.visionSectors,
+            startingPositions: this.startingPositions,
         };
-    }
-
-    setState = (nextState) => {
-        nextState.resourceSites.forEach(anotherMap => anotherMap.map(one => {
-            const {id, resourceType, ...state} = one;
-
-            this.resourceSites[resourceType].find(rs => rs.id === id).setState(state);
-        }));
     }
 }

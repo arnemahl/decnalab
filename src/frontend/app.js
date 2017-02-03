@@ -179,9 +179,9 @@ var Renderer = (function() {
             return function() {
                 ensureNavigationListenersAreInitialized = function() {}
 
-                var wbx = 29000;
-                var wby = 8000;
                 var span = 4000;
+                var wbx = state.map.startingPositions.north.x - span / 2;
+                var wby = state.map.startingPositions.north.y - span / 2;
 
                 paper.viewbox(wbx, wby, span, span);
 
