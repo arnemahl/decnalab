@@ -1,4 +1,5 @@
 import Vectors from '~/rts/spatial/Vectors';
+import getClosestEnemy from '~/rts/spatial/getClosestEnemy';
 import Worker from '~/rts/units/Worker';
 import Marine from '~/rts/units/Marine';
 
@@ -154,20 +155,13 @@ export default class DumbAI {
         marines
             .filter(marine => marine.isIdle())
             .forEach(marine => {
-                const closestEnemy = this.getClosestEnemy(marine);
+                const closestEnemy = getClosestEnemy(marine);
 
-                if (closestEnemy && Vectors.absoluteDistance(marine.position, closestEnemy.position) <= marine.specs.weapon.range) {
-                    marine.getCommander().attack(closestEnemy);
+                if (closestEnemy) {
+                    marine.getCommander().attackMove(closestEnemy.position);
                 } else {
                     marine.getCommander().attackMove(enemySpawnPosition);
                 }
             });
-    }
-
-    /** Curried sort method */
-    byClosenessTo = (position) => (one, two) => Vectors.absoluteDistance(position, one.position) - Vectors.absoluteDistance(position, two.position);
-
-    getClosestEnemy = (unit) => {
-        return this.team.visibleEnemyCommandables.sort(this.byClosenessTo(unit.position))[0];
     }
 }
