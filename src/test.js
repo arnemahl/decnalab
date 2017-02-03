@@ -9,8 +9,10 @@ function test() {
     const t0 = Date.now();
 
     simulateGame(loops)
-    .then(() => {
-        console.log(`Running ${loops} loops, OK (${Date.now() - t0}ms)`);
+    .then((game) => {
+        console.log(`Running ${game.loops} loops, ${game.ticks} ticks, OK (${Date.now() - t0}ms)`);
+
+        console.log('\n--------------------------------\nFinal score:\n\n', game.finalScore, '\n--------------------------------');
     })
     .catch((error) => {
         console.log(`Running ${loops} loops FAILED`, error);

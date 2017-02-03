@@ -8,6 +8,7 @@ import EventReceiver from '~/rts/engine/EventReceiver';
 import CommandableManager from '~/rts/engine/CommandableManager';
 import AttackEngine from '~/rts/engine/AttackEngine';
 import SimpleVision from '~/rts/spatial/SimpleVision';
+import ScoreCounter from '~/rts/score/ScoreCounter';
 
 export default class Engine {
 
@@ -26,6 +27,7 @@ export default class Engine {
         const eventReceiver = new EventReceiver(this);
         this.commandableManager = new CommandableManager(eventReceiver, teams, map);
         this.simpleVision = new SimpleVision(map, teams);
+        this.scoreCounter = new ScoreCounter(teams.map(team => team.id));
     }
 
     doTick = () => {
@@ -234,6 +236,16 @@ export default class Engine {
                     this.commandableManager.remove(target);
                     this.simpleVision.commandableRemoved(target);
                 });
+                switch (target.type) {
+                    case 'unit':
+                        this.scoreCounter.unitKilled(unit.team.id, target.specs);
+                        break;
+                    case 'structure':
+                        this.scoreCounter.structureKilled(unit.team.id, target.specs);
+                        break;
+                    default:
+                        throw Error(`Invalid target type: ${target.type}`);
+                }
             }
 
             return true;
@@ -334,6 +346,7 @@ export default class Engine {
         };
         const onFinish = () => {
             this.commandableManager.structureFinished(structure);
+            this.scoreCounter.structureProduced(structure.team.id, structureSpec);
         };
         const onAbort = () => {
             if (didPlan) {
@@ -381,6 +394,7 @@ export default class Engine {
         const onFinish = () => {
             const unit = this.commandableManager.structureProducedUnit(structure, unitSpec);
             this.simpleVision.commandableAdded(unit);
+            this.scoreCounter.unitProduced(structure.team.id, unitSpec);
         };
         const onAbort = () => {
             if (didStart) {
