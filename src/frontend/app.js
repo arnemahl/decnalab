@@ -473,8 +473,8 @@ var Renderer = (function() {
                     drawSquare(structure.position, specs.size, structure.type + '\n\[under construction\]', teamAttrUnderConstruction);
                 } else {
                     drawSquare(structure.position, specs.size, structure.type, teamAttr);
+                    drawHealthBar(structure, specs);
                 }
-                drawHealthBar(structure, specs);
                 drawCommands(structure, specs);
             });
             units.forEach(unit => {
