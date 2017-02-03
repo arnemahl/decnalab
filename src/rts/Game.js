@@ -1,6 +1,5 @@
 import Engine from '~/rts/engine/Engine';
 import DefaultMap from '~/rts/spatial/DefaultMap';
-// import TeamVisionHelper from '~/rts/spatial/TeamVisionHelper';
 
 import Team from '~/rts/team/Team';
 import DumbAI from '~/ai/DumbAI';
@@ -29,15 +28,11 @@ export default class Game {
         this.AIs = this.teams.map(team => new DumbAI(team, this.map));
     }
 
-    isFinished(/*tick*/) {
-        // TODO ask engine
-        // console.info('tick:', tick, '\tloops:', loops); // DEBUG
-        return this.loops++ > this.maxLoops;
+    isFinished() {
+        return this.teams.some(team => team.hasNoMoreCommandables()) || this.loops++ > this.maxLoops;
     }
 
     play = () => {
-        // console.info('\n\n----- play -----\n');
-
         // TODO do stuff
         const tick = this.engine.doTick();
         this.AIs.forEach(ai => ai.doTick(tick));
@@ -45,7 +40,15 @@ export default class Game {
         this.states.push(this.getState());
 
         // Callbacks
-        if (this.isFinished(tick)) {
+        if (this.isFinished()) {
+            const loser = this.teams.find(team => team.hasNoMoreCommandables());
+            const winner = this.teams.find(team => !team.hasNoMoreCommandables());
+
+            if (loser && winner) {
+                this.engine.scoreCounter.gameOver(winner.id, loser.id, this.engine.tick);
+            }
+
+            this.ticks = this.engine.tick;
             this.finalScore = this.engine.scoreCounter.getState();
             this.onFinish(this);
         } else {

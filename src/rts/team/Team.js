@@ -37,6 +37,11 @@ export default class Team {
         );
     }
 
+    hasNoMoreCommandables = () => {
+        return Object.keys(this.units).length === 0
+            && !Object.values(this.structures).some(structure => !structure.isOnlyPlanned);
+    }
+
     getState = () => {
         const mapToStates = object => Object.values(object).map(commandable => commandable.getState());
 

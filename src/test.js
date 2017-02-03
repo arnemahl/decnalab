@@ -10,7 +10,7 @@ function test() {
 
     simulateGame(loops)
     .then((game) => {
-        console.log(`Running ${loops} loops, OK (${Date.now() - t0}ms)`);
+        console.log(`Running ${game.loops} loops, ${game.ticks} ticks, OK (${Date.now() - t0}ms)`);
 
         console.log('\n--------------------------------\nFinal score:\n\n', game.finalScore, '\n--------------------------------');
     })
