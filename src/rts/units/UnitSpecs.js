@@ -8,6 +8,8 @@ class Unit {
     type = 'unit'
 }
 
+const MEELEE = 1.2;
+
 class Worker extends Unit {
     class = WorkerClass
 
@@ -28,7 +30,7 @@ class Worker extends Unit {
     weapon = {
         cooldown: 30,
         damage: 5,
-        range: 50,
+        range: this.radius * MEELEE,
     }
 
     producedBy = BaseStructureClass

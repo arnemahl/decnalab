@@ -61,6 +61,7 @@ export default class Unit extends Commandable {
             ...this.getCommandableState(),
             speed: Vectors.clone(this.currentSpeed),
             speedSetAtTick: this.speedSetAtTick,
+            closestEnemyPosition: this.closestEnemyPosition,
         };
     }
     getState = () => this.getUnitState();

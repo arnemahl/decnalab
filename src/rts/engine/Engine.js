@@ -1,4 +1,5 @@
 import Vectors from '~/rts/spatial/Vectors';
+import getClosestEnemy from '~/rts/spatial/getClosestEnemy';
 import TaskSchedule from '~/rts/util/TaskSchedule';
 import Command from '~/rts/commandable/Command';
 import {getIdGenerator} from '~/rts/util/IdGenerator';
@@ -7,7 +8,6 @@ import EventReceiver from '~/rts/engine/EventReceiver';
 import CommandableManager from '~/rts/engine/CommandableManager';
 import AttackEngine from '~/rts/engine/AttackEngine';
 import SimpleVision from '~/rts/spatial/SimpleVision';
-import CollisionDetector from '~/rts/spatial/CollisionDetector';
 
 export default class Engine {
 
@@ -15,6 +15,8 @@ export default class Engine {
         this.map = map;
         this.taskSchedule = new TaskSchedule();
         this.tickCleanupTasks = [];
+        this.everyTickTasks = [];
+        this.movingUnits = [];
         this.commandIdGenerator = getIdGenerator('command');
         this.tick = 0;
         this.tickReader = {
@@ -24,14 +26,15 @@ export default class Engine {
         const eventReceiver = new EventReceiver(this);
         this.commandableManager = new CommandableManager(eventReceiver, teams, map);
         this.simpleVision = new SimpleVision(map, teams);
-        this.collisionDetector = new CollisionDetector(this.taskSchedule, () => this.tick, teams, map);
     }
 
     doTick = () => {
-        const {tick, tasks} = this.taskSchedule.getNext();
+        const scheduled = this.taskSchedule.getNext();
+        this.tick = scheduled.tick;
 
-        this.tick = tick;
-        tasks.forEach(task => task());
+        this.movingUnits.forEach(this.updateUnitPosition);
+        scheduled.tasks.forEach(task => task());
+        this.everyTickTasks.forEach(task => task());
 
         this.tickCleanupTasks.forEach(task => task());
         this.tickCleanupTasks = [];
@@ -39,15 +42,34 @@ export default class Engine {
         return this.tick;
     }
 
+    setUnitSpeed = (unit, speed) => {
+        unit.currentSpeed = speed;
+        unit.speedSetAtTick = this.tick;
+
+        if (Vectors.isZero(speed)) {
+            this.movingUnits = this.movingUnits.filter(otherUnit => otherUnit !== unit);
+        } else {
+            this.movingUnits.push(unit);
+        }
+    }
+    updateUnitPosition = (unit) => {
+        const oldPosition = unit.position;
+
+        unit.position = Vectors.add(unit.position, Vectors.scale(unit.currentSpeed, this.tick - unit.speedSetAtTick));
+        unit.speedSetAtTick = this.tick;
+
+        this.simpleVision.commandableMoved(unit, oldPosition);
+    }
+
     clearCommands = (commandable) => {
         commandable.clearCommands();
     }
 
-    addCommand(commandType, commandable, calcFinishedTick, onReceive, onStart, onFinish, onAbort) {
+    addCommand(commandType, commandTarget, commandable, calcFinishedTick, onReceive, onStart, onFinish, onAbort) {
         const commandAccepted = onReceive();
 
         if (!commandAccepted) {
-            throw Error(`Unacceptable command ${commandType} issued to ${commandable.id}`);
+            return;
         }
 
         const commandId = this.commandIdGenerator.generateId();
@@ -100,7 +122,7 @@ export default class Engine {
             }
         };
 
-        commandable.addCommand(new Command(commandId, commandType, start, stop));
+        commandable.addCommand(new Command(commandId, commandType, commandTarget, start, stop));
     }
 
     /***********************/
@@ -109,9 +131,6 @@ export default class Engine {
 
 
     moveUnit = (unit, targetPosition) => {
-        let startTick; // set upon start
-        let startPosition; // set on start
-
         if (!this.map.bounds.contains(targetPosition)) {
             throw Error(`Target position out of bounds ${Vectors.toString(targetPosition)}`);
         }
@@ -121,19 +140,11 @@ export default class Engine {
             return this.tick + Vectors.absoluteDistance(unit.position, targetPosition) / unit.specs.speed;
         };
         const onStart = () => {
-            startPosition = unit.position;
-            startTick = this.tick;
-            unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.specs.speed);
-            unit.speedSetAtTick = this.tick;
+            this.setUnitSpeed(unit, Vectors.direction(unit.position, targetPosition, unit.specs.speed));
             return true;
         };
         const doMove = () => {
-            const moved = Vectors.scale(unit.currentSpeed, this.tick - startTick);
-            unit.position = Vectors.add(unit.position, moved);
-            unit.currentSpeed = Vectors.zero();
-            unit.speedSetAtTick = this.tick;
-
-            this.simpleVision.commandableMoved(unit, startPosition);
+            this.setUnitSpeed(unit, Vectors.zero());
         };
         const onFinish = () => {
             doMove();
@@ -143,62 +154,61 @@ export default class Engine {
             }
         };
         const onAbort = doMove;
+        const commandTarget = {position: targetPosition};
 
-        this.addCommand('move', unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('move', commandTarget, unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     attackMoveUnit = (unit, targetPosition) => {
-        let startTick; // set upon start
-        let startPosition; // set on start
-
         if (!this.map.bounds.contains(targetPosition)) {
             throw Error(`Target position out of bounds ${Vectors.toString(targetPosition)}`);
         }
 
-        /* should only be used to walk in a straight line toward the enemy spawn point (because that makes it easy to calculate collisions) */
-        const onCollision = (enemyUnit) => {
-            const isWithinRange = Vectors.absoluteDistance(unit.position, enemyUnit.position) <= unit.specs.weapon.range;
+        const onEveryTick = () => {
+            const closestEnemy = getClosestEnemy(unit);
 
-            if (!isWithinRange) {
-                console.log('Collided but are too far away:', unit.position, enemyUnit.position, unit.specs.weapon.range); // DEBUG
-                throw Error('Collided but are too far away');
-            } else {
-                this.attackWithUnit(unit, enemyUnit);
+            unit.closestEnemyPosition = closestEnemy && closestEnemy.position;
+
+            if (closestEnemy && Vectors.absoluteDistance(unit.position, closestEnemy.position) < unit.specs.weapon.range) {
+                this.clearCommands(unit);
+                this.attackWithUnit(unit, closestEnemy);
             }
         };
 
-        const onReceive = () => true;
+        const onReceive = () => {
+            const closestEnemy = getClosestEnemy(unit);
+
+            if (closestEnemy && Vectors.absoluteDistance(unit.position, closestEnemy.position) < unit.specs.weapon.range) {
+                this.attackWithUnit(unit, closestEnemy);
+                return false;
+            } else {
+                return true;
+            }
+        };
         const calcFinishedTick = () => {
-            // will most likely be aborted before this due to collision with enemy
+            // note: will most likely be aborted before this due to collision with enemy
             return this.tick + Vectors.absoluteDistance(unit.position, targetPosition) / unit.specs.speed;
         };
         const onStart = () => {
-            startPosition = unit.position;
-            startTick = this.tick;
-            unit.currentSpeed = Vectors.direction(unit.position, targetPosition, unit.specs.speed);
-            unit.speedSetAtTick = this.tick;
-            this.collisionDetector.startMove(unit, targetPosition, onCollision); // <- diff from moveUnit
+            this.setUnitSpeed(unit, Vectors.direction(unit.position, targetPosition, unit.specs.speed));
+            this.everyTickTasks.push(onEveryTick);
             return true;
         };
         const doMove = () => {
-            const moved = Vectors.scale(unit.currentSpeed, this.tick - startTick);
-            unit.position = Vectors.add(unit.position, moved);
-            unit.currentSpeed = Vectors.zero();
-            unit.speedSetAtTick = this.tick;
-
-            this.simpleVision.commandableMoved(unit, startPosition);
-            this.collisionDetector.endMove(unit); // <- diff from moveUnit
+            this.setUnitSpeed(unit, Vectors.zero());
+            this.everyTickTasks = this.everyTickTasks.filter(task => task !== onEveryTick);
         };
         const onFinish = () => {
             doMove();
 
             if (!unit.isAt(targetPosition)) {
-                console.error('ERROR in moveUnit, ended up:', Vectors.absoluteDistance(unit.position, targetPosition), 'from targetPosition');
+                console.error('ERROR in attackMoveUnit, ended up:', Vectors.absoluteDistance(unit.position, targetPosition), 'from targetPosition');
             }
         };
         const onAbort = doMove;
+        const commandTarget = {position: targetPosition};
 
-        this.addCommand('attack-move', unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('attack-move', commandTarget, unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     attackWithUnit = (unit, target) => {
@@ -238,8 +248,9 @@ export default class Engine {
                 console.log('Uh oh, stuck on cooldown!');
             }
         };
+        const commandTarget = { id: target.id, position: target.position };
 
-        this.addCommand('attack', unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('attack', commandTarget, unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     harvestWithUnit = (worker, resourceSite) => {
@@ -266,8 +277,10 @@ export default class Engine {
         const onAbort = () => {
             resourceSite.abortHarvesting();
         };
+        const {id, position} = resourceSite;
+        const commandTarget = {id, position};
 
-        this.addCommand('harvest', worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('harvest', commandTarget, worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     dropOffHarvestWithUnit = (worker, baseStructure) => {
@@ -287,8 +300,10 @@ export default class Engine {
             }
         };
         const onAbort = () => {};
+        const {id, position} = baseStructure;
+        const commandTarget = {id, position};
 
-        this.addCommand('dropOffHarvest', worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('dropOffHarvest', commandTarget, worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     buildWithUnit = (worker, structureSpec, targetPosition) => {
@@ -302,6 +317,8 @@ export default class Engine {
             if (hasEnoughResources) {
                 structure = this.commandableManager.structurePlanned(worker, structureSpec, targetPosition);
                 ['abundant', 'sparse'].forEach(resourceType => worker.team.resources[resourceType] -= structureSpec.cost[resourceType]); // eslint-disable-line no-return-assign
+            } else {
+                throw Error(`Unacceptable command build ${structureSpec}: not enough resources`);
             }
             didPlan = hasEnoughResources;
 
@@ -327,8 +344,9 @@ export default class Engine {
                 ['abundant', 'sparse'].forEach(resourceType => worker.team.resources[resourceType] += structureSpec.cost[resourceType]); // eslint-disable-line no-return-assign
             }
         };
+        const commandTarget = {position: targetPosition};
 
-        this.addCommand('build', worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('build', commandTarget, worker, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
     /****************************/
@@ -372,8 +390,9 @@ export default class Engine {
                 structure.team.usedSupply -= unitSpec.cost.supply;
             }
         };
+        const commandTarget = { unitType: unitSpec.constructor.name };
 
-        this.addCommand('produce', structure, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
+        this.addCommand('produce', commandTarget, structure, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
     }
 
 

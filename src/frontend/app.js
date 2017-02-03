@@ -109,10 +109,10 @@ var Renderer = (function() {
 
     var drawGameState = (function() {
 
-        var selectedUnits = []; // user selected units
+        var selectedUnitIds = []; // user selected units
 
         function isSelected(unit) {
-            return selectedUnits.indexOf(unit) !== -1;
+            return selectedUnitIds.indexOf(unit.id) !== -1;
         }
 
         function getMapArea(screenArea) {
@@ -145,16 +145,18 @@ var Renderer = (function() {
             var allUnits = state.teams[0].units.concat(state.teams[1].units);
 
             var selectedUnits = allUnits.filter(function(unit) {
-                return contains(mapArea, calculateUnitPosition(unit, state.tick));
+                return contains(mapArea, unit.position);
             });
 
             return selectedUnits;
         }
 
         function selectUnitsInArea(area) {
-            selectedUnits = getUnitsInScreenArea(area);
+            var selectedUnits = getUnitsInScreenArea(area);
 
             console.log('selectedUnits:', selectedUnits); // DEBUG
+
+            selectedUnitIds = selectedUnits.map(unit => unit.id);
 
             Renderer.render();
         }
@@ -163,13 +165,6 @@ var Renderer = (function() {
             return gameState && gameState
                 .teams.find(team => team.id === teamId)
                 .units.find(unit => unit.id === unitId);
-        }
-
-        function calculateUnitPosition(unit, currentTick) {
-            return {
-                x: unit.position.x + unit.speed.x * (currentTick - unit.speedSetAtTick),
-                y: unit.position.y + unit.speed.y * (currentTick - unit.speedSetAtTick)
-            };
         }
 
 
@@ -374,40 +369,56 @@ var Renderer = (function() {
 
             var unitElement = paper.nested();
 
-            // circle
+            // weapon range
+            unitElement.circle(2 * specs.weapon.range)
+                .center(0, 0)
+                .opacity(0.1)
+                .attr(circleAttr);
+            // circle (actual unit)
             unitElement.circle(specs.size)
-                .center(specs.radius, specs.radius)
+                .center(0, 0)
                 .opacity(0.7)
                 .attr(circleAttr);
             // unit type
             unitElement.text(unit.type)
-                .x(specs.radius)
-                .y(specs.radius - 32)
+                .x(0)
+                .y(0 - 32)
                 .font({size: 40, anchor: 'middle'})
                 .fill('snow');
             // health bar
             unitElement.rect(unit.healthLeftFactor * specs.size, 20)
-                .center(specs.radius, -20)
+                .center(0, -specs.radius - 20)
                 .attr({ fill: 'green' });
             // commands
-            unitElement.text(unit.commands[0]/*.join('\n')*/)
-                .x(specs.radius)
-                .y(specs.radius + 10)
+            unitElement.text(unit.commands.map(cmd => cmd.type)[0]/*.join('\n')*/)
+                .x(0)
+                .y(0 + 10)
                 .font({size: 30, anchor: 'middle'})
                 .opacity(0.7)
                 .fill('white');
 
             // move to current position
-            var currentPosition = calculateUnitPosition(unit, state.tick);
+            unitElement.move(unit.position.x, unit.position.y);
 
-            unitElement.move(currentPosition.x, currentPosition.y);
+            // visualize current command if selected
+            if (isSelected(unit)) {
+                const command = unit.commands[0];
+                if (command && command.target.position) {
+                    paper.line(unit.position.x, unit.position.y, command.target.position.x, command.target.position.y)
+                        .stroke({ color: 'coral', width: 10 });
+                }
+                if (unit.closestEnemyPosition) {
+                    paper.line(unit.position.x, unit.position.y, unit.closestEnemyPosition.x, unit.closestEnemyPosition.y)
+                        .stroke({ color: 'mediumseagreen', width: 20 });
+                }
+            }
 
+            // animate moving units
             if (ANIMATE_MOVES && nextUnitState) {
                 const ticksToAnimate = nextState.tick - state.tick;
-                const nextPosition = calculateUnitPosition(nextUnitState, nextState.tick);
 
                 if (unit.speed && (unit.speed.x !== 0 || unit.speed.y !== 0)) {
-                    unitElement.animate(MS_PER_TICK * ticksToAnimate, '-').move(nextPosition.x, nextPosition.y);
+                    unitElement.animate(MS_PER_TICK * ticksToAnimate, '-').move(nextUnitState.position.x, nextUnitState.position.y);
                 }
             }
         }

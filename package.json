@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node src/test.js",
     "eslint": "eslint src/",
     "watch": "watch -n 15 --color 'eslint src/' --color"
   },
