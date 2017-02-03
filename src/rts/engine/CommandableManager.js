@@ -58,6 +58,10 @@ export default class CommandableManager {
     }
 
     removeUnit(unit) {
+        if (!unit.team.units[unit.id]) {
+            return;
+        }
+
         unit.clearCommands();
 
         delete unit.team.units[unit.id];
@@ -66,6 +70,10 @@ export default class CommandableManager {
     }
 
     removeStructure(structure) {
+        if (!structure.team.structures[structure.id]) {
+            return;
+        }
+
         structure.clearCommands();
 
         delete structure.team.structures[structure.id];
