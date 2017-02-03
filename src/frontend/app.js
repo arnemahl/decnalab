@@ -375,7 +375,7 @@ var Renderer = (function() {
                 .fill('snow');
         }
         function drawHealthBar(commandable, specs) {
-            return paper.rect(commandable.healthLeftFactor * specs.size, 20)
+            return paper.rect(Math.max(0, commandable.healthLeftFactor * specs.size), 20)
                 .center(commandable.position.x, commandable.position.y - specs.radius - 30)
                 .attr({ fill: 'green' });
         }
@@ -408,7 +408,7 @@ var Renderer = (function() {
                 .font({size: 40, anchor: 'middle'})
                 .fill('snow');
             // health bar
-            unitElement.rect(unit.healthLeftFactor * specs.size, 20)
+            unitElement.rect(Math.max(0, unit.healthLeftFactor * specs.size), 20)
                 .center(0, -specs.radius - 20)
                 .attr({ fill: 'green' });
             // commands
