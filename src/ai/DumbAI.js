@@ -45,12 +45,14 @@ export default class DumbAI {
                 { spec: SupplyDepot, count: 2, },
                 { spec: Marine, count: Number.POSITIVE_INFINITY, },
             ];
+            this.attackAtSupply = 18;
         } else {
             this.buildOrder = [
                 { spec: Worker, count: 10, },
                 { spec: Barracks, count: 1, },
                 { spec: Marine, count: Number.POSITIVE_INFINITY, },
             ];
+            this.attackAtSupply = 0;
         }
     }
 
@@ -149,6 +151,10 @@ export default class DumbAI {
     /*****************/
 
     micro() {
+        if (this.team.usedSupply < this.attackAtSupply) {
+            return;
+        }
+
         const marines = this.getAllCommandablesOfClass(Marine);
         const enemySpawnPosition = this.map.unitSpawnPositions.find((_, index) => index !== this.team.index);
 
