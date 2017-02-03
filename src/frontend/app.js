@@ -374,25 +374,30 @@ var Renderer = (function() {
 
             var unitElement = paper.nested();
 
-            // circle
+            // weapon range
+            unitElement.circle(2 * specs.weapon.range)
+                .center(0, 0)
+                .opacity(0.1)
+                .attr(circleAttr);
+            // circle (actual unit)
             unitElement.circle(specs.size)
-                .center(specs.radius, specs.radius)
+                .center(0, 0)
                 .opacity(0.7)
                 .attr(circleAttr);
             // unit type
             unitElement.text(unit.type)
-                .x(specs.radius)
-                .y(specs.radius - 32)
+                .x(0)
+                .y(0 - 32)
                 .font({size: 40, anchor: 'middle'})
                 .fill('snow');
             // health bar
             unitElement.rect(unit.healthLeftFactor * specs.size, 20)
-                .center(specs.radius, -20)
+                .center(0, -specs.radius - 20)
                 .attr({ fill: 'green' });
             // commands
             unitElement.text(unit.commands[0]/*.join('\n')*/)
-                .x(specs.radius)
-                .y(specs.radius + 10)
+                .x(0)
+                .y(0 + 10)
                 .font({size: 30, anchor: 'middle'})
                 .opacity(0.7)
                 .fill('white');
