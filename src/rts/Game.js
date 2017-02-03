@@ -46,6 +46,7 @@ export default class Game {
 
         // Callbacks
         if (this.isFinished(tick)) {
+            this.finalScore = this.engine.scoreCounter.getState();
             this.onFinish(this);
         } else {
             setImmediate(this.play);
