@@ -215,9 +215,7 @@ export default class Engine {
         const calcFinishedTick = () => {
             return this.tick + unit.specs.weapon.cooldown;
         };
-        const onReceive = () => {
-            return true;
-        };
+        const onReceive = () => true;
         const onStart = () => {
             const isWithinRange = Vectors.absoluteDistance(unit.position, target.position) <= unit.specs.weapon.range;
             if (!isWithinRange) {
