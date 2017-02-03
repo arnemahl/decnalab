@@ -110,9 +110,13 @@ var Renderer = (function() {
     var drawGameState = (function() {
 
         var selectedUnitIds = []; // user selected units
+        var selectedTeamIds = ['blue', 'red']; // user selected teams
 
-        function isSelected(unit) {
+        function isUnitSelected(unit) {
             return selectedUnitIds.indexOf(unit.id) !== -1;
+        }
+        function isTeamSelected(team) {
+            return selectedTeamIds.indexOf(team.id) !== -1;
         }
 
         function getMapArea(screenArea) {
@@ -142,7 +146,10 @@ var Renderer = (function() {
         function getUnitsInScreenArea(area) {
             var mapArea = getMapArea(area);
 
-            var allUnits = state.teams[0].units.concat(state.teams[1].units);
+            var allUnits = state.teams.filter(isTeamSelected).reduce((units, team) => {
+                units = units.concat(team.units);
+                return units;
+            }, []);
 
             var selectedUnits = allUnits.filter(function(unit) {
                 return contains(mapArea, unit.position);
@@ -277,49 +284,64 @@ var Renderer = (function() {
 
                 // Add Listener for Left and Right arrow keys
                 window.onkeydown = function(event) {
-                    if (event.code === 'ArrowLeft') {
-                        skipBack(event.ctrlKey ? 10 : 1);
-                    }
-                    if (event.code === 'ArrowRight') {
-                        skipForward(event.ctrlKey ? 10 : 1);
-                    }
-                    if (event.code === 'PageUp') {
-                        skipBack(100);
-                    }
-                    if (event.code === 'PageDown') {
-                        skipForward(100);
-                    }
-                    if (event.code === 'Home') {
-                        skipBack(1000);
-                    }
-                    if (event.code === 'End') {
-                        skipForward(1000);
-                    }
+                    switch (event.code) {
+                        case 'ArrowLeft':
+                            skipBack(event.ctrlKey ? 10 : 1);
+                            break;
+                        case 'ArrowRight':
+                            skipForward(event.ctrlKey ? 10 : 1);
+                            break;
+                        case 'PageUp':
+                            skipBack(100);
+                            break;
+                        case 'PageDown':
+                            skipForward(100);
+                            break;
+                        case 'Home':
+                            skipBack(1000);
+                            break;
+                        case 'End':
+                            skipForward(1000);
+                            break;
 
-                    if (event.code === 'Space') {
-                        ANIMATE_MOVES = !ANIMATE_MOVES;
-                        Renderer.render();
-                    }
-                    if (event.code === 'ArrowUp') {
-                        MS_PER_TICK /= 1.5;
-                        Renderer.render();
-                    }
-                    if (event.code === 'ArrowDown') {
-                        MS_PER_TICK *= 1.5;
-                        Renderer.render();
-                    }
+                        case 'Space':
+                            ANIMATE_MOVES = !ANIMATE_MOVES;
+                            Renderer.render();
+                            break;
+                        case 'ArrowUp':
+                            MS_PER_TICK /= 1.5;
+                            Renderer.render();
+                            break;
+                        case 'ArrowDown':
+                            MS_PER_TICK *= 1.5;
+                            Renderer.render();
+                            break;
 
-                    if (event.code === 'KeyW') {
-                        panViewbox('UP');
-                    }
-                    if (event.code === 'KeyA') {
-                        panViewbox('LEFT');
-                    }
-                    if (event.code === 'KeyS') {
-                        panViewbox('DOWN');
-                    }
-                    if (event.code === 'KeyD') {
-                        panViewbox('RIGHT');
+                        case 'KeyW':
+                            panViewbox('UP');
+                            break;
+                        case 'KeyA':
+                            panViewbox('LEFT');
+                            break;
+                        case 'KeyS':
+                            panViewbox('DOWN');
+                            break;
+                        case 'KeyD':
+                            panViewbox('RIGHT');
+                            break;
+
+                        case 'Digit1':
+                            selectedTeamIds = ['blue'];
+                            Renderer.render();
+                            break;
+                        case 'Digit2':
+                            selectedTeamIds = ['red'];
+                            Renderer.render();
+                            break;
+                        case 'KeyE':
+                            selectedTeamIds = ['blue', 'red'];
+                            Renderer.render();
+                            break;
                     }
                 }
             }
@@ -401,7 +423,7 @@ var Renderer = (function() {
             unitElement.move(unit.position.x, unit.position.y);
 
             // visualize current command if selected
-            if (isSelected(unit)) {
+            if (isUnitSelected(unit)) {
                 const command = unit.commands[0];
                 if (command && command.target.position) {
                     paper.line(unit.position.x, unit.position.y, command.target.position.x, command.target.position.y)
@@ -440,37 +462,52 @@ var Renderer = (function() {
             });
         }
 
-        function drawTeamsUnitsAndStructures() {
-            state.teams.forEach(function(team) {
-                var teamAttr = {fill: team.id, stroke: '#222'}; // TODO make this sensible. Currently, teamId = 'blue'||'red'
-                var teamAttrSelected = {fill: 'coral'};
-                var teamAttrOnlyPlanned = {fill: 'transparent', stroke: team.id, 'stroke-width': 3};
-                var teamAttrUnderConstruction = {fill: team.id, stroke: '#222', opacity: 0.3};
+        function drawUnitsAndStructuresForTeam(team, units, structures) {
+            var teamAttr = {fill: team.id, stroke: '#222'}; // team.id is a color (blue/red)
+            var teamAttrSelected = {fill: 'coral'};
+            var teamAttrOnlyPlanned = {fill: 'transparent', stroke: team.id, 'stroke-width': 3};
+            var teamAttrUnderConstruction = {fill: team.id, stroke: '#222', opacity: 0.3};
 
-                team.structures.forEach(function(structure) {
-                    const specs = team.structureSpecs[structure.type];
+            structures.forEach(structure => {
+                const specs = team.structureSpecs[structure.type];
 
-                    if (structure.isOnlyPlanned) {
-                        drawSquare(structure.position, specs.size, structure.type + '\n\[planned\]', teamAttrOnlyPlanned);
-                    } else if (structure.isUnderConstruction) {
-                        drawSquare(structure.position, specs.size, structure.type + '\n\[under construction\]', teamAttrUnderConstruction);
-                    } else {
-                        drawSquare(structure.position, specs.size, structure.type, teamAttr);
-                    }
-                    drawHealthBar(structure, specs);
-                    drawCommands(structure, specs);
-                });
-                team.units.forEach(function(unit) {
-                    const specs = team.unitSpecs[unit.type];
-                    const nextUnitState = nextState && getUnitInState(nextState, team.id, unit.id);
+                if (structure.isOnlyPlanned) {
+                    drawSquare(structure.position, specs.size, structure.type + '\n\[planned\]', teamAttrOnlyPlanned);
+                } else if (structure.isUnderConstruction) {
+                    drawSquare(structure.position, specs.size, structure.type + '\n\[under construction\]', teamAttrUnderConstruction);
+                } else {
+                    drawSquare(structure.position, specs.size, structure.type, teamAttr);
+                }
+                drawHealthBar(structure, specs);
+                drawCommands(structure, specs);
+            });
+            units.forEach(unit => {
+                const specs = team.unitSpecs[unit.type];
+                const nextUnitState = nextState && getUnitInState(nextState, team.id, unit.id);
 
-                    if (isSelected(unit)) {
-                        drawUnit(unit, specs, teamAttrSelected, nextUnitState);
-                    } else {
-                        drawUnit(unit, specs, teamAttr, nextUnitState);
-                    }
-                });
+                if (isUnitSelected(unit)) {
+                    drawUnit(unit, specs, teamAttrSelected, nextUnitState);
+                } else {
+                    drawUnit(unit, specs, teamAttr, nextUnitState);
+                }
+            });
+        }
+        function drawUnitsAndStructures() {
+            const selectedTeams = state.teams.filter(isTeamSelected);
+            const deselectedTeams = state.teams.filter(team => !isTeamSelected(team));
+
+            selectedTeams.forEach(function(team) {
+                drawUnitsAndStructuresForTeam(team, team.units, team.structures);
                 drawCircle(team.unitSpawnPosition, 500, 'spawn location', {fill: '#333', stroke: team.id, 'stroke-width': 5}).back();
+            });
+
+            deselectedTeams.forEach(team => {
+                const visibleUnits = team.units.filter(unit => selectedTeams.some(
+                    selectedTeam => selectedTeam.visibleEnemyCommandableIds.indexOf(unit.id) > -1));
+                const visibleStructures = team.structures.filter(structure => selectedTeams.some(
+                    selectedTeam => selectedTeam.visibleEnemyCommandableIds.indexOf(structure.id) > -1));
+
+                drawUnitsAndStructuresForTeam(team, visibleUnits, visibleStructures);
             });
         }
 
@@ -484,7 +521,7 @@ var Renderer = (function() {
             var text = staticPaper.text(function(add) {
                 add.tspan('Resources');
 
-                state.teams.forEach(function(team) {
+                state.teams.filter(isTeamSelected).filter(isTeamSelected).forEach(function(team) {
                     add.tspan('').newLine();
                     add.tspan('Team '+team.id).fill(team.id).style('text-transform: capitalize').newLine();
 
@@ -523,7 +560,7 @@ var Renderer = (function() {
 
         function drawFogOfWar() {
             state.map.visionSectors
-                .filter(sector => state.teams.every(team =>
+                .filter(sector => state.teams.filter(isTeamSelected).every(team =>
                     team.visibleMapSectorIds.indexOf(sector.id) === -1
                 ))
                 .forEach(sector => {
@@ -543,7 +580,7 @@ var Renderer = (function() {
             document.getElementById('state-index').textContent = 'State '+stateIndex+' | Tick '+state.tick;
 
             drawResourceSites();
-            drawTeamsUnitsAndStructures();
+            drawUnitsAndStructures();
             drawTeamResources();
             drawFogOfWar();
             drawMapBackground();
