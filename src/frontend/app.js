@@ -412,12 +412,14 @@ var Renderer = (function() {
                 .center(0, -specs.radius - 20)
                 .attr({ fill: 'green' });
             // commands
-            unitElement.text(unit.commands.map(cmd => cmd.type)[0]/*.join('\n')*/)
-                .x(0)
-                .y(0 + 10)
-                .font({size: 30, anchor: 'middle'})
-                .opacity(0.7)
-                .fill('white');
+            if (unit.commands.length > 0) {
+                unitElement.text(unit.commands.map(cmd => cmd.type)[0]/*.join('\n')*/)
+                    .x(0)
+                    .y(0 + 10)
+                    .font({size: 30, anchor: 'middle'})
+                    .opacity(0.7)
+                    .fill('white');
+            }
 
             // move to current position
             unitElement.move(unit.position.x, unit.position.y);
