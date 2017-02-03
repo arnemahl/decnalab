@@ -75,18 +75,6 @@ class ResourceSite {
         };
     }
 
-    setState = (nextState) => {
-        const {
-            resourcesLeft,
-            harvestAmmount,
-            currentHarvesters
-        } = nextState;
-
-        this.resourcesLeft = resourcesLeft;
-        this.harvestAmmount = harvestAmmount;
-        this.currentHarvesters = currentHarvesters;
-    }
-
 }
 
 export class AbundantResourceSite extends ResourceSite {
@@ -94,7 +82,7 @@ export class AbundantResourceSite extends ResourceSite {
     resourcesLeft = 20000
     maxHarvesters = 15
     harvestDuration = 75
-    harvestAmmount = 50
+    harvestAmmount = 10
     size = 800
 
     canBeHarvestedBy = worker => this._canBeHarvestedBy(worker);
@@ -105,7 +93,7 @@ export class SparseResourceSite extends ResourceSite {
     resourcesLeft = 6000
     maxHarvesters = 4
     harvestDuration = 100
-    harvestAmmount = 10
+    harvestAmmount = 2
     size = 300
 
     canBeHarvestedBy = worker => this._canBeHarvestedBy(worker) && worker.xp > 100;
