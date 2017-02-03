@@ -70,7 +70,7 @@ export default class SimpleVision {
         if (gainedVision) {
             otherTeamsInSector.forEach(otherTeam => {
                 commandable.team.visibleEnemyCommandables.push(
-                    ...this.commandablesPerSector[otherTeam.id][sector.id]
+                    ...Object.values(this.commandablesPerSector[otherTeam.id][sector.id])
                 );
             });
         }
@@ -86,7 +86,7 @@ export default class SimpleVision {
         const lostVision = Object.keys(this.commandablesPerSector[commandable.team.id][sector.id]).length === 0;
 
         if (lostVision) {
-            commandable.team.visibleMapSectorIds.filter(id => id !== sector.id);
+            commandable.team.visibleMapSectorIds = commandable.team.visibleMapSectorIds.filter(id => id !== sector.id);
         }
 
 
@@ -98,7 +98,7 @@ export default class SimpleVision {
         // ...remove the moved unit from their vision
         // PS: If the commandable was moved to a new sector, they might immediately regain vision of it, handled in _commandablePlacedAtPosition
         otherTeamsInSector.forEach(otherTeam => {
-            otherTeam.visibleEnemyCommandables = otherTeam.visibleEnemyCommandables.filter(cmd => cmd !== commandable);
+            otherTeam.visibleEnemyCommandables = otherTeam.visibleEnemyCommandables.filter(otherCommandable => otherCommandable !== commandable);
         });
 
         // ...and make the team of the moved commandable lose vision of other teams commandables in sector

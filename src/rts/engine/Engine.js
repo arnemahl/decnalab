@@ -167,8 +167,6 @@ export default class Engine {
         const onEveryTick = () => {
             const closestEnemy = getClosestEnemy(unit);
 
-            unit.closestEnemyPosition = closestEnemy && closestEnemy.position;
-
             if (closestEnemy && Vectors.absoluteDistance(unit.position, closestEnemy.position) < unit.specs.weapon.range) {
                 this.clearCommands(unit);
                 this.attackWithUnit(unit, closestEnemy);
