@@ -59,7 +59,7 @@ export default class Unit extends Commandable {
     getUnitState = () => {
         return {
             ...this.getCommandableState(),
-            speed: Vectors.clone(this.currentSpeed),
+            speed: this.currentSpeed ? Vectors.clone(this.currentSpeed) : Vectors.zero(),
             speedSetAtTick: this.speedSetAtTick,
         };
     }

@@ -1,4 +1,5 @@
 import Vectors from '~/rts/spatial/Vectors';
+import getClosestEnemy from '~/rts/spatial/getClosestEnemy';
 import Worker from '~/rts/units/Worker';
 import Marine from '~/rts/units/Marine';
 
@@ -31,14 +32,28 @@ export default class DumbAI {
             },
         } = team;
 
-        this.buildOrder = [
-            { spec: Worker, count: 9, },
-            { spec: SupplyDepot, count: 1, },
-            { spec: Worker, count: 10, },
-            { spec: Barracks, count: 1, },
-            { spec: Worker, count: 11, },
-            { spec: Marine, count: Number.POSITIVE_INFINITY, },
-        ];
+        if (this.team.id === 'blue') {
+            this.buildOrder = [
+                { spec: Worker, count: 9, },
+                { spec: SupplyDepot, count: 1, },
+                { spec: Worker, count: 10, },
+                { spec: Barracks, count: 1, },
+                { spec: Worker, count: 11, },
+                { spec: Marine, count: 1, },
+                { spec: Barracks, count: 2, },
+                { spec: Marine, count: 10, },
+                { spec: SupplyDepot, count: 2, },
+                { spec: Marine, count: Number.POSITIVE_INFINITY, },
+            ];
+            this.attackAtSupply = 18;
+        } else {
+            this.buildOrder = [
+                { spec: Worker, count: 10, },
+                { spec: Barracks, count: 1, },
+                { spec: Marine, count: Number.POSITIVE_INFINITY, },
+            ];
+            this.attackAtSupply = 0;
+        }
     }
 
     doTick = (/*tick*/) => {
@@ -136,26 +151,23 @@ export default class DumbAI {
     /*****************/
 
     micro() {
+        if (this.team.usedSupply < this.attackAtSupply) {
+            return;
+        }
+
         const marines = this.getAllCommandablesOfClass(Marine);
         const enemySpawnPosition = this.map.unitSpawnPositions.find((_, index) => index !== this.team.index);
 
         marines
             .filter(marine => marine.isIdle())
             .forEach(marine => {
-                const closestEnemy = this.getClosestEnemy(marine);
+                const closestEnemy = getClosestEnemy(marine);
 
-                if (closestEnemy && Vectors.absoluteDistance(marine.position, closestEnemy.position) <= marine.specs.weapon.range) {
-                    marine.getCommander().attack(closestEnemy);
+                if (closestEnemy) {
+                    marine.getCommander().attackMove(closestEnemy.position);
                 } else {
                     marine.getCommander().attackMove(enemySpawnPosition);
                 }
             });
-    }
-
-    /** Curried sort method */
-    byClosenessTo = (position) => (one, two) => Vectors.absoluteDistance(position, one.position) - Vectors.absoluteDistance(position, two.position);
-
-    getClosestEnemy = (unit) => {
-        return this.team.visibleEnemyCommandables.sort(this.byClosenessTo(unit.position))[0];
     }
 }

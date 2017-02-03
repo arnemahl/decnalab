@@ -179,9 +179,9 @@ var Renderer = (function() {
             return function() {
                 ensureNavigationListenersAreInitialized = function() {}
 
-                var wbx = 29000;
-                var wby = 8000;
                 var span = 4000;
+                var wbx = state.map.startingPositions.north.x - span / 2;
+                var wby = state.map.startingPositions.north.y - span / 2;
 
                 paper.viewbox(wbx, wby, span, span);
 
@@ -375,12 +375,12 @@ var Renderer = (function() {
                 .fill('snow');
         }
         function drawHealthBar(commandable, specs) {
-            return paper.rect(commandable.healthLeftFactor * specs.size, 20)
+            return paper.rect(Math.max(0, commandable.healthLeftFactor * specs.size), 20)
                 .center(commandable.position.x, commandable.position.y - specs.radius - 30)
                 .attr({ fill: 'green' });
         }
         function drawCommands(commandable, specs) {
-            return paper.text(commandable.commands.join('\n'))
+            return paper.text(commandable.commands.map(command => command.type).join('\n'))
                 .x(commandable.position.x)
                 .y(commandable.position.y)
                 .font({ size: 36, anchor: 'middle'})
@@ -408,16 +408,18 @@ var Renderer = (function() {
                 .font({size: 40, anchor: 'middle'})
                 .fill('snow');
             // health bar
-            unitElement.rect(unit.healthLeftFactor * specs.size, 20)
+            unitElement.rect(Math.max(0, unit.healthLeftFactor * specs.size), 20)
                 .center(0, -specs.radius - 20)
                 .attr({ fill: 'green' });
             // commands
-            unitElement.text(unit.commands.map(cmd => cmd.type)[0]/*.join('\n')*/)
-                .x(0)
-                .y(0 + 10)
-                .font({size: 30, anchor: 'middle'})
-                .opacity(0.7)
-                .fill('white');
+            if (unit.commands.length > 0) {
+                unitElement.text(unit.commands.map(cmd => cmd.type)[0]/*.join('\n')*/)
+                    .x(0)
+                    .y(0 + 10)
+                    .font({size: 30, anchor: 'middle'})
+                    .opacity(0.7)
+                    .fill('white');
+            }
 
             // move to current position
             unitElement.move(unit.position.x, unit.position.y);
@@ -473,8 +475,8 @@ var Renderer = (function() {
                     drawSquare(structure.position, specs.size, structure.type + '\n\[under construction\]', teamAttrUnderConstruction);
                 } else {
                     drawSquare(structure.position, specs.size, structure.type, teamAttr);
+                    drawHealthBar(structure, specs);
                 }
-                drawHealthBar(structure, specs);
                 drawCommands(structure, specs);
             });
             units.forEach(unit => {
