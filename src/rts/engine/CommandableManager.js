@@ -81,11 +81,6 @@ export default class CommandableManager {
         structure.team.supply -= structure.specs.providesSupply || 0;
     }
 
-    remove(commandable) {
-        this.removeUnit(commandable);
-        this.removeStructure(commandable);
-    }
-
     structureProducedUnit(structure, unitSpec) {
         return this.addUnit(structure.team, unitSpec, structure.team.unitSpawnPosition, true);
     }
