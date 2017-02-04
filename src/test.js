@@ -1,22 +1,20 @@
 require("babel-core/register");
 require("babel-polyfill");
 
-const simulateGame = require('./Simulation').simulateGame;
+const Game = require('./rts/Game').default;
+const aiConfig = require('./ai/DefaultConfigDumbAI');
 
-function test() {
-    const loops = 1000;
+function fastTest() {
+    const maxLoops = 1000;
+    const game = new Game('unused-id', maxLoops, aiConfig, aiConfig);
 
     const t0 = Date.now();
 
-    simulateGame(loops)
-    .then((game) => {
-        console.log(`Running ${game.loops} loops, ${game.ticks} ticks, OK (${Date.now() - t0}ms)`);
+    // game.simulateAndStoreEveryState();
+    game.simulate();
 
-        console.log('\n--------------------------------\nFinal score:\n\n', game.finalScore, '\n--------------------------------');
-    })
-    .catch((error) => {
-        console.log(`Running ${loops} loops FAILED`, error);
-        process.exit();
-    });
+    console.log('\n--------------------------------\nFinal score:\n\n', game.finalScore, '\n--------------------------------');
+    console.log(`\n\nRunning ${game.loops} loops, ${game.finalTick} ticks, OK (${Date.now() - t0}ms)`);
 }
-test();
+
+fastTest();

@@ -2,16 +2,24 @@ import http from 'http';
 import express from 'express';
 import socket_io from 'socket.io';
 
-import {simulateGame} from '~/Simulation';
+import Game from '~/rts/Game';
 
-function test() {
-    simulateGame(10)
-    .catch((error) => {
-        console.log(`Simulation test run FAILED`, error);
-        process.exit();
+function simulateGame(maxLoops) {
+    return new Promise((resolve, reject) => {
+        try {
+            const game = new Game('unused-id', maxLoops);
+            game.simulateAndStoreEveryState();
+            resolve(game);
+        } catch (error) {
+            reject(error);
+        }
     });
 }
-test();
+
+simulateGame(10).catch((error) => {
+    console.log(`Simulation test run FAILED`, error);
+    process.exit();
+});
 
 
 /**************************/

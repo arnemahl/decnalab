@@ -44,7 +44,7 @@ export function generateIndividual() {
 
     const attackAtSupply = 5 + Math.floor(maxAttackTiming + Math.random());
 
-    return {buildOrder, attackAtSupply};
+    return {buildOrder, attackAtSupply, fitness: 0};
 }
 
 function crossover(mother, father) { // eslint-disable-line no-unused-vars
@@ -78,7 +78,6 @@ function mutation(individual) { // eslint-disable-line no-unused-vars
 /**  Main  **/
 /************/
 import Game from '~/rts/Game';
-import {playSafe} from '~/Simulation';
 
 const popSize = 4;
 const maxLoops = 10;
@@ -95,8 +94,15 @@ export function runSimpleEvolution() {
         population.filter(two => two !== one).forEach(two => {
             const game = new Game('unnecessary-id', maxGameLoops, one, two);
 
-            playSafe(game);
+            game.simulate();
+
+            one.fitness += game.finalScore.blue.score;
+            two.fitness += game.finalScore.red.score;
         });
+    });
+
+    population.forEach(ind => {
+        console.log(`ind.fitness:`, ind.fitness); // DEBUG
     });
 
     while (loops++ < maxLoops) {
