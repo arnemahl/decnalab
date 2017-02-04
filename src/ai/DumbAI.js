@@ -3,6 +3,8 @@ import getClosestEnemy from '~/rts/spatial/getClosestEnemy';
 import Worker from '~/rts/units/Worker';
 import Marine from '~/rts/units/Marine';
 
+import {generateIndividual} from '~/coevolution/Coevolution';
+
 function getClosestResourceSite(map, worker, resourceType) {
     const distanceTo = resourceSite => Vectors.absoluteDistance(worker.position, resourceSite.position);
 
@@ -20,40 +22,16 @@ export default class DumbAI {
         this.team = team;
         this.map = map;
 
-        const {
-            unitSpecs: {
-                Worker,
-                Marine,
-            },
-            structureSpecs: {
-                SupplyDepot,
-                // BaseStructure,
-                Barracks,
-            },
-        } = team;
+        const {buildOrder, attackAtSupply} = generateIndividual();
 
-        if (this.team.id === 'blue') {
-            this.buildOrder = [
-                { spec: Worker, count: 9, },
-                { spec: SupplyDepot, count: 1, },
-                { spec: Worker, count: 10, },
-                { spec: Barracks, count: 1, },
-                { spec: Worker, count: 11, },
-                { spec: Marine, count: 1, },
-                { spec: Barracks, count: 2, },
-                { spec: Marine, count: 10, },
-                { spec: SupplyDepot, count: 2, },
-                { spec: Marine, count: Number.POSITIVE_INFINITY, },
-            ];
-            this.attackAtSupply = 18;
-        } else {
-            this.buildOrder = [
-                { spec: Worker, count: 10, },
-                { spec: Barracks, count: 1, },
-                { spec: Marine, count: Number.POSITIVE_INFINITY, },
-            ];
-            this.attackAtSupply = 0;
+        this.buildOrder = buildOrder;
+        this.attackAtSupply = attackAtSupply;
+
+        if (buildOrder.some(x => !x.spec || !x.count)) {
+            throw Error('BUILD ORDER CONTAINS INVAILD TARGET');
         }
+
+        console.log(`\nBuild order (${team.id})\n\t` + buildOrder.map(target => `${target.spec.constructor.name}: ${target.count}`).join('\n\t'));
     }
 
     doTick = (/*tick*/) => {
