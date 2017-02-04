@@ -27,7 +27,7 @@ export default class DumbAI {
             throw Error('BUILD ORDER CONTAINS INVAILD TARGET');
         }
 
-        console.log(`\nBuild order (${team.id})\n\t` + individual.buildOrder.map(target => `${target.spec.constructor.name}: ${target.count}`).join('\n\t'));
+        // console.log(`\nBuild order (${team.id})\n\t` + individual.buildOrder.map(target => `${target.spec.constructor.name}: ${target.count}`).join('\n\t'));
     }
 
     doTick = (/*tick*/) => {

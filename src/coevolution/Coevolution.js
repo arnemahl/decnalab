@@ -44,7 +44,7 @@ export function generateIndividual() {
 
     const attackAtSupply = 5 + Math.floor(maxAttackTiming + Math.random());
 
-    return {buildOrder, attackAtSupply, fitness: 0};
+    return {buildOrder, attackAtSupply};
 }
 
 function crossover(mother, father) { // eslint-disable-line no-unused-vars
@@ -73,23 +73,77 @@ function mutation(individual) { // eslint-disable-line no-unused-vars
     return {buildOrder, attackAtSupply};
 }
 
+/*****************/
+/**  Selection  **/
+/*****************/
+function rouletteWheelSelection(population, nofSelected) {
+    let popSummedFitness = 0;
+
+    const rouletteWheel = population.reduce((wheel, individual) => {
+        wheel.push({
+            lowerBound: popSummedFitness,
+            individual
+        });
+
+        popSummedFitness += individual.fitness;
+
+        return wheel;
+    }, []);
+
+    return Array(nofSelected).fill().map(() => {
+        const rouletteNumber = Math.floor(popSummedFitness * Math.random());
+
+        const area = rouletteWheel.find(area => area.lowerBound <= rouletteNumber);
+
+        if (!area) {
+            throw Error(`No area found for rouletteNumber ${rouletteNumber} in roulette wheel `
+                + `[ ${rouletteWheel.map(area => area.lowerBound).join(' <-> ')} <-> ${popSummedFitness} ]`);
+        }
+        return area.individual;
+    });
+}
+
+/******************/
+/**  Evaluation  **/
+/******************/
+import Game from '~/rts/Game';
+const maxGameLoops = 999;
+
+function evaluate_wip(individuals) {
+    individuals.forEach(individual => {
+        individual.fitness = 0;
+    });
+
+    individuals.forEach(one => {
+        individuals.filter(two => two !== one).forEach(two => {
+            const game = new Game('unnecessary-id', maxGameLoops, one, two);
+
+            game.simulate();
+
+            one.fitness += game.finalScore.blue.score;
+            two.fitness += game.finalScore.red.score;
+        });
+    });
+}
 
 /************/
 /**  Main  **/
 /************/
-import Game from '~/rts/Game';
-
 const popSize = 4;
+const nofChildrenPerGeneration = 2; // must be even
 const maxLoops = 10;
-const maxGameLoops = 999;
+
+const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
 
 export function runSimpleEvolution() {
     let loops = 0;
 
     // initialize population
-    const population = Array(popSize).fill().map(generateIndividual);
+    let population = Array(popSize).fill().map(generateIndividual);
 
     // evaluate individuals from puplation
+    evaluate_wip(population);
+
     population.forEach(one => {
         population.filter(two => two !== one).forEach(two => {
             const game = new Game('unnecessary-id', maxGameLoops, one, two);
@@ -101,20 +155,47 @@ export function runSimpleEvolution() {
         });
     });
 
-    population.forEach(ind => {
-        console.log(`ind.fitness:`, ind.fitness); // DEBUG
-    });
-
     while (loops++ < maxLoops) {
         // select parents
+        const parents = rouletteWheelSelection(population, nofChildrenPerGeneration);
+
         // produce children
+        const children = Array(nofChildrenPerGeneration / 2).fill().map((_, index) => {
+            const mother = parents[2 * index];
+            const father = parents[2 * index + 1];
+
+            return crossover(mother, father);
+        }).reduce(flatMap, []);
+
         // evaluate individuals from children
+        evaluate_wip(children);
+
         // select survivors for next generation
+        let parentsAndChildren = parents.concat(children);
+
+        if (parentsAndChildren.length < popSize) {
+            throw Error(`Not enough parents and children (${parentsAndChildren.length}) to fill a new generation with population size ${popSize}!`);
+        }
+        if (parentsAndChildren.length === popSize) {
+            population = parentsAndChildren;
+            continue;
+        }
+
+        const survivors = [];
+
+        while (survivors.length < popSize) {
+            const nextSurvivor = rouletteWheelSelection(parentsAndChildren, 1)[0];
+
+            survivors.push(nextSurvivor);
+            parentsAndChildren = parentsAndChildren.filter(remaining => remaining !== nextSurvivor);
+        }
+
+        population = survivors;
     }
 
-    const solution = population.sort((one, two) => two.fitness - one.fitness);
+    const sortedPopulation = population.sort((one, two) => two.fitness - one.fitness);
 
-    return solution;
+    return sortedPopulation[0];
 }
 
 // function runCoevolution() {
