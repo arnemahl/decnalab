@@ -4,7 +4,7 @@ import DefaultMap from '~/rts/spatial/DefaultMap';
 import Team from '~/rts/team/Team';
 import DumbAI from '~/ai/DumbAI';
 
-import {generateIndividual} from '~/coevolution/Coevolution';
+import {generateIndividual} from '~/coevolution/individual/Individual';
 
 // import * as FileWriter from '~/rts/FileWriter';
 
