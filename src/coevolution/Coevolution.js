@@ -222,7 +222,7 @@ export function runSimpleEvolution() {
 
     const sortedPopulation = population.sort((one, two) => two.fitness - one.fitness);
 
-    return sortedPopulation[0];
+    return sortedPopulation;
 }
 
 // function runCoevolution() {

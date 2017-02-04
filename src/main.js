@@ -3,11 +3,16 @@ import express from 'express';
 import socket_io from 'socket.io';
 
 import Game from '~/rts/Game';
+import {getAiConfigs} from '~/util/cli';
+
+const aiConfigs = getAiConfigs();
+
+console.log(`aiConfigs:`, aiConfigs); // DEBUG
 
 function simulateGame(maxLoops) {
     return new Promise((resolve, reject) => {
         try {
-            const game = new Game('unused-id', maxLoops);
+            const game = new Game('unused-id', maxLoops, aiConfigs[0], aiConfigs[1]);
             game.simulateAndStoreEveryState();
             resolve(game);
         } catch (error) {
@@ -20,7 +25,6 @@ simulateGame(10).catch((error) => {
     console.log(`Simulation test run FAILED`, error);
     process.exit();
 });
-
 
 /**************************/
 /***  Socket.IO server  ***/
