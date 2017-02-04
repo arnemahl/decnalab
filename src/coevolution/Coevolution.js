@@ -47,6 +47,13 @@ export function generateIndividual() {
     return {buildOrder, attackAtSupply};
 }
 
+function cloneIndividual(individual) {
+    return {
+        buildOrder: individual.buildOrder.map(({ spec, count }) => ({ spec, count })),
+        attackAtSupply: individual.attackAtSupply,
+    };
+}
+
 function crossover(mother, father) { // eslint-disable-line no-unused-vars
     const crossoverPoint = Math.floor(Math.random() * Math.max(mother.buildOrder.length, father.buildOrder.length));
     const rand = Math.random() < 0.5;
@@ -67,10 +74,16 @@ function crossover(mother, father) { // eslint-disable-line no-unused-vars
     return [son, daughter];
 }
 
-function mutation(individual) { // eslint-disable-line no-unused-vars
-    // TODO - now does nothing
-    const {buildOrder, attackAtSupply} = individual;
-    return {buildOrder, attackAtSupply};
+// const randInt = (min, max) => min + Math.floor((max - min) * Math.random());
+const plusOrMinus = int => Math.random() < 0.5 ? int : -int;
+
+function mutate(individual) { // eslint-disable-line no-unused-vars
+    const {buildOrder} = individual;
+
+    const targetIndex = Math.floor(buildOrder.length * Math.random());
+    const target = buildOrder[targetIndex];
+
+    target.count = Math.max(1, target.count + plusOrMinus(1));
 }
 
 /*****************/
@@ -131,12 +144,14 @@ function evaluate_wip(individuals) {
 /************/
 const popSize = 4;
 const nofChildrenPerGeneration = 2; // must be even
-const maxLoops = 10;
+const crossoverRatio = 0.9;
+const mutationRatio = 0.01;
+const maxGenerations = 10;
 
 const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
 
 export function runSimpleEvolution() {
-    let loops = 0;
+    let generation = 0;
 
     // initialize population
     let population = Array(popSize).fill().map(generateIndividual);
@@ -155,17 +170,29 @@ export function runSimpleEvolution() {
         });
     });
 
-    while (loops++ < maxLoops) {
+    while (generation++ < maxGenerations) {
         // select parents
         const parents = rouletteWheelSelection(population, nofChildrenPerGeneration);
 
         // produce children
         const children = Array(nofChildrenPerGeneration / 2).fill().map((_, index) => {
+            // Crossover
             const mother = parents[2 * index];
             const father = parents[2 * index + 1];
 
-            return crossover(mother, father);
-        }).reduce(flatMap, []);
+            if (Math.random() < crossoverRatio) {
+                return crossover(mother, father);
+            } else {
+                return [cloneIndividual(mother), cloneIndividual(father)];
+            }
+
+        }).reduce(flatMap, []).map((child) => {
+            // Mutation
+            if (Math.random() < mutationRatio) {
+                mutate(child);
+            }
+            return child;
+        });
 
         // evaluate individuals from children
         evaluate_wip(children);
