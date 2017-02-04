@@ -4,6 +4,8 @@ import DefaultMap from '~/rts/spatial/DefaultMap';
 import Team from '~/rts/team/Team';
 import DumbAI from '~/ai/DumbAI';
 
+import {generateIndividual} from '~/coevolution/Coevolution';
+
 // import * as FileWriter from '~/rts/FileWriter';
 
 export default class Game {
@@ -12,7 +14,7 @@ export default class Game {
     teamIds = ['blue', 'red']
     loops = 0
 
-    constructor(id, maxLoops) {
+    constructor(id, maxLoops, blueIndividual, redIndividual) {
         this.id = id;
         this.maxLoops = maxLoops;
 
@@ -25,7 +27,10 @@ export default class Game {
         ];
 
         this.engine = new Engine(this.map, this.teams);
-        this.AIs = this.teams.map(team => new DumbAI(team, this.map));
+        this.AIs = [
+            new DumbAI(this.teams[0], this.map, blueIndividual || generateIndividual()),
+            new DumbAI(this.teams[1], this.map, redIndividual || generateIndividual()),
+        ];
     }
 
     isFinished() {

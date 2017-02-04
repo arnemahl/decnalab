@@ -47,22 +47,91 @@ export function generateIndividual() {
     return {buildOrder, attackAtSupply};
 }
 
+function crossover(mother, father) { // eslint-disable-line no-unused-vars
+    const crossoverPoint = Math.floor(Math.random() * Math.max(mother.buildOrder.length, father.buildOrder.length));
+    const rand = Math.random() < 0.5;
 
-/* eslint-disable */
-// TODO
+    const son = {
+        buildOrder: []
+            .concat(mother.buildOrder.slice(0, crossoverPoint))
+            .concat(father.buildOrder.slice(crossoverPoint)),
+        attackAtSupply: rand ? mother.attackAtSupply : father.attackAtSupply,
+    };
+    const daughter = {
+        buildOrder: []
+            .concat(father.buildOrder.slice(0, crossoverPoint))
+            .concat(mother.buildOrder.slice(crossoverPoint)),
+        attackAtSupply: rand ? father.attackAtSupply : mother.attackAtSupply,
+    };
+
+    return [son, daughter];
+}
+
+function mutation(individual) { // eslint-disable-line no-unused-vars
+    // TODO - now does nothing
+    const {buildOrder, attackAtSupply} = individual;
+    return {buildOrder, attackAtSupply};
+}
+
 
 /************/
 /**  Main  **/
 /************/
-let hallOfFame = [];
-let popSize = 10;
-let population = Array(popSize).fill().map(generateIndividual);
+import Game from '~/rts/Game';
+import {playSafe} from '~/Simulation';
 
-let finished = false;
-let loops = 0;
-let maxLoops = 10;
+const popSize = 4;
+const maxLoops = 10;
+const maxGameLoops = 999;
 
-while (!finished && loops++ < maxLoops) {
+export function runSimpleEvolution() {
+    let loops = 0;
 
+    // initialize population
+    const population = Array(popSize).fill().map(generateIndividual);
 
+    // evaluate individuals from puplation
+    population.forEach(one => {
+        population.filter(two => two !== one).forEach(two => {
+            const game = new Game('unnecessary-id', maxGameLoops, one, two);
+
+            playSafe(game);
+        });
+    });
+
+    while (loops++ < maxLoops) {
+        // select parents
+        // produce children
+        // evaluate individuals from children
+        // select survivors for next generation
+    }
+
+    const solution = population.sort((one, two) => two.fitness - one.fitness);
+
+    return solution;
 }
+
+// function runCoevolution() {
+//     // let hallOfFame = [];
+//     let popSize = 10;
+//     let population = Array(popSize).fill().map(generateIndividual);
+
+//     let loops = 0;
+//     const maxLoops = 10;
+
+//     // initialize population
+//     // select evaluators from population ??
+//     // evaluate individuals from puplation by interacting with evaluators(?)
+
+//     while (loops++ < maxLoops) {
+//         // select parents
+//         // produce children
+//         // select evaluators from chldren + parents
+//         // evaluate individuals from children by interacting with evaluators
+//         // select survivors for next generation
+//     }
+
+//     const solution = population.sort((one, two) => two.fitness - one.fitness);
+
+//     return solution;
+// }

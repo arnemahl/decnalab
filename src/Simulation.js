@@ -10,7 +10,7 @@ function play(game) {
 
     });
 }
-function playSafe(game) {
+export function playSafe(game) {
     return new Promise((resolve, reject) => {
         play(game)
         .then(resolve)

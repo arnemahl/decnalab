@@ -3,8 +3,6 @@ import getClosestEnemy from '~/rts/spatial/getClosestEnemy';
 import Worker from '~/rts/units/Worker';
 import Marine from '~/rts/units/Marine';
 
-import {generateIndividual} from '~/coevolution/Coevolution';
-
 function getClosestResourceSite(map, worker, resourceType) {
     const distanceTo = resourceSite => Vectors.absoluteDistance(worker.position, resourceSite.position);
 
@@ -18,20 +16,18 @@ function getClosestResourceSite(map, worker, resourceType) {
 
 export default class DumbAI {
 
-    constructor(team, map) {
+    constructor(team, map, individual) {
         this.team = team;
         this.map = map;
 
-        const {buildOrder, attackAtSupply} = generateIndividual();
+        this.buildOrder = individual.buildOrder;
+        this.attackAtSupply = individual.attackAtSupply;
 
-        this.buildOrder = buildOrder;
-        this.attackAtSupply = attackAtSupply;
-
-        if (buildOrder.some(x => !x.spec || !x.count)) {
+        if (individual.buildOrder.some(x => !x.spec || !x.count)) {
             throw Error('BUILD ORDER CONTAINS INVAILD TARGET');
         }
 
-        console.log(`\nBuild order (${team.id})\n\t` + buildOrder.map(target => `${target.spec.constructor.name}: ${target.count}`).join('\n\t'));
+        console.log(`\nBuild order (${team.id})\n\t` + individual.buildOrder.map(target => `${target.spec.constructor.name}: ${target.count}`).join('\n\t'));
     }
 
     doTick = (/*tick*/) => {
