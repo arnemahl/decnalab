@@ -19,7 +19,8 @@ export function runCoevolution() {
     let population = Array(popSize).fill().map(Individual.generate);
 
     // select evaluators (teachSet)
-    let teachSet = hallOfFame.concat(population).slice(0, teachSetSize);
+    let bestInHallOfFame = hallOfFame.slice(0, teachSetSize / 2);
+    let teachSet = Individual.getListOfIndividualsWithBestSharedFitness(population, hallOfFame, bestInHallOfFame, teachSetSize);
 
     // evaluate individuals from puplation
     population.forEach(individual => individual.calcFitnessAgainstAll(teachSet));
@@ -52,7 +53,8 @@ export function runCoevolution() {
         });
 
         // update evaluators (teachSet)
-        teachSet = Individual.getListOfIndividualsWithBestSharedFitness(hallOfFame.concat(population), teachSet, teachSetSize);
+        bestInHallOfFame = Individual.getListOfIndividualsWithBestSharedFitness(hallOfFame, teachSet, [], teachSetSize / 2);
+        teachSet = Individual.getListOfIndividualsWithBestSharedFitness(population, teachSet, bestInHallOfFame, teachSetSize);
 
         // evaluate children
         children.forEach(individual => individual.calcFitnessAgainstAll(teachSet));
@@ -61,6 +63,9 @@ export function runCoevolution() {
         const survivors = selectUnique(children, popSize, rouletteWheelSelection);
 
         population = survivors;
+
+        // // update hall of fame (?)
+        // hallOfFame = Individual.getListOfIndividualsWithBestSharedFitness(hallOfFame.concat(population), teachSet, [], hallOfFame.length);
     }
 
     const sortedPopulation = population.sort((one, two) => two.fitness - one.fitness);

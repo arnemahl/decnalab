@@ -127,8 +127,8 @@ export default class Individual {
         return best.individual;
     };
 
-    static getListOfIndividualsWithBestSharedFitness = (individuals, teachSet, count) => {
-        const selected = [];
+    static getListOfIndividualsWithBestSharedFitness = (individuals, teachSet, preSelected, count) => {
+        const selected = preSelected.slice();
 
         while (selected.length < count) {
             selected.push(Individual.getIndividualWithBestSharedFitness(individuals, teachSet, selected));
