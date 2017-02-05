@@ -8,7 +8,7 @@ export function evaluate_wip(individuals) {
 
     individuals.forEach(one => {
         individuals.filter(two => two !== one).forEach(two => {
-            const game = new Game('unnecessary-id', maxGameLoops, one, two);
+            const game = new Game('unnecessary-id', maxGameLoops, one.genome, two.genome);
 
             game.simulate();
 

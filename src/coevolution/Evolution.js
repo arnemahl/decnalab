@@ -1,4 +1,5 @@
-import Individual, {getCaseInjectedInvidviduals} from '~/coevolution/individual/Individual';
+import {generateIndividual, crossover, mutate, cloneIndividual} from '~/coevolution/individual/Individual';
+import {evaluate_wip} from '~/coevolution/evaluation/Evaluation';
 import {selectUnique, rouletteWheelSelection, linearRankSelection} from '~/coevolution/selection';
 
 const popSize = 6;
@@ -6,23 +7,17 @@ const nofChildrenPerGeneration = 12;
 const crossoverRatio = 0.5;
 const mutationRatio = 0.01;
 const maxGenerations = 20;
-const teachSetSize = 4;
-
 
 const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
 
-export function runCoevolution() {
+export function runSimpleEvolution() {
     let generation = 0;
-    const hallOfFame = getCaseInjectedInvidviduals();
 
     // initialize population
-    let population = Array(popSize).fill().map(Individual.generate);
-
-    // select evaluators (teachSet)
-    let teachSet = hallOfFame.concat(population).slice(0, teachSetSize);
+    let population = Array(popSize).fill().map(generateIndividual);
 
     // evaluate individuals from puplation
-    population.forEach(individual => individual.calcFitnessAgainstAll(teachSet));
+    evaluate_wip(population);
 
     while (generation++ < maxGenerations) {
         console.log('Generation:', generation, '\tFitnesses', population.map(individual => individual.fitness));
@@ -37,25 +32,21 @@ export function runCoevolution() {
             const father = parents.pop();
 
             if (Math.random() < crossoverRatio) {
-                return Individual.crossover(mother, father);
+                return crossover(mother, father);
             } else {
-                return [ mother.clone(), father.clone() ];
+                return [cloneIndividual(mother), cloneIndividual(father)];
             }
 
         }).reduce(flatMap, []).map((child) => {
             // Mutation
             if (Math.random() < mutationRatio) {
-                return child.mutate();
-            } else {
-                return child;
+                mutate(child);
             }
+            return child;
         });
 
-        // update evaluators (teachSet)
-        teachSet = Individual.getListOfIndividualsWithBestSharedFitness(hallOfFame.concat(population), teachSet, teachSetSize);
-
-        // evaluate children
-        children.forEach(individual => individual.calcFitnessAgainstAll(teachSet));
+        // evaluate individuals from children
+        evaluate_wip(children);
 
         // select survivors for next generation
         const survivors = selectUnique(children, popSize, rouletteWheelSelection);

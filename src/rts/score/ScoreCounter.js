@@ -22,6 +22,8 @@ export default class ScoreCounter {
                 structuresProduced: 0,
                 unitsKilled: 0,
                 structuresKilled: 0,
+                didWin: false,
+                didLose: false,
             };
             return teamScore;
         }, {});
@@ -50,6 +52,9 @@ export default class ScoreCounter {
     gameOver = (winningTeamId, losingTeamId/*, tick*/) => {
         this.teamScore[winningTeamId].score *= 3;
         this.teamScore[losingTeamId].score /= 3;
+
+        this.teamScore[winningTeamId].didWin = true;
+        this.teamScore[losingTeamId].didLose = true;
     }
 
     getState = () => {
