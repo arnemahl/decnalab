@@ -3,7 +3,7 @@ import {selectUnique, rouletteWheelSelection, linearRankSelection, createScaledF
 
 const popSize = 6;
 const nofChildrenPerGeneration = 12;
-const crossoverRatio = 0.5;
+const crossoverRatio = 0.95;
 const mutationRatio = 0.01;
 const maxGenerations = 20;
 const teachSetSize = 4;
@@ -13,7 +13,7 @@ const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
 
 export function runCoevolution() {
     let generation = 0;
-    const hallOfFame = getCaseInjectedInvidviduals();
+    const hallOfFame = getCaseInjectedInvidviduals().slice(0, 3);
 
     // initialize population
     let population = Array(popSize).fill().map(Individual.generate);
@@ -26,7 +26,7 @@ export function runCoevolution() {
     population.forEach(individual => individual.calcFitnessAgainstAll(teachSet));
 
     while (generation++ < maxGenerations) {
-        console.log('Generation:', generation, '\tFitnesses', population.map(individual => individual.fitness));
+        console.log('Generation:', generation, '\n\tFitnesses:\t', population.map(x => x.id + ':  ' + x.fitness).join(',\t'));
 
         // select parents
         const parents = scaledFitnessSelection(population, nofChildrenPerGeneration);

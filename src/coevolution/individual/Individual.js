@@ -150,6 +150,27 @@ const {Worker, Marine} = new UnitSpecs();
 const {SupplyDepot, Barracks} = new StructureSpecs();
 
 export const getCaseInjectedInvidviduals = () => [
+    { // Not that good :)
+        buildOrder: [
+            { spec: Worker, count: 10 },
+            { spec: SupplyDepot, count: 1 },
+            { spec: Barracks, count: 1 },
+            { spec: SupplyDepot, count: 2 },
+            { spec: Marine, count: Number.POSITIVE_INFINITY },
+        ],
+        attackAtSupply: 15,
+    },
+    { // Not that good :)
+        buildOrder: [
+            { spec: Worker, count: 10 },
+            { spec: SupplyDepot, count: 1 },
+            { spec: Worker, count: 14 },
+            { spec: Barracks, count: 1 },
+            { spec: SupplyDepot, count: 2 },
+            { spec: Marine, count: Number.POSITIVE_INFINITY },
+        ],
+        attackAtSupply: 15,
+    },
     {
         buildOrder: [
             { spec: Barracks, count: 1 },
