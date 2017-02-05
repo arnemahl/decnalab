@@ -2,10 +2,10 @@ import Individual, {getCaseInjectedInvidviduals} from '~/coevolution/individual/
 import {selectUnique, rouletteWheelSelection, linearRankSelection, createScaledFitnessSelection} from '~/coevolution/selection';
 
 const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
-const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness) => 1.5 * fitness + maxFitness);
+const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness) => 3 * fitness + maxFitness);
 
-const popSize = 12;
-const nofChildrenPerGeneration = 18;
+const popSize = 8;
+const nofChildrenPerGeneration = 12;
 const teachSetSize = 4;
 const maxGenerations = 20;
 const crossoverRatio = 0.95;
@@ -31,6 +31,14 @@ export function runCoevolution() {
 
         // select parents
         const parents = scaledFitnessSelection(population, nofChildrenPerGeneration);
+
+        const uniqueParents = parents.reduce((unique, next) => {
+            if (unique.indexOf(next) === -1) {
+                unique.push(next);
+            }
+            return unique;
+        }, []);
+        console.log(`uniqueParents.length:`, uniqueParents.length); // DEBUG
 
         // produce children
         const children = Array(nofChildrenPerGeneration / 2).fill().map(() => {

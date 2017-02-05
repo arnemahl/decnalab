@@ -76,7 +76,7 @@ export default class Individual {
 
     evaluateAgainstOne = (opponent) => {
         if (!this.getResult(opponent)) {
-            const game = new Game('game-id', 1000, this.genome, opponent.genome);
+            const game = new Game('game-id', 500, this.genome, opponent.genome);
 
             game.simulate();
 
