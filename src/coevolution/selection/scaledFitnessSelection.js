@@ -17,12 +17,18 @@ export const createSelector = (scalingMethod) => (population, nofSelected) => {
 
         return area;
     });
+    let last;
+    let lastNum;
 
     return Array(nofSelected).fill().map(() => {
 
         const rouletteNumber = Math.random() * popSummedFitness;
 
         const area = rouletteWheel.find(area => area.lowerBound <= rouletteNumber);
+
+        console.log(`rouletteNumber:`, rouletteNumber); // DEBUG
+        last === area && console.log('same', `[ ${rouletteWheel.map(area => area.lowerBound).join(' <-> ')} <-> ${popSummedFitness} ]`); // DEBUG
+        last = area;
 
         if (!area) {
             throw Error(`No area found for rouletteNumber ${rouletteNumber} in roulette wheel `
