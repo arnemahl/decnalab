@@ -1,15 +1,16 @@
 import Individual, {getCaseInjectedInvidviduals} from '~/coevolution/individual/Individual';
 import {selectUnique, rouletteWheelSelection, linearRankSelection, createScaledFitnessSelection} from '~/coevolution/selection';
 
-const popSize = 6;
-const nofChildrenPerGeneration = 12;
-const crossoverRatio = 0.95;
-const mutationRatio = 0.01;
-const maxGenerations = 20;
-const teachSetSize = 4;
+const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
 const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness) => 1.5 * fitness + maxFitness);
 
-const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
+const popSize = 12;
+const nofChildrenPerGeneration = 18;
+const teachSetSize = 4;
+const maxGenerations = 20;
+const crossoverRatio = 0.95;
+const mutationRatio = 0.01;
+
 
 export function runCoevolution() {
     let generation = 0;
@@ -26,7 +27,7 @@ export function runCoevolution() {
     population.forEach(individual => individual.calcFitnessAgainstAll(teachSet));
 
     while (generation++ < maxGenerations) {
-        console.log('Generation:', generation, '\n\tFitnesses:\t', population.map(x => x.id + ':  ' + x.fitness).join(',\t'));
+        console.log('\nGeneration:', generation, '\n\tFitnesses:\t', population.map(x => x.id+':  '+Math.floor(x.fitness)).join(',\t'));
 
         // select parents
         const parents = scaledFitnessSelection(population, nofChildrenPerGeneration);

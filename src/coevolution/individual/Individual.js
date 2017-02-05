@@ -229,7 +229,7 @@ const maxProduced = [
     1, // Barracks
 ];
 const maxAttackTiming = 15;
-const initBuildOrderLength = 3;
+const initBuildOrderLength = 4;
 
 export function generateGenome() {
     const counts = Array(nofProducableThings).fill(0);
