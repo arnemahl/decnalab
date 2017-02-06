@@ -85,7 +85,7 @@ export default class DumbAI {
     macro() {
         while (true) { // eslint-disable-line
             const targetTotals = {
-                'Worker': 0,
+                'Worker': 5, // starts with 5
                 'Marine': 0,
                 'SupplyDepot': 0,
                 'Barracks': 0,
@@ -122,7 +122,9 @@ export default class DumbAI {
                 // structure for ever. No value in supporting that, just stop when running out of space.
                 const structurePosition = this.getNextAvailableStructurePosition();
 
-                if (structurePosition) {
+                if (!structurePosition) {
+                    return; // End infinite loop
+                } else {
                     availableProducers[0].getCommander().build(spec, structurePosition);
                 }
             } else {
