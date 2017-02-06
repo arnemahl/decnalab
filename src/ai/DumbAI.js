@@ -125,23 +125,25 @@ export default class DumbAI {
     /*****************/
 
     micro() {
-        if (this.team.usedSupply < this.attackAtSupply) {
-            return;
-        }
+        if (this.team.visibleEnemyCommandables.length > 0) {
+            // Probably already in battle, go for it
+            this.getAllCommandablesOfClass(Marine)
+                .filter(marine => marine.isIdle())
+                .forEach(marine => {
+                    const closestEnemy = getClosestEnemy(marine);
 
-        const marines = this.getAllCommandablesOfClass(Marine);
-        const enemySpawnPosition = this.map.unitSpawnPositions.find((_, index) => index !== this.team.index);
-
-        marines
-            .filter(marine => marine.isIdle())
-            .forEach(marine => {
-                const closestEnemy = getClosestEnemy(marine);
-
-                if (closestEnemy) {
                     marine.getCommander().attackMove(closestEnemy.position);
-                } else {
+                });
+
+        } else if (this.team.usedSupply >= this.attackAtSupply) {
+            // Ready to approach enemy base
+            const enemySpawnPosition = this.map.unitSpawnPositions.find((_, index) => index !== this.team.index);
+
+            this.getAllCommandablesOfClass(Marine)
+                .filter(marine => marine.isIdle())
+                .forEach(marine => {
                     marine.getCommander().attackMove(enemySpawnPosition);
-                }
-            });
+                });
+        }
     }
 }
