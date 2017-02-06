@@ -7,7 +7,7 @@ const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness
 const popSize = 8;
 const nofChildrenPerGeneration = 12;
 const teachSetSize = 4;
-const maxGenerations = 20;
+const maxGenerations = 3;
 const crossoverRatio = 0.95;
 const mutationRatio = 0.01;
 
@@ -17,7 +17,7 @@ export function runCoevolution() {
     const hallOfFame = getCaseInjectedInvidviduals().slice(0, 3);
 
     // initialize population
-    const initialPopulation = Array(popSize).fill().map(Individual.generate);
+    const initialPopulation = Array(nofChildrenPerGeneration).fill().map(Individual.generate);
 
     // select evaluators (teachSet)
     let bestInHallOfFame = hallOfFame.slice(0, teachSetSize / 2);
@@ -25,6 +25,8 @@ export function runCoevolution() {
 
     // evaluate individuals from initialPopulation
     let wrappedPopulation = Individual.wrapWithSharedFitness(initialPopulation, teachSet);
+
+    wrappedPopulation = scaledFitnessSelection(wrappedPopulation, popSize);
 
     while (generation++ < maxGenerations) {
         console.log('\nGeneration:', generation, '\n\tFitnesses:\t', wrappedPopulation.map(x => x.individual.id+':  '+Math.floor(x.fitness)).join(',\t'));

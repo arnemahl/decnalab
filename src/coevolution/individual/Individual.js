@@ -115,7 +115,7 @@ export default class Individual {
                     //     return result.score / nofTimesBeaten[result.opponentId];
                     // })
                     .map(result => {
-                        return result.score / (1 + nofTimesBeaten[result.opponentId])
+                        return result.score / (1 + 2 * nofTimesBeaten[result.opponentId]);
                     })
                     .reduce(sumTotal, 0);
 
@@ -147,7 +147,7 @@ export default class Individual {
                     .evaluateAgainstAll(teachSet)
                     // .filter(result => result.didWin)
                     .map(result => {
-                        return result.score / (1 + nofTimesBeaten[result.opponentId]);
+                        return result.score / (1 + 2 * nofTimesBeaten[result.opponentId]);
                     })
                     .reduce(sumTotal, 0);
 
