@@ -190,15 +190,15 @@ export default class Individual {
     };
 
     static getIndividualsWithUniqueGenome = (population) => {
-        return population.filter(one => {
-            const others = population.filter(another => another !== one);
+        const unique = [];
 
-            if (others.length !== (population.length - 1)) {
-                throw Error(`Error, the same individual appears ${population.length - others.length} times in population. Please ensure object inequality.`);
+        population.forEach(one => {
+            if (unique.every(other => one.hasDifferentGenomeThan(other))) {
+                unique.push(one);
             }
-
-            return others.every(other => one.hasDifferentGenomeThan(other))
         });
+
+        return unique;
     };
 
     static countUniqueGenomes = (population) => {

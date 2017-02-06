@@ -37,14 +37,6 @@ export function runCoevolution() {
         // select parents
         const parents = scaledFitnessSelection(wrappedPopulation, nofChildrenPerGeneration).map(Individual.unwrap);
 
-        const uniqueParents = parents.reduce((unique, next) => {
-            if (unique.indexOf(next) === -1) {
-                unique.push(next);
-            }
-            return unique;
-        }, []);
-        console.log(`uniqueParents.length:`, uniqueParents.length); // DEBUG
-
         // produce children
         const children = Array(nofChildrenPerGeneration / 2).fill().map(() => {
             // Crossover
