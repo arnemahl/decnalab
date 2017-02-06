@@ -110,9 +110,12 @@ export default class Individual {
             const sharedFitness =
                 individual
                     .evaluateAgainstAll(teachSet)
-                    .filter(result.didWin)
+                    // .filter(result => result.didWin)
+                    // .map(result => {
+                    //     return result.score / nofTimesBeaten[result.opponentId];
+                    // })
                     .map(result => {
-                        return result.score / nofTimesBeaten[result.opponentId];
+                        return result.score / (1 + nofTimesBeaten[result.opponentId])
                     })
                     .reduce(sumTotal, 0);
 
@@ -142,7 +145,7 @@ export default class Individual {
             const sharedFitnessRelateiveToAlreadySelected =
                 individual
                     .evaluateAgainstAll(teachSet)
-                    .filter(result => result.didWin)
+                    // .filter(result => result.didWin)
                     .map(result => {
                         return result.score / (1 + nofTimesBeaten[result.opponentId]);
                     })
