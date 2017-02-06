@@ -327,7 +327,6 @@ export default class Engine {
 
     buildWithUnit = (worker, structureSpec, targetPosition) => {
         let structure; // initialized on receive
-        let didPlan; // initialized on receive
 
         const calcFinishedTick = () => this.tick + structureSpec.cost.time;
         const onReceive = () => {
@@ -339,7 +338,6 @@ export default class Engine {
             } else {
                 throw Error(`Unacceptable command build ${structureSpec}: not enough resources`);
             }
-            didPlan = hasEnoughResources;
 
             return hasEnoughResources;
         };
@@ -358,7 +356,7 @@ export default class Engine {
             this.scoreCounter.structureProduced(structure.team.id, structureSpec);
         };
         const onAbort = () => {
-            if (didPlan) {
+            if (structure) {
                 this.commandableManager.structureCancelled(structure);
                 this.simpleVision.commandableRemoved(structure);
                 ['abundant', 'sparse'].forEach(resourceType => worker.team.resources[resourceType] += structureSpec.cost[resourceType]); // eslint-disable-line no-return-assign
