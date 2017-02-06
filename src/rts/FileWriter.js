@@ -32,9 +32,6 @@ export function writeConfigToJS(fileName, configArray) {
 `import UnitSpecs from '~/rts/units/UnitSpecs';
 import StructureSpecs from '~/rts/structures/StructureSpecs';
 
-const unitSpecs = new UnitSpecs();
-const structureSpecs = new StructureSpecs();
-
 const {
     Worker,
     Marine,
