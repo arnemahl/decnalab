@@ -26,11 +26,13 @@ export function runCoevolution() {
     // evaluate individuals from initialPopulation
     let wrappedPopulation = Individual.wrapWithSharedFitness(initialPopulation, teachSet);
 
-    wrappedPopulation = scaledFitnessSelection(wrappedPopulation, popSize);
+    wrappedPopulation = selectUnique(wrappedPopulation, popSize, scaledFitnessSelection);
     let population = wrappedPopulation.map(Individual.unwrap);
 
     while (generation++ < maxGenerations) {
-        console.log('\nGeneration:', generation, '\n\tFitnesses:\t', wrappedPopulation.map(x => x.individual.id+':  '+Math.floor(x.fitness)).join(',\t'));
+        console.log('\nGeneration:', generation);
+        console.log('* Unique genomes:', Individual.countUniqueGenomes(population));
+        console.log('* Fitnesses:\t', wrappedPopulation.map(x => x.individual.id+':  '+Math.floor(x.fitness)).join(',\t'));
 
         // select parents
         const parents = scaledFitnessSelection(wrappedPopulation, nofChildrenPerGeneration).map(Individual.unwrap);
@@ -83,5 +85,5 @@ export function runCoevolution() {
 
     const sortedPopulation = wrappedPopulation.sort((one, two) => two.fitness - one.fitness).map(Individual.unwrap);
 
-    return sortedPopulation;
+    return Individual.getIndividualsWithUniqueGenome(sortedPopulation);
 }

@@ -14,6 +14,9 @@ if (fileName) {
     FileWriter.writeConfigToJS(`${fileName}.js`, finalGeneration.map(x => x.genome));
 
 } else {
-    console.log(`\nBuild order (one)\n\t` + finalGeneration[0].genome.buildOrder.map(target => `${target.specName}: ${target.addCount}`).join('\n\t'));
-    console.log(`\nBuild order (two)\n\t` + finalGeneration[1].genome.buildOrder.map(target => `${target.specName}: ${target.addCount}`).join('\n\t'));
+    console.log(`\nUnique solutions:`, finalGeneration.length);
+
+    finalGeneration.forEach((individual, index) => {
+        console.log(`\nBuild order (${index})\n\t` + individual.genome.buildOrder.map(target => `${target.specName}: ${target.addCount}`).join('\n\t'));
+    });
 }

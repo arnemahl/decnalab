@@ -172,6 +172,39 @@ export default class Individual {
         return selected;
     };
 
+
+    /********************************/
+    /**  Filter equal individuals  **/
+    /********************************/
+    hasDifferentGenomeThan = (other) => {
+        // Different if either attack at supply is different
+        return this.genome.attackAtSupply !== other.genome.attackAtSupply
+            || this.genome.buildOrder.some((target, index) => {
+                const otherTarget = other.genome.buildOrder[index];
+
+                // Or if any of the targets in the bulid order are different
+                return !otherTarget
+                    || otherTarget.specName !== target.specName
+                    || otherTarget.addCount !== target.addCount;
+            });
+    };
+
+    static getIndividualsWithUniqueGenome = (population) => {
+        return population.filter(one => {
+            const others = population.filter(another => another !== one);
+
+            if (others.length !== (population.length - 1)) {
+                throw Error(`Error, the same individual appears ${population.length - others.length} times in population. Please ensure object inequality.`);
+            }
+
+            return others.every(other => one.hasDifferentGenomeThan(other))
+        });
+    };
+
+    static countUniqueGenomes = (population) => {
+        return Individual.getIndividualsWithUniqueGenome(population).length;
+    };
+
 }
 
 
