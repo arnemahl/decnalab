@@ -21,7 +21,7 @@ export function runCoevolution() {
 
     // select evaluators (teachSet)
     let bestInHallOfFame = hallOfFame.slice(0, teachSetSize / 2);
-    let teachSet = Individual.getListOfIndividualsWithBestSharedFitness(initialPopulation, hallOfFame, bestInHallOfFame, teachSetSize);
+    let teachSet = Individual.selectBySharedSampling(initialPopulation, hallOfFame, bestInHallOfFame, teachSetSize);
 
     // evaluate individuals from initialPopulation
     let wrappedPopulation = Individual.wrapWithSharedFitness(initialPopulation, teachSet);
@@ -64,8 +64,8 @@ export function runCoevolution() {
         // update evaluators (teachSet)
         const population = wrappedPopulation.map(Individual.unwrap);
 
-        bestInHallOfFame = Individual.getListOfIndividualsWithBestSharedFitness(hallOfFame, teachSet, [], teachSetSize / 2);
-        teachSet = Individual.getListOfIndividualsWithBestSharedFitness(population, teachSet, bestInHallOfFame, teachSetSize);
+        bestInHallOfFame = Individual.selectBySharedSampling(hallOfFame, teachSet, [], teachSetSize / 2);
+        teachSet = Individual.selectBySharedSampling(population, teachSet, bestInHallOfFame, teachSetSize);
 
         // evaluate children
         const wrappedChildren = Individual.wrapWithSharedFitness(children, teachSet);
@@ -76,7 +76,7 @@ export function runCoevolution() {
         wrappedPopulation = wrappedSurvivors;
 
         // // update hall of fame (?)
-        // hallOfFame = Individual.getListOfIndividualsWithBestSharedFitness(hallOfFame.concat(population), teachSet, [], hallOfFame.length);
+        // hallOfFame = Individual.selectBySharedSampling(hallOfFame.concat(population), teachSet, [], hallOfFame.length);
     }
 
     const sortedPopulation = wrappedPopulation.sort((one, two) => two.fitness - one.fitness).map(Individual.unwrap);

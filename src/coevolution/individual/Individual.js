@@ -64,9 +64,9 @@ export default class Individual {
 
 
 
-    /*******************************************/
-    /**  Shared sampling fitness calculation  **/
-    /*******************************************/
+    /**********************************/
+    /**  Shared fitness calculation  **/
+    /**********************************/
     gameResults = {}
     getResult = (opponent) => this.gameResults[opponent.id]
     setResult = (opponent, result) => {
@@ -100,23 +100,19 @@ export default class Individual {
         }, {});
     };
 
-    static wrapWithSharedFitness = (individuals, teachSet, alreadySelected) => {
-        if (typeof alreadySelected === 'undefined') {
-            alreadySelected = individuals;
-        }
-
-        const nofTimesBeaten = Individual.getTeachSetLosses(teachSet, alreadySelected);
+    static wrapWithSharedFitness = (individuals, teachSet) => {
+        const nofTimesBeaten = Individual.getTeachSetLosses(teachSet, individuals);
 
         // Get shared fitness for each individual based on performance
         // against teachSet, favor beating hard-to-beat teachSet members
-        const wrappedInObjectWithFitness = individuals.map(individual => {
+        const wrappedWithFitness = individuals.map(individual => {
 
             const sharedFitness =
                 individual
                     .evaluateAgainstAll(teachSet)
-                    .filter(result => result.didWin)
+                    .filter(result.didWin)
                     .map(result => {
-                        return result.score / (1 - nofTimesBeaten[result.opponentId]);
+                        return result.score / nofTimesBeaten[result.opponentId];
                     })
                     .reduce(sumTotal, 0);
 
@@ -126,22 +122,48 @@ export default class Individual {
             };
         });
 
-        return wrappedInObjectWithFitness;
+        return wrappedWithFitness;
     };
+
     static unwrap = wrapper => wrapper.individual;
 
-    static getIndividualWithBestSharedFitness = (individuals, teachSet, alreadySelected) => {
-        const wrappedWithFitness = Individual.wrapWithSharedFitness(individuals, teachSet, alreadySelected);
+
+    /***********************/
+    /**  Shared sampling  **/
+    /***********************/
+
+    static getBestAdditionToSample = (individuals, teachSet, alreadySelected) => {
+        const nofTimesBeaten = Individual.getTeachSetLosses(teachSet, alreadySelected);
+
+        // Get shared fitness for each individual based on performance
+        // against teachSet, favor beating hard-to-beat teachSet members
+        const wrappedWithFitness = individuals.map(individual => {
+
+            const sharedFitnessRelateiveToAlreadySelected =
+                individual
+                    .evaluateAgainstAll(teachSet)
+                    .filter(result => result.didWin)
+                    .map(result => {
+                        return result.score / (1 + nofTimesBeaten[result.opponentId]);
+                    })
+                    .reduce(sumTotal, 0);
+
+            return {
+                individual,
+                fitness: sharedFitnessRelateiveToAlreadySelected,
+            };
+        });
+
         const best = wrappedWithFitness.sort((one, two) => two.fitness - one.fitness)[0];
 
         return best.individual;
     };
 
-    static getListOfIndividualsWithBestSharedFitness = (individuals, teachSet, preSelected, count) => {
+    static selectBySharedSampling = (individuals, teachSet, preSelected, count) => {
         const selected = preSelected.slice();
 
         while (selected.length < count) {
-            selected.push(Individual.getIndividualWithBestSharedFitness(individuals, teachSet, selected));
+            selected.push(Individual.getBestAdditionToSample(individuals, teachSet, selected));
         }
 
         return selected;
