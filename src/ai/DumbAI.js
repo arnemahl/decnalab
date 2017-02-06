@@ -35,7 +35,7 @@ export default class DumbAI {
     }
 
     harvestWithIdleWorkers() {
-        Object.values(this.team.units)
+        this.team.units
             .filter(unit => unit instanceof Worker)
             .filter(worker => worker.isIdle())
             .forEach(worker => worker.getCommander().harvest(
@@ -49,11 +49,9 @@ export default class DumbAI {
     getAllCommandablesOfClass = (clazz) => {
         switch (clazz.type) {
             case 'unit':
-                return Object.values(this.team.units)
-                    .filter(unit => unit instanceof clazz);
+                return this.team.units.filter(unit => unit instanceof clazz);
             case 'structure':
-                return Object.values(this.team.structures)
-                    .filter(structure => structure instanceof clazz);
+                return this.team.structures.filter(structure => structure instanceof clazz);
             default:
                 throw Error('woot');
         }
@@ -72,13 +70,9 @@ export default class DumbAI {
 
         switch (spec.type) {
             case 'unit':
-                return Object.values(this.team.units)
-                    .filter(unit => unit.constructor.name === specName)
-                    .length;
+                return this.team.units.filter(unit => unit.constructor.name === specName).length;
             case 'structure':
-                return Object.values(this.team.structures)
-                    .filter(structure => structure.constructor.name === specName)
-                    .length;
+                return this.team.structures.filter(structure => structure.constructor.name === specName).length;
         }
     }
 
@@ -134,7 +128,7 @@ export default class DumbAI {
     }
 
     getNextAvailableStructurePosition() {
-        const usedStructurePositions = Object.values(this.team.structures).map(structure => structure.position);
+        const usedStructurePositions = this.team.structures.map(structure => structure.position);
         const isUnused = position => usedStructurePositions.every(usedPosition => Vectors.notEquals(position, usedPosition));
         const suggestedPositions = this.map.suggestedStructurePositions[ {blue: 'north', red: 'south'}[this.team.id] ];
 

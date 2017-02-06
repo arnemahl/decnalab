@@ -13,8 +13,8 @@ export default class SimpleVision {
                 this.commandablesPerSector[team.id][sector.id] = {};
             });
 
-            Object.values(team.units).forEach(this.commandableAdded);
-            Object.values(team.structures).forEach(this.commandableAdded);
+            team.units.forEach(this.commandableAdded);
+            team.structures.forEach(this.commandableAdded);
         });
     }
 

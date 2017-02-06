@@ -39,7 +39,7 @@ export default class CommandableManager {
         const unit = this.unitCreator.create(unitSpec, position);
 
         unit.team = team;
-        team.units[unit.id] = unit;
+        team.units.push(unit);
 
         team.usedSupply += usedSupplyAlreadyUpdated ? 0 : unitSpec.cost.supply;
 
@@ -50,31 +50,31 @@ export default class CommandableManager {
         const structure = this.structureCreator.create(structureSpec, position);
 
         structure.team = team;
-        team.structures[structure.id] = structure;
+        team.structures.push(structure);
 
         return structure;
     }
 
     removeUnit(unit) {
-        if (!unit.team.units[unit.id]) {
+        if (unit.team.units.indexOf(unit) === -1) {
             return;
         }
 
         unit.clearCommands();
 
-        delete unit.team.units[unit.id];
+        unit.team.units = unit.team.units.filter(remaining => remaining !== unit);
 
         unit.team.usedSupply -= unit.specs.cost.supply;
     }
 
     removeStructure(structure) {
-        if (!structure.team.structures[structure.id]) {
+        if (structure.team.structures.indexOf(structure) === -1) {
             return;
         }
 
         structure.clearCommands();
 
-        delete structure.team.structures[structure.id];
+        structure.team.structures = structure.team.structures.filter(remaining => remaining !== structure);
 
         structure.team.supply -= structure.specs.providesSupply || 0;
     }
