@@ -97,8 +97,14 @@ export default class DefaultMap {
             return positions;
         };
         return {
-            north: getPositions(this.startingPositions.north, -1000, 1500),
-            south: getPositions(this.startingPositions.south, 1000, -1500)
+            north: []
+                .concat(getPositions(this.startingPositions.north, -1000, 1500))
+                .concat(getPositions(this.startingPositions.north, -1000, 3000))
+                .concat(getPositions(this.startingPositions.north, -1000, 4500)),
+            south: []
+                .concat(getPositions(this.startingPositions.south, 1000, -1500))
+                .concat(getPositions(this.startingPositions.south, 1000, -3000))
+                .concat(getPositions(this.startingPositions.south, 1000, -4500)),
         };
     })()
 

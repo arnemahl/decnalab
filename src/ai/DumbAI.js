@@ -118,7 +118,13 @@ export default class DumbAI {
             }
 
             if (spec.producedBy === Worker) {
-                availableProducers[0].getCommander().build(spec, this.getNextAvailableStructurePosition());
+                // In case the last thing in Build order is  a structure, AI will continue making more of that
+                // structure for ever. No value in supporting that, just stop when running out of space.
+                const structurePosition = this.getNextAvailableStructurePosition();
+
+                if (structurePosition) {
+                    availableProducers[0].getCommander().build(spec, structurePosition);
+                }
             } else {
                 availableProducers[0].getCommander().produceUnit(spec);
             }
@@ -129,13 +135,8 @@ export default class DumbAI {
         const usedStructurePositions = Object.values(this.team.structures).map(structure => structure.position);
         const isUnused = position => usedStructurePositions.every(usedPosition => Vectors.notEquals(position, usedPosition));
         const suggestedPositions = this.map.suggestedStructurePositions[ {blue: 'north', red: 'south'}[this.team.id] ];
-        const unusedPosition = suggestedPositions.find(isUnused);
 
-        if (!unusedPosition) {
-            throw Error('All suggested structure positions have been used!');
-        }
-
-        return unusedPosition;
+        return suggestedPositions.find(isUnused);
     }
 
     canAfford(spec) {
