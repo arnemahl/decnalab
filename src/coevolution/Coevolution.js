@@ -4,10 +4,10 @@ import {selectUnique, createScaledFitnessSelection} from '~/coevolution/selectio
 const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
 const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness) => 1.5 * fitness + maxFitness);
 
-const popSize = 8;
-const nofChildrenPerGeneration = 12;
-const teachSetSize = 4;
-const maxGenerations = 8;
+const popSize = 12;
+const nofChildrenPerGeneration = 18;
+const teachSetSize = 6;
+const maxGenerations = 10;
 const crossoverRatio = 0.95;
 const mutationRatio = 0.01;
 
@@ -16,7 +16,7 @@ const logProgress = DEBUG ? console.log : () => {};
 
 export function runCoevolution() {
     let generation = 0;
-    const hallOfFame = getCaseInjectedInvidviduals().slice(0, 3);
+    const hallOfFame = getCaseInjectedInvidviduals();
 
     // initialize population
     const initialPopulation = Array(nofChildrenPerGeneration).fill().map(Individual.generate);
