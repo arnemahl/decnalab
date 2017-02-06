@@ -10,6 +10,7 @@ export default class Team {
 
     units = []
     structures = []
+    commandablesByName = {}
     supply = 0
     usedSupply = 0
     visibleMapSectorIds = []
@@ -22,6 +23,13 @@ export default class Team {
 
         this.structureSpecs = new StructureSpecs();
         this.unitSpecs = new UnitSpecs();
+        this.allSpecs = { ...this.unitSpecs, ...this.structureSpecs };
+
+        this.commandablesByName = Object.keys(this.allSpecs).reduce((emptyArrForEach, name) => {
+            emptyArrForEach[name] = [];
+
+            return emptyArrForEach;
+        }, {});
     }
 
     getClosestBaseStructure = (fromPosition) => {

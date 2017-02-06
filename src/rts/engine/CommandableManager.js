@@ -40,6 +40,7 @@ export default class CommandableManager {
 
         unit.team = team;
         team.units.push(unit);
+        team.commandablesByName[unit.constructor.name].push(unit);
 
         team.usedSupply += usedSupplyAlreadyUpdated ? 0 : unitSpec.cost.supply;
 
@@ -51,6 +52,7 @@ export default class CommandableManager {
 
         structure.team = team;
         team.structures.push(structure);
+        team.commandablesByName[structure.constructor.name].push(structure);
 
         return structure;
     }
@@ -63,6 +65,7 @@ export default class CommandableManager {
         unit.clearCommands();
 
         unit.team.units = unit.team.units.filter(remaining => remaining !== unit);
+        unit.team.commandablesByName[unit.constructor.name] = unit.team.commandablesByName[unit.constructor.name].filter(remaining => remaining !== unit);
 
         unit.team.usedSupply -= unit.specs.cost.supply;
     }
@@ -75,6 +78,7 @@ export default class CommandableManager {
         structure.clearCommands();
 
         structure.team.structures = structure.team.structures.filter(remaining => remaining !== structure);
+        structure.team.commandablesByName[structure.constructor.name] = structure.team.commandablesByName[structure.constructor.name].filter(remaining => remaining !== structure);
 
         structure.team.supply -= structure.specs.providesSupply || 0;
     }

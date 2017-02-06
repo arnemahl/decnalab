@@ -377,7 +377,7 @@ export default class Engine {
     produceUnitFromStructure = (structure, unitSpec) => {
         let didStart;
 
-        const isProducer = structure instanceof unitSpec.producedBy;
+        const isProducer = structure.constructor.name === unitSpec.producedBy;
         if (!isProducer) {
             throw Error(`Trying to produce ${unitSpec.constructor.name} from structure ${structure.constructor.name}, not possible`);
         }
