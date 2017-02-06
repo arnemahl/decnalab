@@ -16,7 +16,7 @@ export function select(population, nofSelected) {
             lowerBound: summedRankPoints,
             individual
         };
-    });
+    }).reverse();
 
     if (summedRankPoints !== (population.length * (population.length + 1) / 2)) {
         throw Error('Implementation error in linearRankSelection');
@@ -30,7 +30,7 @@ export function select(population, nofSelected) {
 
         if (!area) {
             throw Error(`No area found for number ${rouletteNumber} in roulette wheel `
-                + `[ ${rouletteWheel.map(area => area.lowerBound).join(' <-> ')} <-> ${summedRankPoints} ]`);
+                + `[ ${rouletteWheel.map(area => area.lowerBound).reverse().join(' <-> ')} <-> ${summedRankPoints} ]`);
         }
 
         return area.individual;

@@ -16,9 +16,7 @@ export const createSelector = (scalingMethod) => (population, nofSelected) => {
         popSummedFitness += scalingMethod(individual.fitness, maxFitness);
 
         return area;
-    });
-    let last;
-    let lastNum;
+    }).reverse();
 
     return Array(nofSelected).fill().map(() => {
 
@@ -26,13 +24,9 @@ export const createSelector = (scalingMethod) => (population, nofSelected) => {
 
         const area = rouletteWheel.find(area => area.lowerBound <= rouletteNumber);
 
-        console.log(`rouletteNumber:`, rouletteNumber); // DEBUG
-        last === area && console.log('same', `[ ${rouletteWheel.map(area => area.lowerBound).join(' <-> ')} <-> ${popSummedFitness} ]`); // DEBUG
-        last = area;
-
         if (!area) {
             throw Error(`No area found for rouletteNumber ${rouletteNumber} in roulette wheel `
-                + `[ ${rouletteWheel.map(area => area.lowerBound).join(' <-> ')} <-> ${popSummedFitness} ]`);
+                + `[ ${rouletteWheel.map(area => area.lowerBound).reverse().join(' <-> ')} <-> ${popSummedFitness} ]`);
         }
         return area.individual;
     });

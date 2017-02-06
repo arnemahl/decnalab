@@ -14,7 +14,7 @@ export function select(population, nofSelected) {
         popSummedFitness += individual.fitness;
 
         return area;
-    });
+    }).reverse();
 
     return Array(nofSelected).fill().map(() => {
 
@@ -24,7 +24,7 @@ export function select(population, nofSelected) {
 
         if (!area) {
             throw Error(`No area found for rouletteNumber ${rouletteNumber} in roulette wheel `
-                + `[ ${rouletteWheel.map(area => area.lowerBound).join(' <-> ')} <-> ${popSummedFitness} ]`);
+                + `[ ${rouletteWheel.map(area => area.lowerBound).reverse().join(' <-> ')} <-> ${popSummedFitness} ]`);
         }
         return area.individual;
     });
