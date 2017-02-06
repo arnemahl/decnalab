@@ -1,7 +1,5 @@
 import Vectors from '~/rts/spatial/Vectors';
 import getClosestEnemy from '~/rts/spatial/getClosestEnemy';
-import Worker from '~/rts/units/Worker';
-import Marine from '~/rts/units/Marine';
 
 function getClosestResourceSite(map, worker, resourceType) {
     const distanceTo = resourceSite => Vectors.absoluteDistance(worker.position, resourceSite.position);

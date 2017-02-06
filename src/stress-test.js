@@ -5,13 +5,13 @@ const Game = require('./rts/Game').default;
 const aiConfig = require('./ai/DefaultConfigDumbAI');
 
 const nofGames = process.argv[2];
-const process_t0 = Date.now()
-let i = 0, t0, game;
+const process_t0 = Date.now();
+let i = 0;
 
 while (i++ < nofGames) {
-    t0 = Date.now();
+    const t0 = Date.now();
 
-    game = new Game('unused-id', 1000, aiConfig, aiConfig);
+    const game = new Game('unused-id', 1000, aiConfig, aiConfig);
 
     game.simulate();
 
