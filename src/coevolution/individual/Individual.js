@@ -32,7 +32,7 @@ export default class Individual {
             const targetIndex = Math.floor(buildOrder.length * Math.random());
             const target = buildOrder[targetIndex];
 
-            target.count = Math.max(1, target.count + plusOrMinus(1));
+            target.addCount = Math.max(1, target.addCount + plusOrMinus(1));
 
         } else {
             // Mutate attack at supply
