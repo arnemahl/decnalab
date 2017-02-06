@@ -4,10 +4,10 @@ import {selectUnique, createScaledFitnessSelection} from '~/coevolution/selectio
 const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
 const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness) => 1.5 * fitness + maxFitness);
 
-const popSize = 12;
-const nofChildrenPerGeneration = 18;
-const teachSetSize = 6;
-const maxGenerations = 10;
+const popSize = 20;
+const nofChildrenPerGeneration = 30;
+const teachSetSize = 8;
+const maxGenerations = 100;
 const crossoverRatio = 0.95;
 const mutationRatio = 0.01;
 
