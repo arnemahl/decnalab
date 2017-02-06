@@ -2,8 +2,6 @@ import BaseStructureClass from '~/rts/structures/BaseStructure';
 import BarracksClass from '~/rts/structures/Barracks';
 import SupplyDepotClass from '~/rts/structures/SupplyDepot';
 
-import WorkerClass from '~/rts/units/Worker';
-
 class Structure {
     type = 'structure'
 }
@@ -25,7 +23,7 @@ class BaseStructure extends Structure {
 
     providesSupply = 12
 
-    producedBy = WorkerClass
+    producedBy = 'Worker'
 }
 
 class SupplyDepot extends Structure {
@@ -45,7 +43,7 @@ class SupplyDepot extends Structure {
 
     providesSupply = 10
 
-    producedBy = WorkerClass
+    producedBy = 'Worker'
 }
 
 class Barracks extends Structure {
@@ -63,7 +61,7 @@ class Barracks extends Structure {
     maxHealth = 800
     armor = 2
 
-    producedBy = WorkerClass
+    producedBy = 'Worker'
 }
 
 export default class StructureSpecs {

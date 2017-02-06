@@ -3,15 +3,14 @@ import Vectors from '~/rts/spatial/Vectors';
 import UnitSpecs from '~/rts/units/UnitSpecs';
 import StructureSpecs from '~/rts/structures/StructureSpecs';
 
-// import UnitCreator // TODO import
-
 import {isBaseStructure} from '~/rts/structures/BaseStructure';
 
 
 export default class Team {
 
-    units = {}
-    structures = {}
+    units = []
+    structures = []
+    commandablesByName = {}
     supply = 0
     usedSupply = 0
     visibleMapSectorIds = []
@@ -24,13 +23,20 @@ export default class Team {
 
         this.structureSpecs = new StructureSpecs();
         this.unitSpecs = new UnitSpecs();
+        this.allSpecs = { ...this.unitSpecs, ...this.structureSpecs };
+
+        this.commandablesByName = Object.keys(this.allSpecs).reduce((emptyArrForEach, name) => {
+            emptyArrForEach[name] = [];
+
+            return emptyArrForEach;
+        }, {});
     }
 
     getClosestBaseStructure = (fromPosition) => {
         const distanceTo = baseStructure => Vectors.absoluteDistance(fromPosition, baseStructure.position);
 
         return (
-            Object.values(this.structures)
+            this.structures
                 .filter(isBaseStructure)
                 .sort((one, two) => distanceTo(one) - distanceTo(two))
                 [0]
@@ -38,20 +44,18 @@ export default class Team {
     }
 
     hasNoMoreCommandables = () => {
-        return Object.keys(this.units).length === 0
-            && !Object.values(this.structures).some(structure => !structure.isOnlyPlanned);
+        return this.units.length === 0
+            && !this.structures.some(structure => !structure.isOnlyPlanned);
     }
 
     getState = () => {
-        const mapToStates = object => Object.values(object).map(commandable => commandable.getState());
-
         return {
             id: this.id,
             resources: {...this.resources},
             unitSpecs: this.unitSpecs.clone(),
             structureSpecs: this.structureSpecs.clone(),
-            units: mapToStates(this.units),
-            structures: mapToStates(this.structures),
+            units: this.units.map(unit => unit.getState()),
+            structures: this.structures.map(structure => structure.getState()),
             unitSpawnPosition: {...this.unitSpawnPosition},
             supply: this.supply,
             usedSupply: this.usedSupply,

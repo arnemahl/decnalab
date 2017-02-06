@@ -1,9 +1,6 @@
 import WorkerClass from '~/rts/units/Worker';
 import MarineClass from '~/rts/units/Marine';
 
-import BaseStructureClass from '~/rts/structures/BaseStructure';
-import BarracksClass from '~/rts/structures/Barracks';
-
 class Unit {
     type = 'unit'
 }
@@ -33,7 +30,7 @@ class Worker extends Unit {
         range: this.radius * MEELEE,
     }
 
-    producedBy = BaseStructureClass
+    producedBy = 'BaseStructure'
 }
 
 class Marine extends Unit {
@@ -59,7 +56,7 @@ class Marine extends Unit {
         range: 500,
     }
 
-    producedBy = BarracksClass
+    producedBy = 'Barracks'
 }
 
 export default class UnitSpecs {

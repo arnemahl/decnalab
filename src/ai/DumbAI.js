@@ -35,8 +35,8 @@ export default class DumbAI {
     }
 
     harvestWithIdleWorkers() {
-        Object.values(this.team.units)
-            .filter(unit => unit instanceof Worker)
+        this.team.commandablesByName
+            .Worker
             .filter(worker => worker.isIdle())
             .forEach(worker => worker.getCommander().harvest(
                 getClosestResourceSite(this.map, worker, 'abundant')
@@ -46,42 +46,6 @@ export default class DumbAI {
     /*****************/
     /***   macro   ***/
     /*****************/
-    getAllCommandablesOfClass = (clazz) => {
-        switch (clazz.type) {
-            case 'unit':
-                return Object.values(this.team.units)
-                    .filter(unit => unit instanceof clazz);
-            case 'structure':
-                return Object.values(this.team.structures)
-                    .filter(structure => structure instanceof clazz);
-            default:
-                throw Error('woot');
-        }
-    }
-    getSpecByName = (specName) => {
-        const spec = this.team.unitSpecs[specName] || this.team.structureSpecs[specName];
-
-        if (!spec) {
-            throw Error(`No spec found for ${specName}`);
-        }
-
-        return spec;
-    }
-    countCommandablesWithSpecName = (specName) => {
-        const spec = this.getSpecByName(specName);
-
-        switch (spec.type) {
-            case 'unit':
-                return Object.values(this.team.units)
-                    .filter(unit => unit.constructor.name === specName)
-                    .length;
-            case 'structure':
-                return Object.values(this.team.structures)
-                    .filter(structure => structure.constructor.name === specName)
-                    .length;
-        }
-    }
-
     macro() {
         while (true) { // eslint-disable-line
             const targetTotals = {
@@ -92,10 +56,11 @@ export default class DumbAI {
             };
 
             const nextTarget =
-                this.buildOrder.find(target => this.countCommandablesWithSpecName(target.specName) < (targetTotals[target.specName] += target.addCount))
+                this.buildOrder.find(target => this.team.commandablesByName[target.specName].length < (targetTotals[target.specName] += target.addCount))
                 || this.buildOrder[this.buildOrder.length - 1];
 
-            const spec = this.getSpecByName(nextTarget.specName);
+            const {specName} = nextTarget;
+            const spec = this.team.allSpecs[specName];
 
             if (!this.canAfford(spec)) {
                 return;
@@ -103,11 +68,11 @@ export default class DumbAI {
 
             let availableProducers;
 
-            if (spec.producedBy === Worker) {
-                availableProducers = this.getAllCommandablesOfClass(spec.producedBy)
+            if (spec.producedBy === 'Worker') {
+                availableProducers = this.team.commandablesByName.Worker
                     .filter(worker => worker.commandQueue.array.every(command => command.type !== 'build'));
             } else {
-                availableProducers = this.getAllCommandablesOfClass(spec.producedBy)
+                availableProducers = this.team.commandablesByName[spec.producedBy]
                     .filter(producer => !producer.isOnlyPlanned)
                     .filter(producer => !producer.isUnderConstruction)
                     .filter(producer => producer.isIdle());
@@ -117,7 +82,7 @@ export default class DumbAI {
                 return;
             }
 
-            if (spec.producedBy === Worker) {
+            if (spec.producedBy === 'Worker') {
                 // In case the last thing in Build order is  a structure, AI will continue making more of that
                 // structure for ever. No value in supporting that, just stop when running out of space.
                 const structurePosition = this.getNextAvailableStructurePosition();
@@ -134,7 +99,7 @@ export default class DumbAI {
     }
 
     getNextAvailableStructurePosition() {
-        const usedStructurePositions = Object.values(this.team.structures).map(structure => structure.position);
+        const usedStructurePositions = this.team.structures.map(structure => structure.position);
         const isUnused = position => usedStructurePositions.every(usedPosition => Vectors.notEquals(position, usedPosition));
         const suggestedPositions = this.map.suggestedStructurePositions[ {blue: 'north', red: 'south'}[this.team.id] ];
 
@@ -153,7 +118,8 @@ export default class DumbAI {
     micro() {
         if (this.team.visibleEnemyCommandables.length > 0) {
             // Probably already in battle, go for it
-            this.getAllCommandablesOfClass(Marine)
+            this.team.commandablesByName
+                .Marine
                 .filter(marine => marine.isIdle())
                 .forEach(marine => {
                     const closestEnemy = getClosestEnemy(marine);
@@ -165,7 +131,8 @@ export default class DumbAI {
             // Ready to approach enemy base
             const enemySpawnPosition = this.map.unitSpawnPositions.find((_, index) => index !== this.team.index);
 
-            this.getAllCommandablesOfClass(Marine)
+            this.team.commandablesByName
+                .Marine
                 .filter(marine => marine.isIdle())
                 .forEach(marine => {
                     marine.getCommander().attackMove(enemySpawnPosition);

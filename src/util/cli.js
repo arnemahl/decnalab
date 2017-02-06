@@ -13,8 +13,12 @@ export function getAiConfigs() {
     const configs = !fileName ? [] : require(`../../dump/ai-config/${fileName}.js`);
     const configs2 = !fileName2 ? [] : require(`../../dump/ai-config/${fileName2}.js`);
 
-    return [
+    const selectedConfigs = [
         configs[0],
         configs2[0] || configs[1],
     ];
+
+    console.log(`Using selected aiConfigs for players:`, selectedConfigs.map(Boolean));
+
+    return selectedConfigs;
 }

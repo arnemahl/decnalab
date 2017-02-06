@@ -7,6 +7,7 @@
     "evo": "node src/evolution.js",
     "score": "node src/create-score-dump.js",
     "test": "node src/test.js",
+    "stress-test": "node src/stress-test.js",
     "eslint": "eslint src/",
     "watch": "watch -n 15 --color 'eslint src/' --color"
   },

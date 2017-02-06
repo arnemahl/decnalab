@@ -24,8 +24,15 @@ export default class Engine {
             getCurrentTick: () => this.tick
         };
 
-        const eventReceiver = new EventReceiver(this);
-        this.commandableManager = new CommandableManager(eventReceiver, teams, map);
+        const trackAllCommands = false;
+
+        if (trackAllCommands) {
+            const eventReceiver = new EventReceiver(this);
+            this.commandableManager = new CommandableManager(eventReceiver, teams, map);
+        } else {
+            this.commandableManager = new CommandableManager(this, teams, map);
+        }
+
         this.simpleVision = new SimpleVision(map, teams);
         this.scoreCounter = new ScoreCounter(teams.map(team => team.id));
     }
@@ -370,7 +377,7 @@ export default class Engine {
     produceUnitFromStructure = (structure, unitSpec) => {
         let didStart;
 
-        const isProducer = structure instanceof unitSpec.producedBy;
+        const isProducer = structure.constructor.name === unitSpec.producedBy;
         if (!isProducer) {
             throw Error(`Trying to produce ${unitSpec.constructor.name} from structure ${structure.constructor.name}, not possible`);
         }
