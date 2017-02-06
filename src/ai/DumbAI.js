@@ -23,11 +23,9 @@ export default class DumbAI {
         this.buildOrder = individual.buildOrder;
         this.attackAtSupply = individual.attackAtSupply;
 
-        if (individual.buildOrder.some(x => !x.spec || !x.count)) {
+        if (individual.buildOrder.some(x => !x.specName || !x.addCount)) {
             throw Error('BUILD ORDER CONTAINS INVAILD TARGET');
         }
-
-        // console.log(`\nBuild order (${team.id})\n\t` + individual.buildOrder.map(target => `${target.spec.constructor.name}: ${target.count}`).join('\n\t'));
     }
 
     doTick = (/*tick*/) => {
@@ -60,24 +58,44 @@ export default class DumbAI {
                 throw Error('woot');
         }
     }
-    countCommandablesWithSpec = (spec) => {
+    getSpecByName = (specName) => {
+        const spec = this.team.unitSpecs[specName] || this.team.structureSpecs[specName];
+
+        if (!spec) {
+            throw Error(`No spec found for ${specName}`);
+        }
+
+        return spec;
+    }
+    countCommandablesWithSpecName = (specName) => {
+        const spec = this.getSpecByName(specName);
+
         switch (spec.type) {
             case 'unit':
                 return Object.values(this.team.units)
-                    .filter(unit => unit.constructor.name === spec.constructor.name)
+                    .filter(unit => unit.constructor.name === specName)
                     .length;
             case 'structure':
                 return Object.values(this.team.structures)
-                    .filter(structure => structure.constructor.name === spec.constructor.name)
+                    .filter(structure => structure.constructor.name === specName)
                     .length;
         }
     }
 
     macro() {
         while (true) { // eslint-disable-line
-            const nextTarget = this.buildOrder.find(target => this.countCommandablesWithSpec(target.spec) < target.count);
+            const targetTotals = {
+                'Worker': 0,
+                'Marine': 0,
+                'SupplyDepot': 0,
+                'Barracks': 0,
+            };
 
-            const {spec} = nextTarget;
+            const nextTarget =
+                this.buildOrder.find(target => this.countCommandablesWithSpecName(target.specName) < (targetTotals[target.specName] += target.addCount))
+                || this.buildOrder[this.buildOrder.length - 1];
+
+            const spec = this.getSpecByName(nextTarget.specName);
 
             if (!this.canAfford(spec)) {
                 return;
@@ -111,8 +129,13 @@ export default class DumbAI {
         const usedStructurePositions = Object.values(this.team.structures).map(structure => structure.position);
         const isUnused = position => usedStructurePositions.every(usedPosition => Vectors.notEquals(position, usedPosition));
         const suggestedPositions = this.map.suggestedStructurePositions[ {blue: 'north', red: 'south'}[this.team.id] ];
+        const unusedPosition = suggestedPositions.find(isUnused);
 
-        return suggestedPositions.find(isUnused);
+        if (!unusedPosition) {
+            throw Error('All suggested structure positions have been used!');
+        }
+
+        return unusedPosition;
     }
 
     canAfford(spec) {

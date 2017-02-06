@@ -18,31 +18,8 @@ export function writeJSON(fileName, json) {
 /***********************************************/
 /**  Write DumbAI config to runnable js file  **/
 /***********************************************/
-
-const hack = (config) => ({
-    buildOrder: config.buildOrder.map(target => ({
-        spec: target.spec.constructor.name,
-        count: Number.isFinite(target.count) ? target.count : 'Number.POSITIVE_INFINITY'
-    })),
-    attackAtSupply: config.attackAtSupply,
-});
-
 export function writeConfigToJS(fileName, configArray) {
-    const content =
-`import UnitSpecs from '~/rts/units/UnitSpecs';
-import StructureSpecs from '~/rts/structures/StructureSpecs';
-
-const {
-    Worker,
-    Marine,
-} = new UnitSpecs();
-const {
-    SupplyDepot,
-    Barracks,
-} = new StructureSpecs();
-
-module.exports = ${JSON.stringify(configArray.map(hack), null, 4).split('"').join('')};
-`;
+    const content = `module.exports = ${JSON.stringify(configArray, null, 4)};`;
 
     const fullPath = `${__dirname}/../../dump/ai-config/${fileName}`;
 
