@@ -1,0 +1,3052 @@
+[
+    {
+        "generation": 0,
+        "durationMs": 41278,
+        "fitness": {
+            "total": 48948.53333333338,
+            "average": 978.9706666666675,
+            "stdDeviation": 1679.1963163455466,
+            "median": 74.66666666666667,
+            "max": 6529.200000000009
+        },
+        "score": {
+            "total": 6118.566666666672,
+            "average": 122.37133333333344,
+            "stdDeviation": 209.89953954319333,
+            "median": 9.333333333333334,
+            "max": 816.1500000000011
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "baselineFitness": {
+            "total": 8007.600000000002,
+            "average": 160.15200000000004,
+            "stdDeviation": 251.32568265632298,
+            "median": 28,
+            "max": 1116.533333333334
+        },
+        "baselineScore": {
+            "total": 2669.2000000000007,
+            "average": 53.384000000000015,
+            "stdDeviation": 83.77522755210765,
+            "median": 9.333333333333334,
+            "max": 372.177777777778
+        },
+        "baselineNofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 299.51020408163265,
+            "average": 5.990204081632653,
+            "stdDeviation": 0.2104808956023744,
+            "median": 6.020408163265306,
+            "max": 6.387755102040816,
+            "nofUnique": 50
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 757.6666666666669,
+            "average": 15.153333333333338,
+            "stdDeviation": 0.42796676921877413,
+            "median": 15.166666666666666,
+            "max": 16
+        }
+    },
+    {
+        "generation": 1,
+        "durationMs": 61477,
+        "fitness": {
+            "total": 66373.33333333334,
+            "average": 1327.466666666667,
+            "stdDeviation": 1732.4147325882702,
+            "median": 588.2666666666665,
+            "max": 6158.399999999993
+        },
+        "score": {
+            "total": 8296.666666666668,
+            "average": 165.93333333333337,
+            "stdDeviation": 216.55184157353378,
+            "median": 73.53333333333332,
+            "max": 769.7999999999992
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "baselineFitness": {
+            "total": 10845.200000000003,
+            "average": 216.90400000000005,
+            "stdDeviation": 212.62550789174438,
+            "median": 181.6,
+            "max": 849.3333333333342
+        },
+        "baselineScore": {
+            "total": 3615.0666666666675,
+            "average": 72.30133333333335,
+            "stdDeviation": 70.87516929724812,
+            "median": 60.53333333333333,
+            "max": 283.11111111111137
+        },
+        "baselineNofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 292.73469387755097,
+            "average": 5.8546938775510196,
+            "stdDeviation": 0.31107932378944136,
+            "median": 5.857142857142857,
+            "max": 6.612244897959184,
+            "nofUnique": 46
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 755.6666666666669,
+            "average": 15.113333333333337,
+            "stdDeviation": 0.40061064500196325,
+            "median": 15,
+            "max": 16
+        }
+    },
+    {
+        "generation": 2,
+        "durationMs": 84033,
+        "fitness": {
+            "total": 88146.6666666667,
+            "average": 1762.933333333334,
+            "stdDeviation": 1890.065835514145,
+            "median": 872.0000000000003,
+            "max": 6158.399999999993
+        },
+        "score": {
+            "total": 11018.333333333338,
+            "average": 220.36666666666676,
+            "stdDeviation": 236.25822943926812,
+            "median": 109.00000000000004,
+            "max": 769.7999999999992
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "baselineFitness": {
+            "total": 13224.533333333336,
+            "average": 264.49066666666675,
+            "stdDeviation": 238.9090589454956,
+            "median": 225.59999999999997,
+            "max": 957.200000000001
+        },
+        "baselineScore": {
+            "total": 4408.177777777779,
+            "average": 88.16355555555558,
+            "stdDeviation": 79.63635298183186,
+            "median": 75.19999999999999,
+            "max": 319.066666666667
+        },
+        "baselineNofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 284.61224489795916,
+            "average": 5.692244897959183,
+            "stdDeviation": 0.3129268263783435,
+            "median": 5.63265306122449,
+            "max": 6.387755102040816,
+            "nofUnique": 47
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 757.1666666666665,
+            "average": 15.14333333333333,
+            "stdDeviation": 0.39722649570350776,
+            "median": 15.166666666666666,
+            "max": 16
+        }
+    },
+    {
+        "generation": 3,
+        "durationMs": 108701,
+        "fitness": {
+            "total": 156138.1333333334,
+            "average": 3122.762666666668,
+            "stdDeviation": 2314.7285636946726,
+            "median": 3519.4666666666712,
+            "max": 8193.600000000002
+        },
+        "score": {
+            "total": 19517.266666666674,
+            "average": 390.3453333333335,
+            "stdDeviation": 289.3410704618341,
+            "median": 439.9333333333339,
+            "max": 1024.2000000000003
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "baselineFitness": {
+            "total": 25776.66666666669,
+            "average": 515.5333333333338,
+            "stdDeviation": 517.5482654894245,
+            "median": 353.3333333333334,
+            "max": 2356.000000000003
+        },
+        "baselineScore": {
+            "total": 8592.222222222226,
+            "average": 171.84444444444452,
+            "stdDeviation": 172.51608849647482,
+            "median": 117.77777777777781,
+            "max": 785.3333333333344
+        },
+        "baselineNofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 261.79591836734704,
+            "average": 5.235918367346941,
+            "stdDeviation": 0.5164379971638597,
+            "median": 5.142857142857143,
+            "max": 6.571428571428571,
+            "nofUnique": 43
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 752,
+            "average": 15.04,
+            "stdDeviation": 0.4117172708438536,
+            "median": 15,
+            "max": 16
+        }
+    },
+    {
+        "generation": 4,
+        "durationMs": 133980,
+        "fitness": {
+            "total": 176293.33333333343,
+            "average": 3525.8666666666686,
+            "stdDeviation": 2524.9945814331313,
+            "median": 3748.266666666671,
+            "max": 10374.39999999999
+        },
+        "score": {
+            "total": 22036.66666666668,
+            "average": 440.7333333333336,
+            "stdDeviation": 315.6243226791414,
+            "median": 468.53333333333387,
+            "max": 1296.7999999999988
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "baselineFitness": {
+            "total": 33341.333333333365,
+            "average": 666.8266666666673,
+            "stdDeviation": 598.5642573135606,
+            "median": 385.2000000000002,
+            "max": 2410.800000000002
+        },
+        "baselineScore": {
+            "total": 11113.777777777785,
+            "average": 222.27555555555568,
+            "stdDeviation": 199.52141910452013,
+            "median": 128.40000000000006,
+            "max": 803.6000000000007
+        },
+        "baselineNofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 244.8163265306122,
+            "average": 4.896326530612244,
+            "stdDeviation": 0.530138564081314,
+            "median": 4.795918367346939,
+            "max": 6.448979591836735,
+            "nofUnique": 41
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 749.5,
+            "average": 14.99,
+            "stdDeviation": 0.36272119688083654,
+            "median": 15,
+            "max": 15.833333333333334
+        }
+    },
+    {
+        "generation": 5,
+        "durationMs": 166282,
+        "fitness": {
+            "total": 204091.33333333366,
+            "average": 4081.826666666673,
+            "stdDeviation": 1984.3476643863519,
+            "median": 3813.3333333333394,
+            "max": 8419.20000000001
+        },
+        "score": {
+            "total": 25511.416666666708,
+            "average": 510.22833333333415,
+            "stdDeviation": 248.04345804829399,
+            "median": 476.6666666666674,
+            "max": 1052.4000000000012
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "baselineFitness": {
+            "total": 45500.93333333337,
+            "average": 910.0186666666674,
+            "stdDeviation": 741.2871880170491,
+            "median": 466.00000000000006,
+            "max": 2410.800000000002
+        },
+        "baselineScore": {
+            "total": 15166.977777777793,
+            "average": 303.3395555555559,
+            "stdDeviation": 247.09572933901634,
+            "median": 155.33333333333334,
+            "max": 803.6000000000007
+        },
+        "baselineNofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 219.18367346938774,
+            "average": 4.383673469387755,
+            "stdDeviation": 0.5775329917139951,
+            "median": 4.408163265306122,
+            "max": 5.816326530612245,
+            "nofUnique": 36
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 744.1666666666667,
+            "average": 14.883333333333335,
+            "stdDeviation": 0.27131367660166167,
+            "median": 14.833333333333334,
+            "max": 15.5
+        }
+    },
+    {
+        "generation": 6,
+        "durationMs": 198004,
+        "fitness": {
+            "total": 133325.46666666682,
+            "average": 2666.5093333333366,
+            "stdDeviation": 2117.403486611114,
+            "median": 2182.1333333333355,
+            "max": 7398.800000000006
+        },
+        "score": {
+            "total": 18181.83333333335,
+            "average": 363.636666666667,
+            "stdDeviation": 288.2792842019701,
+            "median": 293.6000000000003,
+            "max": 1040.900000000001
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "baselineFitness": {
+            "total": 38256.80000000003,
+            "average": 765.1360000000006,
+            "stdDeviation": 637.6627267290734,
+            "median": 385.86666666666684,
+            "max": 2351.8666666666686
+        },
+        "baselineScore": {
+            "total": 12752.266666666683,
+            "average": 255.04533333333364,
+            "stdDeviation": 212.5542422430244,
+            "median": 128.6222222222223,
+            "max": 783.9555555555562
+        },
+        "baselineNofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 219.18367346938768,
+            "average": 4.3836734693877535,
+            "stdDeviation": 0.4824275695377104,
+            "median": 4.285714285714286,
+            "max": 5.489795918367347,
+            "nofUnique": 42
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 747.5000000000001,
+            "average": 14.950000000000003,
+            "stdDeviation": 0.3004626062886656,
+            "median": 15,
+            "max": 15.666666666666666
+        }
+    },
+    {
+        "generation": 7,
+        "durationMs": 224999,
+        "fitness": {
+            "total": 189724.2666666669,
+            "average": 3794.485333333338,
+            "stdDeviation": 2556.4640527116994,
+            "median": 3874.133333333339,
+            "max": 9555.200000000003
+        },
+        "score": {
+            "total": 23715.533333333362,
+            "average": 474.31066666666726,
+            "stdDeviation": 319.5580065889624,
+            "median": 484.2666666666674,
+            "max": 1194.4000000000003
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "baselineFitness": {
+            "total": 39931.20000000003,
+            "average": 798.6240000000007,
+            "stdDeviation": 657.9383079164802,
+            "median": 404.6666666666668,
+            "max": 2351.8666666666686
+        },
+        "baselineScore": {
+            "total": 13310.40000000001,
+            "average": 266.2080000000002,
+            "stdDeviation": 219.31276930549342,
+            "median": 134.88888888888894,
+            "max": 783.9555555555562
+        },
+        "baselineNofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 212.53061224489795,
+            "average": 4.250612244897959,
+            "stdDeviation": 0.5784127126361494,
+            "median": 4.061224489795919,
+            "max": 5.6938775510204085,
+            "nofUnique": 39
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 747.6666666666666,
+            "average": 14.953333333333333,
+            "stdDeviation": 0.3000740649313839,
+            "median": 14.833333333333334,
+            "max": 15.666666666666666
+        }
+    },
+    {
+        "generation": 8,
+        "durationMs": 251095,
+        "fitness": {
+            "total": 209124.00000000015,
+            "average": 4182.480000000003,
+            "stdDeviation": 1996.1794778359306,
+            "median": 4032.2666666666732,
+            "max": 12997.599999999988
+        },
+        "score": {
+            "total": 31063.40000000003,
+            "average": 621.2680000000006,
+            "stdDeviation": 405.9768557147066,
+            "median": 531.4666666666675,
+            "max": 2790.199999999996
+        },
+        "nofWins": {
+            "total": 4,
+            "average": 0.08,
+            "stdDeviation": 0.5599999999999994,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 44656.73333333336,
+            "average": 893.1346666666672,
+            "stdDeviation": 667.3031530291665,
+            "median": 779.4000000000008,
+            "max": 3094.7333333333295
+        },
+        "baselineScore": {
+            "total": 18167.51111111112,
+            "average": 363.3502222222224,
+            "stdDeviation": 305.6488460594632,
+            "median": 338.3555555555559,
+            "max": 1808.577777777775
+        },
+        "baselineNofWins": {
+            "total": 1,
+            "average": 0.02,
+            "stdDeviation": 0.13999999999999985,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 208.77551020408166,
+            "average": 4.175510204081633,
+            "stdDeviation": 0.5234365665805673,
+            "median": 4.1020408163265305,
+            "max": 5.755102040816326,
+            "nofUnique": 41
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 739.8333333333338,
+            "average": 14.796666666666676,
+            "stdDeviation": 0.2523005262688836,
+            "median": 14.833333333333334,
+            "max": 15.5
+        }
+    },
+    {
+        "generation": 9,
+        "durationMs": 277377,
+        "fitness": {
+            "total": 242318.40000000034,
+            "average": 4846.368000000007,
+            "stdDeviation": 2589.7167939282085,
+            "median": 5780.800000000009,
+            "max": 7964.000000000011
+        },
+        "score": {
+            "total": 30289.800000000043,
+            "average": 605.7960000000008,
+            "stdDeviation": 323.71459924102606,
+            "median": 722.6000000000012,
+            "max": 995.5000000000014
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "baselineFitness": {
+            "total": 46696.53333333337,
+            "average": 933.9306666666674,
+            "stdDeviation": 674.5807806940384,
+            "median": 819.7333333333345,
+            "max": 3094.7333333333295
+        },
+        "baselineScore": {
+            "total": 19110.400000000005,
+            "average": 382.2080000000001,
+            "stdDeviation": 307.64574906654565,
+            "median": 358.08888888888936,
+            "max": 1808.577777777775
+        },
+        "baselineNofWins": {
+            "total": 1,
+            "average": 0.02,
+            "stdDeviation": 0.13999999999999987,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 205.9591836734694,
+            "average": 4.119183673469388,
+            "stdDeviation": 0.5236014075476106,
+            "median": 4.040816326530612,
+            "max": 5.816326530612245,
+            "nofUnique": 33
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 738.8333333333334,
+            "average": 14.776666666666667,
+            "stdDeviation": 0.2463285971578978,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 10,
+        "durationMs": 309638,
+        "fitness": {
+            "total": 144984.9777777779,
+            "average": 2899.699555555558,
+            "stdDeviation": 1766.744518325133,
+            "median": 2654.7555555555596,
+            "max": 10986.400000000007
+        },
+        "score": {
+            "total": 30941.233333333363,
+            "average": 618.8246666666672,
+            "stdDeviation": 362.52715544631985,
+            "median": 622.1500000000009,
+            "max": 2347.8000000000015
+        },
+        "nofWins": {
+            "total": 6,
+            "average": 0.12,
+            "stdDeviation": 0.5878775382679625,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 45971.511111111155,
+            "average": 919.430222222223,
+            "stdDeviation": 633.7150476476102,
+            "median": 794.311111111112,
+            "max": 2706.7999999999984
+        },
+        "baselineScore": {
+            "total": 21525.911111111112,
+            "average": 430.5182222222222,
+            "stdDeviation": 368.1075230583421,
+            "median": 431.3333333333339,
+            "max": 1931.866666666664
+        },
+        "baselineNofWins": {
+            "total": 2,
+            "average": 0.04,
+            "stdDeviation": 0.19595917942265437,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 197.02040816326522,
+            "average": 3.9404081632653045,
+            "stdDeviation": 0.5546342566808163,
+            "median": 3.8979591836734695,
+            "max": 6.020408163265306,
+            "nofUnique": 37
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 737.3333333333334,
+            "average": 14.746666666666668,
+            "stdDeviation": 0.2833137248116771,
+            "median": 14.833333333333334,
+            "max": 15.5
+        }
+    },
+    {
+        "generation": 11,
+        "durationMs": 343001,
+        "fitness": {
+            "total": 173003.2444444446,
+            "average": 3460.064888888892,
+            "stdDeviation": 2800.443384414404,
+            "median": 3467.755555555561,
+            "max": 13968.79999999998
+        },
+        "score": {
+            "total": 33184.80000000002,
+            "average": 663.6960000000004,
+            "stdDeviation": 652.991225392466,
+            "median": 539.4000000000008,
+            "max": 3364.6999999999944
+        },
+        "nofWins": {
+            "total": 9,
+            "average": 0.18,
+            "stdDeviation": 0.7922120928135341,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 48648.97777777783,
+            "average": 972.9795555555565,
+            "stdDeviation": 655.2962882538776,
+            "median": 1057.4222222222236,
+            "max": 2706.7999999999984
+        },
+        "baselineScore": {
+            "total": 22272.17777777779,
+            "average": 445.4435555555558,
+            "stdDeviation": 377.12481004281176,
+            "median": 431.3333333333339,
+            "max": 1931.866666666664
+        },
+        "baselineNofWins": {
+            "total": 2,
+            "average": 0.04,
+            "stdDeviation": 0.19595917942265437,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 183.75510204081633,
+            "average": 3.6751020408163266,
+            "stdDeviation": 0.5546642931847251,
+            "median": 3.5918367346938775,
+            "max": 6.387755102040816,
+            "nofUnique": 32
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 738.166666666667,
+            "average": 14.763333333333339,
+            "stdDeviation": 0.24964419124470383,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 12,
+        "durationMs": 364663,
+        "fitness": {
+            "total": 186504.00000000023,
+            "average": 3730.0800000000045,
+            "stdDeviation": 2185.0094565775535,
+            "median": 3651.2000000000053,
+            "max": 16329.60000000001
+        },
+        "score": {
+            "total": 46626.00000000006,
+            "average": 932.5200000000011,
+            "stdDeviation": 546.2523641443884,
+            "median": 912.8000000000013,
+            "max": 4082.4000000000024
+        },
+        "nofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 1.1199999999999997,
+            "median": 0,
+            "max": 8
+        },
+        "baselineFitness": {
+            "total": 47234.80000000002,
+            "average": 944.6960000000004,
+            "stdDeviation": 634.499745858981,
+            "median": 834.6666666666677,
+            "max": 2320.699999999999
+        },
+        "baselineScore": {
+            "total": 25810.399999999998,
+            "average": 516.208,
+            "stdDeviation": 425.9875044074747,
+            "median": 431.3333333333339,
+            "max": 1931.866666666664
+        },
+        "baselineNofWins": {
+            "total": 3,
+            "average": 0.06,
+            "stdDeviation": 0.23748684174075838,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 174.85714285714292,
+            "average": 3.497142857142858,
+            "stdDeviation": 0.41909364532109217,
+            "median": 3.3877551020408165,
+            "max": 4.918367346938775,
+            "nofUnique": 31
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 738.4999999999997,
+            "average": 14.769999999999992,
+            "stdDeviation": 0.22083176100069177,
+            "median": 14.833333333333334,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 13,
+        "durationMs": 385921,
+        "fitness": {
+            "total": 316074.666666667,
+            "average": 6321.493333333339,
+            "stdDeviation": 2296.7502829868135,
+            "median": 6592.000000000009,
+            "max": 10777.59999999999
+        },
+        "score": {
+            "total": 39509.33333333337,
+            "average": 790.1866666666674,
+            "stdDeviation": 287.0937853733517,
+            "median": 824.0000000000011,
+            "max": 1347.1999999999987
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "baselineFitness": {
+            "total": 47977.73333333337,
+            "average": 959.5546666666675,
+            "stdDeviation": 638.7268634957446,
+            "median": 1043.0400000000013,
+            "max": 2102.6133333333346
+        },
+        "baselineScore": {
+            "total": 27193.999999999996,
+            "average": 543.8799999999999,
+            "stdDeviation": 473.1358271921912,
+            "median": 464.00000000000045,
+            "max": 1931.866666666664
+        },
+        "baselineNofWins": {
+            "total": 4,
+            "average": 0.08,
+            "stdDeviation": 0.2712931993250109,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 169.83673469387753,
+            "average": 3.3967346938775504,
+            "stdDeviation": 0.430823238761629,
+            "median": 3.2857142857142856,
+            "max": 4.8979591836734695,
+            "nofUnique": 30
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 737.4999999999998,
+            "average": 14.749999999999995,
+            "stdDeviation": 0.23154073315749676,
+            "median": 14.666666666666666,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 14,
+        "durationMs": 413390,
+        "fitness": {
+            "total": 174049.06666666685,
+            "average": 3480.9813333333373,
+            "stdDeviation": 1976.9902644638626,
+            "median": 2654.933333333336,
+            "max": 9373.60000000001
+        },
+        "score": {
+            "total": 32516.93333333337,
+            "average": 650.3386666666675,
+            "stdDeviation": 306.5386282970261,
+            "median": 594.8666666666674,
+            "max": 1854.2000000000016
+        },
+        "nofWins": {
+            "total": 4,
+            "average": 0.08,
+            "stdDeviation": 0.5599999999999994,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 49394.66666666669,
+            "average": 987.8933333333339,
+            "stdDeviation": 756.911440493944,
+            "median": 916.9555555555565,
+            "max": 3563.7999999999956
+        },
+        "baselineScore": {
+            "total": 29203.77777777777,
+            "average": 584.0755555555554,
+            "stdDeviation": 549.9594654782616,
+            "median": 466.2222222222226,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 5,
+            "average": 0.1,
+            "stdDeviation": 0.3,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 173.79591836734696,
+            "average": 3.475918367346939,
+            "stdDeviation": 0.3727145265267351,
+            "median": 3.4081632653061225,
+            "max": 4.530612244897959,
+            "nofUnique": 37
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 739.9999999999998,
+            "average": 14.799999999999995,
+            "stdDeviation": 0.2603416558635552,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 15,
+        "durationMs": 446402,
+        "fitness": {
+            "total": 85463.41333333337,
+            "average": 1709.2682666666674,
+            "stdDeviation": 1400.6956002739391,
+            "median": 1646.3600000000026,
+            "max": 6248.306666666658
+        },
+        "score": {
+            "total": 43587.76666666667,
+            "average": 871.7553333333334,
+            "stdDeviation": 885.054572582579,
+            "median": 624.5500000000008,
+            "max": 3540.0499999999943
+        },
+        "nofWins": {
+            "total": 25,
+            "average": 0.5,
+            "stdDeviation": 1.2529964086141667,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 51266.40000000007,
+            "average": 1025.3280000000013,
+            "stdDeviation": 697.5821318863549,
+            "median": 1134.933333333335,
+            "max": 2559.800000000002
+        },
+        "baselineScore": {
+            "total": 25742.4,
+            "average": 514.8480000000001,
+            "stdDeviation": 429.8668008307847,
+            "median": 466.2222222222226,
+            "max": 1931.866666666664
+        },
+        "baselineNofWins": {
+            "total": 3,
+            "average": 0.06,
+            "stdDeviation": 0.2374868417407584,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 171.51020408163265,
+            "average": 3.430204081632653,
+            "stdDeviation": 0.3923644405745827,
+            "median": 3.489795918367347,
+            "max": 4.3061224489795915,
+            "nofUnique": 34
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 742,
+            "average": 14.84,
+            "stdDeviation": 0.26449112566503163,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 16,
+        "durationMs": 494890,
+        "fitness": {
+            "total": 295555.2000000003,
+            "average": 5911.104000000006,
+            "stdDeviation": 1467.648227944932,
+            "median": 6392.057142857152,
+            "max": 7782.457142857149
+        },
+        "score": {
+            "total": 42023.60000000003,
+            "average": 840.4720000000005,
+            "stdDeviation": 257.6209850501743,
+            "median": 864.900000000001,
+            "max": 1332.3499999999997
+        },
+        "nofWins": {
+            "total": 5,
+            "average": 0.1,
+            "stdDeviation": 0.2999999999999999,
+            "median": 0,
+            "max": 1
+        },
+        "baselineFitness": {
+            "total": 47841.51111111115,
+            "average": 956.8302222222229,
+            "stdDeviation": 664.6461969248137,
+            "median": 884.9333333333338,
+            "max": 2457.3333333333353
+        },
+        "baselineScore": {
+            "total": 29115.466666666674,
+            "average": 582.3093333333335,
+            "stdDeviation": 498.29591184335624,
+            "median": 536.355555555555,
+            "max": 1931.866666666664
+        },
+        "baselineNofWins": {
+            "total": 5,
+            "average": 0.1,
+            "stdDeviation": 0.2999999999999999,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 168.32653061224485,
+            "average": 3.366530612244897,
+            "stdDeviation": 0.37941536385035557,
+            "median": 3.306122448979592,
+            "max": 4.510204081632653,
+            "nofUnique": 29
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 737.6666666666665,
+            "average": 14.75333333333333,
+            "stdDeviation": 0.2629744389775471,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 17,
+        "durationMs": 527861,
+        "fitness": {
+            "total": 101697.25555555562,
+            "average": 2033.9451111111123,
+            "stdDeviation": 1306.055566288863,
+            "median": 1866.4666666666692,
+            "max": 6617.600000000005
+        },
+        "score": {
+            "total": 43100.91666666669,
+            "average": 862.0183333333339,
+            "stdDeviation": 565.8070955355131,
+            "median": 790.7000000000012,
+            "max": 2628.4000000000015
+        },
+        "nofWins": {
+            "total": 19,
+            "average": 0.38,
+            "stdDeviation": 1.0371113729971333,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 46584.53333333338,
+            "average": 931.6906666666675,
+            "stdDeviation": 608.0268709354516,
+            "median": 1040.4000000000015,
+            "max": 1929.233333333332
+        },
+        "baselineScore": {
+            "total": 24940.711111111123,
+            "average": 498.81422222222244,
+            "stdDeviation": 409.3016885767785,
+            "median": 469.6888888888889,
+            "max": 1808.577777777775
+        },
+        "baselineNofWins": {
+            "total": 3,
+            "average": 0.06,
+            "stdDeviation": 0.2374868417407584,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 161.06122448979588,
+            "average": 3.2212244897959175,
+            "stdDeviation": 0.39137643031240604,
+            "median": 3.306122448979592,
+            "max": 3.9183673469387754,
+            "nofUnique": 32
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 735.833333333333,
+            "average": 14.716666666666661,
+            "stdDeviation": 0.25873624493766706,
+            "median": 14.666666666666666,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 18,
+        "durationMs": 568313,
+        "fitness": {
+            "total": 130153.30303030318,
+            "average": 2603.0660606060637,
+            "stdDeviation": 1892.617265000212,
+            "median": 2595.9878787878833,
+            "max": 12867.937373737377
+        },
+        "score": {
+            "total": 42636.55000000004,
+            "average": 852.7310000000008,
+            "stdDeviation": 564.232446426215,
+            "median": 820.0000000000011,
+            "max": 3235.300000000001
+        },
+        "nofWins": {
+            "total": 18,
+            "average": 0.36,
+            "stdDeviation": 0.9329523031752482,
+            "median": 0,
+            "max": 5
+        },
+        "baselineFitness": {
+            "total": 41281.977777777814,
+            "average": 825.6395555555563,
+            "stdDeviation": 628.9971708474723,
+            "median": 774.4222222222231,
+            "max": 2212.97777777778
+        },
+        "baselineScore": {
+            "total": 24206.622222222224,
+            "average": 484.1324444444445,
+            "stdDeviation": 498.660411328561,
+            "median": 385.46666666666715,
+            "max": 1808.577777777775
+        },
+        "baselineNofWins": {
+            "total": 5,
+            "average": 0.1,
+            "stdDeviation": 0.29999999999999993,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 154.0816326530612,
+            "average": 3.081632653061224,
+            "stdDeviation": 0.4038548116233155,
+            "median": 3.0816326530612246,
+            "max": 3.938775510204082,
+            "nofUnique": 29
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 735.8333333333331,
+            "average": 14.716666666666663,
+            "stdDeviation": 0.2813657169355689,
+            "median": 14.833333333333334,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 19,
+        "durationMs": 611799,
+        "fitness": {
+            "total": 149102.93030303044,
+            "average": 2982.058606060609,
+            "stdDeviation": 1043.0577058042818,
+            "median": 2995.0303030303076,
+            "max": 5425.118181818186
+        },
+        "score": {
+            "total": 45084.13333333338,
+            "average": 901.6826666666676,
+            "stdDeviation": 437.2051728747551,
+            "median": 816.2333333333345,
+            "max": 2069.816666666667
+        },
+        "nofWins": {
+            "total": 23,
+            "average": 0.46,
+            "stdDeviation": 1.0992724866929033,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 45253.01333333338,
+            "average": 905.0602666666676,
+            "stdDeviation": 676.5045159766627,
+            "median": 1032.666666666668,
+            "max": 2218.533333333335
+        },
+        "baselineScore": {
+            "total": 25785.77777777779,
+            "average": 515.7155555555557,
+            "stdDeviation": 462.36446742882424,
+            "median": 469.6888888888889,
+            "max": 1931.866666666664
+        },
+        "baselineNofWins": {
+            "total": 4,
+            "average": 0.08,
+            "stdDeviation": 0.2712931993250108,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 147.0204081632653,
+            "average": 2.940408163265306,
+            "stdDeviation": 0.44825247244203315,
+            "median": 3,
+            "max": 4.1020408163265305,
+            "nofUnique": 28
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 735.0000000000001,
+            "average": 14.700000000000003,
+            "stdDeviation": 0.2516611478423583,
+            "median": 14.666666666666666,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 20,
+        "durationMs": 653255,
+        "fitness": {
+            "total": 56283.6711111111,
+            "average": 1125.673422222222,
+            "stdDeviation": 1243.7127642723274,
+            "median": 638.1666666666671,
+            "max": 5029.226666666659
+        },
+        "score": {
+            "total": 47055.266666666685,
+            "average": 941.1053333333336,
+            "stdDeviation": 919.4197395969061,
+            "median": 598.1333333333337,
+            "max": 3838.2999999999956
+        },
+        "nofWins": {
+            "total": 42,
+            "average": 0.84,
+            "stdDeviation": 1.6776173580408618,
+            "median": 0,
+            "max": 6
+        },
+        "baselineFitness": {
+            "total": 40410.613333333364,
+            "average": 808.2122666666672,
+            "stdDeviation": 735.098349775333,
+            "median": 514.0266666666664,
+            "max": 3722.1599999999953
+        },
+        "baselineScore": {
+            "total": 22803.822222222225,
+            "average": 456.0764444444445,
+            "stdDeviation": 520.9620933042538,
+            "median": 362.8000000000004,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 4,
+            "average": 0.08,
+            "stdDeviation": 0.27129319932501084,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 160.65306122448982,
+            "average": 3.2130612244897963,
+            "stdDeviation": 0.424806789019041,
+            "median": 3.061224489795918,
+            "max": 4.285714285714286,
+            "nofUnique": 33
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 740.4999999999999,
+            "average": 14.809999999999997,
+            "stdDeviation": 0.24039319642803722,
+            "median": 14.833333333333334,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 21,
+        "durationMs": 696503,
+        "fitness": {
+            "total": 146394.46666666682,
+            "average": 2927.8893333333363,
+            "stdDeviation": 1636.869037392764,
+            "median": 2990.933333333337,
+            "max": 9871.600000000006
+        },
+        "score": {
+            "total": 45477.35000000005,
+            "average": 909.5470000000009,
+            "stdDeviation": 625.208380503742,
+            "median": 924.4000000000015,
+            "max": 3460.550000000002
+        },
+        "nofWins": {
+            "total": 15,
+            "average": 0.3,
+            "stdDeviation": 1.1874342087037928,
+            "median": 0,
+            "max": 6
+        },
+        "baselineFitness": {
+            "total": 46432.81481481483,
+            "average": 928.6562962962967,
+            "stdDeviation": 777.4332036684921,
+            "median": 905.5259259259269,
+            "max": 3299.8666666666627
+        },
+        "baselineScore": {
+            "total": 31070.533333333326,
+            "average": 621.4106666666665,
+            "stdDeviation": 664.3614427122967,
+            "median": 429.42222222222284,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 0.3666060555964671,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 157.42857142857144,
+            "average": 3.148571428571429,
+            "stdDeviation": 0.4461887285753699,
+            "median": 3,
+            "max": 4.36734693877551,
+            "nofUnique": 36
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 738.1666666666665,
+            "average": 14.76333333333333,
+            "stdDeviation": 0.3384441526226217,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 22,
+        "durationMs": 731419,
+        "fitness": {
+            "total": 137886.51428571442,
+            "average": 2757.7302857142886,
+            "stdDeviation": 2076.864594420767,
+            "median": 1843.8247619047625,
+            "max": 7014.582857142854
+        },
+        "score": {
+            "total": 40159.00000000004,
+            "average": 803.1800000000007,
+            "stdDeviation": 517.5435645538562,
+            "median": 658.6166666666666,
+            "max": 2112.9000000000024
+        },
+        "nofWins": {
+            "total": 21,
+            "average": 0.42,
+            "stdDeviation": 1.0409610943738485,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 57365.11111111112,
+            "average": 1147.3022222222223,
+            "stdDeviation": 869.1892254727474,
+            "median": 1038.7111111111126,
+            "max": 3299.8666666666627
+        },
+        "baselineScore": {
+            "total": 34052.666666666664,
+            "average": 681.0533333333333,
+            "stdDeviation": 697.5768667729664,
+            "median": 566.0444444444453,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 0.36660605559646703,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 146.85714285714286,
+            "average": 2.9371428571428573,
+            "stdDeviation": 0.5389894442298971,
+            "median": 2.877551020408163,
+            "max": 4.469387755102041,
+            "nofUnique": 34
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 735.6666666666667,
+            "average": 14.713333333333335,
+            "stdDeviation": 0.3162980310473722,
+            "median": 14.666666666666666,
+            "max": 15.5
+        }
+    },
+    {
+        "generation": 23,
+        "durationMs": 759750,
+        "fitness": {
+            "total": 186049.37777777787,
+            "average": 3720.9875555555573,
+            "stdDeviation": 1852.787829408202,
+            "median": 3730.533333333339,
+            "max": 6544.399999999984
+        },
+        "score": {
+            "total": 47613.53333333334,
+            "average": 952.2706666666668,
+            "stdDeviation": 865.3187109612008,
+            "median": 573.3333333333342,
+            "max": 2893.1999999999994
+        },
+        "nofWins": {
+            "total": 32,
+            "average": 0.64,
+            "stdDeviation": 1.4664242223858686,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 70256.81481481482,
+            "average": 1405.1362962962965,
+            "stdDeviation": 942.9604593199422,
+            "median": 1500.933333333334,
+            "max": 3299.8666666666627
+        },
+        "baselineScore": {
+            "total": 39165.1111111111,
+            "average": 783.3022222222221,
+            "stdDeviation": 738.4986408840933,
+            "median": 610.5333333333342,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 0.36660605559646714,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 137.02040816326533,
+            "average": 2.7404081632653066,
+            "stdDeviation": 0.6754706197169433,
+            "median": 2.5918367346938775,
+            "max": 4.408163265306122,
+            "nofUnique": 26
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 733.8333333333334,
+            "average": 14.676666666666668,
+            "stdDeviation": 0.29704096238285627,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 24,
+        "durationMs": 788269,
+        "fitness": {
+            "total": 256955.55555555562,
+            "average": 5139.111111111112,
+            "stdDeviation": 2364.8873549244295,
+            "median": 5769.200000000006,
+            "max": 9593.59999999998
+        },
+        "score": {
+            "total": 47693,
+            "average": 953.86,
+            "stdDeviation": 698.0959151784858,
+            "median": 837.8999999999997,
+            "max": 2782.7999999999965
+        },
+        "nofWins": {
+            "total": 18,
+            "average": 0.36,
+            "stdDeviation": 0.9748846085563162,
+            "median": 0,
+            "max": 3
+        },
+        "baselineFitness": {
+            "total": 70155.84761904764,
+            "average": 1403.1169523809526,
+            "stdDeviation": 875.6925323195551,
+            "median": 1533.4285714285722,
+            "max": 3450.6857142857098
+        },
+        "baselineScore": {
+            "total": 36734.04444444445,
+            "average": 734.6808888888891,
+            "stdDeviation": 645.0830907185994,
+            "median": 633.9555555555564,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 6,
+            "average": 0.12,
+            "stdDeviation": 0.3249615361854386,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 130.69387755102036,
+            "average": 2.613877551020407,
+            "stdDeviation": 0.6077637367295495,
+            "median": 2.510204081632653,
+            "max": 4.3061224489795915,
+            "nofUnique": 25
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 734.8333333333334,
+            "average": 14.696666666666667,
+            "stdDeviation": 0.2701645589060284,
+            "median": 14.833333333333334,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 25,
+        "durationMs": 817901,
+        "fitness": {
+            "total": 322906.48888888897,
+            "average": 6458.129777777779,
+            "stdDeviation": 2370.5167821274385,
+            "median": 6562.400000000007,
+            "max": 9671.644444444422
+        },
+        "score": {
+            "total": 51917.8,
+            "average": 1038.356,
+            "stdDeviation": 310.23658144068,
+            "median": 1013.6000000000014,
+            "max": 1933.5000000000005
+        },
+        "nofWins": {
+            "total": 10,
+            "average": 0.2,
+            "stdDeviation": 0.5999999999999998,
+            "median": 0,
+            "max": 2
+        },
+        "baselineFitness": {
+            "total": 73489.53333333333,
+            "average": 1469.7906666666665,
+            "stdDeviation": 950.1194893460029,
+            "median": 1515.1500000000008,
+            "max": 3365.849999999996
+        },
+        "baselineScore": {
+            "total": 40325.68888888889,
+            "average": 806.5137777777778,
+            "stdDeviation": 714.0128638553458,
+            "median": 668.1777777777787,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 7,
+            "average": 0.14,
+            "stdDeviation": 0.3469870314579492,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 127.9183673469388,
+            "average": 2.558367346938776,
+            "stdDeviation": 0.5539718386351721,
+            "median": 2.4081632653061225,
+            "max": 4.204081632653061,
+            "nofUnique": 27
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 734.0000000000001,
+            "average": 14.680000000000001,
+            "stdDeviation": 0.2725191124795961,
+            "median": 14.833333333333334,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 26,
+        "durationMs": 854169,
+        "fitness": {
+            "total": 46604.42539682543,
+            "average": 932.0885079365086,
+            "stdDeviation": 461.35171247065193,
+            "median": 746.0814814814818,
+            "max": 1883.0571428571443
+        },
+        "score": {
+            "total": 61248.300000000025,
+            "average": 1224.9660000000006,
+            "stdDeviation": 573.2421849538523,
+            "median": 979.3500000000015,
+            "max": 2367.05
+        },
+        "nofWins": {
+            "total": 62,
+            "average": 1.24,
+            "stdDeviation": 1.8927229062913564,
+            "median": 0,
+            "max": 5
+        },
+        "baselineFitness": {
+            "total": 63967.466666666674,
+            "average": 1279.3493333333336,
+            "stdDeviation": 1027.3697662313314,
+            "median": 1515.1500000000008,
+            "max": 3365.849999999996
+        },
+        "baselineScore": {
+            "total": 36021.86666666667,
+            "average": 720.4373333333334,
+            "stdDeviation": 755.7528538402632,
+            "median": 633.9555555555564,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 7,
+            "average": 0.14,
+            "stdDeviation": 0.34698703145794924,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 129.3061224489796,
+            "average": 2.586122448979592,
+            "stdDeviation": 0.577144011776116,
+            "median": 2.4489795918367347,
+            "max": 4.959183673469388,
+            "nofUnique": 26
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 735.3333333333334,
+            "average": 14.706666666666667,
+            "stdDeviation": 0.276003220593126,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 27,
+        "durationMs": 891156,
+        "fitness": {
+            "total": 57138.466666666674,
+            "average": 1142.7693333333334,
+            "stdDeviation": 930.6401578275741,
+            "median": 780.7033333333334,
+            "max": 3169.639999999995
+        },
+        "score": {
+            "total": 53072.66666666667,
+            "average": 1061.4533333333334,
+            "stdDeviation": 907.8179467822824,
+            "median": 668.5833333333337,
+            "max": 2989.6999999999953
+        },
+        "nofWins": {
+            "total": 47,
+            "average": 0.94,
+            "stdDeviation": 1.5672906558772055,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 74230.25000000006,
+            "average": 1484.6050000000012,
+            "stdDeviation": 896.843425671083,
+            "median": 1554.8333333333353,
+            "max": 3365.849999999996
+        },
+        "baselineScore": {
+            "total": 39179.24444444444,
+            "average": 783.5848888888888,
+            "stdDeviation": 669.2704214559694,
+            "median": 678.8444444444452,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 7,
+            "average": 0.14,
+            "stdDeviation": 0.3469870314579492,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 120.40816326530611,
+            "average": 2.4081632653061225,
+            "stdDeviation": 0.5787000900746386,
+            "median": 2.2244897959183674,
+            "max": 5.244897959183674,
+            "nofUnique": 24
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 736.3333333333334,
+            "average": 14.726666666666667,
+            "stdDeviation": 0.25768197453450253,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 28,
+        "durationMs": 937696,
+        "fitness": {
+            "total": 76501.18787878794,
+            "average": 1530.0237575757587,
+            "stdDeviation": 890.2611827197856,
+            "median": 1347.0327272727277,
+            "max": 4620.990303030307
+        },
+        "score": {
+            "total": 71831.16666666673,
+            "average": 1436.6233333333346,
+            "stdDeviation": 937.2940404815469,
+            "median": 1090.8000000000013,
+            "max": 4007.6833333333375
+        },
+        "nofWins": {
+            "total": 69,
+            "average": 1.38,
+            "stdDeviation": 2.390732105443854,
+            "median": 0,
+            "max": 7
+        },
+        "baselineFitness": {
+            "total": 79867.12592592595,
+            "average": 1597.342518518519,
+            "stdDeviation": 800.6079415360622,
+            "median": 1558.9925925925947,
+            "max": 3299.8666666666627
+        },
+        "baselineScore": {
+            "total": 43495.06666666666,
+            "average": 869.9013333333331,
+            "stdDeviation": 654.0664741111912,
+            "median": 786.4888888888896,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 0.36660605559646703,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 108.20408163265303,
+            "average": 2.1640816326530605,
+            "stdDeviation": 0.5432093379532886,
+            "median": 2.163265306122449,
+            "max": 4.448979591836735,
+            "nofUnique": 24
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 737.6666666666666,
+            "average": 14.753333333333332,
+            "stdDeviation": 0.2217105219775453,
+            "median": 14.833333333333334,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 29,
+        "durationMs": 976162,
+        "fitness": {
+            "total": 135512.53968253988,
+            "average": 2710.2507936507977,
+            "stdDeviation": 1118.7977536028438,
+            "median": 2804.2190476190517,
+            "max": 6527.08571428572
+        },
+        "score": {
+            "total": 49669.166666666715,
+            "average": 993.3833333333343,
+            "stdDeviation": 420.09928458771657,
+            "median": 945.3500000000016,
+            "max": 2202.600000000002
+        },
+        "nofWins": {
+            "total": 21,
+            "average": 0.42,
+            "stdDeviation": 0.9816312953446423,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 70546.72380952384,
+            "average": 1410.9344761904767,
+            "stdDeviation": 863.2753089899064,
+            "median": 1533.4285714285722,
+            "max": 3450.6857142857098
+        },
+        "baselineScore": {
+            "total": 37133.555555555555,
+            "average": 742.6711111111111,
+            "stdDeviation": 617.1960551468941,
+            "median": 678.8444444444452,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 6,
+            "average": 0.12,
+            "stdDeviation": 0.3249615361854385,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 121.67346938775509,
+            "average": 2.433469387755102,
+            "stdDeviation": 0.46574558552638773,
+            "median": 2.3877551020408165,
+            "max": 4.061224489795919,
+            "nofUnique": 27
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 738.8333333333335,
+            "average": 14.776666666666669,
+            "stdDeviation": 0.26164012604253867,
+            "median": 14.833333333333334,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 30,
+        "durationMs": 1013992,
+        "fitness": {
+            "total": 204067.79047619062,
+            "average": 4081.3558095238127,
+            "stdDeviation": 1966.4605005100536,
+            "median": 4448.095238095245,
+            "max": 6683.657142857139
+        },
+        "score": {
+            "total": 44008.916666666686,
+            "average": 880.1783333333337,
+            "stdDeviation": 414.7281977961254,
+            "median": 718.7500000000008,
+            "max": 1863.2500000000016
+        },
+        "nofWins": {
+            "total": 12,
+            "average": 0.24,
+            "stdDeviation": 0.6499230723708772,
+            "median": 0,
+            "max": 3
+        },
+        "baselineFitness": {
+            "total": 77980.5333333334,
+            "average": 1559.610666666668,
+            "stdDeviation": 888.5097930615178,
+            "median": 1591.920000000001,
+            "max": 3722.1599999999953
+        },
+        "baselineScore": {
+            "total": 35539.822222222254,
+            "average": 710.7964444444451,
+            "stdDeviation": 552.5539336099698,
+            "median": 701.0222222222231,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 4,
+            "average": 0.08,
+            "stdDeviation": 0.2712931993250109,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 113.34693877551017,
+            "average": 2.2669387755102033,
+            "stdDeviation": 0.5593749114370339,
+            "median": 2.2448979591836733,
+            "max": 4.326530612244898,
+            "nofUnique": 25
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 741.1666666666667,
+            "average": 14.823333333333334,
+            "stdDeviation": 0.2366666666666667,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 31,
+        "durationMs": 1051224,
+        "fitness": {
+            "total": 43198.731851851866,
+            "average": 863.9746370370373,
+            "stdDeviation": 764.069879642476,
+            "median": 371.56740740740764,
+            "max": 2413.2266666666656
+        },
+        "score": {
+            "total": 62970.46666666671,
+            "average": 1259.4093333333342,
+            "stdDeviation": 981.5169482215892,
+            "median": 645.1333333333337,
+            "max": 2941.1999999999994
+        },
+        "nofWins": {
+            "total": 76,
+            "average": 1.52,
+            "stdDeviation": 1.9415457759218546,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 73652.45000000001,
+            "average": 1473.0490000000002,
+            "stdDeviation": 988.5500984911063,
+            "median": 1515.1500000000008,
+            "max": 3365.849999999996
+        },
+        "baselineScore": {
+            "total": 40324.577777777784,
+            "average": 806.4915555555557,
+            "stdDeviation": 718.9822656394236,
+            "median": 786.4888888888896,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 7,
+            "average": 0.14,
+            "stdDeviation": 0.3469870314579492,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 120.04081632653063,
+            "average": 2.4008163265306126,
+            "stdDeviation": 0.6193971353894148,
+            "median": 2.306122448979592,
+            "max": 4.346938775510204,
+            "nofUnique": 24
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 739.1666666666667,
+            "average": 14.783333333333335,
+            "stdDeviation": 0.291070819942883,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 32,
+        "durationMs": 1099314,
+        "fitness": {
+            "total": 165395.5309941519,
+            "average": 3307.9106198830377,
+            "stdDeviation": 1733.7174087388455,
+            "median": 3196.628070175443,
+            "max": 10915.41754385966
+        },
+        "score": {
+            "total": 66151.54999999997,
+            "average": 1323.0309999999995,
+            "stdDeviation": 759.9718756858326,
+            "median": 1131.733333333335,
+            "max": 3091.4666666666694
+        },
+        "nofWins": {
+            "total": 39,
+            "average": 0.78,
+            "stdDeviation": 1.1711532777565883,
+            "median": 0,
+            "max": 6
+        },
+        "baselineFitness": {
+            "total": 78188.74166666667,
+            "average": 1563.7748333333334,
+            "stdDeviation": 1011.5839309297309,
+            "median": 1451.1750000000006,
+            "max": 3068.924999999996
+        },
+        "baselineScore": {
+            "total": 52955.955555555534,
+            "average": 1059.1191111111107,
+            "stdDeviation": 912.4592525589525,
+            "median": 786.4888888888896,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 15,
+            "average": 0.3,
+            "stdDeviation": 0.45825756949558394,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 114.61224489795914,
+            "average": 2.2922448979591827,
+            "stdDeviation": 0.66897000404032,
+            "median": 2.061224489795918,
+            "max": 4.489795918367347,
+            "nofUnique": 22
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 731.3333333333335,
+            "average": 14.62666666666667,
+            "stdDeviation": 0.3206936925548184,
+            "median": 14.5,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 33,
+        "durationMs": 1141576,
+        "fitness": {
+            "total": 96862.86666666667,
+            "average": 1937.2573333333335,
+            "stdDeviation": 858.843685739792,
+            "median": 1999.4,
+            "max": 4555.7
+        },
+        "score": {
+            "total": 54434.466666666674,
+            "average": 1088.6893333333335,
+            "stdDeviation": 479.73295294546693,
+            "median": 1114.2499999999993,
+            "max": 2598.250000000001
+        },
+        "nofWins": {
+            "total": 19,
+            "average": 0.38,
+            "stdDeviation": 1.1813551540497889,
+            "median": 0,
+            "max": 5
+        },
+        "baselineFitness": {
+            "total": 76513.85,
+            "average": 1530.277,
+            "stdDeviation": 1047.4708925424968,
+            "median": 1451.1750000000006,
+            "max": 3068.924999999996
+        },
+        "baselineScore": {
+            "total": 52271.199999999975,
+            "average": 1045.4239999999995,
+            "stdDeviation": 942.9407641302637,
+            "median": 786.4888888888896,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 15,
+            "average": 0.3,
+            "stdDeviation": 0.45825756949558394,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 98.89795918367344,
+            "average": 1.9779591836734687,
+            "stdDeviation": 0.5720381588178275,
+            "median": 1.9387755102040816,
+            "max": 4.653061224489796,
+            "nofUnique": 18
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 731.666666666667,
+            "average": 14.63333333333334,
+            "stdDeviation": 0.28284271247461873,
+            "median": 14.666666666666666,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 34,
+        "durationMs": 1179843,
+        "fitness": {
+            "total": 167124.9777777778,
+            "average": 3342.499555555556,
+            "stdDeviation": 1576.3049954656806,
+            "median": 4068.266666666673,
+            "max": 5128.685714285712
+        },
+        "score": {
+            "total": 48342.7166666667,
+            "average": 966.8543333333341,
+            "stdDeviation": 347.24223789116826,
+            "median": 907.2000000000008,
+            "max": 1429.9000000000003
+        },
+        "nofWins": {
+            "total": 17,
+            "average": 0.34,
+            "stdDeviation": 0.4737087712930805,
+            "median": 0,
+            "max": 1
+        },
+        "baselineFitness": {
+            "total": 78002.04166666667,
+            "average": 1560.0408333333335,
+            "stdDeviation": 1127.7030921206472,
+            "median": 1451.1750000000006,
+            "max": 3068.924999999996
+        },
+        "baselineScore": {
+            "total": 53419.55555555553,
+            "average": 1068.3911111111106,
+            "stdDeviation": 973.8875426345505,
+            "median": 786.4888888888896,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 15,
+            "average": 0.3,
+            "stdDeviation": 0.45825756949558394,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 104.08163265306119,
+            "average": 2.0816326530612237,
+            "stdDeviation": 0.5148037559323285,
+            "median": 2.061224489795918,
+            "max": 3.5918367346938775,
+            "nofUnique": 16
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 733.3333333333333,
+            "average": 14.666666666666664,
+            "stdDeviation": 0.3091206165165231,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 35,
+        "durationMs": 1210075,
+        "fitness": {
+            "total": 53422.097465886916,
+            "average": 1068.4419493177384,
+            "stdDeviation": 736.5094604224823,
+            "median": 728.7111111111096,
+            "max": 3503.3543859649026
+        },
+        "score": {
+            "total": 80734.66666666663,
+            "average": 1614.6933333333325,
+            "stdDeviation": 1165.0357612441662,
+            "median": 1092.800000000001,
+            "max": 3972.4666666666562
+        },
+        "nofWins": {
+            "total": 84,
+            "average": 1.68,
+            "stdDeviation": 1.97423402868049,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 67252.47619047615,
+            "average": 1345.0495238095232,
+            "stdDeviation": 1170.979584351408,
+            "median": 954.4380952380964,
+            "max": 3111.342857142853
+        },
+        "baselineScore": {
+            "total": 46687.95555555555,
+            "average": 933.759111111111,
+            "stdDeviation": 968.9685954610839,
+            "median": 633.9555555555564,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 13,
+            "average": 0.26,
+            "stdDeviation": 0.43863424398922607,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 110.77551020408156,
+            "average": 2.2155102040816312,
+            "stdDeviation": 0.5680682538432976,
+            "median": 1.9591836734693877,
+            "max": 3.938775510204082,
+            "nofUnique": 18
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 736.0000000000001,
+            "average": 14.720000000000002,
+            "stdDeviation": 0.3290390047800816,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 36,
+        "durationMs": 1252809,
+        "fitness": {
+            "total": 50582.27179487183,
+            "average": 1011.6454358974365,
+            "stdDeviation": 672.4182489311836,
+            "median": 658.6276923076933,
+            "max": 2887.1507692307623
+        },
+        "score": {
+            "total": 72933.1666666667,
+            "average": 1458.663333333334,
+            "stdDeviation": 1004.3403803879335,
+            "median": 958.4000000000013,
+            "max": 3811.1499999999915
+        },
+        "nofWins": {
+            "total": 77,
+            "average": 1.54,
+            "stdDeviation": 2.061164719278884,
+            "median": 0,
+            "max": 5
+        },
+        "baselineFitness": {
+            "total": 63976.96410256406,
+            "average": 1279.5392820512811,
+            "stdDeviation": 1153.1503963232835,
+            "median": 1015.3025641025654,
+            "max": 3137.44615384615
+        },
+        "baselineScore": {
+            "total": 43427.64444444443,
+            "average": 868.5528888888886,
+            "stdDeviation": 955.7076099448342,
+            "median": 566.8888888888896,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 12,
+            "average": 0.24,
+            "stdDeviation": 0.4270831300812524,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 102.85714285714282,
+            "average": 2.0571428571428565,
+            "stdDeviation": 0.4969712515055478,
+            "median": 1.9183673469387754,
+            "max": 3.7142857142857144,
+            "nofUnique": 16
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 735.5000000000001,
+            "average": 14.710000000000003,
+            "stdDeviation": 0.2902297940138696,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 37,
+        "durationMs": 1289700,
+        "fitness": {
+            "total": 140460.64242424245,
+            "average": 2809.212848484849,
+            "stdDeviation": 1625.6373335705778,
+            "median": 2541.054545454549,
+            "max": 5050.763636363635
+        },
+        "score": {
+            "total": 73435.71666666669,
+            "average": 1468.7143333333338,
+            "stdDeviation": 1114.114074560341,
+            "median": 748.8333333333344,
+            "max": 3147.050000000001
+        },
+        "nofWins": {
+            "total": 85,
+            "average": 1.7,
+            "stdDeviation": 2.3685438564654007,
+            "median": 0,
+            "max": 5
+        },
+        "baselineFitness": {
+            "total": 63155.18333333337,
+            "average": 1263.1036666666673,
+            "stdDeviation": 1011.4802194379934,
+            "median": 1023.2000000000014,
+            "max": 3365.849999999996
+        },
+        "baselineScore": {
+            "total": 36755.33333333334,
+            "average": 735.1066666666669,
+            "stdDeviation": 765.4554590520546,
+            "median": 616.9333333333325,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 7,
+            "average": 0.14,
+            "stdDeviation": 0.3469870314579492,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 102.32653061224492,
+            "average": 2.0465306122448985,
+            "stdDeviation": 0.4647336256113218,
+            "median": 1.836734693877551,
+            "max": 3.4081632653061225,
+            "nofUnique": 18
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 737.5000000000001,
+            "average": 14.750000000000002,
+            "stdDeviation": 0.27537852736430496,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 38,
+        "durationMs": 1321045,
+        "fitness": {
+            "total": 47349.321611721636,
+            "average": 946.9864322344328,
+            "stdDeviation": 507.0098994249388,
+            "median": 701.934065934066,
+            "max": 1683.2791208791202
+        },
+        "score": {
+            "total": 79771.53333333331,
+            "average": 1595.4306666666662,
+            "stdDeviation": 876.3842677435758,
+            "median": 1177.2000000000005,
+            "max": 2904.9999999999986
+        },
+        "nofWins": {
+            "total": 80,
+            "average": 1.6,
+            "stdDeviation": 1.9595917942265426,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 80794.71794871794,
+            "average": 1615.8943589743587,
+            "stdDeviation": 1007.4510845422856,
+            "median": 1465.9384615384622,
+            "max": 3137.44615384615
+        },
+        "baselineScore": {
+            "total": 51303.51111111109,
+            "average": 1026.0702222222217,
+            "stdDeviation": 872.7314354524319,
+            "median": 803.6000000000007,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 12,
+            "average": 0.24,
+            "stdDeviation": 0.4270831300812527,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 79.5918367346939,
+            "average": 1.591836734693878,
+            "stdDeviation": 0.43723031195160317,
+            "median": 1.6734693877551021,
+            "max": 2.7551020408163267,
+            "nofUnique": 12
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 736.0000000000001,
+            "average": 14.720000000000002,
+            "stdDeviation": 0.24819347291981708,
+            "median": 14.833333333333334,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 39,
+        "durationMs": 1369057,
+        "fitness": {
+            "total": 135194.14358974365,
+            "average": 2703.8828717948727,
+            "stdDeviation": 931.9044606160483,
+            "median": 2852.035164835168,
+            "max": 4406.339926739924
+        },
+        "score": {
+            "total": 66227.38333333335,
+            "average": 1324.5476666666668,
+            "stdDeviation": 591.3353839781238,
+            "median": 1246.7999999999993,
+            "max": 3358.2499999999927
+        },
+        "nofWins": {
+            "total": 42,
+            "average": 0.84,
+            "stdDeviation": 1.2387090053761614,
+            "median": 0,
+            "max": 3
+        },
+        "baselineFitness": {
+            "total": 72287.22857142854,
+            "average": 1445.7445714285707,
+            "stdDeviation": 1106.393060403729,
+            "median": 1460.3142857142864,
+            "max": 3111.342857142853
+        },
+        "baselineScore": {
+            "total": 48408.17777777776,
+            "average": 968.1635555555553,
+            "stdDeviation": 947.821903547623,
+            "median": 786.4888888888896,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 13,
+            "average": 0.26,
+            "stdDeviation": 0.4386342439892262,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 90.28571428571433,
+            "average": 1.8057142857142867,
+            "stdDeviation": 0.36301848987345564,
+            "median": 1.6734693877551021,
+            "max": 2.816326530612245,
+            "nofUnique": 16
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 736.0000000000001,
+            "average": 14.720000000000002,
+            "stdDeviation": 0.2817406214548724,
+            "median": 14.833333333333334,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 40,
+        "durationMs": 1418884,
+        "fitness": {
+            "total": 71391.35768115945,
+            "average": 1427.8271536231891,
+            "stdDeviation": 685.1583152673063,
+            "median": 1584.250434782611,
+            "max": 2700.9785507246384
+        },
+        "score": {
+            "total": 69369.60000000005,
+            "average": 1387.392000000001,
+            "stdDeviation": 1039.2930719443657,
+            "median": 800.0000000000011,
+            "max": 3601.3666666666672
+        },
+        "nofWins": {
+            "total": 88,
+            "average": 1.76,
+            "stdDeviation": 2.6119724347703213,
+            "median": 0,
+            "max": 7
+        },
+        "baselineFitness": {
+            "total": 66362.01212121212,
+            "average": 1327.2402424242423,
+            "stdDeviation": 1086.7499233232868,
+            "median": 976.1939393939406,
+            "max": 3203.890909090905
+        },
+        "baselineScore": {
+            "total": 40642.93333333331,
+            "average": 812.8586666666663,
+            "stdDeviation": 883.0126809515158,
+            "median": 388.9777777777783,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 10,
+            "average": 0.2,
+            "stdDeviation": 0.4,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 97.95918367346938,
+            "average": 1.9591836734693877,
+            "stdDeviation": 0.39970834848473774,
+            "median": 1.7755102040816326,
+            "max": 2.8979591836734695,
+            "nofUnique": 17
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 737.8333333333335,
+            "average": 14.75666666666667,
+            "stdDeviation": 0.2773084924772407,
+            "median": 14.833333333333334,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 41,
+        "durationMs": 1447749,
+        "fitness": {
+            "total": 49835.24740740741,
+            "average": 996.7049481481482,
+            "stdDeviation": 823.5388516526227,
+            "median": 1030.773333333333,
+            "max": 2548.853333333331
+        },
+        "score": {
+            "total": 58426.66666666667,
+            "average": 1168.5333333333335,
+            "stdDeviation": 980.4431060835022,
+            "median": 1210.8,
+            "max": 3104.999999999997
+        },
+        "nofWins": {
+            "total": 56,
+            "average": 1.12,
+            "stdDeviation": 1.795995545651492,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 62716.20952380954,
+            "average": 1254.3241904761908,
+            "stdDeviation": 1002.5495128871831,
+            "median": 960.1714285714299,
+            "max": 3450.6857142857098
+        },
+        "baselineScore": {
+            "total": 34402.62222222222,
+            "average": 688.0524444444444,
+            "stdDeviation": 726.936543548249,
+            "median": 362.00000000000045,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 6,
+            "average": 0.12,
+            "stdDeviation": 0.3249615361854385,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 82.57142857142858,
+            "average": 1.6514285714285717,
+            "stdDeviation": 0.45095742472778716,
+            "median": 1.7142857142857142,
+            "max": 3,
+            "nofUnique": 11
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 741.3333333333336,
+            "average": 14.826666666666672,
+            "stdDeviation": 0.22597935008904366,
+            "median": 14.833333333333334,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 42,
+        "durationMs": 1485084,
+        "fitness": {
+            "total": 61032.933333333305,
+            "average": 1220.658666666666,
+            "stdDeviation": 829.525893414293,
+            "median": 1011.6439560439571,
+            "max": 2958.351648351651
+        },
+        "score": {
+            "total": 63033.516666666685,
+            "average": 1260.6703333333337,
+            "stdDeviation": 906.2248026675763,
+            "median": 1062.3500000000015,
+            "max": 2782.7999999999965
+        },
+        "nofWins": {
+            "total": 49,
+            "average": 0.98,
+            "stdDeviation": 1.726151789385857,
+            "median": 0,
+            "max": 5
+        },
+        "baselineFitness": {
+            "total": 69064.29629629629,
+            "average": 1381.2859259259258,
+            "stdDeviation": 966.5633632305955,
+            "median": 994.8444444444456,
+            "max": 3299.8666666666627
+        },
+        "baselineScore": {
+            "total": 39506.844444444454,
+            "average": 790.1368888888891,
+            "stdDeviation": 786.821269420221,
+            "median": 388.9777777777783,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 0.366606055596467,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 79.02040816326529,
+            "average": 1.5804081632653058,
+            "stdDeviation": 0.4352475155970482,
+            "median": 1.2653061224489797,
+            "max": 2.693877551020408,
+            "nofUnique": 14
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 738.0000000000001,
+            "average": 14.760000000000002,
+            "stdDeviation": 0.2542090128658348,
+            "median": 14.833333333333334,
+            "max": 15.166666666666666
+        }
+    },
+    {
+        "generation": 43,
+        "durationMs": 1536099,
+        "fitness": {
+            "total": 44678.74832535888,
+            "average": 893.5749665071776,
+            "stdDeviation": 420.3445234050954,
+            "median": 790.1779904306226,
+            "max": 1691.3550239234464
+        },
+        "score": {
+            "total": 91414.15000000005,
+            "average": 1828.283000000001,
+            "stdDeviation": 691.4495908555692,
+            "median": 2210.0500000000015,
+            "max": 2576.9000000000015
+        },
+        "nofWins": {
+            "total": 120,
+            "average": 2.4,
+            "stdDeviation": 1.6248076809271923,
+            "median": 3,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 61299.85000000003,
+            "average": 1225.9970000000005,
+            "stdDeviation": 983.9734599158536,
+            "median": 957.5500000000013,
+            "max": 3365.849999999996
+        },
+        "baselineScore": {
+            "total": 34752.44444444444,
+            "average": 695.0488888888888,
+            "stdDeviation": 770.217121788587,
+            "median": 362.00000000000045,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 7,
+            "average": 0.14,
+            "stdDeviation": 0.3469870314579492,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 76.48979591836735,
+            "average": 1.529795918367347,
+            "stdDeviation": 0.38577280627221777,
+            "median": 1.346938775510204,
+            "max": 2.7755102040816326,
+            "nofUnique": 11
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 739.3333333333335,
+            "average": 14.786666666666669,
+            "stdDeviation": 0.25828494170414024,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 44,
+        "durationMs": 1578418,
+        "fitness": {
+            "total": 75081.08545454545,
+            "average": 1501.621709090909,
+            "stdDeviation": 918.3442622558749,
+            "median": 1142.1527272727287,
+            "max": 3157.7012121212083
+        },
+        "score": {
+            "total": 69017.13333333339,
+            "average": 1380.3426666666678,
+            "stdDeviation": 711.9515128633728,
+            "median": 1869.9,
+            "max": 2459.5333333333338
+        },
+        "nofWins": {
+            "total": 88,
+            "average": 1.76,
+            "stdDeviation": 1.8172506706560874,
+            "median": 2,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 49995.30666666668,
+            "average": 999.9061333333335,
+            "stdDeviation": 935.1649814143562,
+            "median": 968.5600000000013,
+            "max": 3722.1599999999953
+        },
+        "baselineScore": {
+            "total": 25488,
+            "average": 509.76,
+            "stdDeviation": 633.0299569374629,
+            "median": 362.00000000000045,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 4,
+            "average": 0.08,
+            "stdDeviation": 0.2712931993250109,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 66.65306122448979,
+            "average": 1.3330612244897957,
+            "stdDeviation": 0.4090895611654747,
+            "median": 1.2448979591836735,
+            "max": 2.5510204081632653,
+            "nofUnique": 10
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 744.0000000000002,
+            "average": 14.880000000000004,
+            "stdDeviation": 0.2286190426597631,
+            "median": 15,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 45,
+        "durationMs": 1608969,
+        "fitness": {
+            "total": 42035.19999999999,
+            "average": 840.7039999999998,
+            "stdDeviation": 572.4574418179403,
+            "median": 645.76,
+            "max": 1655.9999999999989
+        },
+        "score": {
+            "total": 78816.00000000001,
+            "average": 1576.3200000000004,
+            "stdDeviation": 1073.3577034086375,
+            "median": 1210.8,
+            "max": 3104.999999999997
+        },
+        "nofWins": {
+            "total": 88,
+            "average": 1.76,
+            "stdDeviation": 1.9855477833585367,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 72967.0974358974,
+            "average": 1459.341948717948,
+            "stdDeviation": 1043.9702282451017,
+            "median": 1465.9384615384622,
+            "max": 3137.44615384615
+        },
+        "baselineScore": {
+            "total": 47877.68888888887,
+            "average": 957.5537777777774,
+            "stdDeviation": 906.1377082692535,
+            "median": 803.6000000000007,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 12,
+            "average": 0.24,
+            "stdDeviation": 0.42708313008125254,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 73.63265306122447,
+            "average": 1.4726530612244895,
+            "stdDeviation": 0.33109966589334633,
+            "median": 1.2448979591836735,
+            "max": 2.2448979591836733,
+            "nofUnique": 9
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 739.1666666666669,
+            "average": 14.783333333333337,
+            "stdDeviation": 0.28136571693556856,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 46,
+        "durationMs": 1640704,
+        "fitness": {
+            "total": 53205.34090909089,
+            "average": 1064.1068181818177,
+            "stdDeviation": 612.7860662597795,
+            "median": 1322.0318181818159,
+            "max": 2302.1681818181833
+        },
+        "score": {
+            "total": 92360.91666666669,
+            "average": 1847.2183333333337,
+            "stdDeviation": 1051.6589860271554,
+            "median": 2613.2500000000023,
+            "max": 3292.800000000002
+        },
+        "nofWins": {
+            "total": 96,
+            "average": 1.92,
+            "stdDeviation": 1.968146336022807,
+            "median": 3,
+            "max": 5
+        },
+        "baselineFitness": {
+            "total": 81271.32592592588,
+            "average": 1625.4265185185175,
+            "stdDeviation": 1083.9429512583379,
+            "median": 1444.0666666666673,
+            "max": 3035.9333333333298
+        },
+        "baselineScore": {
+            "total": 56853.24444444442,
+            "average": 1137.0648888888884,
+            "stdDeviation": 1002.4704218495709,
+            "median": 803.6000000000007,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 17,
+            "average": 0.34,
+            "stdDeviation": 0.47370877129308037,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 80.9795918367347,
+            "average": 1.619591836734694,
+            "stdDeviation": 0.32179629111897146,
+            "median": 1.510204081632653,
+            "max": 2.326530612244898,
+            "nofUnique": 10
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 737.3333333333336,
+            "average": 14.746666666666671,
+            "stdDeviation": 0.3419551627528576,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 47,
+        "durationMs": 1695109,
+        "fitness": {
+            "total": 53957.82905982906,
+            "average": 1079.1565811965813,
+            "stdDeviation": 589.9443891574127,
+            "median": 1339.4307692307698,
+            "max": 3194.020512820515
+        },
+        "score": {
+            "total": 79582.20000000006,
+            "average": 1591.6440000000011,
+            "stdDeviation": 714.1655956877242,
+            "median": 1841.2500000000018,
+            "max": 2876.7000000000016
+        },
+        "nofWins": {
+            "total": 98,
+            "average": 1.96,
+            "stdDeviation": 1.4961283367412033,
+            "median": 3,
+            "max": 5
+        },
+        "baselineFitness": {
+            "total": 72869.15555555555,
+            "average": 1457.383111111111,
+            "stdDeviation": 1083.649754295359,
+            "median": 948.9866666666679,
+            "max": 3088.719999999996
+        },
+        "baselineScore": {
+            "total": 49179.02222222221,
+            "average": 983.5804444444442,
+            "stdDeviation": 966.7803858590509,
+            "median": 362.00000000000045,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 14,
+            "average": 0.28,
+            "stdDeviation": 0.44899888641287306,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 81.63265306122449,
+            "average": 1.6326530612244898,
+            "stdDeviation": 0.3798331469104275,
+            "median": 1.5918367346938775,
+            "max": 3.2244897959183674,
+            "nofUnique": 11
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 739.8333333333336,
+            "average": 14.796666666666672,
+            "stdDeviation": 0.335476443948669,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 48,
+        "durationMs": 1740930,
+        "fitness": {
+            "total": 87150.14873527909,
+            "average": 1743.0029747055817,
+            "stdDeviation": 867.4942896006914,
+            "median": 1390.3447004608302,
+            "max": 2978.0682027649736
+        },
+        "score": {
+            "total": 66929.5,
+            "average": 1338.59,
+            "stdDeviation": 744.3038143795858,
+            "median": 801.0999999999991,
+            "max": 2359.933333333334
+        },
+        "nofWins": {
+            "total": 88,
+            "average": 1.76,
+            "stdDeviation": 1.9032603605392509,
+            "median": 0,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 62566.25454545454,
+            "average": 1251.3250909090907,
+            "stdDeviation": 1037.3103745076342,
+            "median": 952.5454545454559,
+            "max": 3203.890909090905
+        },
+        "baselineScore": {
+            "total": 39133.155555555546,
+            "average": 782.6631111111109,
+            "stdDeviation": 876.6986256995077,
+            "median": 362.00000000000045,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 10,
+            "average": 0.2,
+            "stdDeviation": 0.4,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 76.28571428571428,
+            "average": 1.5257142857142856,
+            "stdDeviation": 0.43431640216878326,
+            "median": 1.5714285714285714,
+            "max": 3.204081632653061,
+            "nofUnique": 10
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 741.6666666666669,
+            "average": 14.833333333333337,
+            "stdDeviation": 0.3265986323710904,
+            "median": 15,
+            "max": 15.333333333333334
+        }
+    },
+    {
+        "generation": 49,
+        "durationMs": 1777302,
+        "fitness": {
+            "total": 60427.68444444442,
+            "average": 1208.5536888888885,
+            "stdDeviation": 854.7799578218919,
+            "median": 989.1066666666677,
+            "max": 2455.239999999998
+        },
+        "score": {
+            "total": 74762.2,
+            "average": 1495.244,
+            "stdDeviation": 1015.8223299801109,
+            "median": 2080.0000000000023,
+            "max": 2682.599999999997
+        },
+        "nofWins": {
+            "total": 95,
+            "average": 1.9,
+            "stdDeviation": 1.7916472867168918,
+            "median": 3,
+            "max": 4
+        },
+        "baselineFitness": {
+            "total": 72195.45714285715,
+            "average": 1443.909142857143,
+            "stdDeviation": 1088.2273798785393,
+            "median": 949.6857142857156,
+            "max": 3111.342857142853
+        },
+        "baselineScore": {
+            "total": 46258.711111111086,
+            "average": 925.1742222222217,
+            "stdDeviation": 957.1798815668062,
+            "median": 362.00000000000045,
+            "max": 2507.5999999999976
+        },
+        "baselineNofWins": {
+            "total": 13,
+            "average": 0.26,
+            "stdDeviation": 0.4386342439892262,
+            "median": 0,
+            "max": 1
+        },
+        "geneticDistance": {
+            "total": 83.55102040816323,
+            "average": 1.6710204081632645,
+            "stdDeviation": 0.4462745973537279,
+            "median": 1.530612244897959,
+            "max": 3.204081632653061,
+            "nofUnique": 14
+        },
+        "geneticDistanceToCaseInjected": {
+            "total": 739.0000000000002,
+            "average": 14.780000000000005,
+            "stdDeviation": 0.3307231134616656,
+            "median": 14.833333333333334,
+            "max": 15.333333333333334
+        }
+    }
+]

@@ -327,7 +327,6 @@ export default class Engine {
 
     buildWithUnit = (worker, structureSpec, targetPosition) => {
         let structure; // initialized on receive
-        let didPlan; // initialized on receive
 
         const calcFinishedTick = () => this.tick + structureSpec.cost.time;
         const onReceive = () => {
@@ -339,7 +338,6 @@ export default class Engine {
             } else {
                 throw Error(`Unacceptable command build ${structureSpec}: not enough resources`);
             }
-            didPlan = hasEnoughResources;
 
             return hasEnoughResources;
         };
@@ -358,7 +356,7 @@ export default class Engine {
             this.scoreCounter.structureProduced(structure.team.id, structureSpec);
         };
         const onAbort = () => {
-            if (didPlan) {
+            if (structure) {
                 this.commandableManager.structureCancelled(structure);
                 this.simpleVision.commandableRemoved(structure);
                 ['abundant', 'sparse'].forEach(resourceType => worker.team.resources[resourceType] += structureSpec.cost[resourceType]); // eslint-disable-line no-return-assign
@@ -395,6 +393,7 @@ export default class Engine {
             if (canAfford) {
                 ['abundant', 'sparse'].forEach(resourceType => structure.team.resources[resourceType] -= unitSpec.cost[resourceType]); // eslint-disable-line no-return-assign
                 structure.team.usedSupply += unitSpec.cost.supply;
+                structure.team.plannedUnitsByName[unitSpec.constructor.name] += 1;
             }
             didStart = canAfford;
 
@@ -404,11 +403,13 @@ export default class Engine {
             const unit = this.commandableManager.structureProducedUnit(structure, unitSpec);
             this.simpleVision.commandableAdded(unit);
             this.scoreCounter.unitProduced(structure.team.id, unitSpec);
+            unit.team.plannedUnitsByName[unitSpec.constructor.name] -= 1;
         };
         const onAbort = () => {
             if (didStart) {
                 ['abundant', 'sparse'].forEach(resourceType => structure.team.resources[resourceType] += unitSpec.cost[resourceType]); // eslint-disable-line no-return-assign
                 structure.team.usedSupply -= unitSpec.cost.supply;
+                structure.team.plannedUnitsByName[unitSpec.constructor.name] -= 1;
             }
         };
         const commandTarget = { unitType: unitSpec.constructor.name };

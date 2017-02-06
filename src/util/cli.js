@@ -8,10 +8,10 @@
  */
 
 export function getAiConfigs() {
-    const fileName = process.argv[2];
-    const fileName2 = process.argv[3];
-    const configs = !fileName ? [] : require(`../../dump/ai-config/${fileName}.js`);
-    const configs2 = !fileName2 ? [] : require(`../../dump/ai-config/${fileName2}.js`);
+    const dirName = process.argv[2];
+    const dirName2 = process.argv[3];
+    const configs = !dirName ? [] : require(`../../dump/${dirName}/solutions.js`).population;
+    const configs2 = !dirName2 ? [] : require(`../../dump/${dirName2}/solutions.js`).population;
 
     const selectedConfigs = [
         configs[0],
@@ -21,4 +21,8 @@ export function getAiConfigs() {
     console.log(`Using selected aiConfigs for players:`, selectedConfigs.map(Boolean));
 
     return selectedConfigs;
+}
+
+export function canGetAiConfigs() {
+    return !!process.argv[2];
 }

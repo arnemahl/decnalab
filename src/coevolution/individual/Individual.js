@@ -1,4 +1,7 @@
 import Game from '~/rts/Game';
+import {maxLoopsPerGame} from '~/coevolution/config';
+import {generateGenome} from '~/coevolution/individual/generateGenome';
+import {producableThings} from '~/coevolution/config';
 
 const sumTotal = (sum, number) => sum + number;
 let individualsCreated = 0;
@@ -6,7 +9,7 @@ let individualsCreated = 0;
 
 export default class Individual {
 
-    static generate = () => new Individual(generateGenome()); // eslint-disable-line no-use-before-define
+    static generate = () => new Individual(generateGenome());
 
     constructor(genome) {
         this.id = `individual-${individualsCreated++}`;
@@ -27,12 +30,12 @@ export default class Individual {
         const clonedCopy = this.clone();
 
         if (Math.random() < 0.9) {
-            // Mutate build order
+            // Mutate build order by either changing what to produce
             const {buildOrder} = clonedCopy.genome;
             const targetIndex = Math.floor(buildOrder.length * Math.random());
             const target = buildOrder[targetIndex];
 
-            target.count = Math.max(1, target.count + plusOrMinus(1));
+            target.specName = producableThings.slice().sort(() => Math.random())[0];
 
         } else {
             // Mutate attack at supply
@@ -43,19 +46,21 @@ export default class Individual {
     }
 
     static crossover(mother, father) {
-        const crossoverPoint = Math.floor(Math.random() * Math.max(mother.genome.buildOrder.length, father.genome.buildOrder.length));
+        const uniformCrossoverPoint = Math.floor(Math.random() * Math.max(mother.genome.buildOrder.length, father.genome.buildOrder.length));
+        const crossoverPointMother = uniformCrossoverPoint; //Math.floor(Math.random() * mother.genome.buildOrder.length);
+        const crossoverPointFather = uniformCrossoverPoint; //Math.floor(Math.random() * father.genome.buildOrder.length);
         const rand = Math.random() < 0.5;
 
         const son = {
             buildOrder: []
-                .concat(mother.genome.buildOrder.slice(0, crossoverPoint))
-                .concat(father.genome.buildOrder.slice(crossoverPoint)),
+                .concat(mother.genome.buildOrder.slice(0, crossoverPointMother))
+                .concat(father.genome.buildOrder.slice(crossoverPointFather)),
             attackAtSupply: rand ? mother.genome.attackAtSupply : father.genome.attackAtSupply,
         };
         const daughter = {
             buildOrder: []
-                .concat(father.genome.buildOrder.slice(0, crossoverPoint))
-                .concat(mother.genome.buildOrder.slice(crossoverPoint)),
+                .concat(father.genome.buildOrder.slice(0, crossoverPointFather))
+                .concat(mother.genome.buildOrder.slice(crossoverPointMother)),
             attackAtSupply: rand ? father.genome.attackAtSupply : mother.genome.attackAtSupply,
         };
 
@@ -76,7 +81,7 @@ export default class Individual {
 
     evaluateAgainstOne = (opponent) => {
         if (!this.getResult(opponent)) {
-            const game = new Game('game-id', 1000, this.genome, opponent.genome);
+            const game = new Game('game-id', maxLoopsPerGame, this.genome, opponent.genome);
 
             game.simulate();
 
@@ -107,21 +112,34 @@ export default class Individual {
         // against teachSet, favor beating hard-to-beat teachSet members
         const wrappedWithFitness = individuals.map(individual => {
 
+            const results = individual.evaluateAgainstAll(teachSet);
+
             const sharedFitness =
-                individual
-                    .evaluateAgainstAll(teachSet)
+                results
                     // .filter(result => result.didWin)
                     // .map(result => {
                     //     return result.score / nofTimesBeaten[result.opponentId];
                     // })
                     .map(result => {
-                        return result.score / (1 + 2 * nofTimesBeaten[result.opponentId]);
+                        return result.score / (1 + nofTimesBeaten[result.opponentId]);
                     })
                     .reduce(sumTotal, 0);
+
+            const avgScore =
+                results
+                    .map(result => result.score)
+                    .reduce(sumTotal, 0) / results.length;
+
+            const nofWins =
+                results
+                    .filter(result => result.didWin)
+                    .length;
 
             return {
                 individual,
                 fitness: sharedFitness,
+                avgScore,
+                nofWins,
             };
         });
 
@@ -147,7 +165,7 @@ export default class Individual {
                     .evaluateAgainstAll(teachSet)
                     // .filter(result => result.didWin)
                     .map(result => {
-                        return result.score / (1 + 2 * nofTimesBeaten[result.opponentId]);
+                        return result.score / (1 + nofTimesBeaten[result.opponentId]);
                     })
                     .reduce(sumTotal, 0);
 
@@ -205,108 +223,44 @@ export default class Individual {
         return Individual.getIndividualsWithUniqueGenome(population).length;
     };
 
-}
+    /**********************************/
+    /**  Calculate genetic distance  **/
+    /**********************************/
+    getGeneticDistanceTo = (other) => {
+        return Math.abs(this.genome.attackAtSupply - other.genome.attackAtSupply)
+            + Array(
+                Math.max(this.genome.buildOrder.length, other.genome.buildOrder.length)
+            )
+            .fill()
+            .map((_, index) => {
+                const dummyTarget = { addCount: 0 }; // 0 so we can subract without getting NaN
+                const thisTarget = this.genome.buildOrder[index] || dummyTarget; // Dummy target will never
+                const otherTarget = other.genome.buildOrder[index] || dummyTarget; // apply to both
 
+                const addCountDiff = Math.abs(thisTarget.addCount - otherTarget.addCount);
+                const specNameDiff = (thisTarget.specName === otherTarget.specName) ? 0 : 1;
 
-/*******************************************/
-/**  Human designed good-ish individuals  **/
-/*******************************************/
+                return addCountDiff + specNameDiff;
+            })
+            .reduce(sumTotal, 0);
+    };
 
-export const getCaseInjectedInvidviduals = () => [
-    { // Not that good :)
-        buildOrder: [
-            { specName: 'Worker', addCount: 5 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Barracks', addCount: 1 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-        ],
-        attackAtSupply: 15,
-    },
-    { // Not that good :)
-        buildOrder: [
-            { specName: 'Worker', addCount: 5 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Worker', addCount: 4 },
-            { specName: 'Barracks', addCount: 1 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-        ],
-        attackAtSupply: 15,
-    },
-    {
-        buildOrder: [
-            { specName: 'Barracks', addCount: 1 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 11 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-        ],
-        attackAtSupply: 15,
-    },
-    {
-        buildOrder: [
-            { specName: 'Worker', addCount: 4 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Worker', addCount: 1 },
-            { specName: 'Barracks', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-        ],
-        attackAtSupply: 15,
-    },
-    {
-        buildOrder: [ // was 1st generation random generated :-O
-            { specName: 'Worker', addCount: 1 },
-            { specName: 'Barracks', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-        ],
-        attackAtSupply: 20,
-    },
-    {
-        buildOrder: [ // was 1st generation random generated :-O
-            { specName: 'Barracks', addCount: 1 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-        ],
-        attackAtSupply: 20,
-    },
-].map(genome => new Individual(genome));
+    static getAverageGeneticDistancesWithin = (population) => {
+        return population.map(individual =>
+            population
+                .filter(other => other !== individual)
+                .map(other => individual.getGeneticDistanceTo(other))
+                .reduce(sumTotal, 0)
+        ).map(sum => sum / (population.length - 1)); // average
+    };
 
+    static getAverageGeneticDistancesToOtherSet = (population, otherPopulation) => {
+        return population.map(individual =>
+            otherPopulation
+                .filter(other => other !== individual) // same should not be in both, but just in case ¯\_(ツ)_/¯
+                .map(other => individual.getGeneticDistanceTo(other))
+                .reduce(sumTotal, 0)
+        ).map(sum => sum / (otherPopulation.length)); // average
+    };
 
-/************************************/
-/**  Generate random individuals   **/
-/************************************/
-const producableThings = [
-    'Worker',
-    'Marine',
-    'SupplyDepot',
-    'Barracks',
-];
-const nofProducableThings = producableThings.length;
-const maxProduced = [
-    1, // Worker
-    4, // Marine
-    1, // SupplyDepot
-    1, // Barracks
-];
-const maxAttackTiming = 15;
-const initBuildOrderLength = 5;
-
-export function generateGenome() {
-    const buildOrder = Array(initBuildOrderLength).fill().map(() => {
-        const index = Math.floor(nofProducableThings * Math.random());
-        const whatToProduce = producableThings[index];
-        const howMany = Math.ceil(maxProduced[index] * Math.random());
-
-        return {
-            specName: whatToProduce,
-            addCount: howMany
-        };
-    });
-
-    const attackAtSupply = 5 + Math.floor(maxAttackTiming + Math.random());
-
-    return { buildOrder, attackAtSupply };
 }
