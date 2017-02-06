@@ -7,8 +7,6 @@ import {getAiConfigs} from '~/util/cli';
 
 const aiConfigs = getAiConfigs();
 
-console.log(`aiConfigs:`, aiConfigs); // DEBUG
-
 function simulateGame(maxLoops) {
     return new Promise((resolve, reject) => {
         try {
