@@ -3,8 +3,6 @@ import Vectors from '~/rts/spatial/Vectors';
 import UnitSpecs from '~/rts/units/UnitSpecs';
 import StructureSpecs from '~/rts/structures/StructureSpecs';
 
-// import UnitCreator // TODO import
-
 import {isBaseStructure} from '~/rts/structures/BaseStructure';
 
 

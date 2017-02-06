@@ -6,8 +6,6 @@ import DumbAI from '~/ai/DumbAI';
 
 import {generateGenome} from '~/coevolution/individual/Individual';
 
-// import * as FileWriter from '~/rts/FileWriter';
-
 export default class Game {
 
     states = []

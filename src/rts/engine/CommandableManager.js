@@ -2,8 +2,6 @@ import UnitCreator from '~/rts/units/UnitCreator';
 import StructureCreator from '~/rts/structures/StructureCreator';
 
 export default class CommandableManager {
-    units = {}
-    structures = {}
 
     constructor(eventReceiver, teams, map) {
         this.unitCreator = new UnitCreator(eventReceiver);

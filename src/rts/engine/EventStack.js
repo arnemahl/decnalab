@@ -16,13 +16,3 @@ export default class EventStack {
         return JSON.stringify(this.eventsPerTick);
     }
 }
-
-export class ReplayEventStack {
-    constructor(string) {
-        this.eventsPerTick = JSON.parse(string);
-    }
-
-    // tick = (tick) => {
-    //     // TODO forward all events
-    // }
-}
