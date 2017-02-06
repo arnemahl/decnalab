@@ -87,24 +87,46 @@ export default class Individual {
     }
     evaluateAgainstAll = (opponents) => opponents.map(this.evaluateAgainstOne);
 
-    calcFitnessAgainstAll = (opponents) => {
-        this.fitness = this.evaluateAgainstAll(opponents).map(result => result.score).reduce(sumTotal, 0);
-    };
-
-    static getIndividualWithBestSharedFitness = (individuals, teachSet, alreadySelected) => {
-        const lossesToSelected = teachSet.reduce((losses, teachSetMember) => {
+    static getTeachSetLosses = (teachSet, selected) => {
+        return = teachSet.reduce((losses, teachSetMember) => {
 
             losses[teachSetMember.id] =
                 teachSetMember
-                    .evaluateAgainstAll(alreadySelected)
+                    .evaluateAgainstAll(selected)
                     .map(result => result.didLose ? 1 : 0)
                     .reduce(sumTotal, 0);
 
             return losses;
         }, {});
+    };
 
-        // Get shared fitness for each individual against teachSet, taking already
-        // selected individuals into account (favor beating unbeaten teachSet members)
+    static calcSharedFitness = (individuals, teachSet) => {
+        const nofTimesBeaten = Individual.getTeachSetLosses(teachSet, individuals);
+
+        // Set shared fitness to each individual based on performance
+        // against teachSet, favor beating hard-to-beat teachSet members
+        individuals.map(individual => {
+
+            const sharedFitness =
+                individual
+                    .evaluateAgainstAll(teachSet)
+                    .filter(result => result.didWin)
+                    .map(result => {
+                        return result.score / (1 - nofTimesBeaten[result.opponentId]);
+                    })
+                    .reduce(sumTotal, 0);
+
+            // Will go stale as soon as teachSet is renewed, must then
+            // be recalculated using this method!
+            individual.fitness = sharedFitness;
+        });
+    };
+
+    static getIndividualWithBestSharedFitness = (individuals, teachSet, alreadySelected) => {
+        const nofTimesBeaten = Individual.getTeachSetLosses(teachSet, alreadySelected);
+
+        // Get shared fitness for each individual based on performance
+        // against teachSet, favor beating hard-to-beat teachSet members
         const fitnessPerIndividual = individuals.map(individual => {
 
             const sharedFitness =
@@ -112,7 +134,7 @@ export default class Individual {
                     .evaluateAgainstAll(teachSet)
                     .filter(result => result.didWin)
                     .map(result => {
-                        return result.score / (1 - lossesToSelected[result.opponentId]);
+                        return result.score / (1 - nofTimesBeaten[result.opponentId]);
                     })
                     .reduce(sumTotal, 0);
 

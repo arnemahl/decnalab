@@ -24,7 +24,7 @@ export function runCoevolution() {
     let teachSet = Individual.getListOfIndividualsWithBestSharedFitness(population, hallOfFame, bestInHallOfFame, teachSetSize);
 
     // evaluate individuals from puplation
-    population.forEach(individual => individual.calcFitnessAgainstAll(teachSet));
+    Individual.calcSharedFitness(population, teachSet);
 
     while (generation++ < maxGenerations) {
         console.log('\nGeneration:', generation, '\n\tFitnesses:\t', population.map(x => x.id+':  '+Math.floor(x.fitness)).join(',\t'));
