@@ -18,7 +18,7 @@ export function writeJSON(fileName, json) {
 /***********************************************/
 /**  Write DumbAI config to runnable js file  **/
 /***********************************************/
-export function writeConfigToJS(fileName, configArray) {
+export function writeSolutionsToJS(fileName, configArray) {
     const content = `module.exports = ${JSON.stringify(configArray, null, 4)};`;
 
     const fullPath = `${__dirname}/../../dump/ai-config/${fileName}`;

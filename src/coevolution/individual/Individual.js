@@ -1,4 +1,5 @@
 import Game from '~/rts/Game';
+import {maxLoopsPerGame} from '~/coevolution/config';
 
 const sumTotal = (sum, number) => sum + number;
 let individualsCreated = 0;
@@ -77,7 +78,7 @@ export default class Individual {
 
     evaluateAgainstOne = (opponent) => {
         if (!this.getResult(opponent)) {
-            const game = new Game('game-id', 1000, this.genome, opponent.genome);
+            const game = new Game('game-id', maxLoopsPerGame, this.genome, opponent.genome);
 
             game.simulate();
 
@@ -206,6 +207,37 @@ export default class Individual {
         return Individual.getIndividualsWithUniqueGenome(population).length;
     };
 
+    /**********************************/
+    /**  Calculate genetic distance  **/
+    /**********************************/
+    getGeneticDistanceTo = (other) => {
+        return Math.abs(this.genome.attackAtSupply - other.genome.attackAtSupply)
+            + Array(
+                Math.max(this.genome.buildOrder.length, other.genome.buildOrder.length)
+            )
+            .fill()
+            .map((_, index) => {
+                const dummyTarget = { addCount: 0 }; // 0 so we can subract without getting NaN
+                const thisTarget = this.genome.buildOrder[index] || dummyTarget; // Dummy target will never
+                const otherTarget = other.genome.buildOrder[index] || dummyTarget; // apply to both
+
+                const addCountDiff = Math.abs(thisTarget.addCount - otherTarget.addCount);
+                const specNameDiff = (thisTarget.specName === otherTarget.specName) ? 0 : 2; // 2 because ... ¯\_(ツ)_/¯
+
+                return addCountDiff + specNameDiff;
+            })
+            .reduce(sumTotal, 0);
+    };
+
+    static getAverageGeneticDistances = (population) => {
+        return population.map(individual =>
+            population
+                .filter(other => other !== individual)
+                .map(other => individual.getGeneticDistanceTo(other))
+                .reduce(sumTotal, 0)
+        ).map(sum => sum / (population.length - 1)); // average
+    };
+
 }
 
 
@@ -279,6 +311,7 @@ export const getCaseInjectedInvidviduals = () => [
 /************************************/
 /**  Generate random individuals   **/
 /************************************/
+// TODO this is also ./config
 const producableThings = [
     'Worker',
     'Marine',
@@ -292,6 +325,7 @@ const maxProduced = [
     1, // SupplyDepot
     1, // Barracks
 ];
+const minAttackTiming = 5;
 const maxAttackTiming = 15;
 const initBuildOrderLength = 5;
 
@@ -307,7 +341,7 @@ export function generateGenome() {
         };
     });
 
-    const attackAtSupply = 5 + Math.floor(maxAttackTiming + Math.random());
+    const attackAtSupply = minAttackTiming + 1 + Math.floor((maxAttackTiming - minAttackTiming) + Math.random());
 
     return { buildOrder, attackAtSupply };
 }

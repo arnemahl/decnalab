@@ -1,21 +1,31 @@
+import Statistics from '~/coevolution/Statistics';
 import Individual, {getCaseInjectedInvidviduals} from '~/coevolution/individual/Individual';
 import {selectUnique, createScaledFitnessSelection} from '~/coevolution/selection';
+import * as config from '~/coevolution/config';
 
 const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
-const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness) => 1.5 * fitness + maxFitness);
 
-const popSize = 20;
-const nofChildrenPerGeneration = 30;
-const teachSetSize = 8;
-const maxGenerations = 100;
-const crossoverRatio = 0.95;
-const mutationRatio = 0.01;
+const {
+    popSize,
+    nofChildrenPerGeneration,
+    teachSetSize,
+    maxGenerations,
+    fitnessScalingFactor,
+    crossoverRatio,
+    mutationRatio,
+} = config;
+
+const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness) => fitnessScalingFactor * fitness + maxFitness);
 
 const DEBUG = true;
 const logProgress = DEBUG ? console.log : () => {};
 
+
 export function runCoevolution() {
+    const statistics = new Statistics();
+
     let generation = 0;
+
     const hallOfFame = getCaseInjectedInvidviduals();
 
     // initialize population
@@ -34,9 +44,8 @@ export function runCoevolution() {
     let population = wrappedPopulation.map(Individual.unwrap);
 
     while (generation++ < maxGenerations) {
-        console.log('\nGeneration:', generation);
-        console.log('* Unique genomes:', Individual.countUniqueGenomes(population));
-        console.log('* Fitnesses:\t', wrappedPopulation.map(x => x.individual.id+':  '+Math.floor(x.fitness)).join(',\t'));
+        console.log('\nGeneration:', generation + '\n');
+        statistics.track(wrappedPopulation);
 
         // select parents
         const parents = scaledFitnessSelection(wrappedPopulation, nofChildrenPerGeneration).map(Individual.unwrap);
@@ -84,6 +93,17 @@ export function runCoevolution() {
     }
 
     const sortedPopulation = wrappedPopulation.sort((one, two) => two.fitness - one.fitness).map(Individual.unwrap);
+    const uniqueInPopulation = Individual.getIndividualsWithUniqueGenome(sortedPopulation);
 
-    return Individual.getIndividualsWithUniqueGenome(sortedPopulation);
+    const output = {
+        solutions: {
+            population: uniqueInPopulation.map(x => x.genome),
+            hallOfFame: hallOfFame.map(x => x.genome),
+            caseInjected: getCaseInjectedInvidviduals().map(x => x.genome),
+        },
+        config,
+        statistics: statistics.dump(),
+    };
+
+    return output;
 }
