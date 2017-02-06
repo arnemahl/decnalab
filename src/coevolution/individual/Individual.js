@@ -184,6 +184,13 @@ import StructureSpecs from '~/rts/structures/StructureSpecs';
 const {Worker, Marine} = new UnitSpecs();
 const {SupplyDepot, Barracks} = new StructureSpecs();
 
+// TODO, IMPORTANT: Change encoding of individuals!
+/*
+ * 1. If swapping stuff (crossover), may get non-effectual (first make until you have 2, then until you have 1)
+ * 2. Follow a tech tree? One way or another, fix dependencies, so they don't get stuck on supply block or missing barracks
+ *
+ */
+
 export const getCaseInjectedInvidviduals = () => [
     { // Not that good :)
         buildOrder: [
