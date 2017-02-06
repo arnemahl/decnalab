@@ -27,6 +27,7 @@ export function runCoevolution() {
     let wrappedPopulation = Individual.wrapWithSharedFitness(initialPopulation, teachSet);
 
     wrappedPopulation = scaledFitnessSelection(wrappedPopulation, popSize);
+    let population = wrappedPopulation.map(Individual.unwrap);
 
     while (generation++ < maxGenerations) {
         console.log('\nGeneration:', generation, '\n\tFitnesses:\t', wrappedPopulation.map(x => x.individual.id+':  '+Math.floor(x.fitness)).join(',\t'));
@@ -64,8 +65,6 @@ export function runCoevolution() {
         });
 
         // update evaluators (teachSet)
-        const population = wrappedPopulation.map(Individual.unwrap);
-
         bestInHallOfFame = Individual.selectBySharedSampling(hallOfFame, teachSet, [], teachSetSize / 2);
         teachSet = Individual.selectBySharedSampling(population, teachSet, bestInHallOfFame, teachSetSize);
 
@@ -76,9 +75,10 @@ export function runCoevolution() {
         const wrappedSurvivors = selectUnique(wrappedChildren, popSize, scaledFitnessSelection);
 
         wrappedPopulation = wrappedSurvivors;
+        population = wrappedPopulation.map(Individual.unwrap);
 
-        // // update hall of fame (?)
-        // hallOfFame = Individual.selectBySharedSampling(hallOfFame.concat(population), teachSet, [], hallOfFame.length);
+        // add best individual from generation
+        hallOfFame.push(Individual.getBestAdditionToSample(population, teachSet, hallOfFame));
     }
 
     const sortedPopulation = wrappedPopulation.sort((one, two) => two.fitness - one.fitness).map(Individual.unwrap);
