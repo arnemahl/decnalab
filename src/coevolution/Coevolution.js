@@ -2,12 +2,12 @@ import Individual, {getCaseInjectedInvidviduals} from '~/coevolution/individual/
 import {selectUnique, createScaledFitnessSelection} from '~/coevolution/selection';
 
 const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
-const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness) => 3 * fitness + maxFitness);
+const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness) => 1.5 * fitness + maxFitness);
 
 const popSize = 8;
 const nofChildrenPerGeneration = 12;
 const teachSetSize = 4;
-const maxGenerations = 3;
+const maxGenerations = 8;
 const crossoverRatio = 0.95;
 const mutationRatio = 0.01;
 
