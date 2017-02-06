@@ -1,5 +1,5 @@
 import Individual, {getCaseInjectedInvidviduals} from '~/coevolution/individual/Individual';
-import {selectUnique, rouletteWheelSelection, linearRankSelection, createScaledFitnessSelection} from '~/coevolution/selection';
+import {selectUnique, createScaledFitnessSelection} from '~/coevolution/selection';
 
 const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
 const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness) => 3 * fitness + maxFitness);
@@ -17,20 +17,20 @@ export function runCoevolution() {
     const hallOfFame = getCaseInjectedInvidviduals().slice(0, 3);
 
     // initialize population
-    let population = Array(popSize).fill().map(Individual.generate);
+    const initialPopulation = Array(popSize).fill().map(Individual.generate);
 
     // select evaluators (teachSet)
     let bestInHallOfFame = hallOfFame.slice(0, teachSetSize / 2);
-    let teachSet = Individual.getListOfIndividualsWithBestSharedFitness(population, hallOfFame, bestInHallOfFame, teachSetSize);
+    let teachSet = Individual.getListOfIndividualsWithBestSharedFitness(initialPopulation, hallOfFame, bestInHallOfFame, teachSetSize);
 
-    // evaluate individuals from puplation
-    Individual.calcSharedFitness(population, teachSet);
+    // evaluate individuals from initialPopulation
+    let wrappedPopulation = Individual.wrapWithSharedFitness(initialPopulation, teachSet);
 
     while (generation++ < maxGenerations) {
-        console.log('\nGeneration:', generation, '\n\tFitnesses:\t', population.map(x => x.id+':  '+Math.floor(x.fitness)).join(',\t'));
+        console.log('\nGeneration:', generation, '\n\tFitnesses:\t', wrappedPopulation.map(x => x.individual.id+':  '+Math.floor(x.fitness)).join(',\t'));
 
         // select parents
-        const parents = scaledFitnessSelection(population, nofChildrenPerGeneration);
+        const parents = scaledFitnessSelection(wrappedPopulation, nofChildrenPerGeneration).map(Individual.unwrap);
 
         const uniqueParents = parents.reduce((unique, next) => {
             if (unique.indexOf(next) === -1) {
@@ -62,22 +62,24 @@ export function runCoevolution() {
         });
 
         // update evaluators (teachSet)
+        const population = wrappedPopulation.map(Individual.unwrap);
+
         bestInHallOfFame = Individual.getListOfIndividualsWithBestSharedFitness(hallOfFame, teachSet, [], teachSetSize / 2);
         teachSet = Individual.getListOfIndividualsWithBestSharedFitness(population, teachSet, bestInHallOfFame, teachSetSize);
 
         // evaluate children
-        children.forEach(individual => individual.calcFitnessAgainstAll(teachSet));
+        const wrappedChildren = Individual.wrapWithSharedFitness(children, teachSet);
 
         // select survivors for next generation
-        const survivors = selectUnique(children, popSize, scaledFitnessSelection);
+        const wrappedSurvivors = selectUnique(wrappedChildren, popSize, scaledFitnessSelection);
 
-        population = survivors;
+        wrappedPopulation = wrappedSurvivors;
 
         // // update hall of fame (?)
         // hallOfFame = Individual.getListOfIndividualsWithBestSharedFitness(hallOfFame.concat(population), teachSet, [], hallOfFame.length);
     }
 
-    const sortedPopulation = population.sort((one, two) => two.fitness - one.fitness);
+    const sortedPopulation = wrappedPopulation.sort((one, two) => two.fitness - one.fitness).map(Individual.unwrap);
 
     return sortedPopulation;
 }

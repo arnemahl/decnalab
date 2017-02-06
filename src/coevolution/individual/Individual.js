@@ -88,7 +88,7 @@ export default class Individual {
     evaluateAgainstAll = (opponents) => opponents.map(this.evaluateAgainstOne);
 
     static getTeachSetLosses = (teachSet, selected) => {
-        return = teachSet.reduce((losses, teachSetMember) => {
+        return teachSet.reduce((losses, teachSetMember) => {
 
             losses[teachSetMember.id] =
                 teachSetMember
@@ -100,34 +100,16 @@ export default class Individual {
         }, {});
     };
 
-    static calcSharedFitness = (individuals, teachSet) => {
-        const nofTimesBeaten = Individual.getTeachSetLosses(teachSet, individuals);
+    static wrapWithSharedFitness = (individuals, teachSet, alreadySelected) => {
+        if (typeof alreadySelected === 'undefined') {
+            alreadySelected = individuals;
+        }
 
-        // Set shared fitness to each individual based on performance
-        // against teachSet, favor beating hard-to-beat teachSet members
-        individuals.map(individual => {
-
-            const sharedFitness =
-                individual
-                    .evaluateAgainstAll(teachSet)
-                    .filter(result => result.didWin)
-                    .map(result => {
-                        return result.score / (1 - nofTimesBeaten[result.opponentId]);
-                    })
-                    .reduce(sumTotal, 0);
-
-            // Will go stale as soon as teachSet is renewed, must then
-            // be recalculated using this method!
-            individual.fitness = sharedFitness;
-        });
-    };
-
-    static getIndividualWithBestSharedFitness = (individuals, teachSet, alreadySelected) => {
         const nofTimesBeaten = Individual.getTeachSetLosses(teachSet, alreadySelected);
 
         // Get shared fitness for each individual based on performance
         // against teachSet, favor beating hard-to-beat teachSet members
-        const fitnessPerIndividual = individuals.map(individual => {
+        const wrappedInObjectWithFitness = individuals.map(individual => {
 
             const sharedFitness =
                 individual
@@ -140,11 +122,17 @@ export default class Individual {
 
             return {
                 individual,
-                sharedFitness
+                fitness: sharedFitness,
             };
         });
 
-        const best = fitnessPerIndividual.sort((one, two) => two.fitness - one.fitness)[0];
+        return wrappedInObjectWithFitness;
+    };
+    static unwrap = wrapper => wrapper.individual;
+
+    static getIndividualWithBestSharedFitness = (individuals, teachSet, alreadySelected) => {
+        const wrappedWithFitness = Individual.wrapWithSharedFitness(individuals, teachSet, alreadySelected);
+        const best = wrappedWithFitness.sort((one, two) => two.fitness - one.fitness)[0];
 
         return best.individual;
     };
