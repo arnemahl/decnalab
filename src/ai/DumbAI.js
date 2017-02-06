@@ -16,43 +16,15 @@ function getClosestResourceSite(map, worker, resourceType) {
 
 export default class DumbAI {
 
-    constructor(team, map) {
+    constructor(team, map, individual) {
         this.team = team;
         this.map = map;
 
-        const {
-            unitSpecs: {
-                Worker,
-                Marine,
-            },
-            structureSpecs: {
-                SupplyDepot,
-                // BaseStructure,
-                Barracks,
-            },
-        } = team;
+        this.buildOrder = individual.buildOrder;
+        this.attackAtSupply = individual.attackAtSupply;
 
-        if (this.team.id === 'blue') {
-            this.buildOrder = [
-                { spec: Worker, count: 9, },
-                { spec: SupplyDepot, count: 1, },
-                { spec: Worker, count: 10, },
-                { spec: Barracks, count: 1, },
-                { spec: Worker, count: 11, },
-                { spec: Marine, count: 1, },
-                { spec: Barracks, count: 2, },
-                { spec: Marine, count: 10, },
-                { spec: SupplyDepot, count: 2, },
-                { spec: Marine, count: Number.POSITIVE_INFINITY, },
-            ];
-            this.attackAtSupply = 18;
-        } else {
-            this.buildOrder = [
-                { spec: Worker, count: 10, },
-                { spec: Barracks, count: 1, },
-                { spec: Marine, count: Number.POSITIVE_INFINITY, },
-            ];
-            this.attackAtSupply = 0;
+        if (individual.buildOrder.some(x => !x.specName || !x.addCount)) {
+            throw Error('BUILD ORDER CONTAINS INVAILD TARGET');
         }
     }
 
@@ -86,24 +58,44 @@ export default class DumbAI {
                 throw Error('woot');
         }
     }
-    countCommandablesWithSpec = (spec) => {
+    getSpecByName = (specName) => {
+        const spec = this.team.unitSpecs[specName] || this.team.structureSpecs[specName];
+
+        if (!spec) {
+            throw Error(`No spec found for ${specName}`);
+        }
+
+        return spec;
+    }
+    countCommandablesWithSpecName = (specName) => {
+        const spec = this.getSpecByName(specName);
+
         switch (spec.type) {
             case 'unit':
                 return Object.values(this.team.units)
-                    .filter(unit => unit.constructor.name === spec.constructor.name)
+                    .filter(unit => unit.constructor.name === specName)
                     .length;
             case 'structure':
                 return Object.values(this.team.structures)
-                    .filter(structure => structure.constructor.name === spec.constructor.name)
+                    .filter(structure => structure.constructor.name === specName)
                     .length;
         }
     }
 
     macro() {
         while (true) { // eslint-disable-line
-            const nextTarget = this.buildOrder.find(target => this.countCommandablesWithSpec(target.spec) < target.count);
+            const targetTotals = {
+                'Worker': 0,
+                'Marine': 0,
+                'SupplyDepot': 0,
+                'Barracks': 0,
+            };
 
-            const {spec} = nextTarget;
+            const nextTarget =
+                this.buildOrder.find(target => this.countCommandablesWithSpecName(target.specName) < (targetTotals[target.specName] += target.addCount))
+                || this.buildOrder[this.buildOrder.length - 1];
+
+            const spec = this.getSpecByName(nextTarget.specName);
 
             if (!this.canAfford(spec)) {
                 return;
@@ -126,7 +118,13 @@ export default class DumbAI {
             }
 
             if (spec.producedBy === Worker) {
-                availableProducers[0].getCommander().build(spec, this.getNextAvailableStructurePosition());
+                // In case the last thing in Build order is  a structure, AI will continue making more of that
+                // structure for ever. No value in supporting that, just stop when running out of space.
+                const structurePosition = this.getNextAvailableStructurePosition();
+
+                if (structurePosition) {
+                    availableProducers[0].getCommander().build(spec, structurePosition);
+                }
             } else {
                 availableProducers[0].getCommander().produceUnit(spec);
             }
@@ -151,23 +149,25 @@ export default class DumbAI {
     /*****************/
 
     micro() {
-        if (this.team.usedSupply < this.attackAtSupply) {
-            return;
-        }
+        if (this.team.visibleEnemyCommandables.length > 0) {
+            // Probably already in battle, go for it
+            this.getAllCommandablesOfClass(Marine)
+                .filter(marine => marine.isIdle())
+                .forEach(marine => {
+                    const closestEnemy = getClosestEnemy(marine);
 
-        const marines = this.getAllCommandablesOfClass(Marine);
-        const enemySpawnPosition = this.map.unitSpawnPositions.find((_, index) => index !== this.team.index);
-
-        marines
-            .filter(marine => marine.isIdle())
-            .forEach(marine => {
-                const closestEnemy = getClosestEnemy(marine);
-
-                if (closestEnemy) {
                     marine.getCommander().attackMove(closestEnemy.position);
-                } else {
+                });
+
+        } else if (this.team.usedSupply >= this.attackAtSupply) {
+            // Ready to approach enemy base
+            const enemySpawnPosition = this.map.unitSpawnPositions.find((_, index) => index !== this.team.index);
+
+            this.getAllCommandablesOfClass(Marine)
+                .filter(marine => marine.isIdle())
+                .forEach(marine => {
                     marine.getCommander().attackMove(enemySpawnPosition);
-                }
-            });
+                });
+        }
     }
 }

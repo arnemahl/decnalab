@@ -4,6 +4,8 @@ import DefaultMap from '~/rts/spatial/DefaultMap';
 import Team from '~/rts/team/Team';
 import DumbAI from '~/ai/DumbAI';
 
+import {generateGenome} from '~/coevolution/individual/Individual';
+
 // import * as FileWriter from '~/rts/FileWriter';
 
 export default class Game {
@@ -12,7 +14,7 @@ export default class Game {
     teamIds = ['blue', 'red']
     loops = 0
 
-    constructor(id, maxLoops) {
+    constructor(id, maxLoops, blueAiConfig, redAiConfig) {
         this.id = id;
         this.maxLoops = maxLoops;
 
@@ -25,35 +27,47 @@ export default class Game {
         ];
 
         this.engine = new Engine(this.map, this.teams);
-        this.AIs = this.teams.map(team => new DumbAI(team, this.map));
+        this.AIs = [
+            new DumbAI(this.teams[0], this.map, blueAiConfig || generateGenome()),
+            new DumbAI(this.teams[1], this.map, redAiConfig || generateGenome()),
+        ];
     }
 
     isFinished() {
         return this.teams.some(team => team.hasNoMoreCommandables()) || this.loops++ > this.maxLoops;
     }
-
-    play = () => {
-        // TODO do stuff
+    doTick = () => {
         const tick = this.engine.doTick();
         this.AIs.forEach(ai => ai.doTick(tick));
+    }
 
-        this.states.push(this.getState());
+    simulate() {
+        do {
+            this.doTick();
+        } while (!this.isFinished());
 
-        // Callbacks
-        if (this.isFinished()) {
-            const loser = this.teams.find(team => team.hasNoMoreCommandables());
-            const winner = this.teams.find(team => !team.hasNoMoreCommandables());
+        this.saveFinalState();
+    }
+    simulateAndStoreEveryState() {
+        do {
+            this.doTick();
+            this.states.push(this.getState());
+        } while (!this.isFinished());
 
-            if (loser && winner) {
-                this.engine.scoreCounter.gameOver(winner.id, loser.id, this.engine.tick);
-            }
+        this.saveFinalState();
+    }
 
-            this.ticks = this.engine.tick;
-            this.finalScore = this.engine.scoreCounter.getState();
-            this.onFinish(this);
-        } else {
-            setImmediate(this.play);
+    saveFinalState() {
+        const loser = this.teams.find(team => team.hasNoMoreCommandables());
+        const winner = this.teams.find(team => !team.hasNoMoreCommandables());
+
+        if (loser && winner) {
+            this.engine.scoreCounter.gameOver(winner.id, loser.id, this.engine.tick);
         }
+
+        this.finalTick = this.engine.tick;
+        this.finalScore = this.engine.scoreCounter.getState();
+        this.finalState = this.getState();
     }
 
     getState = () => {
