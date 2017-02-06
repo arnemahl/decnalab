@@ -43,19 +43,20 @@ export default class Individual {
     }
 
     static crossover(mother, father) {
-        const crossoverPoint = Math.floor(Math.random() * Math.max(mother.genome.buildOrder.length, father.genome.buildOrder.length));
+        const crossoverPointMother = Math.floor(Math.random() * mother.genome.buildOrder.length);
+        const crossoverPointFather = Math.floor(Math.random() * father.genome.buildOrder.length);
         const rand = Math.random() < 0.5;
 
         const son = {
             buildOrder: []
-                .concat(mother.genome.buildOrder.slice(0, crossoverPoint))
-                .concat(father.genome.buildOrder.slice(crossoverPoint)),
+                .concat(mother.genome.buildOrder.slice(0, crossoverPointMother))
+                .concat(father.genome.buildOrder.slice(crossoverPointFather)),
             attackAtSupply: rand ? mother.genome.attackAtSupply : father.genome.attackAtSupply,
         };
         const daughter = {
             buildOrder: []
-                .concat(father.genome.buildOrder.slice(0, crossoverPoint))
-                .concat(mother.genome.buildOrder.slice(crossoverPoint)),
+                .concat(father.genome.buildOrder.slice(0, crossoverPointFather))
+                .concat(mother.genome.buildOrder.slice(crossoverPointMother)),
             attackAtSupply: rand ? father.genome.attackAtSupply : mother.genome.attackAtSupply,
         };
 
