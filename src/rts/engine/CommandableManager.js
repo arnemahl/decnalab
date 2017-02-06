@@ -80,7 +80,9 @@ export default class CommandableManager {
         structure.team.structures = structure.team.structures.filter(remaining => remaining !== structure);
         structure.team.commandablesByName[structure.constructor.name] = structure.team.commandablesByName[structure.constructor.name].filter(remaining => remaining !== structure);
 
-        structure.team.supply -= structure.specs.providesSupply || 0;
+        if (structure.isFinished) {
+            structure.team.supply -= structure.specs.providesSupply || 0;
+        }
     }
 
     structureProducedUnit(structure, unitSpec) {
@@ -98,6 +100,7 @@ export default class CommandableManager {
     }
     structureFinished(structure) {
         delete structure.isUnderConstruction;
+        structure.isFinished = true;
         structure.team.supply += structure.specs.providesSupply || 0;
     }
     structureCancelled(structure) {
