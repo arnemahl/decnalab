@@ -13,6 +13,8 @@ export function getAiConfigs() {
     const configs = !fileName ? [] : require(`../../dump/ai-config/${fileName}.js`);
     const configs2 = !fileName2 ? [] : require(`../../dump/ai-config/${fileName2}.js`);
 
+    // TODO get population, files now don't contain just an array of BOs, but object of arrays of BOs
+
     const selectedConfigs = [
         configs[0],
         configs2[0] || configs[1],
