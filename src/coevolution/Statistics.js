@@ -1,4 +1,7 @@
 import Individual from '~/coevolution/individual/Individual';
+import {getBaselines} from '~/coevolution/individual/baselines';
+
+const baselines = getBaselines();
 
 const sumTotal = (sum, number) => sum + number;
 const ascending = (a, b) => a - b;
@@ -51,39 +54,40 @@ export default class Statistics {
             json: this.stats,
             tex: {
                 fitness: getTexGraphData(this.stats.map(generation => generation.fitness), '# fitness'),
-                geneticDistance: getTexGraphData(this.stats.map(generation => generation.geneticDistance), '# geneticDistance'),
                 score: getTexGraphData(this.stats.map(generation => generation.score), '# score'),
                 nofWins: getTexGraphData(this.stats.map(generation => generation.nofWins), '# nofWins'),
+
+                baselineFitness: getTexGraphData(this.stats.map(generation => generation.baselineFitness), '# Fitness when evaluated against baseline solutions'),
+                baselineScore: getTexGraphData(this.stats.map(generation => generation.baselineScore), '# Score when playing against baseline solutions'),
+                baselineNofWins: getTexGraphData(this.stats.map(generation => generation.baselineNofWins), '# Number of wins against baseline solutions'),
+
+                geneticDistance: getTexGraphData(this.stats.map(generation => generation.geneticDistance), '# geneticDistance'),
             },
         };
     }
 
     track = (wrappedPopulation) => {
-        const fitnesses = wrappedPopulation.map(x => x.fitness);
-        const scores = wrappedPopulation.map(x => x.avgScore);
-        const nofWins = wrappedPopulation.map(x => x.nofWins);
-
         const population = wrappedPopulation.map(Individual.unwrap);
+
+        const baselineResults = Individual.wrapWithSharedFitness(population, baselines);
         const avgGeneticDistances = Individual.getAverageGeneticDistances(population);
 
         this.stats.push({
             generation: this.stats.length,
             durationMs: Date.now() - this.t0,
 
-            fitness: calcStuff(fitnesses),
-            score: calcStuff(scores),
-            nofWins: calcStuff(nofWins),
+            fitness: calcStuff(wrappedPopulation.map(x => x.fitness)),
+            score: calcStuff(wrappedPopulation.map(x => x.avgScore)),
+            nofWins: calcStuff(wrappedPopulation.map(x => x.nofWins)),
+
+            baselineFitness: calcStuff(baselineResults.map(x => x.fitness)),
+            baselineScore: calcStuff(baselineResults.map(x => x.avgScore)),
+            baselineNofWins: calcStuff(baselineResults.map(x => x.nofWins)),
+
             geneticDistance: {
                 ...calcStuff(avgGeneticDistances),
                 nofUnique: Individual.countUniqueGenomes(population),
             },
-
-            // rawData: {
-            //     fitnesses,
-            //     scores,
-            //     nofWins,
-            //     avgGeneticDistances,
-            // },
         });
 
         if (DEBUG) {
