@@ -1,5 +1,6 @@
 import Statistics from '~/coevolution/Statistics';
-import Individual, {getCaseInjectedInvidviduals} from '~/coevolution/individual/Individual';
+import Individual from '~/coevolution/individual/Individual';
+import {getCaseInjectedInvidviduals} from '~/coevolution/individual/caseInjection';
 import {selectUnique, createScaledFitnessSelection} from '~/coevolution/selection';
 import * as config from '~/coevolution/config';
 

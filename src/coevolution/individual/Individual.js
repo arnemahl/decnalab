@@ -1,5 +1,7 @@
 import Game from '~/rts/Game';
 import {maxLoopsPerGame} from '~/coevolution/config';
+import {generateGenome} from '~/coevolution/individual/generateGenome';
+import {producableThings} from '~/coevolution/config';
 
 const sumTotal = (sum, number) => sum + number;
 let individualsCreated = 0;
@@ -7,7 +9,7 @@ let individualsCreated = 0;
 
 export default class Individual {
 
-    static generate = () => new Individual(generateGenome()); // eslint-disable-line no-use-before-define
+    static generate = () => new Individual(generateGenome());
 
     constructor(genome) {
         this.id = `individual-${individualsCreated++}`;
@@ -35,7 +37,7 @@ export default class Individual {
 
             if (Math.random() < 0.5) {
                 // ... changing what to produce
-                target.specName = producableThings.slice().sort(() => Math.random())[0]; // eslint-disable-line no-use-before-define
+                target.specName = producableThings.slice().sort(() => Math.random())[0];
             } else  {
                 // ... or changing how many to produce
                 target.addCount = Math.max(1, target.addCount + plusOrMinus(1));
@@ -258,110 +260,4 @@ export default class Individual {
         ).map(sum => sum / (population.length - 1)); // average
     };
 
-}
-
-
-/*******************************************/
-/**  Human designed good-ish individuals  **/
-/*******************************************/
-
-export const getCaseInjectedInvidviduals = () => [
-    { // Not that good :)
-        buildOrder: [
-            { specName: 'Worker', addCount: 5 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Barracks', addCount: 1 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-        ],
-        attackAtSupply: 15,
-    },
-    { // Not that good :)
-        buildOrder: [
-            { specName: 'Worker', addCount: 5 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Worker', addCount: 4 },
-            { specName: 'Barracks', addCount: 1 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-        ],
-        attackAtSupply: 15,
-    },
-    {
-        buildOrder: [
-            { specName: 'Barracks', addCount: 1 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 11 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-        ],
-        attackAtSupply: 15,
-    },
-    {
-        buildOrder: [
-            { specName: 'Worker', addCount: 4 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Worker', addCount: 1 },
-            { specName: 'Barracks', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-        ],
-        attackAtSupply: 15,
-    },
-    {
-        buildOrder: [ // was 1st generation random generated :-O
-            { specName: 'Worker', addCount: 1 },
-            { specName: 'Barracks', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-        ],
-        attackAtSupply: 20,
-    },
-    {
-        buildOrder: [ // was 1st generation random generated :-O
-            { specName: 'Barracks', addCount: 1 },
-            { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 1 },
-        ],
-        attackAtSupply: 20,
-    },
-].map(genome => new Individual(genome));
-
-
-/************************************/
-/**  Generate random individuals   **/
-/************************************/
-// TODO this is also ./config
-const producableThings = [
-    'Worker',
-    'Marine',
-    'SupplyDepot',
-    'Barracks',
-];
-const nofProducableThings = producableThings.length;
-const maxProduced = [
-    1, // Worker
-    4, // Marine
-    1, // SupplyDepot
-    1, // Barracks
-];
-const minAttackTiming = 5;
-const maxAttackTiming = 15;
-const initBuildOrderLength = 5;
-
-export function generateGenome() {
-    const buildOrder = Array(initBuildOrderLength).fill().map(() => {
-        const index = Math.floor(nofProducableThings * Math.random());
-        const whatToProduce = producableThings[index];
-        const howMany = Math.ceil(maxProduced[index] * Math.random());
-
-        return {
-            specName: whatToProduce,
-            addCount: howMany
-        };
-    });
-
-    const attackAtSupply = minAttackTiming + 1 + Math.floor((maxAttackTiming - minAttackTiming) + Math.random());
-
-    return { buildOrder, attackAtSupply };
 }
