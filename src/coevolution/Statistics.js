@@ -21,10 +21,24 @@ const calcStuff = (numbers) => {
         max,
     };
 };
+const spaces = count => Array(count).fill(' ').join('');
+const fmt = number => {
+    const maxL = 20; // Assumption of max number digits to the left of decimal mark
+    const maxR = 15;
+    if (String(number).split('.')[0].length > maxL) {
+        throw Error(`Need ot increase max number of digits before decimal mark, number too long ${number}`);
+    }
+
+    // Makes the numbers align neatly. Left pads with spaces, rigth pads with zeros or rounds off if more than maxR decimals
+    return String(spaces(maxL) + number.toFixed(maxR)).split('').reverse().slice(0, maxL + maxR).reverse().join('');
+};
+const lp2 = number => String('  ' + number).split('').reverse().slice(0, 3).reverse().join('');
 const getTexGraphData = (numberStuff, comments) => {
     return `${comments}\n\n`
-        + 'gen avg stdDev median max total\n'
-        + numberStuff.map((stuff, generation) => `${generation} ${stuff.average} ${stuff.stdDeviation} ${stuff.median} ${stuff.max} ${stuff.total}`).join('\n');
+        + `  gen${spaces(19)}avg${spaces(33)}stdDev${spaces(30)}median${spaces(30)}max${spaces(33)}total\n\n`
+        + numberStuff.map((stuff, generation) =>
+            `${lp2(generation)} ${fmt(stuff.average)} ${fmt(stuff.stdDeviation)} ${fmt(stuff.median)} ${fmt(stuff.max)} ${fmt(stuff.total)}`
+        ).join('\n');
 };
 
 export default class Statistics {
