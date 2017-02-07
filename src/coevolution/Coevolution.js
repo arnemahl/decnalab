@@ -28,7 +28,7 @@ export function runCoevolution() {
 
     const hallOfFame = getCaseInjectedInvidviduals();
 
-    // initialize population
+    // initialize population (not all will survive)
     const initialPopulation = Array(nofChildrenPerGeneration).fill().map(Individual.generate);
 
     // select evaluators (teachSet)
@@ -40,6 +40,7 @@ export function runCoevolution() {
     logProgress('Evaluating initial population...');
     let wrappedPopulation = Individual.wrapWithSharedFitness(initialPopulation, teachSet);
 
+    // select survivors for 1st generation
     wrappedPopulation = selectUnique(wrappedPopulation, popSize, scaledFitnessSelection);
     let population = wrappedPopulation.map(Individual.unwrap);
 
