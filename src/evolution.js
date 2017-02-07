@@ -6,25 +6,26 @@ const FileWriter = require('./rts/FileWriter');
 
 const t0 = Date.now();
 const output = runCoevolution();
-console.log(`Evolution complete (${Date.now() - t0} ms)`);
-console.log(`\nUnique solutions:`, output.solutions.population.length);
 
+const DEBUG = false;
 
-console.log('\n');
-console.log('/************************/');
-console.log('/**  final generation  **/');
-console.log('/************************/');
-output.solutions.population.forEach((genome, index) => {
-    console.log(`\nBuild order (${index})\n\t` + genome.buildOrder.map(target => `${target.specName}: ${target.addCount}`).join('\n\t'));
-});
+if (DEBUG || !process.argv[2]) {
+    console.log('\n');
+    console.log('/************************/');
+    console.log('/**  final generation  **/');
+    console.log('/************************/');
+    output.solutions.population.forEach((genome, index) => {
+        console.log(`\nBuild order (${index})\n\t` + genome.buildOrder.map(target => `${target.specName}: ${target.addCount}`).join('\n\t'));
+    });
 
-console.log('\n');
-console.log('/********************/');
-console.log('/**  hall of fame  **/');
-console.log('/********************/');
-output.solutions.population.forEach((genome, index) => {
-    console.log(`\nBuild order (${index})\n\t` + genome.buildOrder.map(target => `${target.specName}: ${target.addCount}`).join('\n\t'));
-});
+    console.log('\n');
+    console.log('/********************/');
+    console.log('/**  hall of fame  **/');
+    console.log('/********************/');
+    output.solutions.population.forEach((genome, index) => {
+        console.log(`\nBuild order (${index})\n\t` + genome.buildOrder.map(target => `${target.specName}: ${target.addCount}`).join('\n\t'));
+    });
+}
 
 
 const experimentName = process.argv[2];
@@ -43,3 +44,9 @@ if (experimentName) {
     FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/score.dat`, output.statistics.tex.score);
     FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/nofWins.dat`, output.statistics.tex.nofWins);
 }
+
+console.log('\n'); // DEBUG
+console.log(`===========================================================`);
+console.log(`     Evolution complete (${Date.now() - t0} ms)`);
+console.log(`     Unique solutions: ${output.solutions.population.length}`);
+console.log(`===========================================================`);
