@@ -4,12 +4,11 @@ const sumTotal = (sum, number) => sum + number;
 const ascending = (a, b) => a - b;
 
 const DEBUG = true;
-const logProgress = DEBUG ? console.log : () => {};
 
 const calcStuff = (numbers) => {
     const total = numbers.reduce(sumTotal, 0);
     const average = total / numbers.length;
-    const median = numbers.sort(ascending).find((_, index) => index === Math.floor(numbers.length / 2))
+    const median = numbers.sort(ascending).find((_, index) => index === Math.floor(numbers.length / 2));
     const stdDeviation =  [ numbers.map(x => Math.pow(x - average, 2)).reduce(sumTotal, 0) ].map(sum => sum / numbers.length).map(Math.sqrt)[0];
 
     return {
@@ -18,7 +17,7 @@ const calcStuff = (numbers) => {
         median,
         stdDeviation,
     };
-}
+};
 
 export default class Statistics {
 
