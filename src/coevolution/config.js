@@ -21,4 +21,4 @@ export const maxInitialAddCount = {
 };
 export const minInitialAttackTiming = 5;
 export const maxInitialAttackTiming = 15;
-export const initialBuildOrderLength = 5;
+export const initialBuildOrderLength = 12;
