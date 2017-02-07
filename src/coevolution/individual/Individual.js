@@ -109,9 +109,10 @@ export default class Individual {
         // against teachSet, favor beating hard-to-beat teachSet members
         const wrappedWithFitness = individuals.map(individual => {
 
+            const results = individual.evaluateAgainstAll(teachSet);
+
             const sharedFitness =
-                individual
-                    .evaluateAgainstAll(teachSet)
+                results
                     // .filter(result => result.didWin)
                     // .map(result => {
                     //     return result.score / nofTimesBeaten[result.opponentId];
@@ -121,9 +122,21 @@ export default class Individual {
                     })
                     .reduce(sumTotal, 0);
 
+            const avgScore =
+                results
+                    .map(result => result.score)
+                    .reduce(sumTotal, 0) / results.length;
+
+            const nofWins =
+                results
+                    .filter(result => result.didWin)
+                    .length;
+
             return {
                 individual,
                 fitness: sharedFitness,
+                avgScore,
+                nofWins,
             };
         });
 
@@ -222,7 +235,7 @@ export default class Individual {
                 const otherTarget = other.genome.buildOrder[index] || dummyTarget; // apply to both
 
                 const addCountDiff = Math.abs(thisTarget.addCount - otherTarget.addCount);
-                const specNameDiff = (thisTarget.specName === otherTarget.specName) ? 0 : 2; // 2 because ... ¯\_(ツ)_/¯
+                const specNameDiff = (thisTarget.specName === otherTarget.specName) ? 0 : 1;
 
                 return addCountDiff + specNameDiff;
             })

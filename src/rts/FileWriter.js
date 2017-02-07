@@ -1,19 +1,39 @@
 import fileSystem from 'fs';
 
-export function writeJSON(fileName, json) {
-    const content = JSON.stringify(json, null, 4);
+const threeDigits = int => String(`00${int}`).split('').reverse().slice(0, 3).reverse().join('');
+
+export function getUniqueDirName(experimentName) {
+    let foundUniqueName = false;
+    let dirName;
+    let n = 0;
+
+    while (!foundUniqueName) {
+        dirName = `${experimentName}-${threeDigits(n++)}`;
+        foundUniqueName = !fileSystem.existsSync(`${__dirname}/../../dump/${dirName}`);
+    }
+
+    return dirName;
+}
+
+export function createDumpDirectory(dirName) {
+    fileSystem.mkdirSync(`${__dirname}/../../dump/${dirName}`);
+}
+
+export function writeToFile(fileName, content) {
     const fullPath = `${__dirname}/../../dump/${fileName}`;
 
     fileSystem.writeFile(fullPath, content, (err) => {
         if (err) {
-            return console.log(err);
+            console.log(err);
+        } else {
+            console.log(`File saved: ${fullPath}`);
         }
-
-        console.log(`${fileName} saved to file (${fullPath})`);
     });
 }
 
-
+export function writeJSON(fileName, json) {
+    writeToFile(fileName, JSON.stringify(json, null, 4));
+}
 
 /***********************************************/
 /**  Write DumbAI config to runnable js file  **/
@@ -21,13 +41,5 @@ export function writeJSON(fileName, json) {
 export function writeSolutionsToJS(fileName, configArray) {
     const content = `module.exports = ${JSON.stringify(configArray, null, 4)};`;
 
-    const fullPath = `${__dirname}/../../dump/ai-config/${fileName}`;
-
-    fileSystem.writeFile(fullPath, content, (err) => {
-        if (err) {
-            return console.log(err);
-        }
-
-        console.log(`File saved: ${fullPath}`);
-    });
+    writeToFile(fileName, content);
 }

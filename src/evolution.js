@@ -27,12 +27,19 @@ output.solutions.population.forEach((genome, index) => {
 });
 
 
-const fileName = process.argv[2];
+const experimentName = process.argv[2];
 
-if (fileName) {
-    FileWriter.writeSolutionsToJS(`${fileName}.js`, output.solutions);
-    FileWriter.writeJSON(`statistics/${fileName}.json`, {
-        config: output.config,
-        statistics: output.statistics,
-    });
+if (experimentName) {
+    const uniqueDirName = FileWriter.getUniqueDirName(experimentName);
+
+    FileWriter.createDumpDirectory(uniqueDirName);
+    FileWriter.writeSolutionsToJS(`${uniqueDirName}/solutions.js`, output.solutions);
+    FileWriter.writeJSON(`${uniqueDirName}/config.json`, output.config);
+    FileWriter.writeJSON(`${uniqueDirName}/statistics.json`, output.statistics.json);
+
+    FileWriter.createDumpDirectory(`${uniqueDirName}/tex-graph-data`);
+    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/fitness.dat`, output.statistics.tex.fitness);
+    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/geneticDistance.dat`, output.statistics.tex.geneticDistance);
+    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/score.dat`, output.statistics.tex.score);
+    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/nofWins.dat`, output.statistics.tex.nofWins);
 }

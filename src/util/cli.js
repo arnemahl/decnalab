@@ -8,12 +8,10 @@
  */
 
 export function getAiConfigs() {
-    const fileName = process.argv[2];
-    const fileName2 = process.argv[3];
-    const configs = !fileName ? [] : require(`../../dump/ai-config/${fileName}.js`);
-    const configs2 = !fileName2 ? [] : require(`../../dump/ai-config/${fileName2}.js`);
-
-    // TODO get population, files now don't contain just an array of BOs, but object of arrays of BOs
+    const dirName = process.argv[2];
+    const dirName2 = process.argv[3];
+    const configs = !dirName ? [] : require(`../../dump/${dirName}/solutions.js`).population;
+    const configs2 = !dirName2 ? [] : require(`../../dump/${dirName2}/solutions.js`).population;
 
     const selectedConfigs = [
         configs[0],
