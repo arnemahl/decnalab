@@ -50,8 +50,9 @@ export default class Individual {
     }
 
     static crossover(mother, father) {
-        const crossoverPointMother = Math.floor(Math.random() * mother.genome.buildOrder.length);
-        const crossoverPointFather = Math.floor(Math.random() * father.genome.buildOrder.length);
+        const uniformCrossoverPoint = Math.floor(Math.random() * Math.max(mother.genome.buildOrder.length, father.genome.buildOrder.length));
+        const crossoverPointMother = uniformCrossoverPoint; //Math.floor(Math.random() * mother.genome.buildOrder.length);
+        const crossoverPointFather = uniformCrossoverPoint; //Math.floor(Math.random() * father.genome.buildOrder.length);
         const rand = Math.random() < 0.5;
 
         const son = {
