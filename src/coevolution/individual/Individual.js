@@ -251,13 +251,22 @@ export default class Individual {
             .reduce(sumTotal, 0);
     };
 
-    static getAverageGeneticDistances = (population, population2) => {
+    static getAverageGeneticDistancesWithin = (population) => {
         return population.map(individual =>
-            population2
+            population
                 .filter(other => other !== individual)
                 .map(other => individual.getGeneticDistanceTo(other))
                 .reduce(sumTotal, 0)
         ).map(sum => sum / (population.length - 1)); // average
+    };
+
+    static getAverageGeneticDistancesToOtherSet = (population, otherPopulation) => {
+        return population.map(individual =>
+            otherPopulation
+                .filter(other => other !== individual) // same should not be in both, but just in case ¯\_(ツ)_/¯
+                .map(other => individual.getGeneticDistanceTo(other))
+                .reduce(sumTotal, 0)
+        ).map(sum => sum / (otherPopulation.length)); // average
     };
 
 }

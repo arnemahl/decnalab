@@ -69,8 +69,8 @@ export default class Statistics {
 
     track = (teachSetResults, baselineResults) => {
         const population = teachSetResults.map(Individual.unwrap);
-        const avgGeneticDistances = Individual.getAverageGeneticDistances(population, population);
-        const geneticDistanceToCaseInjected = Individual.getAverageGeneticDistances(population, caseInjected);
+        const avgGeneticDistances = Individual.getAverageGeneticDistancesWithin(population);
+        const geneticDistanceToCaseInjected = Individual.getAverageGeneticDistancesToOtherSet(population, caseInjected);
 
         this.stats.push({
             generation: this.stats.length,
