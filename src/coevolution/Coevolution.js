@@ -102,8 +102,15 @@ export function runCoevolution() {
         population = wrappedPopulation.map(Individual.unwrap);
 
         // add best individual from generation
-        logProgress('Adding best individual to Hall of Fame...');
-        hallOfFame.push(Individual.getBestAdditionToSample(population, teachSet, hallOfFame));
+
+        logProgress('Finding best candidate for best individual to Hall of Fame...');
+        const selectedForHallOfFame = Individual.getBestAdditionToSample(population, teachSet, hallOfFame);
+
+        if (hallOfFame.every(selectedForHallOfFame.hasDifferentGenomeThan)) {
+            hallOfFame.push(selectedForHallOfFame);
+        } else {
+            logProgress('Best candidate for Hall of Fame is identical to previous member, continuing...');
+        }
     }
 
     const sortedPopulation = wrappedPopulation.sort((one, two) => two.fitness - one.fitness).map(Individual.unwrap);
