@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "evo": "node src/evolution.js",
-    "score": "node src/create-score-dump.js",
+    "score": "node src/test.js",
     "test": "node src/test.js",
     "stress-test": "node src/stress-test.js",
     "eslint": "eslint src/",

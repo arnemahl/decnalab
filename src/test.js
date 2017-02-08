@@ -2,11 +2,12 @@ require("babel-core/register");
 require("babel-polyfill");
 
 const Game = require('./rts/Game').default;
-const aiConfig = require('./ai/DefaultConfigDumbAI');
+const CliUtil = require('./util/cli');
+const aiConfigs = CliUtil.canGetAiConfigs() ? CliUtil.getAiConfigs() : Array(2).fill(require('./ai/DefaultConfigDumbAI'));
 
 function fastTest() {
     const maxLoops = 1000;
-    const game = new Game('unused-id', maxLoops, aiConfig, aiConfig);
+    const game = new Game('unused-id', maxLoops, aiConfigs[0], aiConfigs[1]);
 
     const t0 = Date.now();
 

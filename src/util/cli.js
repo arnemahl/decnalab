@@ -22,3 +22,7 @@ export function getAiConfigs() {
 
     return selectedConfigs;
 }
+
+export function canGetAiConfigs() {
+    return !!process.argv[2];
+}
