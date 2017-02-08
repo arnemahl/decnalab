@@ -11,6 +11,7 @@ export default class Team {
     units = []
     structures = []
     commandablesByName = {}
+    plannedUnitsByName = {}
     supply = 0
     usedSupply = 0
     visibleMapSectorIds = []
@@ -30,6 +31,12 @@ export default class Team {
             emptyArrForEach[name] = [];
 
             return emptyArrForEach;
+        }, {});
+
+        this.plannedUnitsByName = Object.keys(this.allSpecs).reduce((startAtZero, name) => {
+            startAtZero[name] = 0;
+
+            return startAtZero;
         }, {});
     }
 

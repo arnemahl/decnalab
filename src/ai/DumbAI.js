@@ -51,9 +51,13 @@ export default class DumbAI {
                 'Barracks': 0,
             };
 
-            const nextTarget =
-                this.buildOrder.find(target => this.team.commandablesByName[target.specName].length < (targetTotals[target.specName] += target.addCount))
-                || this.buildOrder[this.buildOrder.length - 1];
+            const nextTarget = this.buildOrder.find((target, index) => {
+                const count = this.team.commandablesByName[target.specName].length
+                    + this.team.plannedUnitsByName[target.specName]; // plannedUnitsByName is 0 for all sturctures, not undefined
+
+                return count < (targetTotals[target.specName] += target.addCount) // need to make more
+                    || index === this.buildOrder.length - 1; // or is last in build order
+            });
 
             const {specName} = nextTarget;
             const spec = this.team.allSpecs[specName];
