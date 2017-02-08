@@ -15,7 +15,7 @@ export const producableThings = [
 ];
 export const maxInitialAddCount = {
     Worker: 1,
-    Marine: 4,
+    Marine: 1,
     SupplyDepot: 1,
     Barracks: 1,
 };

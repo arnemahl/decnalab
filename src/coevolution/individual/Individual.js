@@ -30,18 +30,12 @@ export default class Individual {
         const clonedCopy = this.clone();
 
         if (Math.random() < 0.9) {
-            // Mutate build order by either...
+            // Mutate build order by either changing what to produce
             const {buildOrder} = clonedCopy.genome;
             const targetIndex = Math.floor(buildOrder.length * Math.random());
             const target = buildOrder[targetIndex];
 
-            if (Math.random() < 0.5) {
-                // ... changing what to produce
-                target.specName = producableThings.slice().sort(() => Math.random())[0];
-            } else  {
-                // ... or changing how many to produce
-                target.addCount = Math.max(1, target.addCount + plusOrMinus(1));
-            }
+            target.specName = producableThings.slice().sort(() => Math.random())[0];
 
         } else {
             // Mutate attack at supply

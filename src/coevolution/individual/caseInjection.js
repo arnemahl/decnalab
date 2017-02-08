@@ -4,9 +4,10 @@ import Individual from './Individual';
 /**  Human designed good-ish individuals  **/
 /*******************************************/
 export const getCaseInjectedInvidviduals = () => [
-    { // Not that good :)
+    {
         buildOrder: [
-            { specName: 'Worker', addCount: 5 },
+            { specName: 'Worker', addCount: 1 },
+            { specName: 'Worker', addCount: 1 },
             { specName: 'SupplyDepot', addCount: 1 },
             { specName: 'Barracks', addCount: 1 },
             { specName: 'SupplyDepot', addCount: 1 },
@@ -14,11 +15,21 @@ export const getCaseInjectedInvidviduals = () => [
         ],
         attackAtSupply: 15,
     },
-    { // Not that good :)
+    {
         buildOrder: [
-            { specName: 'Worker', addCount: 5 },
+            { specName: 'Worker', addCount: 1 },
+            { specName: 'Worker', addCount: 1 },
+            { specName: 'Worker', addCount: 1 },
+            { specName: 'Worker', addCount: 1 },
+            { specName: 'Worker', addCount: 1 },
             { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Worker', addCount: 4 },
+            { specName: 'Worker', addCount: 1 },
+            { specName: 'Worker', addCount: 1 },
+            { specName: 'Worker', addCount: 1 },
+            { specName: 'Worker', addCount: 1 },
+            { specName: 'Barracks', addCount: 1 },
+            { specName: 'SupplyDepot', addCount: 1 },
+            { specName: 'Marine', addCount: 1 },
             { specName: 'Barracks', addCount: 1 },
             { specName: 'SupplyDepot', addCount: 1 },
             { specName: 'Marine', addCount: 1 },
@@ -28,8 +39,18 @@ export const getCaseInjectedInvidviduals = () => [
     {
         buildOrder: [
             { specName: 'Barracks', addCount: 1 },
+            { specName: 'Marine', addCount: 1 },
+            { specName: 'Marine', addCount: 1 },
             { specName: 'SupplyDepot', addCount: 1 },
-            { specName: 'Marine', addCount: 11 },
+            { specName: 'Marine', addCount: 1 },
+            { specName: 'Marine', addCount: 1 },
+            { specName: 'Marine', addCount: 1 },
+            { specName: 'Marine', addCount: 1 },
+            { specName: 'Marine', addCount: 1 },
+            { specName: 'Marine', addCount: 1 },
+            { specName: 'Marine', addCount: 1 },
+            { specName: 'Marine', addCount: 1 },
+            { specName: 'Marine', addCount: 1 },
             { specName: 'SupplyDepot', addCount: 1 },
             { specName: 'Marine', addCount: 1 },
         ],
@@ -37,7 +58,10 @@ export const getCaseInjectedInvidviduals = () => [
     },
     {
         buildOrder: [
-            { specName: 'Worker', addCount: 4 },
+            { specName: 'Worker', addCount: 1 },
+            { specName: 'Worker', addCount: 1 },
+            { specName: 'Worker', addCount: 1 },
+            { specName: 'Worker', addCount: 1 },
             { specName: 'SupplyDepot', addCount: 1 },
             { specName: 'Worker', addCount: 1 },
             { specName: 'Barracks', addCount: 1 },
