@@ -251,9 +251,9 @@ export default class Individual {
             .reduce(sumTotal, 0);
     };
 
-    static getAverageGeneticDistances = (population) => {
+    static getAverageGeneticDistances = (population, population2) => {
         return population.map(individual =>
-            population
+            population2
                 .filter(other => other !== individual)
                 .map(other => individual.getGeneticDistanceTo(other))
                 .reduce(sumTotal, 0)

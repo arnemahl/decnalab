@@ -46,6 +46,7 @@ if (experimentName) {
     FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/baselineScore.dat`, output.statistics.tex.baselineScore);
     FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/baselineNofWins.dat`, output.statistics.tex.baselineNofWins);
     FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/geneticDistance.dat`, output.statistics.tex.geneticDistance);
+    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/geneticDistanceToCaseInjected.dat`, output.statistics.tex.geneticDistanceToCaseInjected);
 }
 
 console.log('\n'); // DEBUG

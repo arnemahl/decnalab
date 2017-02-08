@@ -1,4 +1,7 @@
 import Individual from '~/coevolution/individual/Individual';
+import {getCaseInjectedInvidviduals} from '~/coevolution/individual/caseInjection';
+
+const caseInjected = getCaseInjectedInvidviduals();
 
 const sumTotal = (sum, number) => sum + number;
 const ascending = (a, b) => a - b;
@@ -59,13 +62,15 @@ export default class Statistics {
                 baselineNofWins: getTexGraphData(this.stats.map(generation => generation.baselineNofWins), '# Number of wins against baseline solutions'),
 
                 geneticDistance: getTexGraphData(this.stats.map(generation => generation.geneticDistance), '# geneticDistance'),
+                geneticDistanceToCaseInjected: getTexGraphData(this.stats.map(generation => generation.geneticDistanceToCaseInjected), '# genetic distance to case injected'),
             },
         };
     }
 
     track = (teachSetResults, baselineResults) => {
         const population = teachSetResults.map(Individual.unwrap);
-        const avgGeneticDistances = Individual.getAverageGeneticDistances(population);
+        const avgGeneticDistances = Individual.getAverageGeneticDistances(population, population);
+        const geneticDistanceToCaseInjected = Individual.getAverageGeneticDistances(population, caseInjected);
 
         this.stats.push({
             generation: this.stats.length,
@@ -83,6 +88,7 @@ export default class Statistics {
                 ...calcStuff(avgGeneticDistances),
                 nofUnique: Individual.countUniqueGenomes(population),
             },
+            geneticDistanceToCaseInjected: calcStuff(geneticDistanceToCaseInjected),
         });
 
         if (DEBUG) {
