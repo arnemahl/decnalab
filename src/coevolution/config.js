@@ -10,14 +10,18 @@ export const mutationRatio = 0.1;
 export const producableThings = [
     'Worker',
     'Marine',
+    'Firebat',
     'SupplyDepot',
     'Barracks',
+    'FlameTower',
 ];
 export const maxInitialAddCount = {
     Worker: 1,
     Marine: 1,
+    Firebat: 1,
     SupplyDepot: 1,
     Barracks: 1,
+    FlameTower: 1,
 };
 export const minInitialAttackTiming = 5;
 export const maxInitialAttackTiming = 15;

@@ -1,6 +1,7 @@
 import BaseStructureClass from '~/rts/structures/BaseStructure';
 import BarracksClass from '~/rts/structures/Barracks';
 import SupplyDepotClass from '~/rts/structures/SupplyDepot';
+import FlameTowerClass from '~/rts/structures/FlameTower';
 
 class Structure {
     type = 'structure'
@@ -64,11 +65,30 @@ class Barracks extends Structure {
     producedBy = 'Worker'
 }
 
+class FlameTower extends Structure {
+    class = FlameTowerClass
+
+    cost = {
+        abundant: 250,
+        sparse: 0,
+        supply: 0,
+        time: 800
+    }
+
+    size = 600
+    radius = this.size / 2
+    maxHealth = 800
+    armor = 2
+
+    producedBy = 'Worker'
+}
+
 export default class StructureSpecs {
     constructor() {
         this.BaseStructure = new BaseStructure();
         this.SupplyDepot = new SupplyDepot();
         this.Barracks = new Barracks();
+        this.FlameTower = new FlameTower();
     }
 
     clone() {

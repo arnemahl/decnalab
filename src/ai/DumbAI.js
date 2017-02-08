@@ -19,6 +19,13 @@ export default class DumbAI {
         this.buildOrder = individual.buildOrder;
         this.attackAtSupply = individual.attackAtSupply;
 
+        const emptyTargetTotals = Object.keys(this.team.allSpecs).reduce((initCounts, name) => {
+            initCounts[name] = (name === 'Worker') ? 5 : 0;
+            return initCounts;
+        }, {});
+
+        this.getEmptyTargetTotals = () => ({ ...emptyTargetTotals });
+
         if (individual.buildOrder.some(x => !x.specName || !x.addCount)) {
             throw Error('BUILD ORDER CONTAINS INVAILD TARGET');
         }
@@ -44,12 +51,7 @@ export default class DumbAI {
     /*****************/
     macro() {
         while (true) { // eslint-disable-line
-            const targetTotals = {
-                'Worker': 5, // starts with 5
-                'Marine': 0,
-                'SupplyDepot': 0,
-                'Barracks': 0,
-            };
+            const targetTotals = this.getEmptyTargetTotals();
 
             const nextTarget = this.buildOrder.find((target, index) => {
                 const count = this.team.commandablesByName[target.specName].length
@@ -127,6 +129,14 @@ export default class DumbAI {
 
                     marine.getCommander().attackMove(closestEnemy.position);
                 });
+            this.team.commandablesByName
+                .Firebat
+                .filter(firebat => firebat.isIdle())
+                .forEach(firebat => {
+                    const closestEnemy = getClosestEnemy(firebat);
+
+                    firebat.getCommander().attackMove(closestEnemy.position);
+                });
 
         } else if (this.team.usedSupply >= this.attackAtSupply) {
             // Ready to approach enemy base
@@ -137,6 +147,12 @@ export default class DumbAI {
                 .filter(marine => marine.isIdle())
                 .forEach(marine => {
                     marine.getCommander().attackMove(enemySpawnPosition);
+                });
+            this.team.commandablesByName
+                .Firebat
+                .filter(firebat => firebat.isIdle())
+                .forEach(firebat => {
+                    firebat.getCommander().attackMove(enemySpawnPosition);
                 });
         }
     }

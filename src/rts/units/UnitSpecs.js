@@ -1,5 +1,6 @@
 import WorkerClass from '~/rts/units/Worker';
 import MarineClass from '~/rts/units/Marine';
+import FirebatClass from '~/rts/units/Firebat';
 
 class Unit {
     type = 'unit'
@@ -59,10 +60,37 @@ class Marine extends Unit {
     producedBy = 'Barracks'
 }
 
+class Firebat extends Unit {
+    class = FirebatClass;
+
+    cost = {
+        abundant: 60,
+        sparse: 0,
+        supply: 1,
+        time: 360
+    }
+
+    size = 120
+    radius = this.size / 2
+    speed = 10
+
+    maxHealth = 70
+    armor = 3
+
+    weapon = {
+        cooldown: 30,
+        damage: 20,
+        range: 300,
+    }
+
+    producedBy = 'FlameTower'
+}
+
 export default class UnitSpecs {
     constructor() {
         this.Worker = new Worker();
         this.Marine = new Marine();
+        this.Firebat = new Firebat();
     }
 
     clone() {

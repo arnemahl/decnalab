@@ -53,31 +53,68 @@ export const getBaselines = () => [
         ],
         attackAtSupply: 20,
     },
-    {   // Something in between
-        buildOrder: [
+    {   // Firebats!
+        "buildOrder": [
             {
-                specName: 'Worker',
-                addCount: 1
+                "specName": "Worker",
+                "addCount": 1
             },
             {
-                specName: 'Barracks',
-                addCount: 1
+                "specName": "Barracks",
+                "addCount": 1
             },
             {
-                specName: 'Marine',
-                addCount: 1
+                "specName": "FlameTower",
+                "addCount": 1
             },
             {
-                specName: 'SupplyDepot',
-                addCount: 1
+                "specName": "Worker",
+                "addCount": 1
             },
             {
-                specName: 'Marine',
-                addCount: 1
+                "specName": "SupplyDepot",
+                "addCount": 1
             },
+            {
+                "specName": "Worker",
+                "addCount": 1
+            },
+            {
+                "specName": "FlameTower",
+                "addCount": 1
+            },
+            {
+                "specName": "Firebat",
+                "addCount": 1
+            }
         ],
-        attackAtSupply: 20,
+        "attackAtSupply": 16
     },
+    // {   // Something in between
+    //     buildOrder: [
+    //         {
+    //             specName: 'Worker',
+    //             addCount: 1
+    //         },
+    //         {
+    //             specName: 'Barracks',
+    //             addCount: 1
+    //         },
+    //         {
+    //             specName: 'Marine',
+    //             addCount: 1
+    //         },
+    //         {
+    //             specName: 'SupplyDepot',
+    //             addCount: 1
+    //         },
+    //         {
+    //             specName: 'Marine',
+    //             addCount: 1
+    //         },
+    //     ],
+    //     attackAtSupply: 20,
+    // },
     // {   // Very persistently offensive
     //     buildOrder: [
     //         {
