@@ -1,13 +1,11 @@
 import Vectors from '~/rts/spatial/Vectors';
-import getClosestEnemy from '~/rts/spatial/getClosestEnemy';
+import getClosestEnemy, {byClosenessTo} from '~/rts/spatial/getClosestEnemy';
 
 function getClosestResourceSite(map, worker, resourceType) {
-    const distanceTo = resourceSite => Vectors.absoluteDistance(worker.position, resourceSite.position);
-
     return (
         map
         .resourceSites[resourceType]
-        .sort((one, two) => distanceTo(one) - distanceTo(two))
+        .sort(byClosenessTo(worker.position))
         [0]
     );
 }
@@ -88,7 +86,9 @@ export default class DumbAI {
                 if (!structurePosition) {
                     return; // End infinite loop
                 } else {
-                    availableProducers[0].getCommander().build(spec, structurePosition);
+                    availableProducers
+                        .sort(byClosenessTo(structurePosition))[0]
+                        .getCommander().build(spec, structurePosition);
                 }
             } else {
                 availableProducers[0].getCommander().produceUnit(spec);
