@@ -1,0 +1,29 @@
+{
+    "popSize": 50,
+    "nofChildrenPerGeneration": 70,
+    "teachSetSize": 8,
+    "maxGenerations": 50,
+    "maxLoopsPerGame": 1000,
+    "fitnessScalingFactor": 1.5,
+    "crossoverRatio": 0.9,
+    "mutationRatio": 0.1,
+    "producableThings": [
+        "Worker",
+        "Marine",
+        "Firebat",
+        "SupplyDepot",
+        "Barracks",
+        "FlameTower"
+    ],
+    "maxInitialAddCount": {
+        "Worker": 1,
+        "Marine": 1,
+        "Firebat": 1,
+        "SupplyDepot": 1,
+        "Barracks": 1,
+        "FlameTower": 1
+    },
+    "minInitialAttackTiming": 5,
+    "maxInitialAttackTiming": 15,
+    "initialBuildOrderLength": 8
+}
