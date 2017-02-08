@@ -37,7 +37,7 @@ export default class Worker extends Unit {
     }
 
     returnHarvest = () => {
-        const closestBaseStructure = this.team.getClosestBaseStructure(this.position);
+        const closestBaseStructure = this.team.commandablesByName.BaseStructure[0];
         if (closestBaseStructure) {
             const wait = true;
 

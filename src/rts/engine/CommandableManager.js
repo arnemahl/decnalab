@@ -14,6 +14,7 @@ export default class CommandableManager {
 
                 positions.forEach(position => {
                     this.addUnit(team, unitSpec, position);
+                    team.nofActualCommandables += 1;
                 });
             });
         };
@@ -24,6 +25,7 @@ export default class CommandableManager {
 
                 positions.forEach(position => {
                     this.structureFinished(this.addStructure(team, structureSpec, position));
+                    team.nofActualCommandables += 1;
                 });
             });
         };
@@ -32,6 +34,7 @@ export default class CommandableManager {
             addStartingUnits(team, map.startingUnits[index]);
             addStartingStructures(team, map.startingStructures[index]);
             team.unitSpawnPosition = map.unitSpawnPositions[index];
+            team.enemySpawnPosition = map.unitSpawnPositions[(index + 1) % 2];
         });
     }
 
@@ -64,6 +67,7 @@ export default class CommandableManager {
 
         unit.clearCommands();
 
+        unit.team.nofActualCommandables -= 1;
         unit.team.units = unit.team.units.filter(remaining => remaining !== unit);
         unit.team.commandablesByName[unit.constructor.name] = unit.team.commandablesByName[unit.constructor.name].filter(remaining => remaining !== unit);
 
@@ -77,6 +81,7 @@ export default class CommandableManager {
 
         structure.clearCommands();
 
+        structure.team.nofActualCommandables -= 1;
         structure.team.structures = structure.team.structures.filter(remaining => remaining !== structure);
         structure.team.commandablesByName[structure.constructor.name] = structure.team.commandablesByName[structure.constructor.name].filter(remaining => remaining !== structure);
 
@@ -86,6 +91,7 @@ export default class CommandableManager {
     }
 
     structureProducedUnit(structure, unitSpec) {
+        structure.team.nofActualCommandables += 1;
         return this.addUnit(structure.team, unitSpec, structure.team.unitSpawnPosition, true);
     }
 
@@ -97,6 +103,7 @@ export default class CommandableManager {
     structureStarted(structure) {
         delete structure.isOnlyPlanned;
         structure.isUnderConstruction = true;
+        structure.team.nofActualCommandables += 1;
     }
     structureFinished(structure) {
         delete structure.isUnderConstruction;

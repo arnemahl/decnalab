@@ -69,8 +69,7 @@ export default class DumbAI {
                     .filter(worker => worker.commandQueue.array.every(command => command.type !== 'build'));
             } else {
                 availableProducers = this.team.commandablesByName[spec.producedBy]
-                    .filter(producer => !producer.isOnlyPlanned)
-                    .filter(producer => !producer.isUnderConstruction)
+                    .filter(producer => producer.isFinished)
                     .filter(producer => producer.isIdle());
             }
 
@@ -127,7 +126,7 @@ export default class DumbAI {
 
         } else if (this.team.usedSupply >= this.attackAtSupply) {
             // Ready to approach enemy base
-            const enemySpawnPosition = this.map.unitSpawnPositions.find((_, index) => index !== this.team.index);
+            const {enemySpawnPosition} = this.team;
 
             this.team.commandablesByName
                 .Marine

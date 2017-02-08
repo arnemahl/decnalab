@@ -15,6 +15,7 @@ export default class Team {
     usedSupply = 0
     visibleMapSectorIds = []
     visibleEnemyCommandables = []
+    nofActualCommandables = 0
 
     constructor(id, index, startingResources) {
         this.index = index;
@@ -32,20 +33,8 @@ export default class Team {
         }, {});
     }
 
-    getClosestBaseStructure = (fromPosition) => {
-        const distanceTo = baseStructure => Vectors.absoluteDistance(fromPosition, baseStructure.position);
-
-        return (
-            this.structures
-                .filter(isBaseStructure)
-                .sort((one, two) => distanceTo(one) - distanceTo(two))
-                [0]
-        );
-    }
-
     hasNoMoreCommandables = () => {
-        return this.units.length === 0
-            && !this.structures.some(structure => !structure.isOnlyPlanned);
+        return this.nofActualCommandables === 0;
     }
 
     getState = () => {
