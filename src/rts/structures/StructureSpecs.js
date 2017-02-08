@@ -80,7 +80,7 @@ class FlameTower extends Structure {
     maxHealth = 800
     armor = 2
 
-    producedBy = 'Worker'
+    producedBy = 'Barracks'
 }
 
 export default class StructureSpecs {

@@ -74,12 +74,12 @@ class Firebat extends Unit {
     radius = this.size / 2
     speed = 10
 
-    maxHealth = 60
+    maxHealth = 70
     armor = 2
 
     weapon = {
         cooldown: 30,
-        damage: 2,
+        damage: 20,
         range: 200,
     }
 
