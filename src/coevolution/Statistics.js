@@ -1,7 +1,4 @@
 import Individual from '~/coevolution/individual/Individual';
-import {getBaselines} from '~/coevolution/individual/baselines';
-
-const baselines = getBaselines();
 
 const sumTotal = (sum, number) => sum + number;
 const ascending = (a, b) => a - b;
@@ -66,19 +63,17 @@ export default class Statistics {
         };
     }
 
-    track = (wrappedPopulation) => {
-        const population = wrappedPopulation.map(Individual.unwrap);
-
-        const baselineResults = Individual.wrapWithSharedFitness(population, baselines);
+    track = (teachSetResults, baselineResults) => {
+        const population = teachSetResults.map(Individual.unwrap);
         const avgGeneticDistances = Individual.getAverageGeneticDistances(population);
 
         this.stats.push({
             generation: this.stats.length,
             durationMs: Date.now() - this.t0,
 
-            fitness: calcStuff(wrappedPopulation.map(x => x.fitness)),
-            score: calcStuff(wrappedPopulation.map(x => x.avgScore)),
-            nofWins: calcStuff(wrappedPopulation.map(x => x.nofWins)),
+            fitness: calcStuff(teachSetResults.map(x => x.fitness)),
+            score: calcStuff(teachSetResults.map(x => x.avgScore)),
+            nofWins: calcStuff(teachSetResults.map(x => x.nofWins)),
 
             baselineFitness: calcStuff(baselineResults.map(x => x.fitness)),
             baselineScore: calcStuff(baselineResults.map(x => x.avgScore)),

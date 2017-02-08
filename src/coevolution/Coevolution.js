@@ -1,6 +1,7 @@
 import Statistics from '~/coevolution/Statistics';
 import Individual from '~/coevolution/individual/Individual';
 import {getCaseInjectedInvidviduals} from '~/coevolution/individual/caseInjection';
+import {getBaselines} from '~/coevolution/individual/baselines';
 import {selectUnique, createScaledFitnessSelection} from '~/coevolution/selection';
 import * as config from '~/coevolution/config';
 
@@ -25,7 +26,8 @@ const logProgress = DEBUG ? console.log : () => {};
 export function runCoevolution() {
     const statistics = new Statistics();
 
-    let generation = 0;
+    const wonAgainstBaselines = [];
+    const baselines = getBaselines();
 
     const hallOfFame = getCaseInjectedInvidviduals();
 
@@ -45,9 +47,19 @@ export function runCoevolution() {
     wrappedPopulation = selectUnique(wrappedPopulation, popSize, scaledFitnessSelection);
     let population = wrappedPopulation.map(Individual.unwrap);
 
+    let generation = 0;
+
     while (generation++ < maxGenerations) {
         console.log('\nGeneration:', generation + '\n');
-        statistics.track(wrappedPopulation);
+
+        const baselineResults = Individual.wrapWithSharedFitness(population, baselines);
+
+        baselineResults
+            .filter(result => wonAgainstBaselines.indexOf(result.individual) === -1)
+            .filter(result => result.nofWins > 0)
+            .forEach(result => wonAgainstBaselines.push(result.individual));
+
+        statistics.track(wrappedPopulation, baselineResults);
 
         // select parents
         const parents = scaledFitnessSelection(wrappedPopulation, nofChildrenPerGeneration).map(Individual.unwrap);
@@ -99,6 +111,7 @@ export function runCoevolution() {
 
     const output = {
         solutions: {
+            wonAgainstBaselines: wonAgainstBaselines.map(x => x.genome),
             population: uniqueInPopulation.map(x => x.genome),
             hallOfFame: hallOfFame.map(x => x.genome),
             caseInjected: getCaseInjectedInvidviduals().map(x => x.genome),
