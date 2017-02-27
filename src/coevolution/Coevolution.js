@@ -72,7 +72,7 @@ export function runCoevolution() {
             const father = parents.pop();
 
             if (Math.random() < crossoverRatio) {
-                return Individual.crossover(mother, father);
+                return Individual[config.crossoverFunction](mother, father);
             } else {
                 return [ mother.clone(), father.clone() ];
             }

@@ -45,10 +45,9 @@ export default class Individual {
         return clonedCopy;
     }
 
-    static crossover(mother, father) {
-        const uniformCrossoverPoint = Math.floor(Math.random() * Math.max(mother.genome.buildOrder.length, father.genome.buildOrder.length));
-        const crossoverPointMother = uniformCrossoverPoint; //Math.floor(Math.random() * mother.genome.buildOrder.length);
-        const crossoverPointFather = uniformCrossoverPoint; //Math.floor(Math.random() * father.genome.buildOrder.length);
+    static unevenSinglePointCrossover(mother, father) {
+        const crossoverPointMother = Math.floor(Math.random() * mother.genome.buildOrder.length);
+        const crossoverPointFather = Math.floor(Math.random() * father.genome.buildOrder.length);
         const rand = Math.random() < 0.5;
 
         const son = {
@@ -67,6 +66,46 @@ export default class Individual {
         return [son, daughter].map(genome => new Individual(genome));
     }
 
+    static singlePointCrossover(mother, father) {
+        const length = Math.max(mother.genome.buildOrder.length, father.genome.buildOrder.length);
+        const crossoverPoint = Math.floor(Math.random() * (length - 1)) + 1;
+        const rand = Math.random() < 0.5;
+
+        const son = {
+            buildOrder: []
+                .concat(mother.genome.buildOrder.slice(0, crossoverPoint))
+                .concat(father.genome.buildOrder.slice(crossoverPoint)),
+            attackAtSupply: rand ? mother.genome.attackAtSupply : father.genome.attackAtSupply,
+        };
+        const daughter = {
+            buildOrder: []
+                .concat(father.genome.buildOrder.slice(0, crossoverPoint))
+                .concat(mother.genome.buildOrder.slice(crossoverPoint)),
+            attackAtSupply: rand ? father.genome.attackAtSupply : mother.genome.attackAtSupply,
+        };
+
+        return [son, daughter].map(genome => new Individual(genome));
+    }
+
+    static uniformCrossover(mother, father) {
+        if (mother.genome.buildOrder.length !== father.genome.buildOrder.length) {
+            throw Error('Parents do not have build orders of same length.');
+        }
+
+        const randBuild = mother.genome.buildOrder.map(() => Math.random < 0.5);
+        const randAtk = Math.random();
+
+        const son = {
+            buildOrder: randBuild.map((fromMother, index) => fromMother ? mother.genome.buildOrder[index] : father.genome.buildOrder[index]),
+            attackAtSupply: randAtk ? mother.genome.attackAtSupply : father.genome.attackAtSupply
+        };
+        const daughter = {
+            buildOrder: randBuild.map((fromFather, index) => fromFather ? father.genome.buildOrder[index] : mother.genome.buildOrder[index]),
+            attackAtSupply: randAtk ? father.genome.attackAtSupply : mother.genome.attackAtSupply
+        };
+
+        return [son, daughter].map(genome => new Individual(genome));
+    }
 
 
     /**********************************/

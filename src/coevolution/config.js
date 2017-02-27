@@ -7,6 +7,8 @@ export const fitnessScalingFactor = 1.5;
 export const crossoverRatio = 0.90;
 export const mutationRatio = 0.1;
 
+export const crossoverFunction = 'uniformCrossover';
+
 export const producableThings = [
     'Worker',
     'Marine',
