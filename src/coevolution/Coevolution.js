@@ -55,9 +55,13 @@ export function runCoevolution() {
         const baselineResults = Individual.wrapWithSharedFitness(population, baselines);
 
         baselineResults
-            .filter(result => wonAgainstBaselines.indexOf(result.individual) === -1)
             .filter(result => result.nofWins > 0)
-            .forEach(result => wonAgainstBaselines.push(result.individual));
+            .map(result => result.individual)
+            .forEach(individual => {
+                if (wonAgainstBaselines.every(individual.hasDifferentGenomeThan)) {
+                    wonAgainstBaselines.push(individual);
+                }
+            });
 
         statistics.track(wrappedPopulation, baselineResults);
 
