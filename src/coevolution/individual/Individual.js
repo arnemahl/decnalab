@@ -93,15 +93,19 @@ export default class Individual {
         }
 
         const randBuild = mother.genome.buildOrder.map(() => Math.random < 0.5);
-        const randAtk = Math.random();
+        const sumAtk = mother.genome.attackAtSupply + father.genome.attackAtSupply;
+        const randAtk = Array(sumAtk).fill()
+            .map(() => Math.random() > 0.5)
+            .map(r => r ? 1 : 0)
+            .reduce(sumTotal);
 
         const son = {
             buildOrder: randBuild.map((fromMother, index) => fromMother ? mother.genome.buildOrder[index] : father.genome.buildOrder[index]),
-            attackAtSupply: randAtk ? mother.genome.attackAtSupply : father.genome.attackAtSupply
+            attackAtSupply: randAtk
         };
         const daughter = {
             buildOrder: randBuild.map((fromFather, index) => fromFather ? father.genome.buildOrder[index] : mother.genome.buildOrder[index]),
-            attackAtSupply: randAtk ? father.genome.attackAtSupply : mother.genome.attackAtSupply
+            attackAtSupply: sumAtk - randAtk
         };
 
         return [son, daughter].map(genome => new Individual(genome));
