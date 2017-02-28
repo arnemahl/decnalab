@@ -162,6 +162,8 @@ export default class Individual {
                     .map(result => {
                         if (result.didWin) {
                             return result.score / (1 + nofTimesBeaten[result.opponentId]);
+                        } else if (result.didLose) {
+                            return result.score / Math.pow(1 + nofTimesBeaten[result.opponentId], 3);
                         } else {
                             return result.score / Math.pow(1 + nofTimesBeaten[result.opponentId], 2);
                         }
@@ -209,6 +211,8 @@ export default class Individual {
                     .map(result => {
                         if (result.didWin) {
                             return result.score / (1 + nofTimesBeaten[result.opponentId]);
+                        } else if (result.didLose) {
+                            return result.score / Math.pow(1 + nofTimesBeaten[result.opponentId], 3);
                         } else {
                             return result.score / Math.pow(1 + nofTimesBeaten[result.opponentId], 2);
                         }
