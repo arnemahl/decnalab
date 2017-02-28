@@ -208,7 +208,11 @@ export default class Individual {
                     .evaluateAgainstAll(teachSet)
                     // .filter(result => result.didWin)
                     .map(result => {
-                        return result.score / (1 + nofTimesBeaten[result.opponentId]);
+                        if (result.didWin) {
+                            return result.score / (1 + nofTimesBeaten[result.opponentId]);
+                        } else {
+                            return result.score / Math.pow(1 + nofTimesBeaten[result.opponentId], 2);
+                        }
                     })
                     .reduce(sumTotal, 0);
 
