@@ -157,14 +157,14 @@ export default class Individual {
 
             const results = individual.evaluateAgainstAll(teachSet);
 
-            const sharedFitness =
+            const sharedFitness = // NB: Dublicated code in Shared sampling
                 results
-                    // .filter(result => result.didWin)
-                    // .map(result => {
-                    //     return result.score / nofTimesBeaten[result.opponentId];
-                    // })
                     .map(result => {
-                        return result.score / (1 + nofTimesBeaten[result.opponentId]);
+                        if (result.didWin) {
+                            return result.score / (1 + nofTimesBeaten[result.opponentId]);
+                        } else {
+                            return result.score / Math.pow(1 + nofTimesBeaten[result.opponentId], 2);
+                        }
                     })
                     .reduce(sumTotal, 0);
 
@@ -203,10 +203,9 @@ export default class Individual {
         // against teachSet, favor beating hard-to-beat teachSet members
         const wrappedWithFitness = individuals.map(individual => {
 
-            const sharedFitnessRelateiveToAlreadySelected =
+            const sharedFitnessRelateiveToAlreadySelected = // NB: Duplicated code in Shared fitness
                 individual
                     .evaluateAgainstAll(teachSet)
-                    // .filter(result => result.didWin)
                     .map(result => {
                         if (result.didWin) {
                             return result.score / (1 + nofTimesBeaten[result.opponentId]);
