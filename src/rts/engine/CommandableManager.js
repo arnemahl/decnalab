@@ -61,10 +61,6 @@ export default class CommandableManager {
     }
 
     removeUnit(unit) {
-        if (unit.team.units.indexOf(unit) === -1) {
-            return;
-        }
-
         unit.clearCommands();
 
         unit.team.nofActualCommandables -= 1;
@@ -75,10 +71,6 @@ export default class CommandableManager {
     }
 
     removeStructure(structure) {
-        if (structure.team.structures.indexOf(structure) === -1) {
-            return;
-        }
-
         structure.clearCommands();
 
         structure.team.nofActualCommandables -= 1;

@@ -240,16 +240,20 @@ export default class Engine {
                 switch (target.type) {
                     case 'unit':
                         this.tickCleanupTasks.push(() => {
-                            this.scoreCounter.unitKilled(unit.team.id, target.specs);
-                            this.commandableManager.removeUnit(target);
-                            this.simpleVision.commandableRemoved(target);
+                            if (target.team.units.indexOf(target) !== -1) {
+                                this.scoreCounter.unitKilled(unit.team.id, target.specs);
+                                this.commandableManager.removeUnit(target);
+                                this.simpleVision.commandableRemoved(target);
+                            }
                         });
                         break;
                     case 'structure':
                         this.tickCleanupTasks.push(() => {
-                            this.scoreCounter.structureKilled(unit.team.id, target.specs);
-                            this.commandableManager.removeStructure(target);
-                            this.simpleVision.commandableRemoved(target);
+                            if (target.team.structures.indexOf(target)) {
+                                this.scoreCounter.structureKilled(unit.team.id, target.specs);
+                                this.commandableManager.removeStructure(target);
+                                this.simpleVision.commandableRemoved(target);
+                            }
                         });
                         break;
                     default:
