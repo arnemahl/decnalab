@@ -17,14 +17,6 @@ export const producableThings = [
     'Barracks',
     // 'FlameTower',
 ];
-export const maxInitialAddCount = {
-    Worker: 1,
-    Marine: 1,
-    // Firebat: 1,
-    SupplyDepot: 1,
-    Barracks: 1,
-    // FlameTower: 1,
-};
-export const minInitialAttackTiming = 5;
-export const maxInitialAttackTiming = 15;
+export const minAttackTiming = 6;
+export const maxAttackTiming = 42;
 export const initialBuildOrderLength = 8;
