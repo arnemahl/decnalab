@@ -473,6 +473,7 @@ var Renderer = (function() {
                     drawSquare(structure.position, specs.size, structure.type + '\n\[planned\]', teamAttrOnlyPlanned);
                 } else if (structure.isUnderConstruction) {
                     drawSquare(structure.position, specs.size, structure.type + '\n\[under construction\]', teamAttrUnderConstruction);
+                    drawHealthBar(structure, specs);
                 } else {
                     drawSquare(structure.position, specs.size, structure.type, teamAttr);
                     drawHealthBar(structure, specs);
