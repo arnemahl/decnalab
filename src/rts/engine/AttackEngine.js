@@ -1,3 +1,4 @@
+const maxDecimals = (decimals, number) => Number((number).toFixed(decimals));
 
 class AttackEngine {
 
@@ -8,9 +9,9 @@ class AttackEngine {
             return false;
         }
 
-        const targetHealth = target.healthLeftFactor * target.specs.maxHealth - damage;
+        const targetHealth = Math.round(target.healthLeftFactor * target.specs.maxHealth - damage); // Round to int
 
-        target.healthLeftFactor = targetHealth / target.specs.maxHealth;
+        target.healthLeftFactor = maxDecimals(10, targetHealth / target.specs.maxHealth); // Mitigate inaccurate binary representation
 
         return targetHealth <= 0;
     }
