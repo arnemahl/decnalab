@@ -4,7 +4,7 @@ import DefaultMap from '~/rts/spatial/DefaultMap';
 import Team from '~/rts/team/Team';
 import DumbAI from '~/ai/DumbAI';
 
-import {getRandomStrategy} from '~/coevolution/individual/genome';
+import {getRandomStrategy} from '~/coevolution/individual/strategyFixer';
 
 export default class Game {
 

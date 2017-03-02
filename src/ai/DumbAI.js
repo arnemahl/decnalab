@@ -50,6 +50,10 @@ export default class DumbAI {
     /***   macro   ***/
     /*****************/
     macro() {
+        if (this.buildOrder.length === 0) {
+            return;
+        }
+
         while (true) { // eslint-disable-line
             const targetTotals = this.getEmptyTargetTotals();
 

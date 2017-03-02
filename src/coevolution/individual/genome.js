@@ -72,10 +72,6 @@ export function encodeGenome(strategy) {
     return `${attackTiming}|${buildOrder}`;
 }
 
-export function getRandomStrategy() {
-    return decodeGenome(generateGenome());
-}
-
 
 /*****************************/
 /*  Crossover and Muatation  */

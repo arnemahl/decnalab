@@ -22,6 +22,8 @@ export const minAttackTiming = 6;
 export const maxAttackTiming = 42;
 export const initialBuildOrderLength = 8;
 
+export const strategyFixingMethod = 'fixBuildOrderByFiltering';
+
 
 /*
 
@@ -134,5 +136,15 @@ Explanation of Constants:
 # initialBuildOrderLength
 
     The length of the build order encoded in the genome, that the AI will attempt to execute.
+
+
+# strategyFixingMethod
+
+    Method of fixing strategies, to prevent small errors in a strategy with evolutionary
+    potential from making it useless.
+
+    A typical example is that a player can get stuck trying to make a Marine before it has
+    made any Barracks.
+
 
 */

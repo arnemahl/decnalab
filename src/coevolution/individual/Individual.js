@@ -1,5 +1,7 @@
 import * as Genome from '~/coevolution/individual/genome';
 import * as MemoizedGameResults from '~/coevolution/individual/memoizedGameResults';
+import * as StrategyFixer from './strategyFixer';
+import {strategyFixingMethod} from '~/coevolution/config';
 
 const sumTotal = (sum, number) => sum + number;
 
@@ -9,9 +11,11 @@ export default class Individual {
     static generate = () => new Individual(Genome.generateGenome());
 
     constructor(genome) {
-        this.id = genome;
+        const fixedStrategy = StrategyFixer[strategyFixingMethod](Genome.decodeGenome(genome));
+
+        this.id = Genome.encodeGenome(fixedStrategy);
         this.genome = genome;
-        this.strategy = Genome.decodeGenome(genome);
+        this.strategy = fixedStrategy;
     }
 
     mutate() {
