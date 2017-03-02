@@ -1,6 +1,5 @@
-import Game from '~/rts/Game';
-import {maxLoopsPerGame} from '~/coevolution/config';
 import * as Genome from '~/coevolution/individual/genome';
+import * as MemoizedGameResults from '~/coevolution/individual/memoizedGameResults';
 
 const sumTotal = (sum, number) => sum + number;
 
@@ -27,24 +26,7 @@ export default class Individual {
     /**********************************/
     /**  Shared fitness calculation  **/
     /**********************************/
-    gameResults = {}
-    getResult = (opponent) => this.gameResults[opponent.id]
-    setResult = (opponent, result) => {
-        result.opponentId = opponent.id;
-        this.gameResults[opponent.id] = result;
-    }
-
-    evaluateAgainstOne = (opponent) => {
-        if (!this.getResult(opponent)) {
-            const game = new Game('game-id', maxLoopsPerGame, this.strategy, opponent.strategy);
-
-            game.simulate();
-
-            this.setResult(opponent, game.finalScore.blue);
-            opponent.setResult(this, game.finalScore.red);
-        }
-        return this.getResult(opponent);
-    }
+    evaluateAgainstOne = (opponent) => MemoizedGameResults.getResult(this, opponent);
     evaluateAgainstAll = (opponents) => opponents.map(this.evaluateAgainstOne);
 
     static getTeachSetLosses = (teachSet, selected) => {
