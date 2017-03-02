@@ -12,15 +12,7 @@ export default class Individual {
     constructor(genome) {
         this.id = genome;
         this.genome = genome;
-    }
-
-    clone() {
-        const deepCopiedGenome = {
-            buildOrder: this.genome.buildOrder.map(target => ({ ...target })),
-            attackAtSupply: this.genome.attackAtSupply,
-        };
-
-        return new Individual(deepCopiedGenome);
+        this.strategy = Genome.decodeGenome(genome);
     }
 
     mutate() {
@@ -44,7 +36,7 @@ export default class Individual {
 
     evaluateAgainstOne = (opponent) => {
         if (!this.getResult(opponent)) {
-            const game = new Game('game-id', maxLoopsPerGame, this.genome, opponent.genome);
+            const game = new Game('game-id', maxLoopsPerGame, this.strategy, opponent.strategy);
 
             game.simulate();
 
@@ -165,16 +157,7 @@ export default class Individual {
     /**  Filter equal individuals  **/
     /********************************/
     hasDifferentGenomeThan = (other) => {
-        // Different if either attack at supply is different
-        return this.genome.attackAtSupply !== other.genome.attackAtSupply
-            || this.genome.buildOrder.some((target, index) => {
-                const otherTarget = other.genome.buildOrder[index];
-
-                // Or if any of the targets in the bulid order are different
-                return !otherTarget
-                    || otherTarget.specName !== target.specName
-                    || otherTarget.addCount !== target.addCount;
-            });
+        return this.genome !== other.genome;
     };
 
     static getIndividualsWithUniqueGenome = (population) => {
@@ -197,22 +180,7 @@ export default class Individual {
     /**  Calculate genetic distance  **/
     /**********************************/
     getGeneticDistanceTo = (other) => {
-        return Math.abs(this.genome.attackAtSupply - other.genome.attackAtSupply)
-            + Array(
-                Math.max(this.genome.buildOrder.length, other.genome.buildOrder.length)
-            )
-            .fill()
-            .map((_, index) => {
-                const dummyTarget = { addCount: 0 }; // 0 so we can subract without getting NaN
-                const thisTarget = this.genome.buildOrder[index] || dummyTarget; // Dummy target will never
-                const otherTarget = other.genome.buildOrder[index] || dummyTarget; // apply to both
-
-                const addCountDiff = Math.abs(thisTarget.addCount - otherTarget.addCount);
-                const specNameDiff = (thisTarget.specName === otherTarget.specName) ? 0 : 1;
-
-                return addCountDiff + specNameDiff;
-            })
-            .reduce(sumTotal, 0);
+        return Genome.calculateDistance(this.genome, other.genome);
     };
 
     static getAverageGeneticDistancesWithin = (population) => {

@@ -3,7 +3,7 @@ import * as Genome from './genome';
 
 // Base line solutions to provide a fixed measurement of each
 // Generation (unlike Teach set, which will vary)
-export const getBaselines = () => [
+const baselineStrategies = [
     {   // Very offensive
         buildOrder: [
             {
@@ -54,43 +54,43 @@ export const getBaselines = () => [
         ],
         attackAtSupply: 20,
     },
-    {   // Firebats!
-        "buildOrder": [
-            {
-                "specName": "Worker",
-                "addCount": 1
-            },
-            {
-                "specName": "Barracks",
-                "addCount": 1
-            },
-            {
-                "specName": "FlameTower",
-                "addCount": 1
-            },
-            {
-                "specName": "Worker",
-                "addCount": 1
-            },
-            {
-                "specName": "SupplyDepot",
-                "addCount": 1
-            },
-            {
-                "specName": "Worker",
-                "addCount": 1
-            },
-            {
-                "specName": "FlameTower",
-                "addCount": 1
-            },
-            {
-                "specName": "Firebat",
-                "addCount": 1
-            }
-        ],
-        "attackAtSupply": 16
-    },
+    // {   // Firebats!
+    //     "buildOrder": [
+    //         {
+    //             "specName": "Worker",
+    //             "addCount": 1
+    //         },
+    //         {
+    //             "specName": "Barracks",
+    //             "addCount": 1
+    //         },
+    //         {
+    //             "specName": "FlameTower",
+    //             "addCount": 1
+    //         },
+    //         {
+    //             "specName": "Worker",
+    //             "addCount": 1
+    //         },
+    //         {
+    //             "specName": "SupplyDepot",
+    //             "addCount": 1
+    //         },
+    //         {
+    //             "specName": "Worker",
+    //             "addCount": 1
+    //         },
+    //         {
+    //             "specName": "FlameTower",
+    //             "addCount": 1
+    //         },
+    //         {
+    //             "specName": "Firebat",
+    //             "addCount": 1
+    //         }
+    //     ],
+    //     "attackAtSupply": 16
+    // },
     // {   // Something in between
     //     buildOrder: [
     //         {
@@ -178,6 +178,33 @@ export const getBaselines = () => [
     //     ],
     //     "attackAtSupply": 16
     // },
-]
-.map(strategy => Genome.encodeGenome(strategy))
-.map(genome => new Individual(genome));
+];
+
+export const getBaselines = () =>
+    baselineStrategies
+        .map(strategy => Genome.encodeGenome(strategy))
+        .map(genome => new Individual(genome));
+
+/**************************************/
+/*  Test correct Encoding / Decoding  */
+/**************************************/
+(function test() {
+    function areDifferent(strategyOne, strategyTwo) {
+        return strategyOne.attackAtSupply !== strategyTwo.attackAtSupply
+            || strategyOne.buildOrder.some(
+                (target, targetIndex) => target.specName !== strategyTwo.buildOrder[targetIndex].specName
+            );
+    }
+
+    const baselineIndividuals = getBaselines();
+
+    baselineStrategies.forEach((strategy, strategyIndex) => {
+        const individual = baselineIndividuals[strategyIndex];
+
+        if (areDifferent(strategy, individual.strategy)) {
+            console.log('Encoded strategy !== original strategy:');
+            console.log(`strategy:`, strategy);
+            console.log(`individual.strategy:`, individual.strategy);
+        }
+    });
+})();

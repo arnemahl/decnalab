@@ -18,7 +18,7 @@ const nofBitsForEncoding = {
 const sumTotal = (sum, number) => sum + number;
 
 const randomBits = (count) => Array(count).fill().map(() => Math.random() < 0.5 ? '1' : '0').join('');
-const bitsToNumber = (string) => string.split('').reverse().map(Number).map(Boolean).map((b, i) => !b ? 0 : Math.pow(2, i)).reduce(sumTotal);
+const bitsToNumber = (string) => string.split('').reverse().map(Number).map(Boolean).map((b, i) => !b ? 0 : Math.pow(2, i)).reduce(sumTotal, 0);
 
 /***********************/
 /*  Generate / Decode  */
@@ -52,10 +52,6 @@ export function decodeGenome(genomeString) {
     };
 }
 
-export function getRandomStrategy() {
-    return decodeGenome(generateGenome());
-}
-
 export function encodeGenome(strategy) {
     const leftPadZeros = (bits, exactLength) => Array(exactLength - bits.length).fill('0').join('') + bits;
 
@@ -63,7 +59,7 @@ export function encodeGenome(strategy) {
         strategy.buildOrder
             .filter(target => producableThings.includes(target.specName)) // Silently filter out invalid targets
             .map(target => {
-                const number = producableThings.indexOf(target.specName));
+                const number = producableThings.indexOf(target.specName);
 
                 const numberAsBits = number.toString(2);
 
@@ -71,9 +67,13 @@ export function encodeGenome(strategy) {
             })
             .join('-');
 
-    const attackTiming = leftPadZeros((strategy.attackAtSupply - minAttackTiming).toString(2), nofBitsForEncoding.producableThings)
+    const attackTiming = leftPadZeros((strategy.attackAtSupply - minAttackTiming).toString(2), nofBitsForEncoding.attackTiming)
 
     return `${buildOrder}|${attackTiming}`;
+}
+
+export function getRandomStrategy() {
+    return decodeGenome(generateGenome());
 }
 
 
@@ -85,7 +85,7 @@ import { perBitMutationRatio } from '~/coevolution/config';
 
 export function uniformCrossover(mother, father) {
     if (mother.length !== father.length) {
-        throw Error('Inequal genome length!');
+        throw Error(`Inequal genome length! (${mother}, ${father})`);
     }
     const randArray = Array(mother.length).fill().map(() => Math.random() < 0.5);
 
@@ -111,6 +111,20 @@ export function copyAndMutate(genome) {
         .join('');
 }
 
+
+/********************************/
+/*  Calculate genetic distance  */
+/********************************/
+
+export function calculateDistance(genome, otherGenome) {
+    const maxLen = Math.max(genome.length, otherGenome.length);
+
+    return Array(maxLen).fill()
+        .map((_, index) =>
+            genome[index] === otherGenome[index] ? 0 : 1
+        )
+        .reduce(sumTotal, 0);
+}
 
 
 /**********************************/

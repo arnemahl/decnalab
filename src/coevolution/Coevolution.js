@@ -115,10 +115,10 @@ export function runCoevolution() {
 
     const output = {
         solutions: {
-            wonAgainstBaselines: wonAgainstBaselines.map(x => x.genome),
-            population: uniqueInPopulation.map(x => x.genome),
-            hallOfFame: hallOfFame.map(x => x.genome),
-            caseInjected: getCaseInjectedInvidviduals().map(x => x.genome),
+            wonAgainstBaselines: wonAgainstBaselines.map(x => x.strategy),
+            population: uniqueInPopulation.map(x => x.strategy),
+            hallOfFame: hallOfFame.map(x => x.strategy),
+            caseInjected: getCaseInjectedInvidviduals().map(x => x.strategy),
         },
         config,
         statistics: statistics.dump(),
