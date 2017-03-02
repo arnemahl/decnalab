@@ -14,7 +14,6 @@ const {
     maxGenerations,
     fitnessScalingFactor,
     crossoverRatio,
-    mutationRatio,
 } = config;
 
 const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness) => fitnessScalingFactor * fitness + maxFitness);
@@ -81,14 +80,8 @@ export function runCoevolution() {
                 return [ mother.clone(), father.clone() ];
             }
 
-        }).reduce(flatMap, []).map((child) => {
-            // Mutation
-            if (Math.random() < mutationRatio) {
-                return child.mutate();
-            } else {
-                return child;
-            }
-        });
+        }).reduce(flatMap, [])
+        .map((child) => child.mutate());
 
         // update evaluators (teachSet)
         logProgress('Updating Teach set...');

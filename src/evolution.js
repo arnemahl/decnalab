@@ -14,16 +14,16 @@ if (DEBUG || !process.argv[2]) {
     console.log('/************************/');
     console.log('/**  final generation  **/');
     console.log('/************************/');
-    output.solutions.population.forEach((genome, index) => {
-        console.log(`\nBuild order (${index})\n\t` + genome.buildOrder.map(target => `${target.specName}: ${target.addCount}`).join('\n\t'));
+    output.solutions.population.forEach((strategy, index) => {
+        console.log(`\nBuild order (${index})\n\t` + strategy.buildOrder.map(target => `${target.specName}: ${target.addCount}`).join('\n\t'));
     });
 
     console.log('\n');
     console.log('/********************/');
     console.log('/**  hall of fame  **/');
     console.log('/********************/');
-    output.solutions.population.forEach((genome, index) => {
-        console.log(`\nBuild order (${index})\n\t` + genome.buildOrder.map(target => `${target.specName}: ${target.addCount}`).join('\n\t'));
+    output.solutions.population.forEach((strategy, index) => {
+        console.log(`\nBuild order (${index})\n\t` + strategy.buildOrder.map(target => `${target.specName}: ${target.addCount}`).join('\n\t'));
     });
 }
 

@@ -75,9 +75,9 @@ export function uniformCrossover(mother, father) {
     return [ son, daugher ];
 }
 
-export function mutate(genome) {
+export function copyAndMutate(genome) {
     const isBit = (char) => ['0', '1'].includes(char);
-    const flipBit = (char) => { 0: '1', 1: '0' }[char];
+    const flipBit = (char) => ({ 0: '1', 1: '0' }[char]);
 
     return genome
         .split('')
