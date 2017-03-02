@@ -1,6 +1,6 @@
 import Game from '~/rts/Game';
 import {maxLoopsPerGame} from '~/coevolution/config';
-import {generateGenome} from '~/coevolution/individual/generateGenome';
+import {generateGenome} from '~/coevolution/individual/genome';
 import {producableThings} from '~/coevolution/config';
 
 const sumTotal = (sum, number) => sum + number;
