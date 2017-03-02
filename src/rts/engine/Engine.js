@@ -310,7 +310,7 @@ export default class Engine {
         const calcFinishedTick = () => this.tick;
         const onReceive = () => true;
         const onStart = () => {
-            return worker.isAt(baseStructure.position);
+            return worker.isAt(baseStructure.position) && baseStructure.healthLeftFactor >= 0;
         };
         const onFinish = () => {
             const harvest = worker.carriedResources;
