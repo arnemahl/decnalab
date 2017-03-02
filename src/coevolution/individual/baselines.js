@@ -1,4 +1,5 @@
 import Individual from './Individual';
+import * as Genome from './genome';
 
 // Base line solutions to provide a fixed measurement of each
 // Generation (unlike Teach set, which will vary)
@@ -177,4 +178,6 @@ export const getBaselines = () => [
     //     ],
     //     "attackAtSupply": 16
     // },
-].map(genome => new Individual(genome));
+]
+.map(strategy => Genome.encodeGenome(strategy))
+.map(genome => new Individual(genome));
