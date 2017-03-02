@@ -77,7 +77,7 @@ export function runCoevolution() {
             if (Math.random() < crossoverRatio) {
                 return Individual[config.crossoverFunction](mother, father);
             } else {
-                return [ mother.clone(), father.clone() ];
+                return [ mother, father ];
             }
 
         }).reduce(flatMap, [])
