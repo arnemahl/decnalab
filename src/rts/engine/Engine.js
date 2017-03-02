@@ -249,7 +249,7 @@ export default class Engine {
                         break;
                     case 'structure':
                         this.tickCleanupTasks.push(() => {
-                            if (target.team.structures.indexOf(target)) {
+                            if (target.team.structures.indexOf(target) !== -1) {
                                 this.scoreCounter.structureKilled(unit.team.id, target.specs);
                                 this.commandableManager.removeStructure(target);
                                 this.simpleVision.commandableRemoved(target);
