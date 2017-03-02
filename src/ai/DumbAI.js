@@ -12,12 +12,12 @@ function getClosestResourceSite(map, worker, resourceType) {
 
 export default class DumbAI {
 
-    constructor(team, map, individual) {
+    constructor(team, map, strategy) {
         this.team = team;
         this.map = map;
 
-        this.buildOrder = individual.buildOrder;
-        this.attackAtSupply = individual.attackAtSupply;
+        this.buildOrder = strategy.buildOrder;
+        this.attackAtSupply = strategy.attackAtSupply;
 
         const emptyTargetTotals = Object.keys(this.team.allSpecs).reduce((initCounts, name) => {
             initCounts[name] = (name === 'Worker') ? 5 : 0;
@@ -26,7 +26,7 @@ export default class DumbAI {
 
         this.getEmptyTargetTotals = () => ({ ...emptyTargetTotals });
 
-        if (individual.buildOrder.some(x => !x.specName || !x.addCount)) {
+        if (strategy.buildOrder.some(x => !x.specName || !x.addCount)) {
             throw Error('BUILD ORDER CONTAINS INVAILD TARGET');
         }
     }
