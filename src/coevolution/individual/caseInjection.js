@@ -1,4 +1,5 @@
 import Individual from './Individual';
+import * as Genome from './genome';
 
 /*******************************************/
 /**  Human designed good-ish individuals  **/
@@ -87,4 +88,6 @@ export const getCaseInjectedInvidviduals = () => [
         ],
         attackAtSupply: 20,
     },
-].map(genome => new Individual(genome));
+]
+.map(strategy => Genome.encodeGenome(strategy))
+.map(genome => new Individual(genome));

@@ -35,7 +35,7 @@ export function generateGenome() {
     return `${buildOrder}|${attackTiming}`;
 }
 
-export function decocdeGenome(genomeString) {
+export function decodeGenome(genomeString) {
     const buildOrder = genomeString.split('|')[0].split('-');
     const attackTiming = genomeString.split('|')[1];
 
@@ -48,12 +48,32 @@ export function decocdeGenome(genomeString) {
                 addCount: 1
             };
         }),
-        attackTiming: possibleAttackTimings[bitsToNumber(attackTiming) % possibleAttackTimings.length]
+        attackAtSupply: possibleAttackTimings[bitsToNumber(attackTiming) % possibleAttackTimings.length]
     };
 }
 
 export function getRandomStrategy() {
-    return decocdeGenome(generateGenome());
+    return decodeGenome(generateGenome());
+}
+
+export function encodeGenome(strategy) {
+    const leftPadZeros = (bits, exactLength) => Array(exactLength - bits.length).fill('0').join('') + bits;
+
+    const buildOrder =
+        strategy.buildOrder
+            .filter(target => producableThings.includes(target.specName)) // Silently filter out invalid targets
+            .map(target => {
+                const number = producableThings.indexOf(target.specName));
+
+                const numberAsBits = number.toString(2);
+
+                return leftPadZeros(numberAsBits, nofBitsForEncoding.producableThings);
+            })
+            .join('-');
+
+    const attackTiming = leftPadZeros((strategy.attackAtSupply - minAttackTiming).toString(2), nofBitsForEncoding.producableThings)
+
+    return `${buildOrder}|${attackTiming}`;
 }
 
 
