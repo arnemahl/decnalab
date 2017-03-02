@@ -1,18 +1,16 @@
 import Game from '~/rts/Game';
 import {maxLoopsPerGame} from '~/coevolution/config';
-import {generateGenome} from '~/coevolution/individual/genome';
-import {producableThings} from '~/coevolution/config';
+import * as Genome from '~/coevolution/individual/genome';
 
 const sumTotal = (sum, number) => sum + number;
-let individualsCreated = 0;
 
 
 export default class Individual {
 
-    static generate = () => new Individual(generateGenome());
+    static generate = () => new Individual(Genome.generateGenome());
 
     constructor(genome) {
-        this.id = `individual-${individualsCreated++}`;
+        this.id = genome;
         this.genome = genome;
     }
 
@@ -26,89 +24,11 @@ export default class Individual {
     }
 
     mutate() {
-        const plusOrMinus = (int) => Math.random() < 0.5 ? int : -int;
-        const clonedCopy = this.clone();
-
-        if (Math.random() < 0.9) {
-            // Mutate build order by either changing what to produce
-            const {buildOrder} = clonedCopy.genome;
-            const targetIndex = Math.floor(buildOrder.length * Math.random());
-            const target = buildOrder[targetIndex];
-
-            target.specName = producableThings.slice().sort(() => Math.random())[0];
-
-        } else {
-            // Mutate attack at supply
-            clonedCopy.attackAtSupply += plusOrMinus(1);
-        }
-
-        return clonedCopy;
-    }
-
-    static unevenSinglePointCrossover(mother, father) {
-        const crossoverPointMother = Math.floor(Math.random() * mother.genome.buildOrder.length);
-        const crossoverPointFather = Math.floor(Math.random() * father.genome.buildOrder.length);
-        const rand = Math.random() < 0.5;
-
-        const son = {
-            buildOrder: []
-                .concat(mother.genome.buildOrder.slice(0, crossoverPointMother))
-                .concat(father.genome.buildOrder.slice(crossoverPointFather)),
-            attackAtSupply: rand ? mother.genome.attackAtSupply : father.genome.attackAtSupply,
-        };
-        const daughter = {
-            buildOrder: []
-                .concat(father.genome.buildOrder.slice(0, crossoverPointFather))
-                .concat(mother.genome.buildOrder.slice(crossoverPointMother)),
-            attackAtSupply: rand ? father.genome.attackAtSupply : mother.genome.attackAtSupply,
-        };
-
-        return [son, daughter].map(genome => new Individual(genome));
-    }
-
-    static singlePointCrossover(mother, father) {
-        const length = Math.max(mother.genome.buildOrder.length, father.genome.buildOrder.length);
-        const crossoverPoint = Math.floor(Math.random() * (length - 1)) + 1;
-        const rand = Math.random() < 0.5;
-
-        const son = {
-            buildOrder: []
-                .concat(mother.genome.buildOrder.slice(0, crossoverPoint))
-                .concat(father.genome.buildOrder.slice(crossoverPoint)),
-            attackAtSupply: rand ? mother.genome.attackAtSupply : father.genome.attackAtSupply,
-        };
-        const daughter = {
-            buildOrder: []
-                .concat(father.genome.buildOrder.slice(0, crossoverPoint))
-                .concat(mother.genome.buildOrder.slice(crossoverPoint)),
-            attackAtSupply: rand ? father.genome.attackAtSupply : mother.genome.attackAtSupply,
-        };
-
-        return [son, daughter].map(genome => new Individual(genome));
+        return new Individual(Genome.copyAndMutate(this.genome));
     }
 
     static uniformCrossover(mother, father) {
-        if (mother.genome.buildOrder.length !== father.genome.buildOrder.length) {
-            throw Error('Parents do not have build orders of same length.');
-        }
-
-        const randBuild = mother.genome.buildOrder.map(() => Math.random < 0.5);
-        const sumAtk = mother.genome.attackAtSupply + father.genome.attackAtSupply;
-        const randAtk = Array(sumAtk).fill()
-            .map(() => Math.random() > 0.5)
-            .map(r => r ? 1 : 0)
-            .reduce(sumTotal);
-
-        const son = {
-            buildOrder: randBuild.map((fromMother, index) => fromMother ? mother.genome.buildOrder[index] : father.genome.buildOrder[index]),
-            attackAtSupply: randAtk
-        };
-        const daughter = {
-            buildOrder: randBuild.map((fromFather, index) => fromFather ? father.genome.buildOrder[index] : mother.genome.buildOrder[index]),
-            attackAtSupply: sumAtk - randAtk
-        };
-
-        return [son, daughter].map(genome => new Individual(genome));
+        return Genome.uniformCrossover(mother.genome, father.genome).map(genome => new Individual(genome));
     }
 
 
