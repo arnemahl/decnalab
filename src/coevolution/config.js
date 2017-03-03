@@ -4,11 +4,11 @@ export const teachSetSize = 8;
 export const maxGenerations = 50;
 export const maxLoopsPerGame = 1000;
 export const fitnessScalingFactor = 1.5;
-export const crossoverRatio = 0.95;
-export const crossoverPointRatio = 0.25;
-export const perBitMutationRatio = 0.01;
 
-export const crossoverFunction = 'uniformCrossover';
+export const crossoverRatio = 0.95;
+export const crossoverPointRatio = 0.5;
+export const crossoverFunction = 'sequencewiseUniformCrossover';
+export const perBitMutationRatio = 0.01;
 
 export const producableThings = [
     'Worker',
@@ -104,14 +104,25 @@ Explanation of Constants:
         in the middle of a gene, and increase the chance that the targets of the parents
         are transferred to the children.
 
+# crossoverFunction
+
+    Which function to use for crossover to create two children from two parents.
+
+    ## bitwiseUniformCrossover
+
+        When using bitwise crossover, crossover points may occur in the middle of a target
+        specName in the build order, possibly recombining it into a new specName.
+
+    ## sequencewiseUniformCrossover
+
+        When using sequencewise crossover, a target specName in a parent build order will
+        transfer to one of the children, with no chance of recombining it into a new specName.
+        This is how crossover worked (for bulid order) when the genome was not encoded as
+        bits.
+
 # perBitMutationRatio
 
     Probability for each individual bit in the genome to be flipped (0 into 1, 1 into 0).
-
-
-# crossoverFunction
-
-    Which function to use for crossover, creating two children from two parents.
 
 
 # producableThings
@@ -134,5 +145,6 @@ Explanation of Constants:
 # initialBuildOrderLength
 
     The length of the build order encoded in the genome, that the AI will attempt to execute.
+
 
 */

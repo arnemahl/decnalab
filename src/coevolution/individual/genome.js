@@ -83,7 +83,7 @@ export function getRandomStrategy() {
 
 import { perBitMutationRatio, crossoverPointRatio } from '~/coevolution/config';
 
-export function uniformCrossover(mother, father) {
+export function bitwiseUniformCrossover(mother, father) {
     if (mother.length !== father.length) {
         throw Error(`Inequal genome length! (${mother}, ${father})`);
     }
@@ -97,9 +97,50 @@ export function uniformCrossover(mother, father) {
         );
 
     const son = randArray.map((fromMother, index) => fromMother ? mother[index] : father[index]).join('');
-    const daugher = randArray.map((fromFather, index) => fromFather ? father[index] : mother[index]).join('');
+    const daughter = randArray.map((fromFather, index) => fromFather ? father[index] : mother[index]).join('');
 
-    return [ son, daugher ];
+    return [ son, daughter ];
+}
+
+export function sequencewiseUniformCrossover(mother, father) {
+    if (mother.length !== father.length) {
+        throw Error(`Inequal genome length! (${mother}, ${father})`);
+    }
+
+    // Crossover attack timing (bitwise)
+    const motherAtk = mother.split('|')[0];
+    const fatherAtk = father.split('|')[0];
+
+    let prevBool = false;
+    const randArrayAtk = Array(motherAtk.length).fill()
+        .map(() =>
+            Math.random() < crossoverPointRatio
+                ? prevBool = !prevBool
+                : prevBool
+        );
+
+    const sonAtk = randArrayAtk.map((fromMother, index) => fromMother ? motherAtk[index] : fatherAtk[index]).join('');
+    const daughterAtk = randArrayAtk.map((fromFather, index) => fromFather ? fatherAtk[index] : motherAtk[index]).join('');
+
+    // Crossover build order (sequencewise, one target = one sequence)
+    const motherBo = mother.split('|')[1].split('-');
+    const fatherBo = father.split('|')[1].split('-');
+
+    const randArrayBo = Array(motherBo.length).fill()
+        .map(() =>
+            Math.random() < crossoverPointRatio
+                ? prevBool = !prevBool
+                : prevBool
+        );
+
+    const sonBo = randArrayBo.map((fromMother, index) => fromMother ? motherBo[index] : fatherBo[index]).join('-');
+    const daughterBo = randArrayBo.map((fromFather, index) => fromFather ? fatherBo[index] : motherBo[index]).join('-');
+
+    // Join attack timing and build order into complete genome
+    const son = `${sonAtk}|${sonBo}`;
+    const daughter = `${daughterAtk}|${daughterBo}`;
+
+    return [son, daughter];
 }
 
 export function copyAndMutate(genome) {

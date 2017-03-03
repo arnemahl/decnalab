@@ -1,7 +1,9 @@
 import * as Genome from '~/coevolution/individual/genome';
 import * as MemoizedGameResults from '~/coevolution/individual/memoizedGameResults';
+import * as config from '~/coevolution/config';
 
 const sumTotal = (sum, number) => sum + number;
+const crossover = Genome[config.crossoverFunction];
 
 
 export default class Individual {
@@ -18,8 +20,8 @@ export default class Individual {
         return new Individual(Genome.copyAndMutate(this.genome));
     }
 
-    static uniformCrossover(mother, father) {
-        return Genome.uniformCrossover(mother.genome, father.genome).map(genome => new Individual(genome));
+    static crossover(mother, father) {
+        return crossover(mother.genome, father.genome).map(genome => new Individual(genome));
     }
 
 
