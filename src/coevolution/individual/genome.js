@@ -67,7 +67,7 @@ export function encodeGenome(strategy) {
             })
             .join('-');
 
-    const attackTiming = leftPadZeros((strategy.attackAtSupply - minAttackTiming).toString(2), nofBitsForEncoding.attackTiming)
+    const attackTiming = leftPadZeros((strategy.attackAtSupply - minAttackTiming).toString(2), nofBitsForEncoding.attackTiming);
 
     return `${attackTiming}|${buildOrder}`;
 }
@@ -124,8 +124,8 @@ export function copyAndMutate(genome) {
 /********************************/
 
 export function calculateDistance(genome, otherGenome) {
-    const genomeFiltered = genome.split('').filter(b => ['0', '1'].includes(bit)).join('');
-    const otherGenomeFiltered = otherGenome.split('').filter(b => ['0', '1'].includes(bit)).join('');
+    const genomeFiltered = genome.split('').filter(bit => ['0', '1'].includes(bit)).join('');
+    const otherGenomeFiltered = otherGenome.split('').filter(bit => ['0', '1'].includes(bit)).join('');
 
     const maxLen = Math.max(genomeFiltered.length, otherGenomeFiltered.length);
 
