@@ -32,12 +32,12 @@ export function generateGenome() {
 
     const attackTiming = randomBits(nofBitsForEncoding.attackTiming);
 
-    return `${buildOrder}|${attackTiming}`;
+    return `${attackTiming}|${buildOrder}`;
 }
 
 export function decodeGenome(genomeString) {
-    const buildOrder = genomeString.split('|')[0].split('-');
-    const attackTiming = genomeString.split('|')[1];
+    const attackTiming = genomeString.split('|')[0];
+    const buildOrder = genomeString.split('|')[1].split('-');
 
     return {
         buildOrder: buildOrder.map(string => {
@@ -69,7 +69,7 @@ export function encodeGenome(strategy) {
 
     const attackTiming = leftPadZeros((strategy.attackAtSupply - minAttackTiming).toString(2), nofBitsForEncoding.attackTiming)
 
-    return `${buildOrder}|${attackTiming}`;
+    return `${attackTiming}|${buildOrder}`;
 }
 
 export function getRandomStrategy() {
