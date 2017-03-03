@@ -1,10 +1,5 @@
-import Vectors from '~/rts/spatial/Vectors';
-
 import UnitSpecs from '~/rts/units/UnitSpecs';
 import StructureSpecs from '~/rts/structures/StructureSpecs';
-
-import {isBaseStructure} from '~/rts/structures/BaseStructure';
-
 
 export default class Team {
 

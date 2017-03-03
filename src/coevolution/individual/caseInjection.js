@@ -88,7 +88,7 @@ const caseInjectedStrategies = [
         ],
         attackAtSupply: 20,
     },
-]
+];
 
 export const getCaseInjectedInvidviduals = () =>
     caseInjectedStrategies
