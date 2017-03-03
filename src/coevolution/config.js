@@ -5,6 +5,7 @@ export const maxGenerations = 50;
 export const maxLoopsPerGame = 1000;
 export const fitnessScalingFactor = 1.5;
 export const crossoverRatio = 0.95;
+export const crossoverPointRatio = 0.25;
 export const perBitMutationRatio = 0.01;
 
 export const crossoverFunction = 'uniformCrossover';

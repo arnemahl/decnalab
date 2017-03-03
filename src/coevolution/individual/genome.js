@@ -81,13 +81,20 @@ export function getRandomStrategy() {
 /*  Crossover and Muatation  */
 /*****************************/
 
-import { perBitMutationRatio } from '~/coevolution/config';
+import { perBitMutationRatio, crossoverPointRatio } from '~/coevolution/config';
 
 export function uniformCrossover(mother, father) {
     if (mother.length !== father.length) {
         throw Error(`Inequal genome length! (${mother}, ${father})`);
     }
-    const randArray = Array(mother.length).fill().map(() => Math.random() < 0.5);
+
+    let prevBool = false;
+    const randArray = Array(mother.length).fill()
+        .map(() =>
+            Math.random() < crossoverPointRatio
+                ? prevBool = !prevBool
+                : prevBool
+        );
 
     const son = randArray.map((fromMother, index) => fromMother ? mother[index] : father[index]).join('');
     const daugher = randArray.map((fromFather, index) => fromFather ? father[index] : mother[index]).join('');
