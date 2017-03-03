@@ -117,11 +117,14 @@ export function copyAndMutate(genome) {
 /********************************/
 
 export function calculateDistance(genome, otherGenome) {
-    const maxLen = Math.max(genome.length, otherGenome.length);
+    const genomeFiltered = genome.split('').filter(b => ['0', '1'].includes(bit)).join('');
+    const otherGenomeFiltered = otherGenome.split('').filter(b => ['0', '1'].includes(bit)).join('');
+
+    const maxLen = Math.max(genomeFiltered.length, otherGenomeFiltered.length);
 
     return Array(maxLen).fill()
         .map((_, index) =>
-            genome[index] === otherGenome[index] ? 0 : 1
+            genomeFiltered[index] === otherGenomeFiltered[index] ? 0 : 1
         )
         .reduce(sumTotal, 0);
 }
