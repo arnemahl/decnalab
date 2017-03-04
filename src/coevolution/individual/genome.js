@@ -40,15 +40,15 @@ export function decodeGenome(genomeString) {
     const buildOrder = genomeString.split('|')[1].split('-');
 
     return {
+        attackAtSupply: possibleAttackTimings[bitsToNumber(attackTiming) % possibleAttackTimings.length],
         buildOrder: buildOrder.map(string => {
             const specName = producableThings[bitsToNumber(string) % producableThings.length];
 
             return {
+                addCount: 1,
                 specName,
-                addCount: 1
             };
-        }),
-        attackAtSupply: possibleAttackTimings[bitsToNumber(attackTiming) % possibleAttackTimings.length]
+        })
     };
 }
 
