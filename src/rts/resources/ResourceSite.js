@@ -80,7 +80,7 @@ class ResourceSite {
 export class AbundantResourceSite extends ResourceSite {
     resourceType = 'abundant'
     resourcesLeft = 20000
-    maxHarvesters = 15
+    maxHarvesters = 12
     harvestDuration = 75
     harvestAmmount = 10
     size = 800
