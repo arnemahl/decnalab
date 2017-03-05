@@ -2,7 +2,8 @@ export const popSize = 50;
 export const nofChildrenPerGeneration = 70;
 export const teachSetSize = 8;
 export const maxGenerations = 50;
-export const maxLoopsPerGame = 1000;
+export const maxLoopsPerGame = 2000;
+export const maxTicksPerGame = 20000;
 export const fitnessScalingFactor = 1.5;
 
 export const crossoverRatio = 0.95;

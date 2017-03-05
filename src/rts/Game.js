@@ -12,9 +12,10 @@ export default class Game {
     teamIds = ['blue', 'red']
     loops = 0
 
-    constructor(id, maxLoops, blueAiConfig, redAiConfig) {
+    constructor(id, maxLoops, maxTicks, blueAiConfig, redAiConfig) {
         this.id = id;
         this.maxLoops = maxLoops;
+        this.maxTicks = maxTicks;
 
         this.map = new DefaultMap();
 
@@ -32,7 +33,7 @@ export default class Game {
     }
 
     isFinished() {
-        return this.teams.some(team => team.hasNoMoreCommandables()) || this.loops++ > this.maxLoops;
+        return this.teams.some(team => team.hasNoMoreCommandables()) || this.loops++ > this.maxLoops || this.tick > this.maxTicks;
     }
     doTick = () => {
         const tick = this.engine.doTick();

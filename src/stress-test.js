@@ -11,7 +11,7 @@ let i = 0;
 while (i++ < nofGames) {
     const t0 = Date.now();
 
-    const game = new Game('unused-id', 1000, aiConfig, aiConfig);
+    const game = new Game('unused-id', 2000, 20000, aiConfig, aiConfig);
 
     game.simulate();
 

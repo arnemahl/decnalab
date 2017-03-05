@@ -643,11 +643,12 @@ var Renderer = (function() {
 })();
 
 
-var maxLoops = 1000;
+var maxLoops = 2000;
+var maxTicks = 20000;
 
 var socket = io();
 
-socket.emit('simulate-game', maxLoops);
+socket.emit('simulate-game', maxLoops, maxTicks);
 
 socket.on('game-state', function(update) {
     stateIndex = update.stateIndex;

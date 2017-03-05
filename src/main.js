@@ -7,10 +7,10 @@ import {getAiConfigs} from '~/util/cli';
 
 const aiConfigs = getAiConfigs();
 
-function simulateGame(maxLoops) {
+function simulateGame(maxLoops, maxTicks) {
     return new Promise((resolve, reject) => {
         try {
-            const game = new Game('unused-id', maxLoops, aiConfigs[0], aiConfigs[1]);
+            const game = new Game('unused-id', maxLoops, maxTicks, aiConfigs[0], aiConfigs[1]);
             game.simulateAndStoreEveryState();
             resolve(game);
         } catch (error) {
@@ -19,7 +19,7 @@ function simulateGame(maxLoops) {
     });
 }
 
-simulateGame(10).catch((error) => {
+simulateGame(10, 1000).catch((error) => {
     console.log(`Simulation test run FAILED`, error);
     process.exit();
 });
@@ -44,8 +44,9 @@ ioAppSocket.on('connection', (socket) => {
     console.log('a user connected');
     socket.on('disconnect', () => console.log('a user disconnected'));
 
-    socket.on('simulate-game', (maxLoops_in) => {
+    socket.on('simulate-game', (maxLoops_in, maxTicks_in) => {
         const maxLoops = parseInt(maxLoops_in);
+        const maxTicks = parseInt(maxTicks_in);
 
         if (isNaN(maxLoops) || maxLoops < 0) {
             const inputError = `Input error: maxLoops="${maxLoops_in}" is not valid`;
@@ -54,7 +55,7 @@ ioAppSocket.on('connection', (socket) => {
             return;
         }
 
-        simulateGame(maxLoops).then((game) => {
+        simulateGame(maxLoops, maxTicks).then((game) => {
             const lastStateIndex = game.states.length - 1;
             let stateIndex = 0;
 

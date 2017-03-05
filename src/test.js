@@ -6,8 +6,9 @@ const CliUtil = require('./util/cli');
 const aiConfigs = CliUtil.canGetAiConfigs() ? CliUtil.getAiConfigs() : Array(2).fill(require('./ai/DefaultConfigDumbAI'));
 
 function fastTest() {
-    const maxLoops = 1000;
-    const game = new Game('unused-id', maxLoops, aiConfigs[0], aiConfigs[1]);
+    const maxLoops = 2000;
+    const maxTicks = 20000;
+    const game = new Game('unused-id', maxLoops, maxTicks, aiConfigs[0], aiConfigs[1]);
 
     const t0 = Date.now();
 
