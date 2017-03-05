@@ -163,7 +163,9 @@ export const getCaseInjectedInvidviduals = () =>
     function areDifferent(strategyOne, strategyTwo) {
         return strategyOne.attackAtSupply !== strategyTwo.attackAtSupply
             || strategyOne.buildOrder.some(
-                (target, targetIndex) => target.specName !== strategyTwo.buildOrder[targetIndex].specName
+                (target, targetIndex) =>
+                    target.specName !== strategyTwo.buildOrder[targetIndex].specName
+                    || target.addCount !== strategyTwo.buildOrder[targetIndex].addCount
             );
     }
 

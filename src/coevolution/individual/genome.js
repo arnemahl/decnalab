@@ -1,5 +1,6 @@
 import {
     producableThings,
+    possibleAddCounts,
     minAttackTiming,
     maxAttackTiming,
     initialBuildOrderLength,
@@ -12,6 +13,7 @@ const possibleAttackTimings = Array(1 + maxAttackTiming - minAttackTiming).fill(
 
 const nofBitsForEncoding = {
     producableThings: Math.ceil(Math.sqrt(producableThings.length)),
+    addCount: Math.ceil(Math.sqrt(possibleAddCounts.length)),
     attackTiming: Math.ceil(Math.sqrt(possibleAttackTimings.length)),
 };
 
@@ -27,7 +29,7 @@ const bitsToNumber = (string) => string.split('').reverse().map(Number).map(Bool
 export function generateGenome() {
     const buildOrder =
         Array(initialBuildOrderLength).fill()
-            .map(() => randomBits(nofBitsForEncoding.producableThings))
+            .map(() => `${randomBits(nofBitsForEncoding.possibleAddCounts)}*${randomBits(nofBitsForEncoding.producableThings)}`)
             .join('-');
 
     const attackTiming = randomBits(nofBitsForEncoding.attackTiming);
@@ -42,10 +44,11 @@ export function decodeGenome(genomeString) {
     return {
         attackAtSupply: possibleAttackTimings[bitsToNumber(attackTiming) % possibleAttackTimings.length],
         buildOrder: buildOrder.map(string => {
-            const specName = producableThings[bitsToNumber(string) % producableThings.length];
+            const addCount = possibleAddCounts[bitsToNumber(string.split('*')[0]) % possibleAddCounts.length];
+            const specName = producableThings[bitsToNumber(string.split('*')[1]) % producableThings.length];
 
             return {
-                addCount: 1,
+                addCount,
                 specName,
             };
         })
@@ -57,13 +60,26 @@ export function encodeGenome(strategy) {
 
     const buildOrder =
         strategy.buildOrder
-            .filter(target => producableThings.includes(target.specName)) // Silently filter out invalid targets
+            .filter(target => {
+                if (possibleAddCounts.indexOf(target.addCount) === -1
+                    ||producableThings.indexOf(target.specName) === -1
+                    ) {
+                    // Throw error if target cannot be encoded
+                    throw Error(`Invalid target ${JSON.stringify(target)}`);
+                } else {
+                    return true;
+                }
+            })
             .map(target => {
-                const number = producableThings.indexOf(target.specName);
+                const addCountIndex = possibleAddCounts.indexOf(target.addCount);
+                const addCountIndexAsBits = addCountIndex.toString(2);
+                const addCountBits = leftPadZeros(addCountIndexAsBits, nofBitsForEncoding.addCount);
 
-                const numberAsBits = number.toString(2);
+                const specNameIndex = producableThings.indexOf(target.specName);
+                const specNameIndexAsBits = specNameIndex.toString(2);
+                const specNameBits = leftPadZeros(specNameIndexAsBits, nofBitsForEncoding.producableThings);
 
-                return leftPadZeros(numberAsBits, nofBitsForEncoding.producableThings);
+                return `${addCountBits}*${specNameBits}`;
             })
             .join('-');
 

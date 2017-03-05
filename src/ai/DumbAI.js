@@ -26,7 +26,7 @@ export default class DumbAI {
 
         this.getEmptyTargetTotals = () => ({ ...emptyTargetTotals });
 
-        if (strategy.buildOrder.some(x => !x.specName || !x.addCount)) {
+        if (strategy.buildOrder.some(x => !this.team.allSpecs[x.specName] || typeof x.addCount !== 'number')) {
             throw Error('BUILD ORDER CONTAINS INVAILD TARGET');
         }
     }

@@ -19,6 +19,7 @@ export const producableThings = [
     'Barracks',
     // 'FlameTower',
 ];
+export const possibleAddCounts = [ 0, 1, 2, 3, 4, 5, 6, 7 ];
 export const minAttackTiming = 6;
 export const maxAttackTiming = 42;
 export const initialBuildOrderLength = 8;
@@ -116,10 +117,11 @@ Explanation of Constants:
 
     ## sequencewiseUniformCrossover
 
-        When using sequencewise crossover, a target specName in a parent build order will
-        transfer to one of the children, with no chance of recombining it into a new specName.
+        When using sequencewise crossover, a target (addCount and specName) in a parent build
+        order will transfer to one of the children, with no chance of recombining it into a
+        new target with different specName or addCount.
         This is how crossover worked (for bulid order) when the genome was not encoded as
-        bits.
+        bits, except it didn't use to have addCount.
 
 # perBitMutationRatio
 
