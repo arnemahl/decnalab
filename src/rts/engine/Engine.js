@@ -230,7 +230,6 @@ export default class Engine {
             }
 
             if (unit.isOnCooldown) {
-                console.log('COOLDOWN'); // DEBUG
                 return false;
             }
             unit.isOnCooldown = true;
