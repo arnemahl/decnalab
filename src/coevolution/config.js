@@ -19,10 +19,10 @@ export const producableThings = [
     'Barracks',
     // 'FlameTower',
 ];
-export const possibleAddCounts = [ 0, 1, 2, 3, 4, 5, 6, 7 ];
+export const possibleAddCounts = [ 0, 1 ];
 export const minAttackTiming = 6;
 export const maxAttackTiming = 42;
-export const initialBuildOrderLength = 9;
+export const initialBuildOrderLength = 26;
 
 
 /*
