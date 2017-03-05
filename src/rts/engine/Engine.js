@@ -235,6 +235,11 @@ export default class Engine {
             }
             unit.isOnCooldown = true;
 
+            const cooldownComplete = () => {
+                unit.isOnCooldown = false;
+            };
+            this.taskSchedule.addTask(cooldownComplete, this.tick + unit.specs.weapon.cooldown);
+
             const didKill = AttackEngine.applyAttack(unit, target);
             if (didKill) {
                 switch (target.type) {
@@ -263,14 +268,8 @@ export default class Engine {
 
             return true;
         };
-        const onFinish = () => {
-            unit.isOnCooldown = false;
-        };
-        const onAbort = () => {
-            if (unit.healthLeftFactor > 0) {
-                console.log('Uh oh, stuck on cooldown!');
-            }
-        };
+        const onFinish = () => {};
+        const onAbort = () => {};
         const commandTarget = { id: target.id, position: target.position };
 
         this.addCommand('attack', commandTarget, unit, calcFinishedTick, onReceive, onStart, onFinish, onAbort);
