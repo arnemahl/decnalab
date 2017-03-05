@@ -22,7 +22,7 @@ export const producableThings = [
 export const possibleAddCounts = [ 0, 1, 2, 3, 4, 5, 6, 7 ];
 export const minAttackTiming = 6;
 export const maxAttackTiming = 42;
-export const initialBuildOrderLength = 8;
+export const initialBuildOrderLength = 9;
 
 
 /*
