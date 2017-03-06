@@ -1,5 +1,5 @@
 import Vectors from '~/rts/spatial/Vectors';
-import getClosestEnemy, {byClosenessTo} from '~/rts/spatial/getClosestEnemy';
+import getClosestEnemy, {byClosenessTo, getClosestEnemyUnitWithinRange} from '~/rts/spatial/getClosestEnemy';
 
 function getClosestResourceSite(map, worker, resourceType) {
     return (
@@ -26,7 +26,7 @@ export default class DumbAI {
 
         this.getEmptyTargetTotals = () => ({ ...emptyTargetTotals });
 
-        if (strategy.buildOrder.some(x => !x.specName || !x.addCount)) {
+        if (strategy.buildOrder.some(x => !this.team.allSpecs[x.specName] || typeof x.addCount !== 'number')) {
             throw Error('BUILD ORDER CONTAINS INVAILD TARGET');
         }
     }
@@ -121,39 +121,51 @@ export default class DumbAI {
     micro() {
         if (this.team.visibleEnemyCommandables.length > 0) {
             // Probably already in battle, go for it
-            this.team.commandablesByName
-                .Marine
-                .filter(marine => marine.isIdle())
-                .forEach(marine => {
-                    const closestEnemy = getClosestEnemy(marine);
-
-                    marine.getCommander().attackMove(closestEnemy.position);
-                });
-            this.team.commandablesByName
-                .Firebat
-                .filter(firebat => firebat.isIdle())
-                .forEach(firebat => {
-                    const closestEnemy = getClosestEnemy(firebat);
-
-                    firebat.getCommander().attackMove(closestEnemy.position);
-                });
+            this.inBattleMicro(this.team.commandablesByName.Marine);
+            this.inBattleMicro(this.team.commandablesByName.Firebat);
 
         } else if (this.team.usedSupply >= this.attackAtSupply) {
             // Ready to approach enemy base
-            const {enemySpawnPosition} = this.team;
-
-            this.team.commandablesByName
-                .Marine
-                .filter(marine => marine.isIdle())
-                .forEach(marine => {
-                    marine.getCommander().attackMove(enemySpawnPosition);
-                });
-            this.team.commandablesByName
-                .Firebat
-                .filter(firebat => firebat.isIdle())
-                .forEach(firebat => {
-                    firebat.getCommander().attackMove(enemySpawnPosition);
-                });
+            this.launchAttackMicro(this.team.commandablesByName.Marine);
+            this.launchAttackMicro(this.team.commandablesByName.Firebat);
+        } else {
+            // Stop approaching enemy base
+            this.abortAttackMicro(this.team.commandablesByName.Marine);
+            this.abortAttackMicro(this.team.commandablesByName.Firebat);
         }
+    }
+
+    inBattleMicro = (unitList) => {
+        unitList
+            .filter(unit => unit.isIdle())
+            .forEach(unit => {
+                const enemyUnitInRange = getClosestEnemyUnitWithinRange(unit);
+
+                if (enemyUnitInRange) {
+                    unit.getCommander().attack(enemyUnitInRange);
+                } else {
+                    const closestEnemy = getClosestEnemy(unit);
+
+                    unit.getCommander().attackMove(closestEnemy.position);
+                }
+            });
+    }
+
+    launchAttackMicro = (unitList) => {
+        const {enemySpawnPosition} = this.team;
+
+        unitList
+            .filter(unit => unit.isIdle())
+            .forEach(unit => {
+                unit.getCommander().attackMove(enemySpawnPosition);
+            });
+    }
+
+    abortAttackMicro = (unitList) => {
+        unitList
+            .filter(unit => unit.isBusy())
+            .forEach(unit => {
+                unit.clearCommands();
+            });
     }
 }

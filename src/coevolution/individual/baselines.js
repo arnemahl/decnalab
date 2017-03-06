@@ -4,180 +4,97 @@ import * as Genome from './genome';
 // Base line solutions to provide a fixed measurement of each
 // Generation (unlike Teach set, which will vary)
 const baselineStrategies = [
-    {   // Very offensive
+
+    {   // #1: Max offensive. Beats #3
+        attackAtSupply: 6,
         buildOrder: [
-            {
-                specName: 'Barracks',
-                addCount: 1
-            },
-            {
-                specName: 'SupplyDepot',
-                addCount: 1
-            },
-            {
-                specName: 'Marine',
-                addCount: 1
-            },
+            { addCount: 1, specName: 'Barracks' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'SupplyDepot' },
+            { addCount: 1, specName: 'Marine' },
         ],
-        attackAtSupply: 20,
     },
-    {   // Very economical
+
+    {   // #2: More economical. Can (just barely) defend first attack against #1, then win
+        attackAtSupply: 20,
         buildOrder: [
-            {
-                specName: 'Worker',
-                addCount: 3
-            },
-            {
-                specName: 'Barracks',
-                addCount: 1
-            },
-            {
-                specName: 'Marine',
-                addCount: 1
-            },
-            {
-                specName: 'SupplyDepot',
-                addCount: 1
-            },
-            {
-                specName: 'Marine',
-                addCount: 1
-            },
-            {
-                specName: 'Barracks',
-                addCount: 1
-            },
-            {
-                specName: 'Marine',
-                addCount: 1
-            },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Barracks' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Barracks' },
+            { addCount: 1, specName: 'SupplyDepot' },
+            { addCount: 1, specName: 'Marine' },
         ],
-        attackAtSupply: 20,
     },
-    // {   // Firebats!
-    //     "buildOrder": [
-    //         {
-    //             "specName": "Worker",
-    //             "addCount": 1
-    //         },
-    //         {
-    //             "specName": "Barracks",
-    //             "addCount": 1
-    //         },
-    //         {
-    //             "specName": "FlameTower",
-    //             "addCount": 1
-    //         },
-    //         {
-    //             "specName": "Worker",
-    //             "addCount": 1
-    //         },
-    //         {
-    //             "specName": "SupplyDepot",
-    //             "addCount": 1
-    //         },
-    //         {
-    //             "specName": "Worker",
-    //             "addCount": 1
-    //         },
-    //         {
-    //             "specName": "FlameTower",
-    //             "addCount": 1
-    //         },
-    //         {
-    //             "specName": "Firebat",
-    //             "addCount": 1
-    //         }
-    //     ],
-    //     "attackAtSupply": 16
-    // },
-    // {   // Something in between
-    //     buildOrder: [
-    //         {
-    //             specName: 'Worker',
-    //             addCount: 1
-    //         },
-    //         {
-    //             specName: 'Barracks',
-    //             addCount: 1
-    //         },
-    //         {
-    //             specName: 'Marine',
-    //             addCount: 1
-    //         },
-    //         {
-    //             specName: 'SupplyDepot',
-    //             addCount: 1
-    //         },
-    //         {
-    //             specName: 'Marine',
-    //             addCount: 1
-    //         },
-    //     ],
-    //     attackAtSupply: 20,
-    // },
-    // {   // Very persistently offensive
-    //     buildOrder: [
-    //         {
-    //             specName: 'Barracks',
-    //             addCount: 1
-    //         },
-    //         {
-    //             specName: 'SupplyDepot',
-    //             addCount: 1
-    //         },
-    //         {
-    //             specName: 'Marine',
-    //             addCount: 11
-    //         },
-    //         {
-    //             specName: 'SupplyDepot',
-    //             addCount: 1
-    //         },
-    //         {
-    //             specName: 'Marine',
-    //             addCount: 1
-    //         },
-    //     ],
-    //     attackAtSupply: 15,
-    // },
-    // {   // First offensive, then economical (if the game lasts that long)
-    //     "buildOrder": [
-    //         {
-    //             "specName": "Barracks",
-    //             "addCount": 1
-    //         },
-    //         {
-    //             "specName": "SupplyDepot",
-    //             "addCount": 1
-    //         },
-    //         {
-    //             "specName": "Marine",
-    //             "addCount": 2
-    //         },
-    //         {
-    //             "specName": "Barracks",
-    //             "addCount": 1
-    //         },
-    //         {
-    //             "specName": "Marine",
-    //             "addCount": 10
-    //         },
-    //         {
-    //             "specName": "Worker",
-    //             "addCount": 2
-    //         },
-    //         {
-    //             "specName": "SupplyDepot",
-    //             "addCount": 1
-    //         },
-    //         {
-    //             "specName": "Marine",
-    //             "addCount": 1
-    //         }
-    //     ],
-    //     "attackAtSupply": 16
-    // },
+
+    {   // #3: Very economical (11 workers). BO-26(9) (max addCount of 7). Beats #2
+        attackAtSupply: 30,
+        buildOrder: [
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'SupplyDepot' },
+            { addCount: 1, specName: 'Barracks' },
+            { addCount: 1, specName: 'Barracks' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'SupplyDepot' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Barracks' },
+            { addCount: 1, specName: 'SupplyDepot' },
+            { addCount: 1, specName: 'Marine' },
+        ],
+    },
+
+    {   // #4: Max economical (15 workers). BOL-24(8) Beats #2 and #3
+        attackAtSupply: 35,
+        buildOrder: [
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'SupplyDepot' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Worker' },
+            { addCount: 1, specName: 'Barracks' },
+            { addCount: 1, specName: 'Barracks' },
+            { addCount: 1, specName: 'SupplyDepot' },
+            { addCount: 1, specName: 'SupplyDepot' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Marine' },
+            { addCount: 1, specName: 'Barracks' },
+            { addCount: 1, specName: 'Marine' },
+        ],
+    },
+
 ];
 
 export const getBaselines = () =>
@@ -192,7 +109,9 @@ export const getBaselines = () =>
     function areDifferent(strategyOne, strategyTwo) {
         return strategyOne.attackAtSupply !== strategyTwo.attackAtSupply
             || strategyOne.buildOrder.some(
-                (target, targetIndex) => target.specName !== strategyTwo.buildOrder[targetIndex].specName
+                (target, targetIndex) =>
+                    target.specName !== strategyTwo.buildOrder[targetIndex].specName
+                    || target.addCount !== strategyTwo.buildOrder[targetIndex].addCount
             );
     }
 

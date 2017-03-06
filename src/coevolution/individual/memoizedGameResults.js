@@ -1,5 +1,5 @@
 import Game from '~/rts/Game';
-import {maxLoopsPerGame} from '~/coevolution/config';
+import {maxLoopsPerGame, maxTicksPerGame} from '~/coevolution/config';
 
 const memo = {};
 
@@ -15,7 +15,7 @@ export function getResult(one, two) {
     if (memo[one.id][two.id]) {
         return memo[one.id][two.id];
     } else {
-        const game = new Game('game-id', maxLoopsPerGame, one.strategy, two.strategy);
+        const game = new Game('game-id', maxLoopsPerGame, maxTicksPerGame, one.strategy, two.strategy);
 
         game.simulate();
 

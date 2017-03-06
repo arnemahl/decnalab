@@ -27,8 +27,8 @@ export default class DefaultMap {
         max: 2
     }
 
-    width = 20*1000;
-    height = 40*1000;
+    width = 12*1000;
+    height = 18*1000;
 
     center = Vectors.new(this.width / 2, this.height / 2);
     bounds = new Rectangle({
@@ -39,7 +39,7 @@ export default class DefaultMap {
     });
 
     visionSectors = (() => {
-        const nofSectors = 5;
+        const nofSectors = 4;
         const sectorHeight = this.height / nofSectors;
 
         return Array(nofSectors).fill(void 0)
@@ -98,13 +98,13 @@ export default class DefaultMap {
         };
         return {
             north: []
-                .concat(getPositions(this.startingPositions.north, -1000, 1500))
-                .concat(getPositions(this.startingPositions.north, -1000, 3000))
-                .concat(getPositions(this.startingPositions.north, -1000, 4500)),
+                .concat(getPositions(this.startingPositions.north, -1000, 1200))
+                .concat(getPositions(this.startingPositions.north, -1000, 2400))
+                .concat(getPositions(this.startingPositions.north, -1000, 3200)),
             south: []
-                .concat(getPositions(this.startingPositions.south, 1000, -1500))
-                .concat(getPositions(this.startingPositions.south, 1000, -3000))
-                .concat(getPositions(this.startingPositions.south, 1000, -4500)),
+                .concat(getPositions(this.startingPositions.south, 1000, -1200))
+                .concat(getPositions(this.startingPositions.south, 1000, -2400))
+                .concat(getPositions(this.startingPositions.south, 1000, -3200)),
         };
     })()
 
@@ -114,8 +114,8 @@ export default class DefaultMap {
     }
 
     unitSpawnPositions = [
-        Vectors.add(this.startingPositions.north, Vectors.new(0, 1500)),
-        Vectors.add(this.startingPositions.south, Vectors.new(0, -1500))
+        Vectors.add(this.startingPositions.north, Vectors.new(0, 1200)),
+        Vectors.add(this.startingPositions.south, Vectors.new(0, -1200))
     ]
 
     startingUnits = [
