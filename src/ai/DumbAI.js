@@ -1,15 +1,11 @@
 import Vectors from '~/rts/spatial/Vectors';
-import getClosestEnemy from '~/rts/spatial/getClosestEnemy';
-import Worker from '~/rts/units/Worker';
-import Marine from '~/rts/units/Marine';
+import getClosestEnemy, {byClosenessTo} from '~/rts/spatial/getClosestEnemy';
 
 function getClosestResourceSite(map, worker, resourceType) {
-    const distanceTo = resourceSite => Vectors.absoluteDistance(worker.position, resourceSite.position);
-
     return (
         map
         .resourceSites[resourceType]
-        .sort((one, two) => distanceTo(one) - distanceTo(two))
+        .sort(byClosenessTo(worker.position))
         [0]
     );
 }
@@ -22,6 +18,13 @@ export default class DumbAI {
 
         this.buildOrder = individual.buildOrder;
         this.attackAtSupply = individual.attackAtSupply;
+
+        const emptyTargetTotals = Object.keys(this.team.allSpecs).reduce((initCounts, name) => {
+            initCounts[name] = (name === 'Worker') ? 5 : 0;
+            return initCounts;
+        }, {});
+
+        this.getEmptyTargetTotals = () => ({ ...emptyTargetTotals });
 
         if (individual.buildOrder.some(x => !x.specName || !x.addCount)) {
             throw Error('BUILD ORDER CONTAINS INVAILD TARGET');
@@ -48,16 +51,15 @@ export default class DumbAI {
     /*****************/
     macro() {
         while (true) { // eslint-disable-line
-            const targetTotals = {
-                'Worker': 5, // starts with 5
-                'Marine': 0,
-                'SupplyDepot': 0,
-                'Barracks': 0,
-            };
+            const targetTotals = this.getEmptyTargetTotals();
 
-            const nextTarget =
-                this.buildOrder.find(target => this.team.commandablesByName[target.specName].length < (targetTotals[target.specName] += target.addCount))
-                || this.buildOrder[this.buildOrder.length - 1];
+            const nextTarget = this.buildOrder.find((target, index) => {
+                const count = this.team.commandablesByName[target.specName].length
+                    + this.team.plannedUnitsByName[target.specName]; // plannedUnitsByName is 0 for all sturctures, not undefined
+
+                return count < (targetTotals[target.specName] += target.addCount) // need to make more
+                    || index === this.buildOrder.length - 1; // or is last in build order
+            });
 
             const {specName} = nextTarget;
             const spec = this.team.allSpecs[specName];
@@ -73,8 +75,7 @@ export default class DumbAI {
                     .filter(worker => worker.commandQueue.array.every(command => command.type !== 'build'));
             } else {
                 availableProducers = this.team.commandablesByName[spec.producedBy]
-                    .filter(producer => !producer.isOnlyPlanned)
-                    .filter(producer => !producer.isUnderConstruction)
+                    .filter(producer => producer.isFinished)
                     .filter(producer => producer.isIdle());
             }
 
@@ -90,7 +91,9 @@ export default class DumbAI {
                 if (!structurePosition) {
                     return; // End infinite loop
                 } else {
-                    availableProducers[0].getCommander().build(spec, structurePosition);
+                    availableProducers
+                        .sort(byClosenessTo(structurePosition))[0]
+                        .getCommander().build(spec, structurePosition);
                 }
             } else {
                 availableProducers[0].getCommander().produceUnit(spec);
@@ -126,16 +129,30 @@ export default class DumbAI {
 
                     marine.getCommander().attackMove(closestEnemy.position);
                 });
+            this.team.commandablesByName
+                .Firebat
+                .filter(firebat => firebat.isIdle())
+                .forEach(firebat => {
+                    const closestEnemy = getClosestEnemy(firebat);
+
+                    firebat.getCommander().attackMove(closestEnemy.position);
+                });
 
         } else if (this.team.usedSupply >= this.attackAtSupply) {
             // Ready to approach enemy base
-            const enemySpawnPosition = this.map.unitSpawnPositions.find((_, index) => index !== this.team.index);
+            const {enemySpawnPosition} = this.team;
 
             this.team.commandablesByName
                 .Marine
                 .filter(marine => marine.isIdle())
                 .forEach(marine => {
                     marine.getCommander().attackMove(enemySpawnPosition);
+                });
+            this.team.commandablesByName
+                .Firebat
+                .filter(firebat => firebat.isIdle())
+                .forEach(firebat => {
+                    firebat.getCommander().attackMove(enemySpawnPosition);
                 });
         }
     }

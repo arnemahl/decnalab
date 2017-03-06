@@ -1,3 +1,3 @@
 import Structure from '~/rts/structures/Structure';
 
-export default class Barracks extends Structure {}
+export default class FlameTower extends Structure {}

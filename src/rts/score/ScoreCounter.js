@@ -41,12 +41,12 @@ export default class ScoreCounter {
 
     unitKilled = (killerTeamId, unitSpec) => {
         this.teamScore[killerTeamId].unitsKilled += 1;
-        this.teamScore[killerTeamId].score += 2 * calculateScore(unitSpec.cost);
+        this.teamScore[killerTeamId].score += calculateScore(unitSpec.cost);
     }
 
     structureKilled = (killerTeamId, structureSpec) => {
         this.teamScore[killerTeamId].structuresKilled += 1;
-        this.teamScore[killerTeamId].score += 2 * calculateScore(structureSpec.cost);
+        this.teamScore[killerTeamId].score += calculateScore(structureSpec.cost);
     }
 
     gameOver = (winningTeamId, losingTeamId/*, tick*/) => {
