@@ -4,7 +4,7 @@ import DefaultMap from '~/rts/spatial/DefaultMap';
 import Team from '~/rts/team/Team';
 import DumbAI from '~/ai/DumbAI';
 
-import {generateGenome} from '~/coevolution/individual/generateGenome';
+import {getRandomStrategy} from '~/coevolution/individual/genome';
 
 export default class Game {
 
@@ -26,8 +26,8 @@ export default class Game {
 
         this.engine = new Engine(this.map, this.teams);
         this.AIs = [
-            new DumbAI(this.teams[0], this.map, blueAiConfig || generateGenome()),
-            new DumbAI(this.teams[1], this.map, redAiConfig || generateGenome()),
+            new DumbAI(this.teams[0], this.map, blueAiConfig || getRandomStrategy()),
+            new DumbAI(this.teams[1], this.map, redAiConfig || getRandomStrategy()),
         ];
     }
 

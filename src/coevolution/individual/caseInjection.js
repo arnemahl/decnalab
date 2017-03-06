@@ -1,9 +1,10 @@
 import Individual from './Individual';
+import * as Genome from './genome';
 
 /*******************************************/
 /**  Human designed good-ish individuals  **/
 /*******************************************/
-export const getCaseInjectedInvidviduals = () => [
+const caseInjectedStrategies = [
     {
         buildOrder: [
             { specName: 'Worker', addCount: 1 },
@@ -87,4 +88,34 @@ export const getCaseInjectedInvidviduals = () => [
         ],
         attackAtSupply: 20,
     },
-].map(genome => new Individual(genome));
+];
+
+export const getCaseInjectedInvidviduals = () =>
+    caseInjectedStrategies
+        .map(strategy => Genome.encodeGenome(strategy))
+        .map(genome => new Individual(genome));
+
+
+/**************************************/
+/*  Test correct Encoding / Decoding  */
+/**************************************/
+(function test() {
+    function areDifferent(strategyOne, strategyTwo) {
+        return strategyOne.attackAtSupply !== strategyTwo.attackAtSupply
+            || strategyOne.buildOrder.some(
+                (target, targetIndex) => target.specName !== strategyTwo.buildOrder[targetIndex].specName
+            );
+    }
+
+    const caseInjectedIndividuals = getCaseInjectedInvidviduals();
+
+    caseInjectedStrategies.forEach((strategy, strategyIndex) => {
+        const individual = caseInjectedIndividuals[strategyIndex];
+
+        if (areDifferent(strategy, individual.strategy)) {
+            console.log('Encoded strategy !== original strategy:');
+            console.log(`strategy:`, strategy);
+            console.log(`individual.strategy:`, individual.strategy);
+        }
+    });
+})();

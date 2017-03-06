@@ -14,7 +14,6 @@ const {
     maxGenerations,
     fitnessScalingFactor,
     crossoverRatio,
-    mutationRatio,
 } = config;
 
 const scaledFitnessSelection = createScaledFitnessSelection((fitness, maxFitness) => fitnessScalingFactor * fitness + maxFitness);
@@ -28,8 +27,9 @@ export function runCoevolution() {
 
     const wonAgainstBaselines = [];
     const baselines = getBaselines();
+    const caseInjected = getCaseInjectedInvidviduals();
 
-    const hallOfFame = getCaseInjectedInvidviduals();
+    const hallOfFame = caseInjected.slice();
 
     // initialize population (not all will survive)
     const initialPopulation = Array(nofChildrenPerGeneration).fill().map(Individual.generate);
@@ -63,7 +63,7 @@ export function runCoevolution() {
                 }
             });
 
-        statistics.track(wrappedPopulation, baselineResults);
+        statistics.track(population, teachSet, caseInjected, baselines);
 
         // select parents
         const parents = scaledFitnessSelection(wrappedPopulation, nofChildrenPerGeneration).map(Individual.unwrap);
@@ -76,19 +76,13 @@ export function runCoevolution() {
             const father = parents.pop();
 
             if (Math.random() < crossoverRatio) {
-                return Individual[config.crossoverFunction](mother, father);
+                return Individual.crossover(mother, father);
             } else {
-                return [ mother.clone(), father.clone() ];
+                return [ mother, father ];
             }
 
-        }).reduce(flatMap, []).map((child) => {
-            // Mutation
-            if (Math.random() < mutationRatio) {
-                return child.mutate();
-            } else {
-                return child;
-            }
-        });
+        }).reduce(flatMap, [])
+        .map((child) => child.mutate());
 
         // update evaluators (teachSet)
         logProgress('Updating Teach set...');
@@ -122,10 +116,12 @@ export function runCoevolution() {
 
     const output = {
         solutions: {
-            wonAgainstBaselines: wonAgainstBaselines.map(x => x.genome),
-            population: uniqueInPopulation.map(x => x.genome),
-            hallOfFame: hallOfFame.map(x => x.genome),
-            caseInjected: getCaseInjectedInvidviduals().map(x => x.genome),
+            teachSet: teachSet.map(x => x.strategy),
+            population: uniqueInPopulation.map(x => x.strategy),
+            wonAgainstBaselines: wonAgainstBaselines.map(x => x.strategy),
+            hallOfFame: hallOfFame.map(x => x.strategy),
+            caseInjected: caseInjected.map(x => x.strategy),
+            baselines: baselines.map(x => x.strategy),
         },
         config,
         statistics: statistics.dump(),

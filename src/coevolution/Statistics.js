@@ -1,7 +1,4 @@
 import Individual from '~/coevolution/individual/Individual';
-import {getCaseInjectedInvidviduals} from '~/coevolution/individual/caseInjection';
-
-const caseInjected = getCaseInjectedInvidviduals();
 
 const sumTotal = (sum, number) => sum + number;
 const ascending = (a, b) => a - b;
@@ -29,7 +26,7 @@ const fmt = number => {
     const maxL = 20; // Assumption of max number digits to the left of decimal mark
     const maxR = 15;
     if (String(number).split('.')[0].length > maxL) {
-        throw Error(`Need ot increase max number of digits before decimal mark, number too long ${number}`);
+        throw Error(`Need to increase max number of digits before decimal mark, number too long ${number}`);
     }
 
     // Makes the numbers align neatly. Left pads with spaces, rigth pads with zeros or rounds off if more than maxR decimals
@@ -50,51 +47,66 @@ export default class Statistics {
     t0 = Date.now();
 
     dump = () => {
+        const texifyData = (key, description) => ({
+            [key]: getTexGraphData(this.stats.map(generation => generation[key]), description)
+        });
+
         return {
             json: this.stats,
             tex: {
-                fitness: getTexGraphData(this.stats.map(generation => generation.fitness), '# fitness'),
-                score: getTexGraphData(this.stats.map(generation => generation.score), '# score'),
-                nofWins: getTexGraphData(this.stats.map(generation => generation.nofWins), '# nofWins'),
+                ...texifyData('pop_vs_teachSet_fitness', '# Fitness (population vs teach set)'),
+                ...texifyData('pop_vs_teachSet_score', '# Score (population vs teach set)'),
+                ...texifyData('pop_vs_teachSet_nofWins', '# Number of wins (population vs teach set)'),
 
-                baselineFitness: getTexGraphData(this.stats.map(generation => generation.baselineFitness), '# Fitness when evaluated against baseline solutions'),
-                baselineScore: getTexGraphData(this.stats.map(generation => generation.baselineScore), '# Score when playing against baseline solutions'),
-                baselineNofWins: getTexGraphData(this.stats.map(generation => generation.baselineNofWins), '# Number of wins against baseline solutions'),
+                ...texifyData('pop_vs_baselines_fitness', '# Fitness (population vs baselines)'),
+                ...texifyData('pop_vs_baselines_score', '# Score (population vs baselines)'),
+                ...texifyData('pop_vs_baselines_nofWins', '# Number of wins (population vs baselines)'),
 
-                geneticDistance: getTexGraphData(this.stats.map(generation => generation.geneticDistance), '# geneticDistance'),
-                geneticDistanceToCaseInjected: getTexGraphData(this.stats.map(generation => generation.geneticDistanceToCaseInjected), '# genetic distance to case injected'),
+                ...texifyData('teachSet_vs_baselines_fitness', '# Fitness (teach set vs baselines)'),
+                ...texifyData('teachSet_vs_baselines_score', '# Score (teach set vs baselines)'),
+                ...texifyData('teachSet_vs_baselines_nofWins', '# Number of wins (teach set vs baselines)'),
+
+                ...texifyData('geneticDistance_within_pop', '# Genetic distance (within population)'),
+                ...texifyData('geneticDistance_pop_to_caseInjected', '# Genetic distance (from population to case injected)'),
+                ...texifyData('geneticDistance_teachSet_to_caseInjected', '# Genetic distance (from teach set to case injected)'),
             },
         };
     }
 
-    track = (teachSetResults, baselineResults) => {
-        const population = teachSetResults.map(Individual.unwrap);
-        const avgGeneticDistances = Individual.getAverageGeneticDistancesWithin(population);
-        const geneticDistanceToCaseInjected = Individual.getAverageGeneticDistancesToOtherSet(population, caseInjected);
+    track = (population, teachSet, caseInjected, baselines) => {
+        const popVsTeachSet = Individual.wrapWithSharedFitness(population, teachSet);
+        const popVsBaselines = Individual.wrapWithSharedFitness(population, baselines);
+        const teachSetVsBaselines = Individual.wrapWithSharedFitness(teachSet, baselines);
 
         this.stats.push({
             generation: this.stats.length,
             durationMs: Date.now() - this.t0,
 
-            fitness: calcStuff(teachSetResults.map(x => x.fitness)),
-            score: calcStuff(teachSetResults.map(x => x.avgScore)),
-            nofWins: calcStuff(teachSetResults.map(x => x.nofWins)),
+            pop_vs_teachSet_fitness: calcStuff(popVsTeachSet.map(x => x.fitness)),
+            pop_vs_teachSet_score: calcStuff(popVsTeachSet.map(x => x.avgScore)),
+            pop_vs_teachSet_nofWins: calcStuff(popVsTeachSet.map(x => x.nofWins)),
 
-            baselineFitness: calcStuff(baselineResults.map(x => x.fitness)),
-            baselineScore: calcStuff(baselineResults.map(x => x.avgScore)),
-            baselineNofWins: calcStuff(baselineResults.map(x => x.nofWins)),
+            pop_vs_baselines_fitness: calcStuff(popVsBaselines.map(x => x.fitness)),
+            pop_vs_baselines_score: calcStuff(popVsBaselines.map(x => x.avgScore)),
+            pop_vs_baselines_nofWins: calcStuff(popVsBaselines.map(x => x.nofWins)),
 
-            geneticDistance: {
-                ...calcStuff(avgGeneticDistances),
-                nofUnique: Individual.countUniqueGenomes(population),
-            },
-            geneticDistanceToCaseInjected: calcStuff(geneticDistanceToCaseInjected),
+            teachSet_vs_baselines_fitness: calcStuff(teachSetVsBaselines.map(x => x.fitness)),
+            teachSet_vs_baselines_score: calcStuff(teachSetVsBaselines.map(x => x.avgScore)),
+            teachSet_vs_baselines_nofWins: calcStuff(teachSetVsBaselines.map(x => x.nofWins)),
+
+            geneticDistance_within_pop: calcStuff(Individual.getAverageGeneticDistancesWithin(population)),
+            geneticDistance_pop_to_caseInjected: calcStuff(Individual.getAverageGeneticDistancesToOtherSet(population, caseInjected)),
+            geneticDistance_teachSet_to_caseInjected: calcStuff(Individual.getAverageGeneticDistancesToOtherSet(teachSet, caseInjected)),
+
+            nofUnique_in_pop: Individual.countUniqueGenomes(population)
         });
 
         if (DEBUG) {
-            const {fitness, geneticDistance} = this.stats[this.stats.length - 1];
-            console.log(`fitness:`, fitness);
-            console.log(`geneticDistance:`, geneticDistance);
+            const newStats = this.stats[this.stats.length - 1];
+
+            console.log(`Fitness:`, newStats.pop_vs_teachSet_fitness);
+            console.log(`Genetic distance:`, newStats.geneticDistance_within_pop);
+            console.log(`Unique in population:`, newStats.nofUnique_in_pop);
         }
     }
 

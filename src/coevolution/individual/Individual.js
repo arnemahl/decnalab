@@ -1,138 +1,34 @@
-import Game from '~/rts/Game';
-import {maxLoopsPerGame} from '~/coevolution/config';
-import {generateGenome} from '~/coevolution/individual/generateGenome';
-import {producableThings} from '~/coevolution/config';
+import * as Genome from '~/coevolution/individual/genome';
+import * as MemoizedGameResults from '~/coevolution/individual/memoizedGameResults';
+import * as config from '~/coevolution/config';
 
 const sumTotal = (sum, number) => sum + number;
-let individualsCreated = 0;
+const crossover = Genome[config.crossoverFunction];
 
 
 export default class Individual {
 
-    static generate = () => new Individual(generateGenome());
+    static generate = () => new Individual(Genome.generateGenome());
 
     constructor(genome) {
-        this.id = `individual-${individualsCreated++}`;
+        this.id = genome;
         this.genome = genome;
-    }
-
-    clone() {
-        const deepCopiedGenome = {
-            buildOrder: this.genome.buildOrder.map(target => ({ ...target })),
-            attackAtSupply: this.genome.attackAtSupply,
-        };
-
-        return new Individual(deepCopiedGenome);
+        this.strategy = Genome.decodeGenome(genome);
     }
 
     mutate() {
-        const plusOrMinus = (int) => Math.random() < 0.5 ? int : -int;
-        const clonedCopy = this.clone();
-
-        if (Math.random() < 0.9) {
-            // Mutate build order by either changing what to produce
-            const {buildOrder} = clonedCopy.genome;
-            const targetIndex = Math.floor(buildOrder.length * Math.random());
-            const target = buildOrder[targetIndex];
-
-            target.specName = producableThings.slice().sort(() => Math.random())[0];
-
-        } else {
-            // Mutate attack at supply
-            clonedCopy.attackAtSupply += plusOrMinus(1);
-        }
-
-        return clonedCopy;
+        return new Individual(Genome.copyAndMutate(this.genome));
     }
 
-    static unevenSinglePointCrossover(mother, father) {
-        const crossoverPointMother = Math.floor(Math.random() * mother.genome.buildOrder.length);
-        const crossoverPointFather = Math.floor(Math.random() * father.genome.buildOrder.length);
-        const rand = Math.random() < 0.5;
-
-        const son = {
-            buildOrder: []
-                .concat(mother.genome.buildOrder.slice(0, crossoverPointMother))
-                .concat(father.genome.buildOrder.slice(crossoverPointFather)),
-            attackAtSupply: rand ? mother.genome.attackAtSupply : father.genome.attackAtSupply,
-        };
-        const daughter = {
-            buildOrder: []
-                .concat(father.genome.buildOrder.slice(0, crossoverPointFather))
-                .concat(mother.genome.buildOrder.slice(crossoverPointMother)),
-            attackAtSupply: rand ? father.genome.attackAtSupply : mother.genome.attackAtSupply,
-        };
-
-        return [son, daughter].map(genome => new Individual(genome));
-    }
-
-    static singlePointCrossover(mother, father) {
-        const length = Math.max(mother.genome.buildOrder.length, father.genome.buildOrder.length);
-        const crossoverPoint = Math.floor(Math.random() * (length - 1)) + 1;
-        const rand = Math.random() < 0.5;
-
-        const son = {
-            buildOrder: []
-                .concat(mother.genome.buildOrder.slice(0, crossoverPoint))
-                .concat(father.genome.buildOrder.slice(crossoverPoint)),
-            attackAtSupply: rand ? mother.genome.attackAtSupply : father.genome.attackAtSupply,
-        };
-        const daughter = {
-            buildOrder: []
-                .concat(father.genome.buildOrder.slice(0, crossoverPoint))
-                .concat(mother.genome.buildOrder.slice(crossoverPoint)),
-            attackAtSupply: rand ? father.genome.attackAtSupply : mother.genome.attackAtSupply,
-        };
-
-        return [son, daughter].map(genome => new Individual(genome));
-    }
-
-    static uniformCrossover(mother, father) {
-        if (mother.genome.buildOrder.length !== father.genome.buildOrder.length) {
-            throw Error('Parents do not have build orders of same length.');
-        }
-
-        const randBuild = mother.genome.buildOrder.map(() => Math.random < 0.5);
-        const sumAtk = mother.genome.attackAtSupply + father.genome.attackAtSupply;
-        const randAtk = Array(sumAtk).fill()
-            .map(() => Math.random() > 0.5)
-            .map(r => r ? 1 : 0)
-            .reduce(sumTotal);
-
-        const son = {
-            buildOrder: randBuild.map((fromMother, index) => fromMother ? mother.genome.buildOrder[index] : father.genome.buildOrder[index]),
-            attackAtSupply: randAtk
-        };
-        const daughter = {
-            buildOrder: randBuild.map((fromFather, index) => fromFather ? father.genome.buildOrder[index] : mother.genome.buildOrder[index]),
-            attackAtSupply: sumAtk - randAtk
-        };
-
-        return [son, daughter].map(genome => new Individual(genome));
+    static crossover(mother, father) {
+        return crossover(mother.genome, father.genome).map(genome => new Individual(genome));
     }
 
 
     /**********************************/
     /**  Shared fitness calculation  **/
     /**********************************/
-    gameResults = {}
-    getResult = (opponent) => this.gameResults[opponent.id]
-    setResult = (opponent, result) => {
-        result.opponentId = opponent.id;
-        this.gameResults[opponent.id] = result;
-    }
-
-    evaluateAgainstOne = (opponent) => {
-        if (!this.getResult(opponent)) {
-            const game = new Game('game-id', maxLoopsPerGame, this.genome, opponent.genome);
-
-            game.simulate();
-
-            this.setResult(opponent, game.finalScore.blue);
-            opponent.setResult(this, game.finalScore.red);
-        }
-        return this.getResult(opponent);
-    }
+    evaluateAgainstOne = (opponent) => MemoizedGameResults.getResult(this, opponent);
     evaluateAgainstAll = (opponents) => opponents.map(this.evaluateAgainstOne);
 
     static getTeachSetLosses = (teachSet, selected) => {
@@ -245,16 +141,7 @@ export default class Individual {
     /**  Filter equal individuals  **/
     /********************************/
     hasDifferentGenomeThan = (other) => {
-        // Different if either attack at supply is different
-        return this.genome.attackAtSupply !== other.genome.attackAtSupply
-            || this.genome.buildOrder.some((target, index) => {
-                const otherTarget = other.genome.buildOrder[index];
-
-                // Or if any of the targets in the bulid order are different
-                return !otherTarget
-                    || otherTarget.specName !== target.specName
-                    || otherTarget.addCount !== target.addCount;
-            });
+        return this.genome !== other.genome;
     };
 
     static getIndividualsWithUniqueGenome = (population) => {
@@ -277,22 +164,7 @@ export default class Individual {
     /**  Calculate genetic distance  **/
     /**********************************/
     getGeneticDistanceTo = (other) => {
-        return Math.abs(this.genome.attackAtSupply - other.genome.attackAtSupply)
-            + Array(
-                Math.max(this.genome.buildOrder.length, other.genome.buildOrder.length)
-            )
-            .fill()
-            .map((_, index) => {
-                const dummyTarget = { addCount: 0 }; // 0 so we can subract without getting NaN
-                const thisTarget = this.genome.buildOrder[index] || dummyTarget; // Dummy target will never
-                const otherTarget = other.genome.buildOrder[index] || dummyTarget; // apply to both
-
-                const addCountDiff = Math.abs(thisTarget.addCount - otherTarget.addCount);
-                const specNameDiff = (thisTarget.specName === otherTarget.specName) ? 0 : 1;
-
-                return addCountDiff + specNameDiff;
-            })
-            .reduce(sumTotal, 0);
+        return Genome.calculateDistance(this.genome, other.genome);
     };
 
     static getAverageGeneticDistancesWithin = (population) => {
