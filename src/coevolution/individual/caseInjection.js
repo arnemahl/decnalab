@@ -34,10 +34,9 @@ const caseInjectedStrategies = [
         ],
     },
 
-    {   // #3: Very economical (11 workers). BO-26(9) (max addCount of 7). Beats #2
+    {   // #3: Very economical (11 workers). BO-25(9) (max addCount of 7). Beats #2
         attackAtSupply: 30,
         buildOrder: [
-            { addCount: 1, specName: 'Worker' },
             { addCount: 1, specName: 'Worker' },
             { addCount: 1, specName: 'Worker' },
             { addCount: 1, specName: 'Worker' },
