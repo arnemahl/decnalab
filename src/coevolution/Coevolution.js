@@ -27,8 +27,9 @@ export function runCoevolution() {
 
     const wonAgainstBaselines = [];
     const baselines = getBaselines();
+    const caseInjected = getCaseInjectedInvidviduals();
 
-    const hallOfFame = getCaseInjectedInvidviduals();
+    const hallOfFame = caseInjected.slice();
 
     // initialize population (not all will survive)
     const initialPopulation = Array(nofChildrenPerGeneration).fill().map(Individual.generate);
@@ -62,7 +63,7 @@ export function runCoevolution() {
                 }
             });
 
-        statistics.track(wrappedPopulation, baselineResults);
+        statistics.track(population, teachSet, caseInjected, baselines);
 
         // select parents
         const parents = scaledFitnessSelection(wrappedPopulation, nofChildrenPerGeneration).map(Individual.unwrap);
@@ -115,10 +116,12 @@ export function runCoevolution() {
 
     const output = {
         solutions: {
-            wonAgainstBaselines: wonAgainstBaselines.map(x => x.strategy),
+            teachSet: teachSet.map(x => x.strategy),
             population: uniqueInPopulation.map(x => x.strategy),
+            wonAgainstBaselines: wonAgainstBaselines.map(x => x.strategy),
             hallOfFame: hallOfFame.map(x => x.strategy),
-            caseInjected: getCaseInjectedInvidviduals().map(x => x.strategy),
+            caseInjected: caseInjected.map(x => x.strategy),
+            baselines: baselines.map(x => x.strategy),
         },
         config,
         statistics: statistics.dump(),

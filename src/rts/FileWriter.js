@@ -39,7 +39,11 @@ export function writeJSON(fileName, json) {
 /**  Write DumbAI config to runnable js file  **/
 /***********************************************/
 export function writeSolutionsToJS(fileName, configArray) {
-    const content = `module.exports = ${JSON.stringify(configArray, null, 4)};`;
+    const solutions = JSON.stringify(configArray, null, 4)
+        .split('\n                    ').join(' ') // write entire bulid order target on one line
+        .split('\n                }').join(' }'); // write entire bulid order target on one line
+
+    const content = `module.exports = ${solutions};`;
 
     writeToFile(fileName, content);
 }

@@ -39,14 +39,9 @@ if (experimentName) {
     FileWriter.writeJSON(`${uniqueDirName}/statistics.json`, output.statistics.json);
 
     FileWriter.createDumpDirectory(`${uniqueDirName}/tex-graph-data`);
-    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/fitness.dat`, output.statistics.tex.fitness);
-    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/score.dat`, output.statistics.tex.score);
-    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/nofWins.dat`, output.statistics.tex.nofWins);
-    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/baselineFitness.dat`, output.statistics.tex.baselineFitness);
-    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/baselineScore.dat`, output.statistics.tex.baselineScore);
-    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/baselineNofWins.dat`, output.statistics.tex.baselineNofWins);
-    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/geneticDistance.dat`, output.statistics.tex.geneticDistance);
-    FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/geneticDistanceToCaseInjected.dat`, output.statistics.tex.geneticDistanceToCaseInjected);
+    Object.keys(output.statistics.tex).map(textDataName => {
+        FileWriter.writeToFile(`${uniqueDirName}/tex-graph-data/${textDataName}.dat`, output.statistics.tex[textDataName]);
+    });
 }
 
 console.log('\n'); // DEBUG
