@@ -1,9 +1,19 @@
 import * as MemoizedGameResults from '~/coevolution/individual/memoizedGameResults';
 import { leftPad } from '~/util/stringPad';
 
-// Config (TODO move)
-const evaluateWithRespectToOnlyBaselines = true;
+const evaluateAgainst = ['only solutions', 'only baselines', 'both solutions and baselines'][0]; // TODO config from outside?
+function selectOpponents(solutions, baselines) {
+    switch (evaluateAgainst) {
+        case 'only solutions':
+            return solutions;
 
+        case 'only baselines':
+            return baselines;
+
+        case 'both solutions and baselines':
+            return solutions.concat(baselines);
+    }
+};
 
 const sumTotal = (sum, number) => sum + number;
 
@@ -26,8 +36,9 @@ const latexTableString = (description, rowNames, rows, padCount = 5) => `
 `;
 
 function getOutcomeTables(solutions, baselines) {
-    const getResultsVsBaselines = (challenger) => {
-        const results = baselines.map(opponent => MemoizedGameResults.getResult(challenger, opponent));
+    const opponents = selectOpponents(solutions, baselines);
+    const getResultsVsOpponents = (challenger) => {
+        const results = opponents.map(opponent => MemoizedGameResults.getResult(challenger, opponent));
 
         return {
             individual: challenger,
@@ -41,16 +52,16 @@ function getOutcomeTables(solutions, baselines) {
         'tie'
     ));
 
-    const rowNames = ['Index'].concat(Array(baselines.length).fill().map((_, i) => i));
+    const rowNames = ['Index'].concat(Array(opponents.length).fill().map((_, i) => i));
 
-    const solutionsVsBaselines = latexTableString('Found solutions vs baselines', rowNames, solutions.map(getResultsVsBaselines).map(toRow));
-    const baselinesVsBaselines = latexTableString('Baselines vs baselines', rowNames, baselines.map(getResultsVsBaselines).map(toRow));
-
-    return { solutionsVsBaselines, baselinesVsBaselines };
+    return {
+        solutions: latexTableString('Found solutions vs baselines', rowNames, solutions.map(getResultsVsOpponents).map(toRow)),
+        baselines: latexTableString('Baselines vs baselines', rowNames, baselines.map(getResultsVsOpponents).map(toRow)),
+    };
 }
 
-function evaluateSpecialization(solutions, baselines) {
-    const getResultsVsBaselines = challenger => baselines.map(opponent => MemoizedGameResults.getResult(challenger, opponent));
+function evaluateSpecialization(solutions, baselines, opponents) {
+    const getResultsVsOpponents = challenger => opponents.map(opponent => MemoizedGameResults.getResult(challenger, opponent));
 
     const getNofTimesBeatenBy = (challengers) =>
         baselines.map(opponent =>
@@ -62,7 +73,7 @@ function evaluateSpecialization(solutions, baselines) {
     const nofTimesBeatenByChallengers = getNofTimesBeatenBy([...solutions, ...baselines]);
     const calcSpecializations = (challengers) => {
         return challengers
-            .map(getResultsVsBaselines)
+            .map(getResultsVsOpponents)
             .map(resultsForOneChallenger =>
                 resultsForOneChallenger
                     .map((result, opponentIndex) =>
@@ -81,8 +92,7 @@ function evaluateSpecialization(solutions, baselines) {
 }
 
 
-function evaluateRobustness(solutions, baselines) {
-    const opponents = evaluateWithRespectToOnlyBaselines ? baselines : [...solutions, ...baselines];
+function evaluateRobustness(solutions, baselines, opponents) {
     const getResultsVsOpponents = (challenger) => opponents.map(opponent => MemoizedGameResults.getResult(challenger, opponent));
 
     const calcRobustnesses = (challengers) => {
@@ -146,11 +156,13 @@ function getEvaluationTables(evaluation) {
 }
 
 function evaluateFoundSolutions(solutions, baselines, log = () => {}) {
+    const opponents = selectOpponents(solutions, baselines);
+
     log('Calculating specialization...');
-    const specialization = evaluateSpecialization(solutions, baselines);
+    const specialization = evaluateSpecialization(solutions, baselines, opponents);
 
     log('Calculating robustness...');
-    const robustness = evaluateRobustness(solutions, baselines);
+    const robustness = evaluateRobustness(solutions, baselines, opponents);
 
     log('Calculating overall evaluation...');
     const evaluation = {
@@ -194,8 +206,8 @@ function evaluateFoundSolutions2x(solutions, baselines) {
     const evaluationTablesBest = getEvaluationTables(prevEvaluation);
 
     const allTables = `
-${outcomeTables.solutionsVsBaselines}
-${outcomeTables.baselinesVsBaselines}
+${outcomeTables.solutions}
+${outcomeTables.baselines}
 ${evaluationTables.solutions}
 ${evaluationTables.baselines}
 
@@ -203,8 +215,8 @@ ${evaluationTables.baselines}
 %% After selecting best
 %%
 
-${outcomeTablesBest.solutionsVsBaselines}
-${outcomeTablesBest.baselinesVsBaselines}
+${outcomeTablesBest.solutions}
+${outcomeTablesBest.baselines}
 ${evaluationTablesBest.solutions}
 ${evaluationTablesBest.baselines}
 `;
