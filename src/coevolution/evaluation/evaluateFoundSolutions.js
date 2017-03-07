@@ -1,6 +1,10 @@
 import * as MemoizedGameResults from '~/coevolution/individual/memoizedGameResults';
 import { leftPad } from '~/util/stringPad';
 
+// Config (TODO move)
+const evaluateWithRespectToOnlyBaselines = true;
+
+
 const sumTotal = (sum, number) => sum + number;
 
 const padValue = (padCount) => (string) => leftPad(string, padCount);
@@ -78,7 +82,7 @@ function evaluateSpecialization(solutions, baselines) {
 
 
 function evaluateRobustness(solutions, baselines) {
-    const opponents = [...solutions, ...baselines];
+    const opponents = evaluateWithRespectToOnlyBaselines ? baselines : [...solutions, ...baselines];
     const getResultsVsOpponents = (challenger) => opponents.map(opponent => MemoizedGameResults.getResult(challenger, opponent));
 
     const calcRobustnesses = (challengers) => {
