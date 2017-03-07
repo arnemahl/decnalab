@@ -37,6 +37,7 @@ const latexTableString = (description, rowNames, rows, padCount = 5) => `
 
 function getOutcomeTables(solutions, baselines) {
     const opponents = selectOpponents(solutions, baselines);
+
     const getResultsVsOpponents = (challenger) => {
         const results = opponents.map(opponent => MemoizedGameResults.getResult(challenger, opponent));
 
@@ -46,13 +47,13 @@ function getOutcomeTables(solutions, baselines) {
         };
     };
 
-    const toRow = one => [one.individual.index].concat(one.results.map(result =>
+    const toRow = one => [one.individual.shortId].concat(one.results.map(result =>
         result.didWin && 'win' ||
         result.didLose && 'loss' ||
         'tie'
     ));
 
-    const rowNames = ['Index'].concat(Array(opponents.length).fill().map((_, i) => i));
+    const rowNames = ['Index'].concat(opponents.map(opponent => opponent.shortId));
 
     return {
         solutions: latexTableString('Found solutions vs baselines', rowNames, solutions.map(getResultsVsOpponents).map(toRow)),
@@ -64,7 +65,7 @@ function evaluateSpecialization(solutions, baselines, opponents) {
     const getResultsVsOpponents = challenger => opponents.map(opponent => MemoizedGameResults.getResult(challenger, opponent));
 
     const getNofTimesBeatenBy = (challengers) =>
-        baselines.map(opponent =>
+        opponents.map(opponent =>
                 challengers
                     .map(challenger => MemoizedGameResults.getResult(opponent, challenger))
                     .map(opponentResult => opponentResult.didLose ? 1 : 0)
@@ -140,7 +141,7 @@ function getEvaluationTables(evaluation) {
             'Found solutions',
             [ 'Index', 'Specialization', 'Robustness', 'Viability'],
             evaluation.solutions.map(one =>
-                [ one.individual.index, one.specialization.toFixed(2), one.robustness.toFixed(2), one.viability.toFixed(2) ]
+                [ one.individual.shortId, one.specialization.toFixed(2), one.robustness.toFixed(2), one.viability.toFixed(2) ]
             ),
             14,
         ),
@@ -148,7 +149,7 @@ function getEvaluationTables(evaluation) {
             'Baselines',
             [ 'Index', 'Specialization', 'Robustness', 'Viability'],
             evaluation.baselines.map(one =>
-                [ one.individual.index, one.specialization.toFixed(2), one.robustness.toFixed(2), one.viability.toFixed(2) ]
+                [ one.individual.shortId, one.specialization.toFixed(2), one.robustness.toFixed(2), one.viability.toFixed(2) ]
             ),
             14,
         ),
@@ -173,15 +174,15 @@ function evaluateFoundSolutions(solutions, baselines, log = () => {}) {
     return evaluation;
 }
 
-const addIndex = (individual, index) => {
-    individual.index = index;
+const addShortId = (prefix) => (individual, index) => {
+    individual.shortId = prefix + index;
 
     return individual;
 };
 
 function evaluateFoundSolutions2x(solutions, baselines) {
-    solutions.forEach(addIndex);
-    baselines.forEach(addIndex);
+    solutions.forEach(addShortId('S-'));
+    baselines.forEach(addShortId('B-'));
 
     const evaluation = evaluateFoundSolutions(solutions, baselines, console.log);
 
