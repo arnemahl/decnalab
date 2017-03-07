@@ -3,6 +3,8 @@ import {maxLoopsPerGame, maxTicksPerGame} from '~/coevolution/config';
 
 const memo = {};
 
+export let nofGamesSimulated = 0;
+
 /* Get result of game between two _individuals_ */
 export function getResult(one, two) {
     if (!memo[one.id]) {
@@ -15,6 +17,8 @@ export function getResult(one, two) {
     if (memo[one.id][two.id]) {
         return memo[one.id][two.id];
     } else {
+        nofGamesSimulated++;
+
         const game = new Game('game-id', maxLoopsPerGame, maxTicksPerGame, one.strategy, two.strategy);
 
         game.simulate();
