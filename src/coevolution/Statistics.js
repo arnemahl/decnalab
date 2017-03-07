@@ -1,26 +1,9 @@
+import * as MemoizedGameResults from '~/coevolution/individual/memoizedGameResults';
 import Individual from '~/coevolution/individual/Individual';
-
-const sumTotal = (sum, number) => sum + number;
-const ascending = (a, b) => a - b;
-const descending = (a, b) => b - a;
+import { calcStats } from '~/util/calc';
 
 const DEBUG = true;
 
-const calcStuff = (numbers) => {
-    const total = numbers.reduce(sumTotal, 0);
-    const average = total / numbers.length;
-    const stdDeviation =  [ numbers.map(x => Math.pow(x - average, 2)).reduce(sumTotal, 0) ].map(sum => sum / numbers.length).map(Math.sqrt)[0];
-    const median = numbers.slice().sort(ascending).find((_, index) => index === Math.floor(numbers.length / 2));
-    const max = numbers.slice().sort(descending)[0];
-
-    return {
-        total,
-        average,
-        stdDeviation,
-        median,
-        max,
-    };
-};
 const spaces = count => Array(count).fill(' ').join('');
 const fmt = number => {
     const maxL = 20; // Assumption of max number digits to the left of decimal mark
@@ -33,11 +16,11 @@ const fmt = number => {
     return String(spaces(maxL) + number.toFixed(maxR)).split('').reverse().slice(0, maxL + maxR).reverse().join('');
 };
 const lp2 = number => String('  ' + number).split('').reverse().slice(0, 3).reverse().join('');
-const getTexGraphData = (numberStuff, comments) => {
+const getTexGraphData = (nestedStats, comments) => {
     return `${comments}\n\n`
         + `  gen${spaces(19)}avg${spaces(33)}stdDev${spaces(30)}median${spaces(30)}max${spaces(33)}total\n\n`
-        + numberStuff.map((stuff, generation) =>
-            `${lp2(generation)} ${fmt(stuff.average)} ${fmt(stuff.stdDeviation)} ${fmt(stuff.median)} ${fmt(stuff.max)} ${fmt(stuff.total)}`
+        + nestedStats.map((stats, generation) =>
+            `${lp2(generation)} ${fmt(stats.average)} ${fmt(stats.stdDeviation)} ${fmt(stats.median)} ${fmt(stats.max)} ${fmt(stats.total)}`
         ).join('\n');
 };
 
@@ -81,22 +64,23 @@ export default class Statistics {
         this.stats.push({
             generation: this.stats.length,
             durationMs: Date.now() - this.t0,
+            nofGamesSimulated: MemoizedGameResults.nofGamesSimulated,
 
-            pop_vs_teachSet_fitness: calcStuff(popVsTeachSet.map(x => x.fitness)),
-            pop_vs_teachSet_score: calcStuff(popVsTeachSet.map(x => x.avgScore)),
-            pop_vs_teachSet_nofWins: calcStuff(popVsTeachSet.map(x => x.nofWins)),
+            pop_vs_teachSet_fitness: calcStats(popVsTeachSet.map(x => x.fitness)),
+            pop_vs_teachSet_score: calcStats(popVsTeachSet.map(x => x.avgScore)),
+            pop_vs_teachSet_nofWins: calcStats(popVsTeachSet.map(x => x.nofWins)),
 
-            pop_vs_baselines_fitness: calcStuff(popVsBaselines.map(x => x.fitness)),
-            pop_vs_baselines_score: calcStuff(popVsBaselines.map(x => x.avgScore)),
-            pop_vs_baselines_nofWins: calcStuff(popVsBaselines.map(x => x.nofWins)),
+            pop_vs_baselines_fitness: calcStats(popVsBaselines.map(x => x.fitness)),
+            pop_vs_baselines_score: calcStats(popVsBaselines.map(x => x.avgScore)),
+            pop_vs_baselines_nofWins: calcStats(popVsBaselines.map(x => x.nofWins)),
 
-            teachSet_vs_baselines_fitness: calcStuff(teachSetVsBaselines.map(x => x.fitness)),
-            teachSet_vs_baselines_score: calcStuff(teachSetVsBaselines.map(x => x.avgScore)),
-            teachSet_vs_baselines_nofWins: calcStuff(teachSetVsBaselines.map(x => x.nofWins)),
+            teachSet_vs_baselines_fitness: calcStats(teachSetVsBaselines.map(x => x.fitness)),
+            teachSet_vs_baselines_score: calcStats(teachSetVsBaselines.map(x => x.avgScore)),
+            teachSet_vs_baselines_nofWins: calcStats(teachSetVsBaselines.map(x => x.nofWins)),
 
-            geneticDistance_within_pop: calcStuff(Individual.getAverageGeneticDistancesWithin(population)),
-            geneticDistance_pop_to_caseInjected: calcStuff(Individual.getAverageGeneticDistancesToOtherSet(population, caseInjected)),
-            geneticDistance_teachSet_to_caseInjected: calcStuff(Individual.getAverageGeneticDistancesToOtherSet(teachSet, caseInjected)),
+            geneticDistance_within_pop: calcStats(Individual.getAverageGeneticDistancesWithin(population)),
+            geneticDistance_pop_to_caseInjected: calcStats(Individual.getAverageGeneticDistancesToOtherSet(population, caseInjected)),
+            geneticDistance_teachSet_to_caseInjected: calcStats(Individual.getAverageGeneticDistancesToOtherSet(teachSet, caseInjected)),
 
             nofUnique_in_pop: Individual.countUniqueGenomes(population)
         });

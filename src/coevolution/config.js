@@ -24,6 +24,7 @@ export const minAttackTiming = 6;
 export const maxAttackTiming = 42;
 export const initialBuildOrderLength = 26;
 
+export const nofBestSolutionsToSelect = 8;
 
 /*
 
@@ -133,6 +134,10 @@ Explanation of Constants:
     Units/structures that can be part of the build order and thus produced by the AI.
 
 
+# possibleAddCounts
+
+    A list of possible addCount`s in a target in a build order.
+
 # minAttackTiming
 
     Lowest possible value for `attackAtSupply`. When an AI's has enough units that used
@@ -149,5 +154,16 @@ Explanation of Constants:
 
     The length of the build order encoded in the genome, that the AI will attempt to execute.
 
+
+# nofBestSolutionsToSelect
+
+    Used when evaluating performance of the CA. After evaluating and sorting the solutions
+    found by the CA (typically the population after the final generation)
+    `nofBestSolutionsToSelect` defines how many of the found solutions to consider, when
+    evaluating how the solutions found by the CA compares to the baselines.
+
+    Conterintuitively, using a high number is somewhat 'unfair' to the baselines, as they are
+    meant to be good against eachother, not against the solutions that the CA comes up with.
+    A number around 2x the number of baselines is suggested.
 
 */

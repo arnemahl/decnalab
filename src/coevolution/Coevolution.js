@@ -4,6 +4,7 @@ import {getCaseInjectedInvidviduals} from '~/coevolution/individual/caseInjectio
 import {getBaselines} from '~/coevolution/individual/baselines';
 import {selectUnique, createScaledFitnessSelection} from '~/coevolution/selection';
 import * as config from '~/coevolution/config';
+import * as ResultEvaluation from '~/coevolution/evaluation/ResultEvaluation';
 
 const flatMap = (flattenedArray, nextArray) => flattenedArray.concat(nextArray);
 
@@ -114,6 +115,8 @@ export function runCoevolution() {
     const sortedPopulation = wrappedPopulation.sort((one, two) => two.fitness - one.fitness).map(Individual.unwrap);
     const uniqueInPopulation = Individual.getIndividualsWithUniqueGenome(sortedPopulation);
 
+    const evaluation = ResultEvaluation.evaluate(sortedPopulation, baselines, config.nofBestSolutionsToSelect, logProgress);
+
     const output = {
         solutions: {
             teachSet: teachSet.map(x => x.strategy),
@@ -122,9 +125,14 @@ export function runCoevolution() {
             hallOfFame: hallOfFame.map(x => x.strategy),
             caseInjected: caseInjected.map(x => x.strategy),
             baselines: baselines.map(x => x.strategy),
+
+            bestInPopVsBaselines: evaluation.bestSolutions.vsBaselines,
+            bestInPopVsPop: evaluation.bestSolutions.vsSolutions,
+            bestInPopVsAll: evaluation.bestSolutions.vsAll,
         },
         config,
         statistics: statistics.dump(),
+        evaluation,
     };
 
     return output;

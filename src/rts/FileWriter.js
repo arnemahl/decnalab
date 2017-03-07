@@ -35,13 +35,13 @@ export function writeJSON(fileName, json) {
     writeToFile(fileName, JSON.stringify(json, null, 4));
 }
 
-/***********************************************/
-/**  Write DumbAI config to runnable js file  **/
-/***********************************************/
-export function writeSolutionsToJS(fileName, configArray) {
-    const solutions = JSON.stringify(configArray, null, 4)
-        .split('\n                    ').join(' ') // write entire bulid order target on one line
-        .split('\n                }').join(' }'); // write entire bulid order target on one line
+/***************************************************/
+/**  Write DumbAI strategies to runnable js file  **/
+/***************************************************/
+export function writeSolutionsToJS(fileName, solutionsJson) {
+    const solutions = JSON.stringify(solutionsJson, null, 4)
+        .split('\n                ').join(' ') // write entire bulid order target on one line
+        .split('\n            }').join(' }'); // write entire bulid order target on one line
 
     const content = `module.exports = ${solutions};`;
 
