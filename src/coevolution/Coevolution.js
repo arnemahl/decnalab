@@ -50,7 +50,8 @@ export function runCoevolution() {
 
     let generation = 0;
 
-    while (generation++ < maxGenerations) {
+    while (true) {
+        // track evolution progress (for analysis)
         console.log('\nGeneration:', generation + '\n');
 
         const baselineResults = Individual.wrapWithSharedFitness(population, baselines);
@@ -65,6 +66,10 @@ export function runCoevolution() {
             });
 
         statistics.track(population, teachSet, caseInjected, baselines);
+
+        if (++generation > maxGenerations) {
+            break;
+        }
 
         // select parents
         const parents = scaledFitnessSelection(wrappedPopulation, nofChildrenPerGeneration).map(Individual.unwrap);
