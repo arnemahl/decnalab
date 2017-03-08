@@ -54,7 +54,7 @@ if (experimentName) {
     });
 }
 
-console.log('Score:', output.evaluation.json.score)
+console.log('Score:', output.evaluation.json.score);
 
 console.log('\n'); // DEBUG
 console.log(`===========================================================`);

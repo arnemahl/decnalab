@@ -1,6 +1,6 @@
 import * as MemoizedGameResults from '~/coevolution/individual/memoizedGameResults';
 import { leftPad } from '~/util/stringPad';
-import { sumTotal, calcStats } from '~/util/calc';
+import { sumTotal, average, calcStats } from '~/util/calc';
 
 const padValue = (padCount) => (string) => leftPad(string, padCount);
 const latexTableString = (description, rowNames, rows, padCount = 5) => `
@@ -66,7 +66,7 @@ function evaluateSpecialization(solutions, baselines, opponents) {
                             ? challengers.length / nofTimesBeatenByChallengers[opponentIndex]
                             : 0
                     )
-                    .reduce(sumTotal, 0)
+                    .reduce(average, 0)
             );
     };
 
@@ -90,7 +90,7 @@ function evaluateRobustness(solutions, baselines, opponents) {
                         result.didLose && -1 ||
                         0
                     )
-                    .reduce(sumTotal, 0)
+                    .reduce(average, 0)
             );
     };
 
@@ -267,11 +267,38 @@ export function evaluate(solutions, baselines, keepBest = 8, logProgress = () =>
         },
     };
 
+    const toBloop = (solutionAvg, baselineAvg) => ({ solutionAvg, baselineAvg, diff: solutionAvg - baselineAvg });
+
     const score = {
-        vsSolutions: stats.solutions.vsSolutions.viability.average / stats.baselines.vsSolutions.viability.average,
-        vsBaselines: stats.solutions.vsBaselines.viability.average / stats.baselines.vsBaselines.viability.average,
-        vsAll: stats.solutions.vsAll.viability.average / stats.baselines.vsAll.viability.average,
+        viability: {
+            vsBaselines: toBloop(stats.solutions.vsBaselines.viability.average, stats.baselines.vsBaselines.viability.average),
+            vsSolutions: toBloop(stats.solutions.vsSolutions.viability.average, stats.baselines.vsSolutions.viability.average),
+            vsAll: toBloop(stats.solutions.vsAll.viability.average, stats.baselines.vsAll.viability.average),
+        },
+        robustness: {
+            vsBaselines: toBloop(stats.solutions.vsBaselines.robustness.average, stats.baselines.vsBaselines.robustness.average),
+            vsSolutions: toBloop(stats.solutions.vsSolutions.robustness.average, stats.baselines.vsSolutions.robustness.average),
+            vsAll: toBloop(stats.solutions.vsAll.robustness.average, stats.baselines.vsAll.robustness.average),
+        },
+        specialization: {
+            vsBaselines: toBloop(stats.solutions.vsBaselines.specialization.average, stats.baselines.vsBaselines.specialization.average),
+            vsSolutions: toBloop(stats.solutions.vsSolutions.specialization.average, stats.baselines.vsSolutions.specialization.average),
+            vsAll: toBloop(stats.solutions.vsAll.specialization.average, stats.baselines.vsAll.specialization.average),
+        },
     };
+
+    const lpFix = (number) => leftPad(number.toFixed(2), 5, ' ');
+    const stringifyBloop = ({ solutionAvg, baselineAvg, diff }) => `$${lpFix(diff)} (${lpFix(solutionAvg)} - ${lpFix(baselineAvg)})$`;
+
+    const scoreTable = latexTableString('Coevolution Score: diff (solutionAvg - baselineAvg)',
+        ['', 'vs baselines', 'vs solutions', 'vs all'],
+        [
+            ['Viability'].concat(Object.values(score.viability).map(stringifyBloop)),
+            ['Robustness'].concat(Object.values(score.robustness).map(stringifyBloop)),
+            ['Specialization'].concat(Object.values(score.specialization).map(stringifyBloop)),
+        ],
+        22
+    );
 
     const toStrategyWithShortId = wrapped => {
         const {shortId, strategy} = wrapped.individual;
@@ -292,7 +319,7 @@ export function evaluate(solutions, baselines, keepBest = 8, logProgress = () =>
             vsSolutions: evaluation.vsSolutions.latexTables,
             vsBaselines: evaluation.vsBaselines.latexTables,
             vsAll: evaluation.vsAll.latexTables,
-            score: latexTableString('Coevolution Score', ['vs solutions', 'vs baselines', 'vs all'], [ Object.values(score).map(number => number.toFixed(3)) ], 14)
+            score: scoreTable,
         },
         json: {
             score,

@@ -24,6 +24,6 @@ console.log('');
 //     console.log(evaluation.latexTables[key]);
 // });
 
-console.log(`evaluation.json.score:`, evaluation.json.score);
+console.log(`evaluation.latexTables.score:`, evaluation.latexTables.score);
 
 console.log(`\nTest duration: ${Date.now() - t0} ms   (evaluated ${solutions.length} solutions)`);

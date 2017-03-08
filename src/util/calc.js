@@ -1,4 +1,6 @@
 export const sumTotal = (sum, number) => sum + number;
+export const average = (avg, number, _, array) => avg + number / array.length;
+
 export const ascending = (a, b) => a - b;
 export const descending = (a, b) => b - a;
 export const calcStats = (numbers) => {
