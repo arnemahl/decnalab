@@ -1,0 +1,4592 @@
+[
+    {
+        "generation": 0,
+        "durationMs": 29127,
+        "nofGamesSimulated": 360,
+        "pop_vs_teachSet_fitness": {
+            "total": 31348.233333333308,
+            "average": 626.9646666666662,
+            "stdDeviation": 1359.1996796629978,
+            "median": 158.16666666666663,
+            "max": 6679.983333333341
+        },
+        "pop_vs_teachSet_score": {
+            "total": 9837.116666666658,
+            "average": 196.74233333333316,
+            "stdDeviation": 403.5503099877657,
+            "median": 43.65,
+            "max": 1814.0499999999918
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 5,
+            "average": 0.1,
+            "stdDeviation": 0.5744562646538028,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 12952.499999999989,
+            "average": 259.0499999999998,
+            "stdDeviation": 550.6001729325301,
+            "median": 138.0333333333333,
+            "max": 3203.9999999999895
+        },
+        "pop_vs_baselines_score": {
+            "total": 4032.3666666666636,
+            "average": 80.64733333333328,
+            "stdDeviation": 166.3029301659405,
+            "median": 47.56666666666666,
+            "max": 984.8999999999974
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 1,
+            "average": 0.02,
+            "stdDeviation": 0.13999999999999985,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 10197.909876543194,
+            "average": 1274.7387345678992,
+            "stdDeviation": 596.407577423594,
+            "median": 1351.9185185185174,
+            "max": 2691.927777777779
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 10837.199999999979,
+            "average": 1354.6499999999974,
+            "stdDeviation": 502.5581536277946,
+            "median": 1337.4999999999964,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 10,
+            "average": 1.25,
+            "stdDeviation": 0.4330127018922193,
+            "median": 1,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 1153.1020408163265,
+            "average": 23.06204081632653,
+            "stdDeviation": 0.4305099017562827,
+            "median": 23.163265306122447,
+            "max": 23.897959183673468
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2220.5,
+            "average": 44.41,
+            "stdDeviation": 2.2236006835760773,
+            "median": 44.25,
+            "max": 50.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 300.5,
+            "average": 37.5625,
+            "stdDeviation": 3.3511891546136274,
+            "median": 40.75,
+            "max": 40.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 1,
+        "durationMs": 61577,
+        "nofGamesSimulated": 749,
+        "pop_vs_teachSet_fitness": {
+            "total": 20417.162982716054,
+            "average": 408.34325965432106,
+            "stdDeviation": 908.8886920283162,
+            "median": 123.18585679012342,
+            "max": 4750.6666666666715
+        },
+        "pop_vs_teachSet_score": {
+            "total": 13168.199999999999,
+            "average": 263.364,
+            "stdDeviation": 522.7454133212883,
+            "median": 52.29999999999998,
+            "max": 2211.9333333333357
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 18,
+            "average": 0.36,
+            "stdDeviation": 1.195993311018084,
+            "median": 0,
+            "max": 6
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 8538.291358024695,
+            "average": 170.7658271604939,
+            "stdDeviation": 314.5801883800504,
+            "median": 110.43456790123454,
+            "max": 1793.7333333333352
+        },
+        "pop_vs_baselines_score": {
+            "total": 6050.666666666663,
+            "average": 121.01333333333326,
+            "stdDeviation": 251.05744707802094,
+            "median": 54.06666666666666,
+            "max": 1200.2333333333345
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 4,
+            "average": 0.08,
+            "stdDeviation": 0.3370459909270545,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 16639.990483950565,
+            "average": 2079.9988104938207,
+            "stdDeviation": 1112.2665178362136,
+            "median": 2615.6268055555456,
+            "max": 3862.338333333314
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 10195.133333333313,
+            "average": 1274.3916666666642,
+            "stdDeviation": 666.6608936729206,
+            "median": 1407.7333333333286,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 9,
+            "average": 1.125,
+            "stdDeviation": 0.5994789404140899,
+            "median": 1,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 1134.2448979591838,
+            "average": 22.684897959183676,
+            "stdDeviation": 0.6401290998487229,
+            "median": 22.632653061224488,
+            "max": 23.857142857142858
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2179,
+            "average": 43.58,
+            "stdDeviation": 2.294798466096751,
+            "median": 43.75,
+            "max": 49.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 305.25,
+            "average": 38.15625,
+            "stdDeviation": 2.9684210344053286,
+            "median": 40.75,
+            "max": 41.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 2,
+        "durationMs": 88148,
+        "nofGamesSimulated": 1026,
+        "pop_vs_teachSet_fitness": {
+            "total": 28569.683333333338,
+            "average": 571.3936666666667,
+            "stdDeviation": 1547.834793064213,
+            "median": 33.32916666666666,
+            "max": 9976.433333333345
+        },
+        "pop_vs_teachSet_score": {
+            "total": 13142.849999999995,
+            "average": 262.8569999999999,
+            "stdDeviation": 499.51743619984535,
+            "median": 40.81666666666667,
+            "max": 2505.2166666666694
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 10,
+            "average": 0.2,
+            "stdDeviation": 0.9999999999999998,
+            "median": 0,
+            "max": 7
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 7632.7611111111055,
+            "average": 152.6552222222221,
+            "stdDeviation": 518.1594419761288,
+            "median": 16.662654320987652,
+            "max": 3393.899999999997
+        },
+        "pop_vs_baselines_score": {
+            "total": 9414.79999999999,
+            "average": 188.2959999999998,
+            "stdDeviation": 388.07178131199703,
+            "median": 52.066666666666656,
+            "max": 2284.4999999999977
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 7,
+            "average": 0.14,
+            "stdDeviation": 0.6327716807822551,
+            "median": 0,
+            "max": 4
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 8173.17838541667,
+            "average": 1021.6472981770837,
+            "stdDeviation": 1115.2652209725698,
+            "median": 600.1166666666672,
+            "max": 3972.3617187500013
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 10941.133333333339,
+            "average": 1367.6416666666673,
+            "stdDeviation": 442.92081739980375,
+            "median": 1200.2333333333345,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 16,
+            "average": 2,
+            "stdDeviation": 0,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 1118.5306122448978,
+            "average": 22.370612244897956,
+            "stdDeviation": 0.7694647284616251,
+            "median": 22.408163265306122,
+            "max": 24.53061224489796
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2180.5,
+            "average": 43.61,
+            "stdDeviation": 2.4311314238436394,
+            "median": 43.75,
+            "max": 48.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 327.5,
+            "average": 40.9375,
+            "stdDeviation": 2.14967294023998,
+            "median": 41.75,
+            "max": 41.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 3,
+        "durationMs": 120451,
+        "nofGamesSimulated": 1306,
+        "pop_vs_teachSet_fitness": {
+            "total": 18695.125000000015,
+            "average": 373.9025000000003,
+            "stdDeviation": 625.0374165250032,
+            "median": 256.6833333333333,
+            "max": 2990.133333333336
+        },
+        "pop_vs_teachSet_score": {
+            "total": 7862.599999999999,
+            "average": 157.25199999999998,
+            "stdDeviation": 314.2082005549825,
+            "median": 75.26666666666665,
+            "max": 1386.2666666666682
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 12,
+            "average": 0.24,
+            "stdDeviation": 0.9499473669630336,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 9812.500000000002,
+            "average": 196.25000000000003,
+            "stdDeviation": 239.41093737198688,
+            "median": 181.09999999999997,
+            "max": 1522.6000000000015
+        },
+        "pop_vs_baselines_score": {
+            "total": 3843.699999999999,
+            "average": 76.87399999999998,
+            "stdDeviation": 125.06108290484825,
+            "median": 54,
+            "max": 665.8000000000006
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 1,
+            "average": 0.02,
+            "stdDeviation": 0.1399999999999999,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 21369.587199999936,
+            "average": 2671.198399999992,
+            "stdDeviation": 1126.828266666661,
+            "median": 3798.0266666666535,
+            "max": 3798.0266666666535
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 8058.266666666656,
+            "average": 1007.283333333332,
+            "stdDeviation": 605.5833333333323,
+            "median": 1612.8666666666643,
+            "max": 1612.8666666666643
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 4,
+            "average": 0.5,
+            "stdDeviation": 0.5,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 1099.7142857142853,
+            "average": 21.994285714285706,
+            "stdDeviation": 0.7782448026989622,
+            "median": 22.102040816326532,
+            "max": 24.224489795918366
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2170,
+            "average": 43.4,
+            "stdDeviation": 2.018043607061056,
+            "median": 43.25,
+            "max": 50.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 326,
+            "average": 40.75,
+            "stdDeviation": 4.5,
+            "median": 45.25,
+            "max": 45.25
+        },
+        "nofUnique_in_pop": 49
+    },
+    {
+        "generation": 4,
+        "durationMs": 149232,
+        "nofGamesSimulated": 1594,
+        "pop_vs_teachSet_fitness": {
+            "total": 12512.71000971818,
+            "average": 250.2542001943636,
+            "stdDeviation": 576.1174744892221,
+            "median": 38.49718172983477,
+            "max": 2695.2676384839656
+        },
+        "pop_vs_teachSet_score": {
+            "total": 12027.26666666668,
+            "average": 240.5453333333336,
+            "stdDeviation": 398.52993255825737,
+            "median": 92.86666666666667,
+            "max": 1508.0666666666682
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 28,
+            "average": 0.56,
+            "stdDeviation": 1.3879481258317972,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 9354.6,
+            "average": 187.092,
+            "stdDeviation": 288.92138410224277,
+            "median": 134.09999999999997,
+            "max": 1496.5000000000014
+        },
+        "pop_vs_baselines_score": {
+            "total": 4057.2333333333354,
+            "average": 81.14466666666671,
+            "stdDeviation": 130.86545229696387,
+            "median": 56.33333333333333,
+            "max": 728.6666666666674
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 2,
+            "average": 0.04,
+            "stdDeviation": 0.19595917942265434,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 16004.778666666632,
+            "average": 2000.597333333329,
+            "stdDeviation": 1857.8826666666623,
+            "median": 3858.4799999999914,
+            "max": 3858.4799999999914
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 10422.399999999994,
+            "average": 1302.7999999999993,
+            "stdDeviation": 1236.6999999999991,
+            "median": 2539.499999999998,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 1,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 1091.7959183673468,
+            "average": 21.835918367346935,
+            "stdDeviation": 0.9093613743288196,
+            "median": 21.73469387755102,
+            "max": 24.06122448979592
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2173.5,
+            "average": 43.47,
+            "stdDeviation": 1.7325126262166173,
+            "median": 43.25,
+            "max": 47.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 314,
+            "average": 39.25,
+            "stdDeviation": 4,
+            "median": 43.25,
+            "max": 43.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 5,
+        "durationMs": 183420,
+        "nofGamesSimulated": 1951,
+        "pop_vs_teachSet_fitness": {
+            "total": 15527.443417283956,
+            "average": 310.5488683456791,
+            "stdDeviation": 781.7695148834407,
+            "median": 34.952138271604944,
+            "max": 3398.2666666666705
+        },
+        "pop_vs_teachSet_score": {
+            "total": 10691.86666666667,
+            "average": 213.83733333333342,
+            "stdDeviation": 373.99199442649996,
+            "median": 77.76666666666668,
+            "max": 1608.5666666666684
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 16,
+            "average": 0.32,
+            "stdDeviation": 1.0851727973000431,
+            "median": 0,
+            "max": 6
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 12802.016666666661,
+            "average": 256.0403333333332,
+            "stdDeviation": 490.4091355195163,
+            "median": 138.81666666666666,
+            "max": 2621.7999999999956
+        },
+        "pop_vs_baselines_score": {
+            "total": 3921.766666666663,
+            "average": 78.43533333333326,
+            "stdDeviation": 141.6745381985688,
+            "median": 47.266666666666666,
+            "max": 826.5999999999989
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 1,
+            "average": 0.02,
+            "stdDeviation": 0.13999999999999996,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 8771.270083950616,
+            "average": 1096.408760493827,
+            "stdDeviation": 795.6749748135459,
+            "median": 1862.3911111111108,
+            "max": 1862.3911111111108
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 11126.46666666666,
+            "average": 1390.8083333333325,
+            "stdDeviation": 1156.2974644612184,
+            "median": 2539.499999999998,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 10,
+            "average": 1.25,
+            "stdDeviation": 0.82915619758885,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 1064.0816326530612,
+            "average": 21.281632653061223,
+            "stdDeviation": 0.8750319801379016,
+            "median": 21.306122448979593,
+            "max": 23.510204081632654
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2169,
+            "average": 43.38,
+            "stdDeviation": 2.019430612821347,
+            "median": 43.25,
+            "max": 47.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 317,
+            "average": 39.625,
+            "stdDeviation": 4.655306112384018,
+            "median": 41.75,
+            "max": 46.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 6,
+        "durationMs": 220935,
+        "nofGamesSimulated": 2309,
+        "pop_vs_teachSet_fitness": {
+            "total": 91500.86666666667,
+            "average": 1830.0173333333335,
+            "stdDeviation": 1984.5788320558079,
+            "median": 812.533333333334,
+            "max": 6960.283333333318
+        },
+        "pop_vs_teachSet_score": {
+            "total": 11970.316666666664,
+            "average": 239.40633333333327,
+            "stdDeviation": 258.1160563237224,
+            "median": 112.30000000000007,
+            "max": 888.1333333333314
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 1,
+            "average": 0.02,
+            "stdDeviation": 0.13999999999999987,
+            "median": 0,
+            "max": 1
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 24498.733333333308,
+            "average": 489.97466666666617,
+            "stdDeviation": 694.9990897135516,
+            "median": 185.85,
+            "max": 2620.6000000000004
+        },
+        "pop_vs_baselines_score": {
+            "total": 7190.099999999995,
+            "average": 143.8019999999999,
+            "stdDeviation": 194.48184027307002,
+            "median": 63.7,
+            "max": 730.8666666666657
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 1,
+            "average": 0.02,
+            "stdDeviation": 0.13999999999999987,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 7684.018750000004,
+            "average": 960.5023437500005,
+            "stdDeviation": 1290.273285265553,
+            "median": 1163.9666666666678,
+            "max": 4078.143750000001
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 6533.933333333335,
+            "average": 816.7416666666669,
+            "stdDeviation": 827.1155675918434,
+            "median": 1200.2333333333345,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 1,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 1047.7959183673468,
+            "average": 20.955918367346936,
+            "stdDeviation": 1.0386561015527684,
+            "median": 20.877551020408163,
+            "max": 23.040816326530614
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2152.5,
+            "average": 43.05,
+            "stdDeviation": 1.808314132002513,
+            "median": 43.25,
+            "max": 49.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 339.5,
+            "average": 42.4375,
+            "stdDeviation": 3.050998811864731,
+            "median": 44.75,
+            "max": 44.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 7,
+        "durationMs": 248369,
+        "nofGamesSimulated": 2582,
+        "pop_vs_teachSet_fitness": {
+            "total": 19930.433057851245,
+            "average": 398.6086611570249,
+            "stdDeviation": 360.98711766366364,
+            "median": 290.09807162534435,
+            "max": 1530.0363636363645
+        },
+        "pop_vs_teachSet_score": {
+            "total": 19621.800000000003,
+            "average": 392.43600000000004,
+            "stdDeviation": 362.1987322414775,
+            "median": 268.8,
+            "max": 1697.8000000000015
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 40,
+            "average": 0.8,
+            "stdDeviation": 1.6,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 10088.162686419755,
+            "average": 201.7632537283951,
+            "stdDeviation": 267.1251956939297,
+            "median": 129.36458271604937,
+            "max": 1381.564800000001
+        },
+        "pop_vs_baselines_score": {
+            "total": 7777.066666666666,
+            "average": 155.5413333333333,
+            "stdDeviation": 236.37756281565024,
+            "median": 58.23333333333332,
+            "max": 979.3000000000008
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 6,
+            "average": 0.12,
+            "stdDeviation": 0.32496153618543855,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 25978.36799999994,
+            "average": 3247.2959999999925,
+            "stdDeviation": 550.7306666666611,
+            "median": 3798.0266666666535,
+            "max": 3798.0266666666535
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 9234.666666666655,
+            "average": 1154.333333333332,
+            "stdDeviation": 458.5333333333325,
+            "median": 1612.8666666666643,
+            "max": 1612.8666666666643
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 4,
+            "average": 0.5,
+            "stdDeviation": 0.5,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 1035.591836734694,
+            "average": 20.71183673469388,
+            "stdDeviation": 1.1201880011189622,
+            "median": 20.448979591836736,
+            "max": 23.142857142857142
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2156.5,
+            "average": 43.13,
+            "stdDeviation": 1.6479077644091615,
+            "median": 43.25,
+            "max": 46.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 322,
+            "average": 40.25,
+            "stdDeviation": 4,
+            "median": 44.25,
+            "max": 44.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 8,
+        "durationMs": 297105,
+        "nofGamesSimulated": 2939,
+        "pop_vs_teachSet_fitness": {
+            "total": 11819.501022222226,
+            "average": 236.39002044444453,
+            "stdDeviation": 498.48697265548435,
+            "median": 9.59778148148148,
+            "max": 1986.6000000000004
+        },
+        "pop_vs_teachSet_score": {
+            "total": 19739.083333333336,
+            "average": 394.7816666666667,
+            "stdDeviation": 475.68079102190177,
+            "median": 123.80000000000011,
+            "max": 1672.2500000000018
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 43,
+            "average": 0.86,
+            "stdDeviation": 1.9698730923589969,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 9977.71851851852,
+            "average": 199.5543703703704,
+            "stdDeviation": 217.93832751104156,
+            "median": 130.92764444444444,
+            "max": 939.3975308641977
+        },
+        "pop_vs_baselines_score": {
+            "total": 7423.800000000002,
+            "average": 148.47600000000003,
+            "stdDeviation": 247.56323610028312,
+            "median": 58.533333333333324,
+            "max": 1015.866666666667
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 6,
+            "average": 0.12,
+            "stdDeviation": 0.3249615361854386,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 13376.74791666664,
+            "average": 1672.09348958333,
+            "stdDeviation": 1998.5582678041692,
+            "median": 129.14374999999995,
+            "max": 4252.199999999992
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 7941.766666666663,
+            "average": 992.7208333333328,
+            "stdDeviation": 1198.136235870053,
+            "median": 67.1,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 6,
+            "average": 0.75,
+            "stdDeviation": 0.9682458365518543,
+            "median": 0,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 1041.5102040816328,
+            "average": 20.830204081632655,
+            "stdDeviation": 0.9785831541507711,
+            "median": 20.79591836734694,
+            "max": 23.244897959183675
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2169,
+            "average": 43.38,
+            "stdDeviation": 1.7658142597679973,
+            "median": 43.75,
+            "max": 47.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 331,
+            "average": 41.375,
+            "stdDeviation": 4.768057780690163,
+            "median": 44.75,
+            "max": 46.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 9,
+        "durationMs": 329199,
+        "nofGamesSimulated": 3231,
+        "pop_vs_teachSet_fitness": {
+            "total": 16641.337951531794,
+            "average": 332.82675903063586,
+            "stdDeviation": 655.1430054291633,
+            "median": 12.470084590763618,
+            "max": 2907.2000000000025
+        },
+        "pop_vs_teachSet_score": {
+            "total": 27431.26666666667,
+            "average": 548.6253333333334,
+            "stdDeviation": 622.5318185017626,
+            "median": 120.13333333333343,
+            "max": 2328.600000000002
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 44,
+            "average": 0.88,
+            "stdDeviation": 1.8400000000000014,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 13589.384876543207,
+            "average": 271.78769753086414,
+            "stdDeviation": 356.8674550594042,
+            "median": 149.29621913580246,
+            "max": 1763.8520833333307
+        },
+        "pop_vs_baselines_score": {
+            "total": 9036.46666666666,
+            "average": 180.7293333333332,
+            "stdDeviation": 278.0979202958712,
+            "median": 73.1,
+            "max": 1261.6333333333314
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 5,
+            "average": 0.1,
+            "stdDeviation": 0.29999999999999977,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 7699.507200000003,
+            "average": 962.4384000000003,
+            "stdDeviation": 740.2656000000002,
+            "median": 1702.7040000000004,
+            "max": 1702.7040000000004
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 11264.533333333326,
+            "average": 1408.0666666666657,
+            "stdDeviation": 1131.4333333333325,
+            "median": 2539.499999999998,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 12,
+            "average": 1.5,
+            "stdDeviation": 0.5,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 991.1428571428571,
+            "average": 19.822857142857142,
+            "stdDeviation": 0.8804360738482256,
+            "median": 19.653061224489797,
+            "max": 21.979591836734695
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2143.5,
+            "average": 42.87,
+            "stdDeviation": 1.9711925324533874,
+            "median": 42.75,
+            "max": 46.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 314,
+            "average": 39.25,
+            "stdDeviation": 4,
+            "median": 43.25,
+            "max": 43.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 10,
+        "durationMs": 354734,
+        "nofGamesSimulated": 3496,
+        "pop_vs_teachSet_fitness": {
+            "total": 26523.066666666662,
+            "average": 530.4613333333332,
+            "stdDeviation": 2127.3791066146264,
+            "median": 99.06666666666666,
+            "max": 14505.60000000001
+        },
+        "pop_vs_teachSet_score": {
+            "total": 11971.466666666662,
+            "average": 239.42933333333323,
+            "stdDeviation": 606.1377920586847,
+            "median": 99.06666666666666,
+            "max": 3626.4000000000024
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 1.1199999999999994,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 11268.291358024677,
+            "average": 225.36582716049352,
+            "stdDeviation": 449.9791591114415,
+            "median": 72.58024691358023,
+            "max": 2510.395061728393
+        },
+        "pop_vs_baselines_score": {
+            "total": 11662.533333333322,
+            "average": 233.25066666666643,
+            "stdDeviation": 367.4296146196645,
+            "median": 69.59999999999998,
+            "max": 1548.1666666666656
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 0.36660605559646703,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 17800.533333333286,
+            "average": 2225.0666666666607,
+            "stdDeviation": 0,
+            "median": 2225.0666666666607,
+            "max": 2225.0666666666607
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 7129.59999999999,
+            "average": 891.1999999999988,
+            "stdDeviation": 1.1368683772161603e-13,
+            "median": 891.1999999999987,
+            "max": 891.1999999999987
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 0,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 978.5714285714288,
+            "average": 19.571428571428577,
+            "stdDeviation": 1.0442919160835737,
+            "median": 19.53061224489796,
+            "max": 21.979591836734695
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2121.5,
+            "average": 42.43,
+            "stdDeviation": 1.8076504086797311,
+            "median": 42.25,
+            "max": 46.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 338,
+            "average": 42.25,
+            "stdDeviation": 0,
+            "median": 42.25,
+            "max": 42.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 11,
+        "durationMs": 388360,
+        "nofGamesSimulated": 3775,
+        "pop_vs_teachSet_fitness": {
+            "total": 12164.385185185181,
+            "average": 243.28770370370364,
+            "stdDeviation": 840.0742521227083,
+            "median": 34.172839506172856,
+            "max": 5216.000000000001
+        },
+        "pop_vs_teachSet_score": {
+            "total": 11195.599999999995,
+            "average": 223.9119999999999,
+            "stdDeviation": 392.66974043845005,
+            "median": 115.33333333333337,
+            "max": 1956.0000000000002
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 16,
+            "average": 0.32,
+            "stdDeviation": 1.5676734353812347,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 6674.762733333333,
+            "average": 133.49525466666665,
+            "stdDeviation": 340.63831788529257,
+            "median": 21.35244999999999,
+            "max": 2081.040000000001
+        },
+        "pop_vs_baselines_score": {
+            "total": 11519.599999999995,
+            "average": 230.3919999999999,
+            "stdDeviation": 361.5965743175979,
+            "median": 74.06666666666665,
+            "max": 1697.400000000001
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 9,
+            "average": 0.18,
+            "stdDeviation": 0.6225752966509347,
+            "median": 0,
+            "max": 4
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 15510.399999999994,
+            "average": 1938.7999999999993,
+            "stdDeviation": 0,
+            "median": 1938.7999999999993,
+            "max": 1938.7999999999993
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 12385.333333333327,
+            "average": 1548.1666666666658,
+            "stdDeviation": 2.2737367544323206e-13,
+            "median": 1548.1666666666656,
+            "max": 1548.1666666666656
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 0,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 958.1224489795915,
+            "average": 19.16244897959183,
+            "stdDeviation": 1.1057606155683548,
+            "median": 19.142857142857142,
+            "max": 22.93877551020408
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2135.5,
+            "average": 42.71,
+            "stdDeviation": 2.0416659863944444,
+            "median": 43.25,
+            "max": 46.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 326,
+            "average": 40.75,
+            "stdDeviation": 0,
+            "median": 40.75,
+            "max": 40.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 12,
+        "durationMs": 421877,
+        "nofGamesSimulated": 4046,
+        "pop_vs_teachSet_fitness": {
+            "total": 32241.10617283953,
+            "average": 644.8221234567906,
+            "stdDeviation": 1694.9078076839703,
+            "median": 21.29382716049382,
+            "max": 8992.00000000001
+        },
+        "pop_vs_teachSet_score": {
+            "total": 24134.533333333366,
+            "average": 482.6906666666673,
+            "stdDeviation": 709.2349449008033,
+            "median": 71.86666666666666,
+            "max": 3372.0000000000036
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 16,
+            "average": 0.32,
+            "stdDeviation": 1.567673435381235,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 8772.477970679016,
+            "average": 175.44955941358032,
+            "stdDeviation": 247.69862805207086,
+            "median": 65.2575135030864,
+            "max": 1252.3499999999992
+        },
+        "pop_vs_baselines_score": {
+            "total": 15342.266666666657,
+            "average": 306.84533333333314,
+            "stdDeviation": 426.2737659068926,
+            "median": 75.66666666666664,
+            "max": 1893.4999999999984
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 15,
+            "average": 0.3,
+            "stdDeviation": 0.6403124237432848,
+            "median": 0,
+            "max": 3
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 14515.199999999979,
+            "average": 1814.3999999999974,
+            "stdDeviation": 4.547473508864641e-13,
+            "median": 1814.399999999997,
+            "max": 1814.399999999997
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 3628.7999999999947,
+            "average": 453.59999999999934,
+            "stdDeviation": 1.1368683772161603e-13,
+            "median": 453.5999999999992,
+            "max": 453.5999999999992
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance_within_pop": {
+            "total": 946.2857142857143,
+            "average": 18.925714285714285,
+            "stdDeviation": 1.1651310494313598,
+            "median": 18.816326530612244,
+            "max": 22.3265306122449
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2125.5,
+            "average": 42.51,
+            "stdDeviation": 1.8089776118017609,
+            "median": 42.25,
+            "max": 46.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 322,
+            "average": 40.25,
+            "stdDeviation": 0,
+            "median": 40.25,
+            "max": 40.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 13,
+        "durationMs": 457679,
+        "nofGamesSimulated": 4323,
+        "pop_vs_teachSet_fitness": {
+            "total": 30799.79999999997,
+            "average": 615.9959999999994,
+            "stdDeviation": 2149.912246239003,
+            "median": 17.033333333333346,
+            "max": 11536.799999999972
+        },
+        "pop_vs_teachSet_score": {
+            "total": 26117.999999999978,
+            "average": 522.3599999999996,
+            "stdDeviation": 1104.1018871664157,
+            "median": 136.26666666666677,
+            "max": 5768.399999999986
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 24,
+            "average": 0.48,
+            "stdDeviation": 1.8998947339260674,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 11031.362500000001,
+            "average": 220.62725000000003,
+            "stdDeviation": 267.6541614710109,
+            "median": 138.98125,
+            "max": 1221.6020833333328
+        },
+        "pop_vs_baselines_score": {
+            "total": 9715.599999999999,
+            "average": 194.31199999999998,
+            "stdDeviation": 289.2801573838066,
+            "median": 71.19999999999999,
+            "max": 1134.0333333333328
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 6,
+            "average": 0.12,
+            "stdDeviation": 0.3249615361854386,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 4604.800000000003,
+            "average": 575.6000000000004,
+            "stdDeviation": 0,
+            "median": 575.6000000000004,
+            "max": 575.6000000000004
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 6418.400000000008,
+            "average": 802.300000000001,
+            "stdDeviation": 1.1368683772161603e-13,
+            "median": 802.3000000000009,
+            "max": 802.3000000000009
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 0,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 969.7142857142858,
+            "average": 19.394285714285715,
+            "stdDeviation": 1.1335292804941606,
+            "median": 19.26530612244898,
+            "max": 22.20408163265306
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2144,
+            "average": 42.88,
+            "stdDeviation": 1.9743606560099403,
+            "median": 43.25,
+            "max": 46.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 370,
+            "average": 46.25,
+            "stdDeviation": 0,
+            "median": 46.25,
+            "max": 46.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 14,
+        "durationMs": 499551,
+        "nofGamesSimulated": 4601,
+        "pop_vs_teachSet_fitness": {
+            "total": 34509.06666666667,
+            "average": 690.1813333333334,
+            "stdDeviation": 1573.2809396383516,
+            "median": 180.40000000000006,
+            "max": 10017.600000000008
+        },
+        "pop_vs_teachSet_score": {
+            "total": 17901.06666666667,
+            "average": 358.02133333333336,
+            "stdDeviation": 502.32054386550135,
+            "median": 180.40000000000006,
+            "max": 2504.400000000002
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 1.1199999999999997,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 8018.656250000002,
+            "average": 160.37312500000004,
+            "stdDeviation": 273.7921969321103,
+            "median": 80.69791666666666,
+            "max": 1307.9666666666667
+        },
+        "pop_vs_baselines_score": {
+            "total": 8967.133333333331,
+            "average": 179.34266666666662,
+            "stdDeviation": 263.33534024889246,
+            "median": 63.69999999999998,
+            "max": 1085.6
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 5,
+            "average": 0.1,
+            "stdDeviation": 0.3605551275463987,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 2306.1333333333328,
+            "average": 288.2666666666666,
+            "stdDeviation": 0,
+            "median": 288.2666666666666,
+            "max": 288.2666666666666
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 576.5333333333332,
+            "average": 72.06666666666665,
+            "stdDeviation": 0,
+            "median": 72.06666666666665,
+            "max": 72.06666666666665
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance_within_pop": {
+            "total": 971.5510204081629,
+            "average": 19.43102040816326,
+            "stdDeviation": 1.1281313678706384,
+            "median": 19.3265306122449,
+            "max": 22.102040816326532
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2139,
+            "average": 42.78,
+            "stdDeviation": 2.0381609357457524,
+            "median": 42.75,
+            "max": 48.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 366,
+            "average": 45.75,
+            "stdDeviation": 0,
+            "median": 45.75,
+            "max": 45.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 15,
+        "durationMs": 537839,
+        "nofGamesSimulated": 4948,
+        "pop_vs_teachSet_fitness": {
+            "total": 23373.81973333334,
+            "average": 467.4763946666668,
+            "stdDeviation": 1245.7764162205347,
+            "median": 9.06240000000001,
+            "max": 5324.160000000005
+        },
+        "pop_vs_teachSet_score": {
+            "total": 25458.33333333334,
+            "average": 509.1666666666668,
+            "stdDeviation": 795.7587979895533,
+            "median": 141.60000000000014,
+            "max": 3327.600000000003
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 32,
+            "average": 0.64,
+            "stdDeviation": 2.01752323406696,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 8221.140800000001,
+            "average": 164.422816,
+            "stdDeviation": 246.74894632663356,
+            "median": 85.316,
+            "max": 1261.4106666666667
+        },
+        "pop_vs_baselines_score": {
+            "total": 10014.366666666661,
+            "average": 200.28733333333324,
+            "stdDeviation": 275.5701369798822,
+            "median": 82.86666666666663,
+            "max": 1217.4999999999986
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 6,
+            "average": 0.12,
+            "stdDeviation": 0.38157568056677843,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 5699.464533333338,
+            "average": 712.4330666666673,
+            "stdDeviation": 194.52693333333346,
+            "median": 906.9600000000007,
+            "max": 906.9600000000007
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 7962.133333333342,
+            "average": 995.2666666666678,
+            "stdDeviation": 204.9666666666668,
+            "median": 1200.2333333333345,
+            "max": 1200.2333333333345
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 12,
+            "average": 1.5,
+            "stdDeviation": 0.5,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 925.4285714285712,
+            "average": 18.508571428571425,
+            "stdDeviation": 1.3790594311409894,
+            "median": 18.26530612244898,
+            "max": 23.367346938775512
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2138.5,
+            "average": 42.77,
+            "stdDeviation": 2.0023985617254128,
+            "median": 42.75,
+            "max": 48.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 334,
+            "average": 41.75,
+            "stdDeviation": 0,
+            "median": 41.75,
+            "max": 41.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 16,
+        "durationMs": 574609,
+        "nofGamesSimulated": 5231,
+        "pop_vs_teachSet_fitness": {
+            "total": 30618.903703703672,
+            "average": 612.3780740740734,
+            "stdDeviation": 2490.6974248153697,
+            "median": 38.75555555555558,
+            "max": 12803.199999999986
+        },
+        "pop_vs_teachSet_score": {
+            "total": 18976.399999999994,
+            "average": 379.5279999999999,
+            "stdDeviation": 944.6936386495292,
+            "median": 130.80000000000007,
+            "max": 4801.199999999996
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 16,
+            "average": 0.32,
+            "stdDeviation": 1.5676734353812343,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 14207.816666666662,
+            "average": 284.15633333333324,
+            "stdDeviation": 310.1367018628304,
+            "median": 163.23958333333334,
+            "max": 1437.5083333333316
+        },
+        "pop_vs_baselines_score": {
+            "total": 13528.266666666652,
+            "average": 270.56533333333306,
+            "stdDeviation": 309.73893336593403,
+            "median": 88.66666666666667,
+            "max": 1441.533333333332
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 6,
+            "average": 0.12,
+            "stdDeviation": 0.32496153618543855,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 5539.200000000005,
+            "average": 692.4000000000007,
+            "stdDeviation": 0,
+            "median": 692.4000000000007,
+            "max": 692.4000000000007
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 7042.400000000009,
+            "average": 880.3000000000011,
+            "stdDeviation": 0,
+            "median": 880.3000000000011,
+            "max": 880.3000000000011
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 0,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 894.9387755102041,
+            "average": 17.898775510204082,
+            "stdDeviation": 1.3663716290129229,
+            "median": 17.918367346938776,
+            "max": 21.918367346938776
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2117.5,
+            "average": 42.35,
+            "stdDeviation": 1.944222209522358,
+            "median": 42.25,
+            "max": 48.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 342,
+            "average": 42.75,
+            "stdDeviation": 0,
+            "median": 42.75,
+            "max": 42.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 17,
+        "durationMs": 610345,
+        "nofGamesSimulated": 5508,
+        "pop_vs_teachSet_fitness": {
+            "total": 20604.58842975206,
+            "average": 412.09176859504123,
+            "stdDeviation": 915.483774662027,
+            "median": 0.9144002003506146,
+            "max": 3719.5636363636304
+        },
+        "pop_vs_teachSet_score": {
+            "total": 39804.399999999994,
+            "average": 796.0879999999999,
+            "stdDeviation": 1220.2110726292847,
+            "median": 152.13333333333347,
+            "max": 5114.399999999993
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 80,
+            "average": 1.6,
+            "stdDeviation": 3.2,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 9840.548530903789,
+            "average": 196.81097061807577,
+            "stdDeviation": 288.5692481915466,
+            "median": 68.21335432458697,
+            "max": 1419.8332724489776
+        },
+        "pop_vs_baselines_score": {
+            "total": 15267.766666666663,
+            "average": 305.35533333333325,
+            "stdDeviation": 388.5680687178386,
+            "median": 95.03333333333336,
+            "max": 1257.2999999999984
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 13,
+            "average": 0.26,
+            "stdDeviation": 0.5936328831862331,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 2837.333333333333,
+            "average": 354.66666666666663,
+            "stdDeviation": 5.684341886080802e-14,
+            "median": 354.6666666666667,
+            "max": 354.6666666666667
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 709.3333333333333,
+            "average": 88.66666666666666,
+            "stdDeviation": 1.4210854715202004e-14,
+            "median": 88.66666666666667,
+            "max": 88.66666666666667
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance_within_pop": {
+            "total": 866.4489795918364,
+            "average": 17.328979591836728,
+            "stdDeviation": 1.4302767663945781,
+            "median": 17.020408163265305,
+            "max": 21.510204081632654
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2121,
+            "average": 42.42,
+            "stdDeviation": 1.748170472236618,
+            "median": 42.75,
+            "max": 47.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 362,
+            "average": 45.25,
+            "stdDeviation": 0,
+            "median": 45.25,
+            "max": 45.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 18,
+        "durationMs": 646513,
+        "nofGamesSimulated": 5790,
+        "pop_vs_teachSet_fitness": {
+            "total": 23957.140996744325,
+            "average": 479.1428199348865,
+            "stdDeviation": 975.1516949860162,
+            "median": 1.2093163035311811,
+            "max": 3560.727272727269
+        },
+        "pop_vs_teachSet_score": {
+            "total": 45345.33333333336,
+            "average": 906.9066666666672,
+            "stdDeviation": 1274.423717711918,
+            "median": 201.20000000000024,
+            "max": 4895.999999999994
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 80,
+            "average": 1.6,
+            "stdDeviation": 3.2000000000000006,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 12796.385802469129,
+            "average": 255.92771604938258,
+            "stdDeviation": 307.0409725715459,
+            "median": 142.36728395061724,
+            "max": 1775.3382716049352
+        },
+        "pop_vs_baselines_score": {
+            "total": 11394.899999999998,
+            "average": 227.89799999999997,
+            "stdDeviation": 322.30893092118237,
+            "median": 67.96666666666665,
+            "max": 1224.6999999999987
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 7,
+            "average": 0.14,
+            "stdDeviation": 0.3469870314579492,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 5138.133333333332,
+            "average": 642.2666666666665,
+            "stdDeviation": 1.1368683772161603e-13,
+            "median": 642.2666666666667,
+            "max": 642.2666666666667
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 8266.933333333334,
+            "average": 1033.3666666666668,
+            "stdDeviation": 0,
+            "median": 1033.3666666666668,
+            "max": 1033.3666666666668
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 0,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 876.4897959183675,
+            "average": 17.52979591836735,
+            "stdDeviation": 1.4182775481777676,
+            "median": 17.26530612244898,
+            "max": 20.816326530612244
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2143.5,
+            "average": 42.87,
+            "stdDeviation": 1.8070971196922427,
+            "median": 42.75,
+            "max": 46.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 342,
+            "average": 42.75,
+            "stdDeviation": 0,
+            "median": 42.75,
+            "max": 42.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 19,
+        "durationMs": 684126,
+        "nofGamesSimulated": 6065,
+        "pop_vs_teachSet_fitness": {
+            "total": 19820.447005029742,
+            "average": 396.40894010059486,
+            "stdDeviation": 581.7484308756564,
+            "median": 0.6721536351165969,
+            "max": 1699.200000000001
+        },
+        "pop_vs_teachSet_score": {
+            "total": 55518.66666666672,
+            "average": 1110.3733333333344,
+            "stdDeviation": 1203.5534977169357,
+            "median": 470.8000000000001,
+            "max": 3823.2000000000035
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 136,
+            "average": 2.72,
+            "stdDeviation": 3.789670170344644,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 8575.683066666668,
+            "average": 171.51366133333337,
+            "stdDeviation": 335.3414847446543,
+            "median": 77.01866666666668,
+            "max": 2191.8933333333334
+        },
+        "pop_vs_baselines_score": {
+            "total": 10084.999999999995,
+            "average": 201.6999999999999,
+            "stdDeviation": 308.2005659379043,
+            "median": 66.63333333333334,
+            "max": 1617.8333333333337
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 6,
+            "average": 0.12,
+            "stdDeviation": 0.4749736834815168,
+            "median": 0,
+            "max": 3
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 1756.7999999999997,
+            "average": 219.59999999999997,
+            "stdDeviation": 2.842170943040401e-14,
+            "median": 219.6,
+            "max": 219.6
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 439.19999999999993,
+            "average": 54.89999999999999,
+            "stdDeviation": 7.105427357601002e-15,
+            "median": 54.9,
+            "max": 54.9
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance_within_pop": {
+            "total": 866.7755102040816,
+            "average": 17.335510204081633,
+            "stdDeviation": 1.5709151559909114,
+            "median": 17.142857142857142,
+            "max": 21.755102040816325
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2157,
+            "average": 43.14,
+            "stdDeviation": 1.844695096757185,
+            "median": 43.25,
+            "max": 48.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 362,
+            "average": 45.25,
+            "stdDeviation": 0,
+            "median": 45.25,
+            "max": 45.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 20,
+        "durationMs": 720409,
+        "nofGamesSimulated": 6339,
+        "pop_vs_teachSet_fitness": {
+            "total": 15506.44919981711,
+            "average": 310.1289839963422,
+            "stdDeviation": 485.2322716064326,
+            "median": 22.271604938271643,
+            "max": 1678.9333333333345
+        },
+        "pop_vs_teachSet_score": {
+            "total": 48712.26666666666,
+            "average": 974.2453333333333,
+            "stdDeviation": 1016.1778893647405,
+            "median": 861.6000000000001,
+            "max": 3777.6000000000026
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 136,
+            "average": 2.72,
+            "stdDeviation": 3.789670170344644,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 13016.804166666663,
+            "average": 260.33608333333325,
+            "stdDeviation": 299.1981729749275,
+            "median": 170.49375000000003,
+            "max": 1341.727083333333
+        },
+        "pop_vs_baselines_score": {
+            "total": 9335.566666666658,
+            "average": 186.71133333333316,
+            "stdDeviation": 268.9011614048715,
+            "median": 74.53333333333332,
+            "max": 1166.7666666666653
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 4,
+            "average": 0.08,
+            "stdDeviation": 0.27129319932501084,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 1688.533333333333,
+            "average": 211.06666666666663,
+            "stdDeviation": 0,
+            "median": 211.06666666666663,
+            "max": 211.06666666666663
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 422.13333333333327,
+            "average": 52.76666666666666,
+            "stdDeviation": 0,
+            "median": 52.76666666666666,
+            "max": 52.76666666666666
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance_within_pop": {
+            "total": 844.2857142857142,
+            "average": 16.885714285714286,
+            "stdDeviation": 1.4108049754958332,
+            "median": 16.959183673469386,
+            "max": 19.897959183673468
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2142.5,
+            "average": 42.85,
+            "stdDeviation": 1.838477631085024,
+            "median": 42.75,
+            "max": 46.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 350,
+            "average": 43.75,
+            "stdDeviation": 0,
+            "median": 43.75,
+            "max": 43.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 21,
+        "durationMs": 759156,
+        "nofGamesSimulated": 6620,
+        "pop_vs_teachSet_fitness": {
+            "total": 42701.06666666666,
+            "average": 854.0213333333331,
+            "stdDeviation": 1319.7632001362126,
+            "median": 192.6666666666669,
+            "max": 6763.200000000003
+        },
+        "pop_vs_teachSet_score": {
+            "total": 22328.266666666674,
+            "average": 446.56533333333346,
+            "stdDeviation": 511.88049824847866,
+            "median": 192.6666666666669,
+            "max": 1690.8000000000006
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 1.1199999999999999,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 11609.216666666662,
+            "average": 232.18433333333323,
+            "stdDeviation": 277.3003844811163,
+            "median": 160.02499999999995,
+            "max": 1332.8333333333314
+        },
+        "pop_vs_baselines_score": {
+            "total": 8803.366666666663,
+            "average": 176.06733333333327,
+            "stdDeviation": 277.91125965674706,
+            "median": 69.5,
+            "max": 1237.166666666665
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 4,
+            "average": 0.08,
+            "stdDeviation": 0.27129319932501084,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 3179.733333333334,
+            "average": 397.46666666666675,
+            "stdDeviation": 5.684341886080802e-14,
+            "median": 397.4666666666668,
+            "max": 397.4666666666668
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 794.9333333333335,
+            "average": 99.36666666666669,
+            "stdDeviation": 1.4210854715202004e-14,
+            "median": 99.3666666666667,
+            "max": 99.3666666666667
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance_within_pop": {
+            "total": 843.9183673469389,
+            "average": 16.878367346938777,
+            "stdDeviation": 1.1038606289805089,
+            "median": 16.857142857142858,
+            "max": 19.918367346938776
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2147,
+            "average": 42.94,
+            "stdDeviation": 2.0854016399725026,
+            "median": 43.25,
+            "max": 46.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 342,
+            "average": 42.75,
+            "stdDeviation": 0,
+            "median": 42.75,
+            "max": 42.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 22,
+        "durationMs": 789374,
+        "nofGamesSimulated": 6929,
+        "pop_vs_teachSet_fitness": {
+            "total": 26796.088888888895,
+            "average": 535.921777777778,
+            "stdDeviation": 888.6895081078944,
+            "median": 359.3481481481481,
+            "max": 5072.000000000006
+        },
+        "pop_vs_teachSet_score": {
+            "total": 8007.33333333334,
+            "average": 160.14666666666682,
+            "stdDeviation": 326.63576125913346,
+            "median": 85.19999999999999,
+            "max": 1805.2000000000025
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 0.7838367176906174,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 14730.2,
+            "average": 294.60400000000004,
+            "stdDeviation": 245.20849789425245,
+            "median": 250.29999999999995,
+            "max": 1688.4000000000015
+        },
+        "pop_vs_baselines_score": {
+            "total": 5849.2,
+            "average": 116.984,
+            "stdDeviation": 145.22977935212413,
+            "median": 73.73333333333335,
+            "max": 782.700000000001
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 1,
+            "average": 0.02,
+            "stdDeviation": 0.1399999999999999,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 15999.526399999962,
+            "average": 1999.9407999999953,
+            "stdDeviation": 1858.5391999999956,
+            "median": 3858.4799999999914,
+            "max": 3858.4799999999914
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 10473.19999999999,
+            "average": 1309.1499999999987,
+            "stdDeviation": 1230.349999999999,
+            "median": 2539.499999999998,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 1,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 837.3061224489796,
+            "average": 16.74612244897959,
+            "stdDeviation": 1.314109254220638,
+            "median": 16.775510204081634,
+            "max": 21.142857142857142
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2144,
+            "average": 42.88,
+            "stdDeviation": 2.1858865478336247,
+            "median": 43.25,
+            "max": 46.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 306,
+            "average": 38.25,
+            "stdDeviation": 3,
+            "median": 41.25,
+            "max": 41.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 23,
+        "durationMs": 833525,
+        "nofGamesSimulated": 7236,
+        "pop_vs_teachSet_fitness": {
+            "total": 31481.344995140927,
+            "average": 629.6268999028185,
+            "stdDeviation": 696.6987664059321,
+            "median": 402.09912536443153,
+            "max": 2923.8095238095216
+        },
+        "pop_vs_teachSet_score": {
+            "total": 21981.86666666668,
+            "average": 439.6373333333336,
+            "stdDeviation": 518.3528392745623,
+            "median": 178.6000000000002,
+            "max": 2358.3333333333317
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 24,
+            "average": 0.48,
+            "stdDeviation": 1.2998461447417544,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 16473.423906705542,
+            "average": 329.46847813411085,
+            "stdDeviation": 304.35154973355884,
+            "median": 253.308843537415,
+            "max": 1540.1333333333325
+        },
+        "pop_vs_baselines_score": {
+            "total": 10539.5,
+            "average": 210.79,
+            "stdDeviation": 333.7020692673829,
+            "median": 72.80000000000001,
+            "max": 1484.833333333331
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 6,
+            "average": 0.12,
+            "stdDeviation": 0.3249615361854385,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 16564.7317333333,
+            "average": 2070.5914666666627,
+            "stdDeviation": 1787.888533333329,
+            "median": 3858.4799999999914,
+            "max": 3858.4799999999914
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 10610.533333333326,
+            "average": 1326.3166666666657,
+            "stdDeviation": 1213.1833333333323,
+            "median": 2539.499999999998,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 1,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 814.8571428571428,
+            "average": 16.297142857142855,
+            "stdDeviation": 1.2958277969314793,
+            "median": 16.163265306122447,
+            "max": 20.408163265306122
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2172,
+            "average": 43.44,
+            "stdDeviation": 1.522793485670333,
+            "median": 43.75,
+            "max": 46.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 314,
+            "average": 39.25,
+            "stdDeviation": 4,
+            "median": 43.25,
+            "max": 43.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 24,
+        "durationMs": 896284,
+        "nofGamesSimulated": 7618,
+        "pop_vs_teachSet_fitness": {
+            "total": 26957.728577960686,
+            "average": 539.1545715592138,
+            "stdDeviation": 424.07370441510085,
+            "median": 355.88148148148156,
+            "max": 2344.2666666666682
+        },
+        "pop_vs_teachSet_score": {
+            "total": 33894.66666666668,
+            "average": 677.8933333333335,
+            "stdDeviation": 591.3510873415222,
+            "median": 671.2666666666668,
+            "max": 2064.8500000000026
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 76,
+            "average": 1.52,
+            "stdDeviation": 2.061455796276019,
+            "median": 0,
+            "max": 5
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 17267.760416666664,
+            "average": 345.3552083333333,
+            "stdDeviation": 358.52424730231155,
+            "median": 252.73958333333331,
+            "max": 2115.433333333331
+        },
+        "pop_vs_baselines_score": {
+            "total": 8522.766666666665,
+            "average": 170.4553333333333,
+            "stdDeviation": 257.7811121095654,
+            "median": 77.43333333333332,
+            "max": 1524.0333333333306
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 3,
+            "average": 0.06,
+            "stdDeviation": 0.23748684174075843,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 13300.02916666664,
+            "average": 1662.50364583333,
+            "stdDeviation": 2006.023611938685,
+            "median": 145.72916666666663,
+            "max": 4252.199999999992
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 7904.966666666663,
+            "average": 988.1208333333328,
+            "stdDeviation": 1201.7073242009437,
+            "median": 72.06666666666665,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 6,
+            "average": 0.75,
+            "stdDeviation": 0.9682458365518543,
+            "median": 0,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 767.5510204081633,
+            "average": 15.351020408163265,
+            "stdDeviation": 1.3231542588966405,
+            "median": 15.285714285714286,
+            "max": 18.755102040816325
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2151.5,
+            "average": 43.03,
+            "stdDeviation": 1.594239630670371,
+            "median": 42.75,
+            "max": 47.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 334.5,
+            "average": 41.8125,
+            "stdDeviation": 5.083290641897235,
+            "median": 45.75,
+            "max": 45.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 25,
+        "durationMs": 950282,
+        "nofGamesSimulated": 8018,
+        "pop_vs_teachSet_fitness": {
+            "total": 58709.86145833335,
+            "average": 1174.197229166667,
+            "stdDeviation": 1008.1391626378924,
+            "median": 802.9791666666667,
+            "max": 4150.433333333339
+        },
+        "pop_vs_teachSet_score": {
+            "total": 17154.03333333334,
+            "average": 343.0806666666668,
+            "stdDeviation": 284.41769456519023,
+            "median": 315.5000000000002,
+            "max": 1096.566666666668
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 14,
+            "average": 0.28,
+            "stdDeviation": 0.6939740629158984,
+            "median": 0,
+            "max": 2
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 23118.834567901235,
+            "average": 462.3766913580247,
+            "stdDeviation": 453.9176510326677,
+            "median": 267.225925925926,
+            "max": 1710.1222222222204
+        },
+        "pop_vs_baselines_score": {
+            "total": 11839.400000000001,
+            "average": 236.78800000000004,
+            "stdDeviation": 321.23369560077805,
+            "median": 84.9,
+            "max": 1417.3666666666647
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 5,
+            "average": 0.1,
+            "stdDeviation": 0.2999999999999998,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 20343.046399999963,
+            "average": 2542.8807999999954,
+            "stdDeviation": 1313.2849674860252,
+            "median": 3820.783999999991,
+            "max": 3820.783999999991
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 15126.866666666658,
+            "average": 1890.8583333333322,
+            "stdDeviation": 678.5619563029344,
+            "median": 2539.499999999998,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 12,
+            "average": 1.5,
+            "stdDeviation": 0.5,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 791.5102040816324,
+            "average": 15.83020408163265,
+            "stdDeviation": 1.3192796489637553,
+            "median": 15.83673469387755,
+            "max": 19.26530612244898
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2158.5,
+            "average": 43.17,
+            "stdDeviation": 1.7503142574977788,
+            "median": 42.75,
+            "max": 47.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 318,
+            "average": 39.75,
+            "stdDeviation": 5.135659646043535,
+            "median": 40.75,
+            "max": 47.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 26,
+        "durationMs": 992785,
+        "nofGamesSimulated": 8331,
+        "pop_vs_teachSet_fitness": {
+            "total": 24125.824691358037,
+            "average": 482.51649382716073,
+            "stdDeviation": 953.2184737945231,
+            "median": 78.55061728395066,
+            "max": 4416.800000000005
+        },
+        "pop_vs_teachSet_score": {
+            "total": 18136.533333333344,
+            "average": 362.7306666666669,
+            "stdDeviation": 380.13354494557444,
+            "median": 155.0666666666668,
+            "max": 1704.8000000000025
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 12,
+            "average": 0.24,
+            "stdDeviation": 0.9499473669630336,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 16813.11666666667,
+            "average": 336.26233333333334,
+            "stdDeviation": 408.7814124760439,
+            "median": 175.3104166666666,
+            "max": 1638.4333333333313
+        },
+        "pop_vs_baselines_score": {
+            "total": 11900.76666666666,
+            "average": 238.0153333333332,
+            "stdDeviation": 292.0438964120898,
+            "median": 77.06666666666668,
+            "max": 1417.3666666666647
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 4,
+            "average": 0.08,
+            "stdDeviation": 0.27129319932501095,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 20769.288533333303,
+            "average": 2596.161066666663,
+            "stdDeviation": 1224.6229333333279,
+            "median": 3820.783999999991,
+            "max": 3820.783999999991
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 14382.666666666664,
+            "average": 1797.833333333333,
+            "stdDeviation": 741.6666666666652,
+            "median": 2539.499999999998,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 12,
+            "average": 1.5,
+            "stdDeviation": 0.5,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 819.918367346939,
+            "average": 16.39836734693878,
+            "stdDeviation": 1.4428339922514193,
+            "median": 16.20408163265306,
+            "max": 20.73469387755102
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2168,
+            "average": 43.36,
+            "stdDeviation": 1.39746198517169,
+            "median": 43.75,
+            "max": 45.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 320,
+            "average": 40,
+            "stdDeviation": 4.75,
+            "median": 44.75,
+            "max": 44.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 27,
+        "durationMs": 1042113,
+        "nofGamesSimulated": 8694,
+        "pop_vs_teachSet_fitness": {
+            "total": 30074.485325558773,
+            "average": 601.4897065111754,
+            "stdDeviation": 967.3492226334489,
+            "median": 76.60485908649181,
+            "max": 4084.6857142857107
+        },
+        "pop_vs_teachSet_score": {
+            "total": 28215.199999999993,
+            "average": 564.3039999999999,
+            "stdDeviation": 729.4408781355146,
+            "median": 161.13333333333344,
+            "max": 2829.199999999999
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 28,
+            "average": 0.56,
+            "stdDeviation": 1.3879481258317967,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 8778.959466666669,
+            "average": 175.57918933333337,
+            "stdDeviation": 210.02743039031085,
+            "median": 91.19373333333333,
+            "max": 1256.6719999999998
+        },
+        "pop_vs_baselines_score": {
+            "total": 14425.500000000004,
+            "average": 288.51000000000005,
+            "stdDeviation": 356.4242378745368,
+            "median": 82.69999999999997,
+            "max": 1161.1999999999991
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 11,
+            "average": 0.22,
+            "stdDeviation": 0.4600000000000005,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 5755.942400000003,
+            "average": 719.4928000000003,
+            "stdDeviation": 153.3488000000005,
+            "median": 872.8416000000009,
+            "max": 872.8416000000009
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 6977.2,
+            "average": 872.15,
+            "stdDeviation": 19.049999999998818,
+            "median": 891.1999999999987,
+            "max": 891.1999999999987
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 0,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 837.9183673469388,
+            "average": 16.758367346938776,
+            "stdDeviation": 1.1582876675073892,
+            "median": 16.591836734693878,
+            "max": 19.040816326530614
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2161.5,
+            "average": 43.23,
+            "stdDeviation": 1.4763468427168462,
+            "median": 43.25,
+            "max": 46.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 350,
+            "average": 43.75,
+            "stdDeviation": 1.5,
+            "median": 45.25,
+            "max": 45.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 28,
+        "durationMs": 1106328,
+        "nofGamesSimulated": 9064,
+        "pop_vs_teachSet_fitness": {
+            "total": 22482.378555098312,
+            "average": 449.64757110196626,
+            "stdDeviation": 1148.4934257484476,
+            "median": 65.71897576588938,
+            "max": 7625.366666666673
+        },
+        "pop_vs_teachSet_score": {
+            "total": 25550.750000000007,
+            "average": 511.01500000000016,
+            "stdDeviation": 635.7374303056781,
+            "median": 187.81666666666686,
+            "max": 2901.2000000000016
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 36,
+            "average": 0.72,
+            "stdDeviation": 1.6497272501841025,
+            "median": 0,
+            "max": 7
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 15178.480468750007,
+            "average": 303.56960937500014,
+            "stdDeviation": 372.31210868089016,
+            "median": 191.43671875,
+            "max": 2359.2437500000015
+        },
+        "pop_vs_baselines_score": {
+            "total": 13190.099999999997,
+            "average": 263.8019999999999,
+            "stdDeviation": 348.8107662972703,
+            "median": 82.49999999999999,
+            "max": 1523.7333333333306
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 0.36660605559646703,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 15194.002449999964,
+            "average": 1899.2503062499954,
+            "stdDeviation": 1551.4547033235317,
+            "median": 814.4750000000007,
+            "max": 3889.6650666666537
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 8297.566666666666,
+            "average": 1037.1958333333332,
+            "stdDeviation": 503.6636842062303,
+            "median": 839.900000000001,
+            "max": 1612.8666666666643
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 7,
+            "average": 0.875,
+            "stdDeviation": 0.33071891388307384,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 832.122448979592,
+            "average": 16.64244897959184,
+            "stdDeviation": 1.361836230071135,
+            "median": 16.591836734693878,
+            "max": 19.775510204081634
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2177.5,
+            "average": 43.55,
+            "stdDeviation": 1.3856406460551023,
+            "median": 43.25,
+            "max": 45.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 322.5,
+            "average": 40.3125,
+            "stdDeviation": 3.1467989687935263,
+            "median": 42.75,
+            "max": 42.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 29,
+        "durationMs": 1145277,
+        "nofGamesSimulated": 9363,
+        "pop_vs_teachSet_fitness": {
+            "total": 41934.00000000001,
+            "average": 838.6800000000002,
+            "stdDeviation": 1563.387037656098,
+            "median": 452.00000000000006,
+            "max": 9610.93333333333
+        },
+        "pop_vs_teachSet_score": {
+            "total": 10252.466666666667,
+            "average": 205.04933333333335,
+            "stdDeviation": 370.8072567454836,
+            "median": 115.60000000000007,
+            "max": 2324.266666666666
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 4,
+            "average": 0.08,
+            "stdDeviation": 0.5599999999999999,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 17349.6472,
+            "average": 346.99294399999997,
+            "stdDeviation": 548.2976654079409,
+            "median": 199.3606666666666,
+            "max": 3661.2490666666654
+        },
+        "pop_vs_baselines_score": {
+            "total": 13070.366666666661,
+            "average": 261.4073333333332,
+            "stdDeviation": 316.9186987428934,
+            "median": 95.10000000000005,
+            "max": 1507.3999999999996
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 5,
+            "average": 0.1,
+            "stdDeviation": 0.29999999999999993,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 16890.38079999997,
+            "average": 2111.2975999999962,
+            "stdDeviation": 1342.3823999999954,
+            "median": 3453.679999999991,
+            "max": 3453.679999999991
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 14721.999999999993,
+            "average": 1840.249999999999,
+            "stdDeviation": 699.2499999999986,
+            "median": 2539.499999999998,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 12,
+            "average": 1.5,
+            "stdDeviation": 0.5,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 838.2448979591838,
+            "average": 16.764897959183678,
+            "stdDeviation": 1.2896295423562991,
+            "median": 16.755102040816325,
+            "max": 19.73469387755102
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2161.5,
+            "average": 43.23,
+            "stdDeviation": 1.8192306066026926,
+            "median": 43.75,
+            "max": 47.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 318,
+            "average": 39.75,
+            "stdDeviation": 4.5,
+            "median": 44.25,
+            "max": 44.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 30,
+        "durationMs": 1197931,
+        "nofGamesSimulated": 9738,
+        "pop_vs_teachSet_fitness": {
+            "total": 76271.33333333334,
+            "average": 1525.426666666667,
+            "stdDeviation": 1864.4788908909024,
+            "median": 857.4500000000003,
+            "max": 7145.699999999985
+        },
+        "pop_vs_teachSet_score": {
+            "total": 11028.899999999998,
+            "average": 220.57799999999995,
+            "stdDeviation": 272.64220459626375,
+            "median": 120.4666666666667,
+            "max": 1028.699999999998
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 1,
+            "average": 0.02,
+            "stdDeviation": 0.13999999999999999,
+            "median": 0,
+            "max": 1
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 19805.92407407407,
+            "average": 396.1184814814814,
+            "stdDeviation": 350.0925297291124,
+            "median": 282.1265432098765,
+            "max": 1591.7382716049378
+        },
+        "pop_vs_baselines_score": {
+            "total": 12657.566666666666,
+            "average": 253.15133333333333,
+            "stdDeviation": 295.1414278093357,
+            "median": 84.7,
+            "max": 1128.2333333333324
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 5,
+            "average": 0.1,
+            "stdDeviation": 0.2999999999999999,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 19889.524999999972,
+            "average": 2486.1906249999965,
+            "stdDeviation": 878.2716757895212,
+            "median": 1860.0499999999993,
+            "max": 3619.6999999999916
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 15196.26666666666,
+            "average": 1899.5333333333324,
+            "stdDeviation": 495.88364842750883,
+            "median": 1548.1666666666656,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 11,
+            "average": 1.375,
+            "stdDeviation": 0.4841229182759271,
+            "median": 1,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 839.4693877551019,
+            "average": 16.789387755102037,
+            "stdDeviation": 1.182979669996554,
+            "median": 16.79591836734694,
+            "max": 19.53061224489796
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2155,
+            "average": 43.1,
+            "stdDeviation": 1.6918924315688626,
+            "median": 43.25,
+            "max": 46.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 305.5,
+            "average": 38.1875,
+            "stdDeviation": 2.297246993686138,
+            "median": 39.75,
+            "max": 40.75
+        },
+        "nofUnique_in_pop": 49
+    },
+    {
+        "generation": 31,
+        "durationMs": 1246572,
+        "nofGamesSimulated": 10110,
+        "pop_vs_teachSet_fitness": {
+            "total": 51183.14999999996,
+            "average": 1023.6629999999991,
+            "stdDeviation": 1661.2776183440942,
+            "median": 522.2083333333337,
+            "max": 9633.045833333317
+        },
+        "pop_vs_teachSet_score": {
+            "total": 24348.74999999998,
+            "average": 486.9749999999996,
+            "stdDeviation": 529.5979581222173,
+            "median": 274.4333333333336,
+            "max": 2588.0166666666664
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 15,
+            "average": 0.3,
+            "stdDeviation": 0.9643650760992961,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 12746.860493827156,
+            "average": 254.93720987654314,
+            "stdDeviation": 297.1136566976766,
+            "median": 174.64691358024695,
+            "max": 1714.1000000000013
+        },
+        "pop_vs_baselines_score": {
+            "total": 10817.566666666662,
+            "average": 216.35133333333323,
+            "stdDeviation": 279.56055898975916,
+            "median": 88.93333333333332,
+            "max": 1277.900000000001
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 5,
+            "average": 0.1,
+            "stdDeviation": 0.36055512754639885,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 12454.390885416666,
+            "average": 1556.7988606770832,
+            "stdDeviation": 1764.1874576552254,
+            "median": 1113.3166666666677,
+            "max": 6182.874218749992
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 9922.833333333341,
+            "average": 1240.3541666666677,
+            "stdDeviation": 496.9454443949156,
+            "median": 1125.5333333333342,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 9,
+            "average": 1.125,
+            "stdDeviation": 0.33071891388307384,
+            "median": 1,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 848.2448979591835,
+            "average": 16.96489795918367,
+            "stdDeviation": 1.0299880105892096,
+            "median": 16.93877551020408,
+            "max": 19.836734693877553
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2138.5,
+            "average": 42.77,
+            "stdDeviation": 1.7803370467414312,
+            "median": 42.75,
+            "max": 46.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 324.5,
+            "average": 40.5625,
+            "stdDeviation": 2.060605190229317,
+            "median": 41.75,
+            "max": 41.75
+        },
+        "nofUnique_in_pop": 49
+    },
+    {
+        "generation": 32,
+        "durationMs": 1301544,
+        "nofGamesSimulated": 10474,
+        "pop_vs_teachSet_fitness": {
+            "total": 41993.303703703714,
+            "average": 839.8660740740743,
+            "stdDeviation": 1471.4771825750383,
+            "median": 415.0814814814816,
+            "max": 8374.666666666668
+        },
+        "pop_vs_teachSet_score": {
+            "total": 10657.26666666667,
+            "average": 213.1453333333334,
+            "stdDeviation": 377.0231395056102,
+            "median": 107.5666666666667,
+            "max": 2086.8333333333344
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 0.7838367176906174,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 14367.62540246913,
+            "average": 287.3525080493826,
+            "stdDeviation": 396.29288128215643,
+            "median": 178.41303703703693,
+            "max": 1824.2587654320957
+        },
+        "pop_vs_baselines_score": {
+            "total": 12131.26666666666,
+            "average": 242.62533333333317,
+            "stdDeviation": 328.17858400978355,
+            "median": 91.50000000000001,
+            "max": 1413.7666666666664
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 6,
+            "average": 0.12,
+            "stdDeviation": 0.3815756805667783,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 12238.044444444422,
+            "average": 1529.7555555555527,
+            "stdDeviation": 1601.6997103228969,
+            "median": 1458.4098765432118,
+            "max": 4168.2370370370245
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 5567.466666666665,
+            "average": 695.9333333333332,
+            "stdDeviation": 634.1455541820726,
+            "median": 960.4000000000013,
+            "max": 1612.8666666666643
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 4,
+            "average": 0.5,
+            "stdDeviation": 0.5,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 807.3877551020407,
+            "average": 16.147755102040815,
+            "stdDeviation": 1.1643643930560326,
+            "median": 16.020408163265305,
+            "max": 18.714285714285715
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2147.5,
+            "average": 42.95,
+            "stdDeviation": 1.7521415467935237,
+            "median": 43.25,
+            "max": 46.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 325,
+            "average": 40.625,
+            "stdDeviation": 2.6545950726994127,
+            "median": 42.75,
+            "max": 42.75
+        },
+        "nofUnique_in_pop": 49
+    },
+    {
+        "generation": 33,
+        "durationMs": 1337040,
+        "nofGamesSimulated": 10779,
+        "pop_vs_teachSet_fitness": {
+            "total": 9836.133333333333,
+            "average": 196.72266666666667,
+            "stdDeviation": 690.4747964002742,
+            "median": 11.458333333333334,
+            "max": 3807.6000000000013
+        },
+        "pop_vs_teachSet_score": {
+            "total": 9323.666666666672,
+            "average": 186.47333333333344,
+            "stdDeviation": 363.92756696903297,
+            "median": 91.66666666666667,
+            "max": 1903.8000000000006
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 24,
+            "average": 0.48,
+            "stdDeviation": 1.8998947339260674,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 13043.850416666668,
+            "average": 260.8770083333334,
+            "stdDeviation": 366.8931287721364,
+            "median": 160.51174999999995,
+            "max": 1505.5150333333324
+        },
+        "pop_vs_baselines_score": {
+            "total": 12214.366666666658,
+            "average": 244.28733333333315,
+            "stdDeviation": 339.0202429151129,
+            "median": 81.56666666666668,
+            "max": 1413.7666666666664
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 7,
+            "average": 0.14,
+            "stdDeviation": 0.40049968789001533,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 16704.72959999997,
+            "average": 2088.091199999996,
+            "stdDeviation": 1770.3887999999956,
+            "median": 3858.4799999999914,
+            "max": 3858.4799999999914
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 12222.266666666656,
+            "average": 1527.783333333332,
+            "stdDeviation": 1011.716666666666,
+            "median": 2539.499999999998,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 1,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 800.0816326530611,
+            "average": 16.001632653061222,
+            "stdDeviation": 1.1041238062034708,
+            "median": 15.918367346938776,
+            "max": 19.183673469387756
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2114.5,
+            "average": 42.29,
+            "stdDeviation": 1.6548111674750086,
+            "median": 42.25,
+            "max": 47.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 318,
+            "average": 39.75,
+            "stdDeviation": 4.5,
+            "median": 44.25,
+            "max": 44.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 34,
+        "durationMs": 1373120,
+        "nofGamesSimulated": 11092,
+        "pop_vs_teachSet_fitness": {
+            "total": 30208.762499999964,
+            "average": 604.1752499999993,
+            "stdDeviation": 1480.375524880835,
+            "median": 72.01458333333336,
+            "max": 9975.281249999987
+        },
+        "pop_vs_teachSet_score": {
+            "total": 18214.199999999983,
+            "average": 364.28399999999965,
+            "stdDeviation": 494.51246577883745,
+            "median": 116.0666666666667,
+            "max": 2549.999999999997
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 32,
+            "average": 0.64,
+            "stdDeviation": 1.4664242223858681,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 7073.360677083334,
+            "average": 141.46721354166667,
+            "stdDeviation": 279.19694572963846,
+            "median": 22.131510416666668,
+            "max": 1623.5625
+        },
+        "pop_vs_baselines_score": {
+            "total": 16398.066666666655,
+            "average": 327.9613333333331,
+            "stdDeviation": 432.5333806185749,
+            "median": 82.3333333333333,
+            "max": 1620.533333333331
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 16,
+            "average": 0.32,
+            "stdDeviation": 0.6462197768561401,
+            "median": 0,
+            "max": 3
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 14831.70133333332,
+            "average": 1853.962666666665,
+            "stdDeviation": 151.2586666666647,
+            "median": 2005.2213333333298,
+            "max": 2005.2213333333298
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 13933.866666666654,
+            "average": 1741.7333333333318,
+            "stdDeviation": 797.7666666666661,
+            "median": 2539.499999999998,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 12,
+            "average": 1.5,
+            "stdDeviation": 0.5,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 775.2653061224489,
+            "average": 15.505306122448978,
+            "stdDeviation": 1.38892243820834,
+            "median": 15.510204081632653,
+            "max": 18.408163265306122
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2103.5,
+            "average": 42.07,
+            "stdDeviation": 1.5091719583930787,
+            "median": 42.25,
+            "max": 45.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 306,
+            "average": 38.25,
+            "stdDeviation": 3,
+            "median": 41.25,
+            "max": 41.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 35,
+        "durationMs": 1437221,
+        "nofGamesSimulated": 11580,
+        "pop_vs_teachSet_fitness": {
+            "total": 18527.8617425926,
+            "average": 370.55723485185194,
+            "stdDeviation": 623.8551238553889,
+            "median": 18.71426666666668,
+            "max": 1818.0407407407415
+        },
+        "pop_vs_teachSet_score": {
+            "total": 31944.86666666668,
+            "average": 638.8973333333336,
+            "stdDeviation": 750.8756863331123,
+            "median": 282.9666666666667,
+            "max": 2319.900000000003
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 53,
+            "average": 1.06,
+            "stdDeviation": 1.9637718808456353,
+            "median": 0,
+            "max": 7
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 10250.50573732138,
+            "average": 205.0101147464276,
+            "stdDeviation": 313.17097458026484,
+            "median": 89.10650937623726,
+            "max": 1379.1741496598636
+        },
+        "pop_vs_baselines_score": {
+            "total": 14449.09999999999,
+            "average": 288.9819999999998,
+            "stdDeviation": 352.8209064232634,
+            "median": 94.50000000000006,
+            "max": 1312.133333333331
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 9,
+            "average": 0.18,
+            "stdDeviation": 0.4331281565541546,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 9736.926774691356,
+            "average": 1217.1158468364195,
+            "stdDeviation": 949.7245219161007,
+            "median": 1518.7660493827152,
+            "max": 3360.2759259259255
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 10118.499999999998,
+            "average": 1264.8124999999998,
+            "stdDeviation": 624.3772010165843,
+            "median": 1548.1666666666656,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 10,
+            "average": 1.25,
+            "stdDeviation": 0.4330127018922193,
+            "median": 1,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 775.0204081632654,
+            "average": 15.500408163265309,
+            "stdDeviation": 1.2452809046336615,
+            "median": 15.46938775510204,
+            "max": 18.612244897959183
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2108.5,
+            "average": 42.17,
+            "stdDeviation": 1.911439248315259,
+            "median": 42.25,
+            "max": 46.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 312,
+            "average": 39,
+            "stdDeviation": 1.6583123951777,
+            "median": 38.75,
+            "max": 40.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 36,
+        "durationMs": 1487384,
+        "nofGamesSimulated": 11954,
+        "pop_vs_teachSet_fitness": {
+            "total": 20491.72406666668,
+            "average": 409.8344813333336,
+            "stdDeviation": 1032.037313485785,
+            "median": 16.061400000000013,
+            "max": 4633.680000000004
+        },
+        "pop_vs_teachSet_score": {
+            "total": 22138.800000000003,
+            "average": 442.77600000000007,
+            "stdDeviation": 621.7808975672667,
+            "median": 164.33333333333346,
+            "max": 2511.600000000002
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 28,
+            "average": 0.56,
+            "stdDeviation": 1.7906423428479514,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 12357.739237540016,
+            "average": 247.15478475080033,
+            "stdDeviation": 374.3904197120624,
+            "median": 115.32617169638777,
+            "max": 1949.6229166666687
+        },
+        "pop_vs_baselines_score": {
+            "total": 16275.233333333332,
+            "average": 325.50466666666665,
+            "stdDeviation": 369.9941643990258,
+            "median": 132.53333333333325,
+            "max": 1411.7000000000014
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 12,
+            "average": 0.24,
+            "stdDeviation": 0.5122499389946281,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 8189.1541333333425,
+            "average": 1023.6442666666678,
+            "stdDeviation": 719.502400000001,
+            "median": 1743.1466666666688,
+            "max": 1743.1466666666688
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 4436.400000000005,
+            "average": 554.5500000000006,
+            "stdDeviation": 449.31666666666723,
+            "median": 1003.8666666666678,
+            "max": 1003.8666666666678
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 4,
+            "average": 0.5,
+            "stdDeviation": 0.5,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 730.4897959183671,
+            "average": 14.609795918367343,
+            "stdDeviation": 1.731693154932618,
+            "median": 14.428571428571429,
+            "max": 19.489795918367346
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2087.5,
+            "average": 41.75,
+            "stdDeviation": 2.211334438749598,
+            "median": 41.75,
+            "max": 46.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 334,
+            "average": 41.75,
+            "stdDeviation": 1,
+            "median": 42.75,
+            "max": 42.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 37,
+        "durationMs": 1543095,
+        "nofGamesSimulated": 12333,
+        "pop_vs_teachSet_fitness": {
+            "total": 48283.28226666665,
+            "average": 965.6656453333329,
+            "stdDeviation": 1544.07454282965,
+            "median": 374.59280000000024,
+            "max": 7936.936666666656
+        },
+        "pop_vs_teachSet_score": {
+            "total": 20254.96666666667,
+            "average": 405.0993333333334,
+            "stdDeviation": 573.3973103254361,
+            "median": 130.35000000000005,
+            "max": 2282.7166666666662
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 17,
+            "average": 0.34,
+            "stdDeviation": 1.0883014288330237,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 17128.992837346574,
+            "average": 342.57985674693145,
+            "stdDeviation": 598.71950564259,
+            "median": 126.38433574488002,
+            "max": 3455.09206349206
+        },
+        "pop_vs_baselines_score": {
+            "total": 17976.53333333334,
+            "average": 359.5306666666668,
+            "stdDeviation": 432.29414126340725,
+            "median": 141.86666666666662,
+            "max": 2308.7
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 10,
+            "average": 0.2,
+            "stdDeviation": 0.4898979485566356,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 15208.056249999963,
+            "average": 1901.0070312499954,
+            "stdDeviation": 1634.0513294825869,
+            "median": 2032.4312500000028,
+            "max": 3898.416666666654
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 6374.733333333327,
+            "average": 796.8416666666659,
+            "stdDeviation": 682.7882996601336,
+            "median": 960.4000000000013,
+            "max": 1612.8666666666643
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 4,
+            "average": 0.5,
+            "stdDeviation": 0.5,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 703.5918367346942,
+            "average": 14.071836734693884,
+            "stdDeviation": 2.028264420574094,
+            "median": 13.673469387755102,
+            "max": 20.73469387755102
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2066,
+            "average": 41.32,
+            "stdDeviation": 2.0832906662297512,
+            "median": 41.25,
+            "max": 46.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 310.5,
+            "average": 38.8125,
+            "stdDeviation": 1.9911915402592488,
+            "median": 40.25,
+            "max": 40.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 38,
+        "durationMs": 1589963,
+        "nofGamesSimulated": 12653,
+        "pop_vs_teachSet_fitness": {
+            "total": 11443.127999999999,
+            "average": 228.86255999999997,
+            "stdDeviation": 508.7517947503982,
+            "median": 4.964800000000002,
+            "max": 1971.7098666666643
+        },
+        "pop_vs_teachSet_score": {
+            "total": 20186.33333333333,
+            "average": 403.7266666666666,
+            "stdDeviation": 496.7440838544976,
+            "median": 168.26666666666682,
+            "max": 2538.666666666664
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 52,
+            "average": 1.04,
+            "stdDeviation": 2.3745315327449337,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 13286.391529166665,
+            "average": 265.7278305833333,
+            "stdDeviation": 458.97306526908534,
+            "median": 106.24576458333333,
+            "max": 2884.053999999999
+        },
+        "pop_vs_baselines_score": {
+            "total": 16964.233333333334,
+            "average": 339.2846666666667,
+            "stdDeviation": 384.4885503979424,
+            "median": 132.46666666666675,
+            "max": 2047.4666666666672
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 12,
+            "average": 0.24,
+            "stdDeviation": 0.5122499389946281,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 16102.545066666633,
+            "average": 2012.8181333333291,
+            "stdDeviation": 1845.6618666666623,
+            "median": 3858.4799999999914,
+            "max": 3858.4799999999914
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 10534.666666666657,
+            "average": 1316.8333333333321,
+            "stdDeviation": 1222.6666666666656,
+            "median": 2539.499999999998,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 1,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 680.204081632653,
+            "average": 13.60408163265306,
+            "stdDeviation": 1.4990431489283496,
+            "median": 13.653061224489797,
+            "max": 16.79591836734694
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2066,
+            "average": 41.32,
+            "stdDeviation": 1.685259623915556,
+            "median": 41.25,
+            "max": 45.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 318,
+            "average": 39.75,
+            "stdDeviation": 4.5,
+            "median": 44.25,
+            "max": 44.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 39,
+        "durationMs": 1649463,
+        "nofGamesSimulated": 13075,
+        "pop_vs_teachSet_fitness": {
+            "total": 16071.455451308484,
+            "average": 321.42910902616967,
+            "stdDeviation": 583.0811182705772,
+            "median": 80.38151740806063,
+            "max": 2196.4857142857127
+        },
+        "pop_vs_teachSet_score": {
+            "total": 23406.800000000003,
+            "average": 468.1360000000001,
+            "stdDeviation": 513.6513027483829,
+            "median": 332.4333333333334,
+            "max": 2376.4499999999985
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 47,
+            "average": 0.94,
+            "stdDeviation": 1.5285287043428402,
+            "median": 0,
+            "max": 5
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 17002.188957725946,
+            "average": 340.0437791545189,
+            "stdDeviation": 327.98918287732823,
+            "median": 227.5718598153548,
+            "max": 1653.8074404761876
+        },
+        "pop_vs_baselines_score": {
+            "total": 21981,
+            "average": 439.62,
+            "stdDeviation": 374.5403432950253,
+            "median": 374.99999999999983,
+            "max": 1533.666666666664
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 16,
+            "average": 0.32,
+            "stdDeviation": 0.5075431016179807,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 10131.372283333338,
+            "average": 1266.4215354166672,
+            "stdDeviation": 558.4644895406299,
+            "median": 1715.8237500000002,
+            "max": 1715.8237500000002
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 13710.83333333333,
+            "average": 1713.8541666666663,
+            "stdDeviation": 885.229495500946,
+            "median": 2539.499999999998,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 14,
+            "average": 1.75,
+            "stdDeviation": 0.6614378277661477,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 678.8979591836734,
+            "average": 13.577959183673467,
+            "stdDeviation": 1.5019378846719142,
+            "median": 13.408163265306122,
+            "max": 17
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2068,
+            "average": 41.36,
+            "stdDeviation": 1.6682026255823967,
+            "median": 41.25,
+            "max": 45.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 305.5,
+            "average": 38.1875,
+            "stdDeviation": 2.973187473066574,
+            "median": 40.75,
+            "max": 42.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 40,
+        "durationMs": 1719252,
+        "nofGamesSimulated": 13507,
+        "pop_vs_teachSet_fitness": {
+            "total": 20158.859784310065,
+            "average": 403.1771956862013,
+            "stdDeviation": 1114.9661268758914,
+            "median": 188.5804924242426,
+            "max": 7909.288636363643
+        },
+        "pop_vs_teachSet_score": {
+            "total": 22717.01666666669,
+            "average": 454.3403333333338,
+            "stdDeviation": 389.3971875018278,
+            "median": 423.05000000000035,
+            "max": 2616.1500000000024
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 34,
+            "average": 0.68,
+            "stdDeviation": 1.0476640682967033,
+            "median": 0,
+            "max": 5
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 15854.28451666667,
+            "average": 317.0856903333334,
+            "stdDeviation": 281.5534071953782,
+            "median": 219.068,
+            "max": 1532.041799999999
+        },
+        "pop_vs_baselines_score": {
+            "total": 19793.966666666664,
+            "average": 395.87933333333325,
+            "stdDeviation": 304.51418999157045,
+            "median": 401.4999999999997,
+            "max": 1084.1000000000013
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 12,
+            "average": 0.24,
+            "stdDeviation": 0.4270831300812526,
+            "median": 0,
+            "max": 1
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 11341.14358333333,
+            "average": 1417.6429479166663,
+            "stdDeviation": 862.0060905529506,
+            "median": 789.7032499999998,
+            "max": 2530.3039999999983
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 12452.133333333333,
+            "average": 1556.5166666666667,
+            "stdDeviation": 763.356592258456,
+            "median": 1001.1333333333345,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 11,
+            "average": 1.375,
+            "stdDeviation": 0.4841229182759271,
+            "median": 1,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 696.1632653061223,
+            "average": 13.923265306122445,
+            "stdDeviation": 1.507037828128493,
+            "median": 14.122448979591837,
+            "max": 18.040816326530614
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2070,
+            "average": 41.4,
+            "stdDeviation": 1.543534904043313,
+            "median": 41.25,
+            "max": 44.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 313.5,
+            "average": 39.1875,
+            "stdDeviation": 3.2445868381043526,
+            "median": 42.25,
+            "max": 42.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 41,
+        "durationMs": 1763911,
+        "nofGamesSimulated": 13818,
+        "pop_vs_teachSet_fitness": {
+            "total": 23540.870370370358,
+            "average": 470.81740740740713,
+            "stdDeviation": 991.8659462635143,
+            "median": 21.85000000000002,
+            "max": 4041.629629629625
+        },
+        "pop_vs_teachSet_score": {
+            "total": 30999.04999999999,
+            "average": 619.9809999999998,
+            "stdDeviation": 743.2615297906768,
+            "median": 156.58333333333348,
+            "max": 3066.999999999997
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 31,
+            "average": 0.62,
+            "stdDeviation": 1.5734039532173547,
+            "median": 0,
+            "max": 5
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 11005.160493827161,
+            "average": 220.10320987654322,
+            "stdDeviation": 559.0606329665732,
+            "median": 32.7407407407407,
+            "max": 3820.622222222222
+        },
+        "pop_vs_baselines_score": {
+            "total": 22317.166666666664,
+            "average": 446.3433333333333,
+            "stdDeviation": 456.4666852757897,
+            "median": 376.99999999999943,
+            "max": 2739.0000000000014
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 13,
+            "average": 0.26,
+            "stdDeviation": 0.593632883186233,
+            "median": 0,
+            "max": 3
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 19769.190277777758,
+            "average": 2471.1487847222197,
+            "stdDeviation": 1350.297937307737,
+            "median": 1425.212500000002,
+            "max": 4214.375925925917
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 13039.000000000004,
+            "average": 1629.8750000000005,
+            "stdDeviation": 704.5924952587827,
+            "median": 1084.1000000000013,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 11,
+            "average": 1.375,
+            "stdDeviation": 0.4841229182759271,
+            "median": 1,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 706.1632653061225,
+            "average": 14.12326530612245,
+            "stdDeviation": 1.5004037218739088,
+            "median": 13.979591836734693,
+            "max": 18.306122448979593
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2064.5,
+            "average": 41.29,
+            "stdDeviation": 1.4554724318928205,
+            "median": 41.25,
+            "max": 44.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 302,
+            "average": 37.75,
+            "stdDeviation": 1.9364916731037085,
+            "median": 39.25,
+            "max": 39.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 42,
+        "durationMs": 1835876,
+        "nofGamesSimulated": 14250,
+        "pop_vs_teachSet_fitness": {
+            "total": 22663.833878630838,
+            "average": 453.27667757261673,
+            "stdDeviation": 941.226341110991,
+            "median": 50.77568297160125,
+            "max": 3322.7776895943603
+        },
+        "pop_vs_teachSet_score": {
+            "total": 34422.6166666667,
+            "average": 688.452333333334,
+            "stdDeviation": 787.8581848559783,
+            "median": 338.93333333333317,
+            "max": 2944.350000000003
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 43,
+            "average": 0.86,
+            "stdDeviation": 2.0494877408757532,
+            "median": 0,
+            "max": 7
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 10052.849064429016,
+            "average": 201.05698128858032,
+            "stdDeviation": 532.0731322444375,
+            "median": 16.533979552469148,
+            "max": 3047.4388888888893
+        },
+        "pop_vs_baselines_score": {
+            "total": 20466.799999999996,
+            "average": 409.3359999999999,
+            "stdDeviation": 509.84533941796747,
+            "median": 152.8000000000001,
+            "max": 2739.0000000000014
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 13,
+            "average": 0.26,
+            "stdDeviation": 0.6264183905346331,
+            "median": 0,
+            "max": 3
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 15470.666666666652,
+            "average": 1933.8333333333314,
+            "stdDeviation": 1143.9589405996073,
+            "median": 1307.1999999999994,
+            "max": 4536.599999999999
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 5990.833333333329,
+            "average": 748.8541666666662,
+            "stdDeviation": 709.3800554274088,
+            "median": 400.29999999999984,
+            "max": 2539.499999999998
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 3,
+            "average": 0.375,
+            "stdDeviation": 0.6959705453537527,
+            "median": 0,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 734.204081632653,
+            "average": 14.68408163265306,
+            "stdDeviation": 1.2417708466078652,
+            "median": 14.653061224489797,
+            "max": 18.653061224489797
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2067.5,
+            "average": 41.35,
+            "stdDeviation": 1.865475810617763,
+            "median": 41.25,
+            "max": 46.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 328,
+            "average": 41,
+            "stdDeviation": 2.179449471770337,
+            "median": 41.75,
+            "max": 42.25
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 43,
+        "durationMs": 1891463,
+        "nofGamesSimulated": 14631,
+        "pop_vs_teachSet_fitness": {
+            "total": 18203.6608,
+            "average": 364.073216,
+            "stdDeviation": 843.1266701160232,
+            "median": 9.292800000000007,
+            "max": 3761.727999999999
+        },
+        "pop_vs_teachSet_score": {
+            "total": 21140.199999999993,
+            "average": 422.80399999999986,
+            "stdDeviation": 655.2999088675177,
+            "median": 145.20000000000013,
+            "max": 3000.1999999999975
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 32,
+            "average": 0.64,
+            "stdDeviation": 1.4664242223858681,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 9345.567845061729,
+            "average": 186.91135690123457,
+            "stdDeviation": 505.6151493333397,
+            "median": 18.67828456790124,
+            "max": 3481.3208000000013
+        },
+        "pop_vs_baselines_score": {
+            "total": 23318.06666666666,
+            "average": 466.36133333333316,
+            "stdDeviation": 479.2406882818788,
+            "median": 378.7999999999995,
+            "max": 2655.0000000000014
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 18,
+            "average": 0.36,
+            "stdDeviation": 0.6560487786742691,
+            "median": 0,
+            "max": 3
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 8042.530133333334,
+            "average": 1005.3162666666667,
+            "stdDeviation": 821.5370666666668,
+            "median": 1826.8533333333335,
+            "max": 1826.8533333333335
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 8375.466666666667,
+            "average": 1046.9333333333334,
+            "stdDeviation": 941.6999999999999,
+            "median": 1988.6333333333332,
+            "max": 1988.6333333333332
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 1,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 731.9183673469388,
+            "average": 14.638367346938775,
+            "stdDeviation": 1.2481726084459641,
+            "median": 14.612244897959183,
+            "max": 18.040816326530614
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2063,
+            "average": 41.26,
+            "stdDeviation": 1.759232787325202,
+            "median": 41.25,
+            "max": 45.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 342,
+            "average": 42.75,
+            "stdDeviation": 0,
+            "median": 42.75,
+            "max": 42.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 44,
+        "durationMs": 1972493,
+        "nofGamesSimulated": 15123,
+        "pop_vs_teachSet_fitness": {
+            "total": 26251.86177220828,
+            "average": 525.0372354441656,
+            "stdDeviation": 1240.2753436475884,
+            "median": 9.276668468365962,
+            "max": 6711.573964497023
+        },
+        "pop_vs_teachSet_score": {
+            "total": 29987.083333333303,
+            "average": 599.7416666666661,
+            "stdDeviation": 893.6039952427952,
+            "median": 213.7333333333336,
+            "max": 4232.1499999999905
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 49,
+            "average": 0.98,
+            "stdDeviation": 1.7376996288196638,
+            "median": 0,
+            "max": 7
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 10315.918482750241,
+            "average": 206.31836965500483,
+            "stdDeviation": 668.3840372302033,
+            "median": 36.43307823129251,
+            "max": 4786.010714285712
+        },
+        "pop_vs_baselines_score": {
+            "total": 25053.199999999986,
+            "average": 501.06399999999974,
+            "stdDeviation": 518.9745005870285,
+            "median": 434.4999999999998,
+            "max": 3384.7
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 18,
+            "average": 0.36,
+            "stdDeviation": 0.6248199740725323,
+            "median": 0,
+            "max": 3
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 8991.52083333334,
+            "average": 1123.9401041666674,
+            "stdDeviation": 1289.136327654272,
+            "median": 135.4625000000001,
+            "max": 2788.2000000000016
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 8482.733333333337,
+            "average": 1060.3416666666672,
+            "stdDeviation": 1235.2199124661079,
+            "median": 105.23333333333336,
+            "max": 2655.0000000000014
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 9,
+            "average": 1.125,
+            "stdDeviation": 1.4523687548277813,
+            "median": 0,
+            "max": 3
+        },
+        "geneticDistance_within_pop": {
+            "total": 737.2244897959183,
+            "average": 14.744489795918366,
+            "stdDeviation": 1.3111779710639648,
+            "median": 14.857142857142858,
+            "max": 18.93877551020408
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2036,
+            "average": 40.72,
+            "stdDeviation": 1.4436412296689234,
+            "median": 40.25,
+            "max": 44.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 330,
+            "average": 41.25,
+            "stdDeviation": 1.620185174601965,
+            "median": 42.75,
+            "max": 42.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 45,
+        "durationMs": 2015909,
+        "nofGamesSimulated": 15425,
+        "pop_vs_teachSet_fitness": {
+            "total": 55282.666666666475,
+            "average": 1105.6533333333296,
+            "stdDeviation": 3890.1162063419574,
+            "median": 126.13333333333341,
+            "max": 26179.19999999992
+        },
+        "pop_vs_teachSet_score": {
+            "total": 23797.866666666592,
+            "average": 475.95733333333186,
+            "stdDeviation": 1143.4612771763484,
+            "median": 126.13333333333341,
+            "max": 6544.79999999998
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 8,
+            "average": 0.16,
+            "stdDeviation": 1.119999999999999,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 10889.932754542677,
+            "average": 217.79865509085354,
+            "stdDeviation": 540.3000441264664,
+            "median": 18.234195490256113,
+            "max": 2600.208080808081
+        },
+        "pop_vs_baselines_score": {
+            "total": 25990.200000000004,
+            "average": 519.8040000000001,
+            "stdDeviation": 709.4335738582812,
+            "median": 377.4000000000004,
+            "max": 3384.7
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 19,
+            "average": 0.38,
+            "stdDeviation": 0.7717512552629897,
+            "median": 0,
+            "max": 3
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 22789.333333333314,
+            "average": 2848.6666666666642,
+            "stdDeviation": 0,
+            "median": 2848.6666666666642,
+            "max": 2848.6666666666642
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 27077.600000000002,
+            "average": 3384.7000000000003,
+            "stdDeviation": 4.547473508864641e-13,
+            "median": 3384.7,
+            "max": 3384.7
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 24,
+            "average": 3,
+            "stdDeviation": 0,
+            "median": 3,
+            "max": 3
+        },
+        "geneticDistance_within_pop": {
+            "total": 759.6734693877552,
+            "average": 15.193469387755103,
+            "stdDeviation": 1.1583083789337099,
+            "median": 15.10204081632653,
+            "max": 18.285714285714285
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2037,
+            "average": 40.74,
+            "stdDeviation": 1.6866831356244716,
+            "median": 40.75,
+            "max": 44.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 314,
+            "average": 39.25,
+            "stdDeviation": 0,
+            "median": 39.25,
+            "max": 39.25
+        },
+        "nofUnique_in_pop": 49
+    },
+    {
+        "generation": 46,
+        "durationMs": 2058990,
+        "nofGamesSimulated": 15716,
+        "pop_vs_teachSet_fitness": {
+            "total": 19176.09176058102,
+            "average": 383.52183521162044,
+            "stdDeviation": 823.0820151784142,
+            "median": 1.037816178312047,
+            "max": 3124.3636363636365
+        },
+        "pop_vs_teachSet_score": {
+            "total": 39746.26666666664,
+            "average": 794.9253333333328,
+            "stdDeviation": 1156.069495307459,
+            "median": 172.6666666666668,
+            "max": 4296.000000000001
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 80,
+            "average": 1.6,
+            "stdDeviation": 3.2,
+            "median": 0,
+            "max": 8
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 10234.96716049383,
+            "average": 204.69934320987662,
+            "stdDeviation": 522.6426289868651,
+            "median": 25.339511111111126,
+            "max": 3455.444444444445
+        },
+        "pop_vs_baselines_score": {
+            "total": 21689.90000000001,
+            "average": 433.7980000000002,
+            "stdDeviation": 555.7899123633758,
+            "median": 300.1333333333336,
+            "max": 3384.7
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 16,
+            "average": 0.32,
+            "stdDeviation": 0.6144916598294885,
+            "median": 0,
+            "max": 3
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 6456.5333333333365,
+            "average": 807.0666666666671,
+            "stdDeviation": 0,
+            "median": 807.0666666666671,
+            "max": 807.0666666666671
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 9112.800000000005,
+            "average": 1139.1000000000006,
+            "stdDeviation": 0,
+            "median": 1139.1000000000006,
+            "max": 1139.1000000000006
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 0,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 746.326530612245,
+            "average": 14.926530612244902,
+            "stdDeviation": 1.2405209100534675,
+            "median": 14.918367346938776,
+            "max": 17.448979591836736
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2038,
+            "average": 40.76,
+            "stdDeviation": 1.6507271125173903,
+            "median": 40.75,
+            "max": 44.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 334,
+            "average": 41.75,
+            "stdDeviation": 0,
+            "median": 41.75,
+            "max": 41.75
+        },
+        "nofUnique_in_pop": 49
+    },
+    {
+        "generation": 47,
+        "durationMs": 2121667,
+        "nofGamesSimulated": 16073,
+        "pop_vs_teachSet_fitness": {
+            "total": 37829.32128279875,
+            "average": 756.5864256559751,
+            "stdDeviation": 1523.5112725350948,
+            "median": 90.81010689990293,
+            "max": 8948.718367346935
+        },
+        "pop_vs_teachSet_score": {
+            "total": 29325.933333333294,
+            "average": 586.5186666666659,
+            "stdDeviation": 713.39116753589,
+            "median": 210.00000000000028,
+            "max": 2993.399999999998
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 28,
+            "average": 0.56,
+            "stdDeviation": 1.3879481258317967,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 10680.545924645634,
+            "average": 213.61091849291267,
+            "stdDeviation": 515.1313136898804,
+            "median": 26.128577777777775,
+            "max": 3382.162666666667
+        },
+        "pop_vs_baselines_score": {
+            "total": 24393.86666666667,
+            "average": 487.87733333333335,
+            "stdDeviation": 565.1325054628045,
+            "median": 388.46666666666636,
+            "max": 3384.7
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 17,
+            "average": 0.34,
+            "stdDeviation": 0.681469001496033,
+            "median": 0,
+            "max": 3
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 5343.637333333338,
+            "average": 667.9546666666672,
+            "stdDeviation": 325.37866666666713,
+            "median": 993.3333333333343,
+            "max": 993.3333333333343
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 3603.6000000000035,
+            "average": 450.45000000000044,
+            "stdDeviation": 351.0833333333337,
+            "median": 801.5333333333342,
+            "max": 801.5333333333342
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 4,
+            "average": 0.5,
+            "stdDeviation": 0.5,
+            "median": 1,
+            "max": 1
+        },
+        "geneticDistance_within_pop": {
+            "total": 700.4081632653059,
+            "average": 14.008163265306118,
+            "stdDeviation": 1.6345295338928096,
+            "median": 13.795918367346939,
+            "max": 18.93877551020408
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2036.5,
+            "average": 40.73,
+            "stdDeviation": 1.6400000000000003,
+            "median": 40.75,
+            "max": 45.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 336,
+            "average": 42,
+            "stdDeviation": 0.75,
+            "median": 42.75,
+            "max": 42.75
+        },
+        "nofUnique_in_pop": 49
+    },
+    {
+        "generation": 48,
+        "durationMs": 2196073,
+        "nofGamesSimulated": 16527,
+        "pop_vs_teachSet_fitness": {
+            "total": 43802.84166666663,
+            "average": 876.0568333333326,
+            "stdDeviation": 1203.3420175208205,
+            "median": 221.1916666666669,
+            "max": 4512.287499999989
+        },
+        "pop_vs_teachSet_score": {
+            "total": 27461.733333333283,
+            "average": 549.2346666666657,
+            "stdDeviation": 633.8337062216435,
+            "median": 165.4666666666668,
+            "max": 2245.099999999995
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 15,
+            "average": 0.3,
+            "stdDeviation": 0.7549834435270749,
+            "median": 0,
+            "max": 3
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 17955.30901185619,
+            "average": 359.1061802371238,
+            "stdDeviation": 502.92688030863087,
+            "median": 165.9920136054423,
+            "max": 2207.5705636540324
+        },
+        "pop_vs_baselines_score": {
+            "total": 25843.733333333334,
+            "average": 516.8746666666667,
+            "stdDeviation": 549.4184810449843,
+            "median": 420.99999999999994,
+            "max": 2408.7333333333327
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 18,
+            "average": 0.36,
+            "stdDeviation": 0.5919459434779496,
+            "median": 0,
+            "max": 2
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 14579.960030864186,
+            "average": 1822.4950038580232,
+            "stdDeviation": 2149.238604311921,
+            "median": 187.1834876543212,
+            "max": 4775.999999999997
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 9874.066666666666,
+            "average": 1234.2583333333332,
+            "stdDeviation": 1467.9740660317082,
+            "median": 133.53333333333342,
+            "max": 3384.7
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 8,
+            "average": 1,
+            "stdDeviation": 1.3228756555322954,
+            "median": 0,
+            "max": 3
+        },
+        "geneticDistance_within_pop": {
+            "total": 673.7959183673468,
+            "average": 13.475918367346935,
+            "stdDeviation": 1.5304404801582308,
+            "median": 13.061224489795919,
+            "max": 17.918367346938776
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2049.5,
+            "average": 40.99,
+            "stdDeviation": 1.5818975946628153,
+            "median": 40.75,
+            "max": 45.25
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 321.5,
+            "average": 40.1875,
+            "stdDeviation": 2.4036105653786763,
+            "median": 39.75,
+            "max": 42.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 49,
+        "durationMs": 2285699,
+        "nofGamesSimulated": 17092,
+        "pop_vs_teachSet_fitness": {
+            "total": 34915.42756715253,
+            "average": 698.3085513430507,
+            "stdDeviation": 1420.1245561884052,
+            "median": 9.216677842565606,
+            "max": 6023.3737904761765
+        },
+        "pop_vs_teachSet_score": {
+            "total": 39205.116666666596,
+            "average": 784.1023333333319,
+            "stdDeviation": 1122.9886670646601,
+            "median": 151.7333333333335,
+            "max": 4161.533333333326
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 38,
+            "average": 0.76,
+            "stdDeviation": 1.6800000000000002,
+            "median": 0,
+            "max": 6
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 18895.378988950084,
+            "average": 377.9075797790017,
+            "stdDeviation": 558.2806901383834,
+            "median": 123.72024439405398,
+            "max": 2803.6950923226404
+        },
+        "pop_vs_baselines_score": {
+            "total": 32104.966666666664,
+            "average": 642.0993333333332,
+            "stdDeviation": 796.7688011375836,
+            "median": 383.86666666666645,
+            "max": 3155.1666666666674
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 24,
+            "average": 0.48,
+            "stdDeviation": 0.8304215796810676,
+            "median": 0,
+            "max": 3
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 13664.120411762586,
+            "average": 1708.0150514703232,
+            "stdDeviation": 1017.4033947164843,
+            "median": 1194.4682539682553,
+            "max": 3443.371428571426
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 17300.733333333337,
+            "average": 2162.591666666667,
+            "stdDeviation": 812.4600598302933,
+            "median": 1948.1333333333348,
+            "max": 3384.7
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 16,
+            "average": 2,
+            "stdDeviation": 0.7071067811865476,
+            "median": 2,
+            "max": 3
+        },
+        "geneticDistance_within_pop": {
+            "total": 693.9999999999998,
+            "average": 13.879999999999995,
+            "stdDeviation": 1.444832467096391,
+            "median": 13.73469387755102,
+            "max": 17.857142857142858
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2069,
+            "average": 41.38,
+            "stdDeviation": 1.7686435480333513,
+            "median": 41.75,
+            "max": 45.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 331,
+            "average": 41.375,
+            "stdDeviation": 1.3863170633011772,
+            "median": 41.75,
+            "max": 42.75
+        },
+        "nofUnique_in_pop": 50
+    },
+    {
+        "generation": 50,
+        "durationMs": 2345738,
+        "nofGamesSimulated": 17456,
+        "pop_vs_teachSet_fitness": {
+            "total": 93700.53223593956,
+            "average": 1874.0106447187914,
+            "stdDeviation": 2315.468802848861,
+            "median": 772.8877914951998,
+            "max": 9714.133333333308
+        },
+        "pop_vs_teachSet_score": {
+            "total": 37783.13333333327,
+            "average": 755.6626666666655,
+            "stdDeviation": 1057.4172497519055,
+            "median": 183.00000000000017,
+            "max": 4029.199999999984
+        },
+        "pop_vs_teachSet_nofWins": {
+            "total": 32,
+            "average": 0.64,
+            "stdDeviation": 1.466424222385868,
+            "median": 0,
+            "max": 4
+        },
+        "pop_vs_baselines_fitness": {
+            "total": 11009.530333719134,
+            "average": 220.19060667438268,
+            "stdDeviation": 438.5857689136657,
+            "median": 21.626475694444423,
+            "max": 2663.285185185187
+        },
+        "pop_vs_baselines_score": {
+            "total": 28778.466666666653,
+            "average": 575.569333333333,
+            "stdDeviation": 669.4315169302649,
+            "median": 408.73333333333306,
+            "max": 2878.1
+        },
+        "pop_vs_baselines_nofWins": {
+            "total": 21,
+            "average": 0.42,
+            "stdDeviation": 0.7236021006050222,
+            "median": 0,
+            "max": 3
+        },
+        "teachSet_vs_baselines_fitness": {
+            "total": 8632.20906666667,
+            "average": 1079.0261333333337,
+            "stdDeviation": 466.94719999999967,
+            "median": 1545.9733333333334,
+            "max": 1545.9733333333334
+        },
+        "teachSet_vs_baselines_score": {
+            "total": 11353.866666666672,
+            "average": 1419.233333333334,
+            "stdDeviation": 458.83333333333263,
+            "median": 1878.0666666666666,
+            "max": 1878.0666666666666
+        },
+        "teachSet_vs_baselines_nofWins": {
+            "total": 12,
+            "average": 1.5,
+            "stdDeviation": 0.5,
+            "median": 2,
+            "max": 2
+        },
+        "geneticDistance_within_pop": {
+            "total": 694.9795918367347,
+            "average": 13.899591836734693,
+            "stdDeviation": 1.4892973166204238,
+            "median": 13.816326530612244,
+            "max": 16.632653061224488
+        },
+        "geneticDistance_pop_to_caseInjected": {
+            "total": 2079,
+            "average": 41.58,
+            "stdDeviation": 1.5862219264655253,
+            "median": 41.25,
+            "max": 45.75
+        },
+        "geneticDistance_teachSet_to_caseInjected": {
+            "total": 334,
+            "average": 41.75,
+            "stdDeviation": 1,
+            "median": 42.75,
+            "max": 42.75
+        },
+        "nofUnique_in_pop": 49
+    }
+]
