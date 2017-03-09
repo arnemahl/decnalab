@@ -1,0 +1,23 @@
+{
+    "popSize": 50,
+    "nofChildrenPerGeneration": 70,
+    "teachSetSize": 8,
+    "maxGenerations": 50,
+    "maxLoopsPerGame": 2000,
+    "maxTicksPerGame": 20000,
+    "fitnessScalingFactor": 1.5,
+    "crossoverRatio": 0.95,
+    "crossoverPointRatio": 0.25,
+    "crossoverFunction": "bitwiseUniformCrossover",
+    "perBitMutationRatio": 0.01,
+    "producableThings": [
+        "Worker",
+        "Marine",
+        "SupplyDepot",
+        "Barracks"
+    ],
+    "possibleAddCounts": [ 0, 1, 2, 3, 4, 5, 6, 7 ],
+    "minAttackTiming": 6,
+    "maxAttackTiming": 42,
+    "initialBuildOrderLength": 9
+}

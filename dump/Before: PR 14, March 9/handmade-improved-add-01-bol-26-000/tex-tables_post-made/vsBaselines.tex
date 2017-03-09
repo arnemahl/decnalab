@@ -1,0 +1,345 @@
+
+%%
+%% After selecting best found solutions
+%%
+
+
+% Found solutions
+\begin{tabular}{ | r | r | r | r | }
+    \hline
+                    Id  &  Specialization  &      Robustness  &       Viability  \\
+    \hline
+    \hline
+                  S-07  &            4.29  &            4.00  &            8.29  \\
+    \hline
+                  S-09  &            4.29  &            4.00  &            8.29  \\
+    \hline
+                  S-11  &            3.29  &            3.00  &            6.29  \\
+    \hline
+                  S-00  &            2.69  &            2.00  &            4.69  \\
+    \hline
+                  S-04  &            2.69  &            2.00  &            4.69  \\
+    \hline
+                  S-14  &            2.69  &            2.00  &            4.69  \\
+    \hline
+                  S-05  &            2.69  &            2.00  &            4.69  \\
+    \hline
+                  S-08  &            2.69  &            2.00  &            4.69  \\
+    \hline
+\end{tabular}
+
+
+% Baselines
+\begin{tabular}{ | r | r | r | r | }
+    \hline
+                    Id  &  Specialization  &      Robustness  &       Viability  \\
+    \hline
+    \hline
+                  B-03  &            1.20  &            1.00  &            2.20  \\
+    \hline
+                  B-00  &            0.84  &            1.00  &            1.84  \\
+    \hline
+                  B-02  &            0.80  &           -1.00  &           -0.20  \\
+    \hline
+                  B-01  &            0.50  &           -1.00  &           -0.50  \\
+    \hline
+\end{tabular}
+
+
+% Found solutions vs opponents
+\begin{tabular}{ | r | r | r | r | r | }
+    \hline
+        Id/Id  &   B-00  &   B-01  &   B-02  &   B-03  \\
+    \hline
+    \hline
+         S-07  &    win  &    win  &    win  &    win  \\
+    \hline
+         S-09  &    win  &    win  &    win  &    win  \\
+    \hline
+         S-11  &    tie  &    win  &    win  &    win  \\
+    \hline
+         S-00  &    win  &   loss  &    win  &    win  \\
+    \hline
+         S-04  &    win  &   loss  &    win  &    win  \\
+    \hline
+         S-14  &    win  &   loss  &    win  &    win  \\
+    \hline
+         S-05  &    win  &   loss  &    win  &    win  \\
+    \hline
+         S-08  &    win  &   loss  &    win  &    win  \\
+    \hline
+\end{tabular}
+
+
+% Baselines vs opponents
+\begin{tabular}{ | r | r | r | r | r | }
+    \hline
+        Id/Id  &   B-00  &   B-01  &   B-02  &   B-03  \\
+    \hline
+    \hline
+         B-00  &    tie  &   loss  &    win  &    win  \\
+    \hline
+         B-01  &    win  &    tie  &   loss  &   loss  \\
+    \hline
+         B-02  &   loss  &    win  &    tie  &   loss  \\
+    \hline
+         B-03  &   loss  &    win  &    win  &    tie  \\
+    \hline
+\end{tabular}
+
+
+%%
+%% Before selecting best found solutions
+%%
+
+
+% Found solutions
+\begin{tabular}{ | r | r | r | r | }
+    \hline
+                    Id  &  Specialization  &      Robustness  &       Viability  \\
+    \hline
+    \hline
+                  S-07  &           20.05  &            4.00  &           24.05  \\
+    \hline
+                  S-09  &           20.05  &            4.00  &           24.05  \\
+    \hline
+                  S-11  &           15.51  &            3.00  &           18.51  \\
+    \hline
+                  S-00  &           10.05  &            2.00  &           12.05  \\
+    \hline
+                  S-05  &           10.05  &            2.00  &           12.05  \\
+    \hline
+                  S-08  &           10.05  &            2.00  &           12.05  \\
+    \hline
+                  S-04  &           10.05  &            2.00  &           12.05  \\
+    \hline
+                  S-14  &           10.05  &            2.00  &           12.05  \\
+    \hline
+                  S-02  &            6.93  &            0.00  &            6.93  \\
+    \hline
+                  S-12  &            5.51  &            1.00  &            6.51  \\
+    \hline
+                  S-13  &            5.51  &            1.00  &            6.51  \\
+    \hline
+                  S-34  &            5.51  &            1.00  &            6.51  \\
+    \hline
+                  S-20  &            5.51  &            1.00  &            6.51  \\
+    \hline
+                  S-19  &            5.51  &            1.00  &            6.51  \\
+    \hline
+                  S-10  &            5.51  &            1.00  &            6.51  \\
+    \hline
+                  S-22  &            4.55  &           -2.00  &            2.55  \\
+    \hline
+                  S-17  &            4.55  &           -2.00  &            2.55  \\
+    \hline
+                  S-23  &            2.38  &           -1.00  &            1.38  \\
+    \hline
+                  S-24  &            2.38  &           -1.00  &            1.38  \\
+    \hline
+                  S-21  &            2.38  &           -1.00  &            1.38  \\
+    \hline
+                  S-06  &            2.38  &           -1.00  &            1.38  \\
+    \hline
+                  S-43  &            2.38  &           -2.00  &            0.38  \\
+    \hline
+                  S-15  &            0.00  &           -2.00  &           -2.00  \\
+    \hline
+                  S-28  &            0.00  &           -3.00  &           -3.00  \\
+    \hline
+                  S-33  &            0.00  &           -3.00  &           -3.00  \\
+    \hline
+                  S-26  &            0.00  &           -3.00  &           -3.00  \\
+    \hline
+                  S-39  &            0.00  &           -3.00  &           -3.00  \\
+    \hline
+                  S-40  &            0.00  &           -3.00  &           -3.00  \\
+    \hline
+                  S-16  &            0.00  &           -3.00  &           -3.00  \\
+    \hline
+                  S-45  &            0.00  &           -3.00  &           -3.00  \\
+    \hline
+                  S-30  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-31  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-32  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-18  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-01  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-35  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-36  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-37  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-38  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-49  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-27  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-41  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-42  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-03  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-44  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-29  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-46  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-47  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-48  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+                  S-25  &            0.00  &           -4.00  &           -4.00  \\
+    \hline
+\end{tabular}
+
+
+% Baselines
+\begin{tabular}{ | r | r | r | r | }
+    \hline
+                    Id  &  Specialization  &      Robustness  &       Viability  \\
+    \hline
+    \hline
+                  B-03  &            1.05  &            1.00  &            2.05  \\
+    \hline
+                  B-00  &            0.44  &            1.00  &            1.44  \\
+    \hline
+                  B-02  &            0.80  &           -1.00  &           -0.20  \\
+    \hline
+                  B-01  &            0.36  &           -1.00  &           -0.64  \\
+    \hline
+\end{tabular}
+
+
+% Found solutions vs opponents
+\begin{tabular}{ | r | r | r | r | r | }
+    \hline
+        Id/Id  &   B-00  &   B-01  &   B-02  &   B-03  \\
+    \hline
+    \hline
+         S-00  &    win  &   loss  &    win  &    win  \\
+    \hline
+         S-01  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-02  &    win  &   loss  &   loss  &    win  \\
+    \hline
+         S-03  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-04  &    win  &   loss  &    win  &    win  \\
+    \hline
+         S-05  &    win  &   loss  &    win  &    win  \\
+    \hline
+         S-06  &    tie  &   loss  &   loss  &    win  \\
+    \hline
+         S-07  &    win  &    win  &    win  &    win  \\
+    \hline
+         S-08  &    win  &   loss  &    win  &    win  \\
+    \hline
+         S-09  &    win  &    win  &    win  &    win  \\
+    \hline
+         S-10  &    tie  &   loss  &    win  &    win  \\
+    \hline
+         S-11  &    tie  &    win  &    win  &    win  \\
+    \hline
+         S-12  &    tie  &   loss  &    win  &    win  \\
+    \hline
+         S-13  &    tie  &   loss  &    win  &    win  \\
+    \hline
+         S-14  &    win  &   loss  &    win  &    win  \\
+    \hline
+         S-15  &    tie  &   loss  &   loss  &    tie  \\
+    \hline
+         S-16  &    tie  &   loss  &   loss  &   loss  \\
+    \hline
+         S-17  &    win  &   loss  &   loss  &   loss  \\
+    \hline
+         S-18  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-19  &    tie  &   loss  &    win  &    win  \\
+    \hline
+         S-20  &    tie  &   loss  &    win  &    win  \\
+    \hline
+         S-21  &    tie  &   loss  &   loss  &    win  \\
+    \hline
+         S-22  &    win  &   loss  &   loss  &   loss  \\
+    \hline
+         S-23  &    tie  &   loss  &   loss  &    win  \\
+    \hline
+         S-24  &    tie  &   loss  &   loss  &    win  \\
+    \hline
+         S-25  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-26  &    tie  &   loss  &   loss  &   loss  \\
+    \hline
+         S-27  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-28  &    tie  &   loss  &   loss  &   loss  \\
+    \hline
+         S-29  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-30  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-31  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-32  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-33  &    tie  &   loss  &   loss  &   loss  \\
+    \hline
+         S-34  &    tie  &   loss  &    win  &    win  \\
+    \hline
+         S-35  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-36  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-37  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-38  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-39  &    tie  &   loss  &   loss  &   loss  \\
+    \hline
+         S-40  &    tie  &   loss  &   loss  &   loss  \\
+    \hline
+         S-41  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-42  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-43  &   loss  &   loss  &   loss  &    win  \\
+    \hline
+         S-44  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-45  &    tie  &   loss  &   loss  &   loss  \\
+    \hline
+         S-46  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-47  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-48  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-49  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+\end{tabular}
+
+
+% Baselines vs opponents
+\begin{tabular}{ | r | r | r | r | r | }
+    \hline
+        Id/Id  &   B-00  &   B-01  &   B-02  &   B-03  \\
+    \hline
+    \hline
+         B-00  &    tie  &   loss  &    win  &    win  \\
+    \hline
+         B-01  &    win  &    tie  &   loss  &   loss  \\
+    \hline
+         B-02  &   loss  &    win  &    tie  &   loss  \\
+    \hline
+         B-03  &   loss  &    win  &    win  &    tie  \\
+    \hline
+\end{tabular}

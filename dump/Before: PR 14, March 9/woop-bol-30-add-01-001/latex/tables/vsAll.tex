@@ -1,0 +1,346 @@
+
+%%
+%% After selecting best found solutions
+%%
+
+
+% Found solutions
+\begin{tabular}{ | r | r | r | r | }
+    \hline
+                    Id  &  Specialization  &      Robustness  &       Viability  \\
+    \hline
+    \hline
+                  S-06  &            7.81  &            1.00  &            8.81  \\
+    \hline
+                  S-07  &            5.41  &            2.00  &            7.41  \\
+    \hline
+                  S-03  &            2.93  &           -3.00  &           -0.07  \\
+    \hline
+                  S-05  &            2.93  &           -3.00  &           -0.07  \\
+    \hline
+                  S-02  &            1.60  &           -2.00  &           -0.40  \\
+    \hline
+                  S-01  &            3.20  &           -4.00  &           -0.80  \\
+    \hline
+                  S-11  &            2.48  &           -4.00  &           -1.52  \\
+    \hline
+                  S-00  &            3.20  &           -5.00  &           -1.80  \\
+    \hline
+\end{tabular}
+
+
+% Baselines
+\begin{tabular}{ | r | r | r | r | }
+    \hline
+                    Id  &  Specialization  &      Robustness  &       Viability  \\
+    \hline
+    \hline
+                  B-01  &            8.97  &            7.00  &           15.97  \\
+    \hline
+                  B-02  &            9.50  &            6.00  &           15.50  \\
+    \hline
+                  B-03  &            8.17  &            5.00  &           13.17  \\
+    \hline
+                  B-00  &            6.57  &            0.00  &            6.57  \\
+    \hline
+\end{tabular}
+
+
+% Found solutions vs opponents
+\begin{tabular}{ | r | r | r | r | r | r | r | r | r | r | r | r | r | }
+    \hline
+        Id/Id  &   S-06  &   S-07  &   S-03  &   S-05  &   S-01  &   S-02  &   S-11  &   S-00  &   B-00  &   B-01  &   B-02  &   B-03  \\
+    \hline
+    \hline
+         S-06  &    tie  &    tie  &    tie  &    tie  &    win  &    tie  &    win  &    win  &   loss  &   loss  &   loss  &    win  \\
+    \hline
+         S-07  &    tie  &    tie  &    tie  &    tie  &    win  &    tie  &    win  &    win  &    win  &   loss  &   loss  &    tie  \\
+    \hline
+         S-03  &    tie  &    tie  &    tie  &    tie  &   loss  &    tie  &    win  &   loss  &    win  &   loss  &   loss  &   loss  \\
+    \hline
+         S-05  &    tie  &    tie  &    tie  &    tie  &   loss  &    tie  &    win  &   loss  &    win  &   loss  &   loss  &   loss  \\
+    \hline
+         S-01  &   loss  &   loss  &    win  &    win  &    tie  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  \\
+    \hline
+         S-02  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    win  &   loss  &   loss  &   loss  \\
+    \hline
+         S-11  &   loss  &   loss  &   loss  &   loss  &    win  &    tie  &    tie  &    win  &    tie  &   loss  &   loss  &    tie  \\
+    \hline
+         S-00  &   loss  &   loss  &    win  &    win  &    tie  &    tie  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+\end{tabular}
+
+
+% Baselines vs opponents
+\begin{tabular}{ | r | r | r | r | r | r | r | r | r | r | r | r | r | }
+    \hline
+        Id/Id  &   S-06  &   S-07  &   S-03  &   S-05  &   S-01  &   S-02  &   S-11  &   S-00  &   B-00  &   B-01  &   B-02  &   B-03  \\
+    \hline
+    \hline
+         B-00  &    win  &   loss  &   loss  &   loss  &    win  &   loss  &    tie  &    win  &    tie  &   loss  &    win  &    win  \\
+    \hline
+         B-01  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &   loss  &   loss  \\
+    \hline
+         B-02  &    win  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &   loss  &    win  &    tie  &   loss  \\
+    \hline
+         B-03  &   loss  &    tie  &    win  &    win  &    win  &    win  &    tie  &    win  &   loss  &    win  &    win  &    tie  \\
+    \hline
+\end{tabular}
+
+
+%%
+%% Before selecting best found solutions
+%%
+
+
+% Found solutions
+\begin{tabular}{ | r | r | r | r | }
+    \hline
+                    Id  &  Specialization  &      Robustness  &       Viability  \\
+    \hline
+    \hline
+                  S-06  &          149.28  &           42.00  &          191.28  \\
+    \hline
+                  S-07  &          134.28  &           43.00  &          177.28  \\
+    \hline
+                  S-01  &          125.53  &           38.00  &          163.53  \\
+    \hline
+                  S-03  &          106.64  &           35.00  &          141.64  \\
+    \hline
+                  S-00  &          106.76  &           31.00  &          137.76  \\
+    \hline
+                  S-11  &          102.70  &           32.00  &          134.70  \\
+    \hline
+                  S-05  &           88.26  &           30.00  &          118.26  \\
+    \hline
+                  S-04  &           88.30  &           29.00  &          117.30  \\
+    \hline
+                  S-09  &           81.04  &           26.00  &          107.04  \\
+    \hline
+                  S-08  &           76.30  &           21.00  &           97.30  \\
+    \hline
+                  S-02  &           68.55  &           27.00  &           95.55  \\
+    \hline
+                  S-16  &           65.04  &           17.00  &           82.04  \\
+    \hline
+                  S-14  &           60.64  &           17.00  &           77.64  \\
+    \hline
+                  S-20  &           57.30  &           15.00  &           72.30  \\
+    \hline
+                  S-23  &           55.92  &           15.00  &           70.92  \\
+    \hline
+                  S-29  &           61.75  &            8.00  &           69.75  \\
+    \hline
+                  S-12  &           50.85  &           10.00  &           60.85  \\
+    \hline
+                  S-13  &           46.79  &            9.00  &           55.79  \\
+    \hline
+                  S-18  &           45.76  &            7.00  &           52.76  \\
+    \hline
+                  S-15  &           37.91  &            7.00  &           44.91  \\
+    \hline
+                  S-30  &           36.89  &            2.00  &           38.89  \\
+    \hline
+                  S-26  &           34.51  &            4.00  &           38.51  \\
+    \hline
+                  S-28  &           34.78  &            3.00  &           37.78  \\
+    \hline
+                  S-25  &           34.51  &            1.00  &           35.51  \\
+    \hline
+                  S-21  &           34.23  &            1.00  &           35.23  \\
+    \hline
+                  S-31  &           34.65  &           -9.00  &           25.65  \\
+    \hline
+                  S-24  &           29.00  &           -7.00  &           22.00  \\
+    \hline
+                  S-32  &           28.93  &          -11.00  &           17.93  \\
+    \hline
+                  S-10  &            0.00  &          -12.00  &          -12.00  \\
+    \hline
+                  S-19  &            0.00  &          -15.00  &          -15.00  \\
+    \hline
+                  S-27  &            0.00  &          -15.00  &          -15.00  \\
+    \hline
+                  S-17  &            0.00  &          -22.00  &          -22.00  \\
+    \hline
+                  S-33  &            0.00  &          -26.00  &          -26.00  \\
+    \hline
+                  S-22  &            0.00  &          -27.00  &          -27.00  \\
+    \hline
+                  S-34  &            0.00  &          -28.00  &          -28.00  \\
+    \hline
+                  S-35  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-36  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-49  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-38  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-39  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-40  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-41  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-42  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-43  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-44  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-45  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-46  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-47  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-48  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+                  S-37  &            0.00  &          -32.00  &          -32.00  \\
+    \hline
+\end{tabular}
+
+
+% Baselines
+\begin{tabular}{ | r | r | r | r | }
+    \hline
+                    Id  &  Specialization  &      Robustness  &       Viability  \\
+    \hline
+    \hline
+                  B-01  &           17.34  &           49.00  &           66.34  \\
+    \hline
+                  B-02  &           17.88  &           48.00  &           65.88  \\
+    \hline
+                  B-03  &           16.26  &           46.00  &           62.26  \\
+    \hline
+                  B-00  &           14.36  &           39.00  &           53.36  \\
+    \hline
+\end{tabular}
+
+
+% Found solutions vs opponents
+\begin{tabular}{ | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | }
+    \hline
+        Id/Id  &   S-00  &   S-01  &   S-02  &   S-03  &   S-04  &   S-05  &   S-06  &   S-07  &   S-08  &   S-09  &   S-10  &   S-11  &   S-12  &   S-13  &   S-14  &   S-15  &   S-16  &   S-17  &   S-18  &   S-19  &   S-20  &   S-21  &   S-22  &   S-23  &   S-24  &   S-25  &   S-26  &   S-27  &   S-28  &   S-29  &   S-30  &   S-31  &   S-32  &   S-33  &   S-34  &   S-35  &   S-36  &   S-37  &   S-38  &   S-39  &   S-40  &   S-41  &   S-42  &   S-43  &   S-44  &   S-45  &   S-46  &   S-47  &   S-48  &   S-49  &   B-00  &   B-01  &   B-02  &   B-03  \\
+    \hline
+    \hline
+         S-00  &    tie  &    tie  &    tie  &    win  &    win  &    win  &   loss  &   loss  &    win  &    tie  &    win  &   loss  &   loss  &    win  &    tie  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-01  &    tie  &    tie  &    tie  &    win  &    win  &    win  &   loss  &   loss  &    win  &    win  &    win  &   loss  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &    tie  &   loss  \\
+    \hline
+         S-02  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    win  &    tie  &    tie  &    win  &    tie  &    win  &    tie  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  \\
+    \hline
+         S-03  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  \\
+    \hline
+         S-04  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &    win  &    win  &    tie  &   loss  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-05  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    win  &    tie  &    tie  &    win  &    win  &    win  &    tie  &    tie  &    win  &    win  &    win  &    win  &    tie  &    tie  &    win  &    tie  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  \\
+    \hline
+         S-06  &    win  &    win  &    tie  &    tie  &    win  &    tie  &    tie  &    tie  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &    win  \\
+    \hline
+         S-07  &    win  &    win  &    tie  &    tie  &    win  &    tie  &    tie  &    tie  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &    tie  \\
+    \hline
+         S-08  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    win  &   loss  &   loss  &    win  &    tie  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-09  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &    tie  &    tie  &    win  &   loss  &    win  &    tie  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-10  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-11  &    win  &    win  &    tie  &   loss  &    win  &   loss  &   loss  &   loss  &    win  &    win  &    tie  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &   loss  &   loss  &    tie  \\
+    \hline
+         S-12  &    win  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    win  &   loss  &    tie  &    tie  &    tie  &    win  &   loss  &    tie  &    tie  &    tie  &   loss  &    tie  &   loss  &   loss  &    win  &    win  &    tie  &    tie  &    win  &    tie  &    tie  &   loss  &    win  &    win  &    win  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &   loss  &   loss  &    tie  \\
+    \hline
+         S-13  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &   loss  &   loss  &    tie  &    tie  &   loss  &   loss  &    win  &    tie  &    tie  &    tie  &    win  &    win  &    tie  &    win  &    win  &    tie  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-14  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &    win  &   loss  &    win  &    tie  &    tie  &    win  &   loss  &    win  &    win  &    tie  &   loss  &    win  &    win  &    tie  &    win  &    win  &    tie  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-15  &   loss  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &    win  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &    tie  &    win  &    tie  &    win  &    tie  &    tie  &    tie  &    tie  &    win  &    tie  &    win  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-16  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &   loss  &    tie  &    win  &    win  &    tie  &    tie  &    win  &    win  &    win  &    tie  &    win  &    win  &   loss  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-17  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &    tie  &   loss  &    tie  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-18  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &    win  &    tie  &   loss  &    tie  &   loss  &    win  &    tie  &    tie  &    tie  &    win  &    win  &   loss  &    win  &    tie  &    tie  &    tie  &    win  &   loss  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-19  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-20  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  &    win  &   loss  &    win  &    tie  &    win  &    win  &    tie  &    win  &    tie  &    tie  &    tie  &    win  &    tie  &    tie  &    tie  &    win  &    tie  &    win  &    win  &   loss  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-21  &   loss  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    win  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &    tie  &   loss  &    tie  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-22  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-23  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &    tie  &    tie  &   loss  &   loss  &    tie  &    tie  &    tie  &    win  &    win  &    win  &    tie  &    tie  &    win  &    win  &    tie  &    win  &    win  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-24  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &    tie  &    tie  &    win  &   loss  &    tie  &   loss  &   loss  &    tie  &    tie  &   loss  &   loss  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-25  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &    tie  &    tie  &    tie  &   loss  &    tie  &    win  &   loss  &    win  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-26  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &    tie  &    tie  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    win  &    tie  &    win  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-27  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &   loss  &    tie  &    tie  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-28  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &   loss  &    win  &   loss  &    tie  &   loss  &    tie  &    win  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-29  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    win  &   loss  &    win  &   loss  &   loss  &   loss  &   loss  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &    win  &    tie  &    tie  &    win  &    win  &    tie  &   loss  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-30  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    win  &   loss  &    win  &    tie  &    tie  &    tie  &    tie  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-31  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    win  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &    tie  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    win  &   loss  &    tie  &   loss  &    tie  &   loss  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-32  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-33  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &   loss  &   loss  &    tie  &    tie  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  \\
+    \hline
+         S-34  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &    tie  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  \\
+    \hline
+         S-35  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-36  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-37  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-38  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-39  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-40  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-41  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-42  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-43  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-44  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-45  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-46  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-47  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-48  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+         S-49  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &    tie  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &    tie  &   loss  &   loss  &   loss  &   loss  &   loss  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &    tie  &   loss  &   loss  &   loss  &   loss  \\
+    \hline
+\end{tabular}
+
+
+% Baselines vs opponents
+\begin{tabular}{ | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | r | }
+    \hline
+        Id/Id  &   S-00  &   S-01  &   S-02  &   S-03  &   S-04  &   S-05  &   S-06  &   S-07  &   S-08  &   S-09  &   S-10  &   S-11  &   S-12  &   S-13  &   S-14  &   S-15  &   S-16  &   S-17  &   S-18  &   S-19  &   S-20  &   S-21  &   S-22  &   S-23  &   S-24  &   S-25  &   S-26  &   S-27  &   S-28  &   S-29  &   S-30  &   S-31  &   S-32  &   S-33  &   S-34  &   S-35  &   S-36  &   S-37  &   S-38  &   S-39  &   S-40  &   S-41  &   S-42  &   S-43  &   S-44  &   S-45  &   S-46  &   S-47  &   S-48  &   S-49  &   B-00  &   B-01  &   B-02  &   B-03  \\
+    \hline
+    \hline
+         B-00  &    win  &    win  &   loss  &   loss  &    win  &   loss  &    win  &   loss  &    win  &    win  &    win  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &   loss  &    win  &    win  \\
+    \hline
+         B-01  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    tie  &   loss  &   loss  \\
+    \hline
+         B-02  &    win  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &    win  &    tie  &   loss  \\
+    \hline
+         B-03  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &    tie  &    win  &    win  &    win  &    tie  &    tie  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &    win  &   loss  &    win  &    win  &    tie  \\
+    \hline
+\end{tabular}
+

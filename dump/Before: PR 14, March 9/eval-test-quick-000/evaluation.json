@@ -1,0 +1,151 @@
+{
+    "score": {
+        "vsSolutions": 0.2625679347826087,
+        "vsBaselines": -0.7307692307692307,
+        "vsAll": 0.04913294797687859
+    },
+    "stats": {
+        "solutions": {
+            "vsSolutions": {
+                "viability": {
+                    "total": 24.53968253968254,
+                    "average": 3.0674603174603177,
+                    "stdDeviation": 4.419500224837575,
+                    "median": 2.888888888888889,
+                    "max": 10.365079365079366
+                },
+                "robustness": {
+                    "total": 0,
+                    "average": 0,
+                    "stdDeviation": 2.692582403567252,
+                    "median": 0,
+                    "max": 4
+                },
+                "specialization": {
+                    "total": 24.53968253968254,
+                    "average": 3.0674603174603177,
+                    "stdDeviation": 1.9334765174908608,
+                    "median": 3,
+                    "max": 6.365079365079366
+                }
+            },
+            "vsBaselines": {
+                "viability": {
+                    "total": -19,
+                    "average": -2.375,
+                    "stdDeviation": 1.8666480653835098,
+                    "median": -3,
+                    "max": 0
+                },
+                "robustness": {
+                    "total": -25,
+                    "average": -3.125,
+                    "stdDeviation": 0.9270248108869579,
+                    "median": -3,
+                    "max": -2
+                },
+                "specialization": {
+                    "total": 6,
+                    "average": 0.75,
+                    "stdDeviation": 0.9682458365518543,
+                    "median": 0,
+                    "max": 2
+                }
+            },
+            "vsAll": {
+                "viability": {
+                    "total": 5.666666666666664,
+                    "average": 0.708333333333333,
+                    "stdDeviation": 5.681574902027336,
+                    "median": 0.14285714285714235,
+                    "max": 10.476190476190476
+                },
+                "robustness": {
+                    "total": -25,
+                    "average": -3.125,
+                    "stdDeviation": 3.179524335494226,
+                    "median": -4,
+                    "max": 2
+                },
+                "specialization": {
+                    "total": 30.666666666666664,
+                    "average": 3.833333333333333,
+                    "stdDeviation": 2.690054749967578,
+                    "median": 3.2857142857142856,
+                    "max": 8.476190476190476
+                }
+            }
+        },
+        "baselines": {
+            "vsSolutions": {
+                "viability": {
+                    "total": 46.730158730158735,
+                    "average": 11.682539682539684,
+                    "stdDeviation": 3.4641016151377553,
+                    "median": 13.682539682539684,
+                    "max": 13.682539682539684
+                },
+                "robustness": {
+                    "total": 27,
+                    "average": 6.75,
+                    "stdDeviation": 2.165063509461097,
+                    "median": 8,
+                    "max": 8
+                },
+                "specialization": {
+                    "total": 19.73015873015873,
+                    "average": 4.932539682539683,
+                    "stdDeviation": 1.299038105676658,
+                    "median": 5.682539682539683,
+                    "max": 5.682539682539683
+                }
+            },
+            "vsBaselines": {
+                "viability": {
+                    "total": 13,
+                    "average": 3.25,
+                    "stdDeviation": 2.8613807855648994,
+                    "median": 5,
+                    "max": 7
+                },
+                "robustness": {
+                    "total": 0,
+                    "average": 0,
+                    "stdDeviation": 1,
+                    "median": 1,
+                    "max": 1
+                },
+                "specialization": {
+                    "total": 13,
+                    "average": 3.25,
+                    "stdDeviation": 1.920286436967152,
+                    "median": 4,
+                    "max": 6
+                }
+            },
+            "vsAll": {
+                "viability": {
+                    "total": 57.66666666666667,
+                    "average": 14.416666666666668,
+                    "stdDeviation": 3.052892572827366,
+                    "median": 14.80952380952381,
+                    "max": 18.80952380952381
+                },
+                "robustness": {
+                    "total": 25,
+                    "average": 6.25,
+                    "stdDeviation": 2.5860201081971503,
+                    "median": 7,
+                    "max": 9
+                },
+                "specialization": {
+                    "total": 32.66666666666667,
+                    "average": 8.166666666666668,
+                    "stdDeviation": 1.0809104250301116,
+                    "median": 8.238095238095237,
+                    "max": 9.80952380952381
+                }
+            }
+        }
+    }
+}

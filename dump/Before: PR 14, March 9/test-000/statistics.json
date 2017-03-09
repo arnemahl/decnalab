@@ -1,0 +1,167 @@
+[
+    {
+        "generation": 0,
+        "durationMs": 2537,
+        "fitness": {
+            "total": 7594,
+            "average": 379.7,
+            "stdDeviation": 251.9102657693806,
+            "median": 432,
+            "max": 964.7999999999997
+        },
+        "score": {
+            "total": 949.25,
+            "average": 47.4625,
+            "stdDeviation": 31.488783221172575,
+            "median": 54,
+            "max": 120.59999999999997
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 205.68421052631578,
+            "average": 10.284210526315789,
+            "stdDeviation": 1.2935381699934165,
+            "median": 9.68421052631579,
+            "max": 14.421052631578947,
+            "nofUnique": 20
+        }
+    },
+    {
+        "generation": 1,
+        "durationMs": 3216,
+        "fitness": {
+            "total": 12188.8,
+            "average": 609.4399999999999,
+            "stdDeviation": 430.6066121182997,
+            "median": 624,
+            "max": 2009.5999999999992
+        },
+        "score": {
+            "total": 1523.6,
+            "average": 76.17999999999999,
+            "stdDeviation": 53.825826514787465,
+            "median": 78,
+            "max": 251.1999999999999
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 310.42105263157896,
+            "average": 15.521052631578948,
+            "stdDeviation": 3.2508213323989454,
+            "median": 14.68421052631579,
+            "max": 24.36842105263158,
+            "nofUnique": 20
+        }
+    },
+    {
+        "generation": 2,
+        "durationMs": 3736,
+        "fitness": {
+            "total": 9824,
+            "average": 491.2,
+            "stdDeviation": 342.21378113687933,
+            "median": 608,
+            "max": 1001.6000000000001
+        },
+        "score": {
+            "total": 1228,
+            "average": 61.4,
+            "stdDeviation": 42.77672264210992,
+            "median": 76,
+            "max": 125.20000000000002
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 342.2105263157895,
+            "average": 17.110526315789475,
+            "stdDeviation": 4.30904157965319,
+            "median": 15.526315789473685,
+            "max": 30.894736842105264,
+            "nofUnique": 17
+        }
+    },
+    {
+        "generation": 3,
+        "durationMs": 4216,
+        "fitness": {
+            "total": 12600,
+            "average": 630,
+            "stdDeviation": 280.8940583209264,
+            "median": 729.6000000000001,
+            "max": 1104
+        },
+        "score": {
+            "total": 1575,
+            "average": 78.75,
+            "stdDeviation": 35.1117572901158,
+            "median": 91.20000000000002,
+            "max": 138
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 415.89473684210526,
+            "average": 20.794736842105262,
+            "stdDeviation": 7.357471187267277,
+            "median": 18.68421052631579,
+            "max": 48.578947368421055,
+            "nofUnique": 19
+        }
+    },
+    {
+        "generation": 4,
+        "durationMs": 4802,
+        "fitness": {
+            "total": 13673.6,
+            "average": 683.6800000000001,
+            "stdDeviation": 211.33577453900224,
+            "median": 728,
+            "max": 956.8
+        },
+        "score": {
+            "total": 1709.2,
+            "average": 85.46000000000001,
+            "stdDeviation": 26.41697181737528,
+            "median": 91,
+            "max": 119.6
+        },
+        "nofWins": {
+            "total": 0,
+            "average": 0,
+            "stdDeviation": 0,
+            "median": 0,
+            "max": 0
+        },
+        "geneticDistance": {
+            "total": 353.2631578947369,
+            "average": 17.663157894736845,
+            "stdDeviation": 3.1555429839483584,
+            "median": 16.63157894736842,
+            "max": 25.05263157894737,
+            "nofUnique": 18
+        }
+    }
+]
