@@ -54,9 +54,10 @@ if (experimentName) {
     });
 }
 
-console.log('Score:', output.evaluation.json.score);
+console.log('');
+console.log(output.evaluation.latexTables.score);
 
-console.log('\n'); // DEBUG
+console.log('\n');
 console.log(`===========================================================`);
 console.log(`     Evolution complete (${Date.now() - t0} ms)`);
 console.log(`     Unique solutions: ${output.solutions.population.length}`);
