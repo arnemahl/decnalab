@@ -1,7 +1,7 @@
-export const popSize = 50;
-export const nofChildrenPerGeneration = 70;
+export const popSize = 20;
+export const nofChildrenPerGeneration = 22;
 export const teachSetSize = 8;
-export const maxGenerations = 50;
+export const maxGenerations = 20;
 export const maxLoopsPerGame = 2000;
 export const maxTicksPerGame = 20000;
 export const fitnessScalingFactor = 1.5;
