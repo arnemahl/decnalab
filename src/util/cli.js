@@ -10,8 +10,8 @@
 export function getAiConfigs() {
     const dirName = process.argv[2];
     const dirName2 = process.argv[3];
-    const configs = !dirName ? [] : require(`../../dump/${dirName}/solutions.js`).population;
-    const configs2 = !dirName2 ? [] : require(`../../dump/${dirName2}/solutions.js`).population;
+    const configs = !dirName ? [] : require(`../../dump/${dirName}/solutions/population.js`);
+    const configs2 = !dirName2 ? [] : require(`../../dump/${dirName2}/solutions/population.js`);
 
     const selectedConfigs = [
         configs[0],
